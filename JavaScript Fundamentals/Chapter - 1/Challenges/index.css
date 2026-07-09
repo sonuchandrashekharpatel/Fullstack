@@ -1,0 +1,52 @@
+/* Chapter - 1: JavaScript Challenges */
+
+/* Lesson 8: Figma tutorial */
+
+
+/* Lesson 7: Arithmetic Operator Precedence */
+
+
+/* Lesson 6: Calculator challenge */
+
+
+/* Lesson 5: Rendering an error message */
+body {
+    background: white;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 20px;
+}
+
+img {
+    width: 200px;
+    display: block;
+}
+p {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+button {
+    background: white;
+    color: black;
+    margin-top: 10px;
+    border: 1px solid black;
+    padding: 10px 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+#error {
+    color: red;
+    font-weight: 200;
+}
+
+/* Lesson 4: Strings and numbers */
+
+
+/* Lesson 3: Incrementing and decrementing */
+
+
+/* Lesson 2: Concatenate two strings in a function */
+
+
+/* Lesson 1: Variables practice */

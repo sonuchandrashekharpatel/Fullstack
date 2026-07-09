@@ -56,6 +56,7 @@ function save() {
 }
  */
 /* Lesson 25: Create the save feature 👻*/
+
 // 1. Grab the save-el paragrah and store it in a variable called saveEl
 /* 
 let saveEl = document.getElementById("save-el")
