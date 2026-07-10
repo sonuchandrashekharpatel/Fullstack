@@ -67,6 +67,7 @@
 
 
 /* Lesson 6: Adding a button */
+
 body {
     background-image: url("station.jpg");
     background-size: cover;
@@ -104,7 +105,6 @@ button {
 #save-btn {
     background: darkgreen;
 }
-
 
 
 /* Lesson 5: Reassigning and incrementing */

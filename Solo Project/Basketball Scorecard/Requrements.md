@@ -4,7 +4,7 @@ Requirements:
 . Make all six button work
 
 Stretch Goals:
-1. Add a new game butto
+1. Add a new game button
 2. Highlight the leader
 3. Add a few more counters (e.g. period, fouls, timer)
 4. Change the design
