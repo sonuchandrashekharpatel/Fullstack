@@ -1,0 +1,218 @@
+/* Chapter - 3: Build a Blackjack Game */
+
+/* Lesson 67: Solo Project - Password Generator */
+
+
+/* Lesson 66: Sorting fruits */
+
+
+/* Lesson 65: EmojiFighter */
+
+
+/* Lesson 64: Rock papers scissors */
+
+
+/* Lesson 63: Logical operators */
+
+
+/* Lesson 62: push, pop, unshift, shift challenge */
+
+
+/* Lesson 61: Loops and arrays */
+
+
+/* Lesson 60: if else */
+
+
+/* Lesson 59: Objects and functions */
+
+
+/* Lesson 58: JavaScript Challenges */
+
+
+/* Lesson 57:  */
+
+
+/* Lesson 56: Congrats & recap */
+
+
+/* Lesson 55: AI for Coding Students */
+
+
+/* Lesson 54: Methods on object */
+
+
+/* Lesson 53: Use an object to store player data */
+
+
+/* Lesson 52: Create your first object */
+
+
+/* Lesson 51: Aside: Intro to objects */
+
+
+/* Lesson 50: Object sneak peek */
+
+
+/* Lesson 49: Only trigger newCard() if you're allowed to */
+
+
+/* Lesson 48: Aside: The OR operator (||) */
+
+
+/* Lesson 47: Write your first logical operator */
+
+
+/* Lesson 46: Aside: The AND operator (&&) */
+
+
+/* Lesson 45: Our new card feature is broken */
+
+
+/* Lesson 44: Assign values in the startGame function */
+
+
+/* Lesson 43: Complete getRandomNumber function */
+
+
+/* Lesson 42: Make getRandomCard() work */
+
+
+/* Lesson 41: Completing our dice function */
+
+
+/* Lesson 40: Using Math.random() and Math.floor() to create a dice */
+
+
+/* Lesson 39: Flooring the number with Math.floor() */
+
+
+/* Lesson 38: Math.random() * 6 */
+
+
+/* Lesson 37: Aside: Math.random() */
+
+
+/* Lesson 36: Use a function to set the card values */
+
+
+/* Lesson 35: Aside: Returning values in functions */
+
+
+/* Lesson 34: How can we avoid to hard-code card values? */
+
+
+/* Lesson 33: Use a loop to render cards */
+
+
+/* Lesson 32: For loops, arrays, and DOM */
+
+
+/* Lesson 31: Write your first array-based for loop */
+
+
+/* Lesson 30: Aside: For loops and arrays */
+
+
+/* Lesson 29: Write your first loop */
+
+
+/* Lesson 28: Aside: Loops */
+
+
+/* Lesson 27: Push a new card to the array */
+
+
+/* Lesson 26: Creating the cards array */
+
+
+/* Lesson 25: Aside: Array.push() and .pop() */
+
+
+/* Lesson 24: Arrays with multiple data types */
+
+
+/* Lesson 23: Aside: Array indexes */
+
+
+/* Lesson 22: Aside: Intro to arrays */
+
+
+/* Lesson 21: Solving our cards problem with an array */
+
+
+/* Lesson 20: Rename the startGame function */
+
+
+/* Lesson 19: Add to the sum when newCard is clicked */
+
+
+/* Lesson 18: New card button */
+
+
+/* Lesson 17: Display the cards */
+
+
+/* Lesson 16: Display the sum */
+
+
+/* Lesson 15: Display the message */
+
+
+/* Lesson 14: Make the start button work */
+
+
+/* Lesson 13: Add basic styling */
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    background: url(images/table.png);
+    background-size: cover;
+    color: white;
+    font-weight: 700;
+}
+
+h1 {
+    color: goldenrod;
+}
+
+#message-el {
+    font-style: italic;
+}
+
+/* Lesson 12: Link to stylesheet */
+
+
+/* Lesson 11: Add the message variable */
+
+
+/* Lesson 10: Let's practice boolean conditions */
+
+
+/* Lesson 9: Add the isAlive variable */
+
+
+/* Lesson 8: Add the hasBlackJack variable */
+
+
+/* Lesson 7: Aside: Booleans */
+
+
+/* Lesson 6: The if...else statement for our game */
+
+
+/* Lesson 5: if/else...if/else statement */
+
+
+/* Lesson 4: Your first if...else statement */
+
+
+/* Lesson 3: If...else conditionals */
+
+
+/* Lesson 2: Add the firstCard, secondCard, and sum */
+
+
+
+/* Lesson 1: Let's build a Blackjack game! */
+
