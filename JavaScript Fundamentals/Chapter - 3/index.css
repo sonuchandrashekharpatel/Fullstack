@@ -148,21 +148,6 @@
 
 
 /* Lesson 18: New card button */
-
-
-/* Lesson 17: Display the cards */
-
-
-/* Lesson 16: Display the sum */
-
-
-/* Lesson 15: Display the message */
-
-
-/* Lesson 14: Make the start button work */
-
-
-/* Lesson 13: Add basic styling */
 body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-align: center;
@@ -180,6 +165,80 @@ h1 {
     font-style: italic;
 }
 
+button {
+    color: #016f32;
+    width: 150px;
+    background-color: goldenrod;
+    border: none;
+    border-radius: 2px;
+    padding: 6px 12px;
+    font-weight: bold;
+
+    display: block;
+    margin: 5px auto;
+}
+
+/* Lesson 17: Display the cards */
+
+
+/* Lesson 16: Display the sum */
+
+
+/* Lesson 15: Display the message */
+/* 
+3. Style the button according to the provided design
+text color - #016f32
+width      - 150px
+background - goldenrod
+ */
+/* body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    background: url(images/table.png);
+    background-size: cover;
+    color: white;
+    font-weight: 700;
+}
+
+h1 {
+    color: goldenrod;
+}
+
+#message-el {
+    font-style: italic;
+}
+
+button {
+    color: #016f32;
+    width: 150px;
+    background-color: goldenrod;
+    border: none;
+    border-radius: 2px;
+    padding: 6px 12px;
+    font-weight: bold;
+} */
+
+/* Lesson 14: Make the start button work */
+
+
+/* Lesson 13: Add basic styling */
+/* body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    background: url(images/table.png);
+    background-size: cover;
+    color: white;
+    font-weight: 700;
+}
+
+h1 {
+    color: goldenrod;
+}
+
+#message-el {
+    font-style: italic;
+}
+ */
 /* Lesson 12: Link to stylesheet */
 
 
