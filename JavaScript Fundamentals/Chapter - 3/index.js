@@ -34,87 +34,809 @@
 
 
 /* Lesson 56: Congrats & recap */
-
+/* 
+Recap:
+.   Arrays
+.   Object
+.   booleans
+.   if else statements
+.   coparison operator
+.   logical operator
+.   for loops
+.   The Math Object
+.   return statements
+*/
 
 /* Lesson 55: AI for Coding Students */
+/* 
+When you're learning to code:
+. Understand what piece of code does
+. Knows it's usecases
+    . What it's good for, what it's limitations are
+. Build muscle memory
+    . This only comes with practice - not watching
 
+You will not make it far as a professional developer if you do not understand the code you're writing
+
+1. Make sure you understand it.
+2. Verify it from a non-ai source
+3. Write it out yourself
+4. Ask why does this code work?
+
+AI should enhance your skills, not replace them.
+
+Times to use AI:
+. To explain code you don't understand
+    . AI can hallucinate (give false info)
+    . Other source might be more benefecial
+
+. Debugging
+    . Try your best without AI
+    . Make sure you understand the bug
+
+. Research Tool
+    . You still need traditional research
+
+The Ethics of AI:
+. AI has a huge carbon footprint
+    . Servers are crunching a lot of data
+. AI is trained on content made by people who have not consented 
+    and don't get share of the rewards.
+
+*/
 
 /* Lesson 54: Methods on object */
+/* 
+let player = {
+    name: "Per",
+    chips: 200,
+    sayHello: function() {
+        console.log("Heisann!")
+    }
+}
 
+let cards = []
+let sum = 0
+let hasBlackJack = false
+let isAlive = false
+let message = ""
+let messageEl = document.getElementById("message-el")
+let sumEl = document.getElementById("sum-el")
+let cardsEl = document.getElementById("cards-el")
+let playerEl = document.getElementById("player-el")
+
+playerEl.textContent = player.name + ": $" + player.chips
+
+function getRandomCard() {
+    let randomNumber = Math.floor( Math.random()*13 ) + 1
+    if (randomNumber > 10) {
+        return 10
+    } else if (randomNumber === 1) {
+        return 11
+    } else {
+        return randomNumber
+    }
+}
+
+function startGame() {
+    isAlive = true
+    let firstCard = getRandomCard()
+    let secondCard = getRandomCard()
+    cards = [firstCard, secondCard]
+    sum = firstCard + secondCard
+    renderGame()
+}
+
+function renderGame() {
+    cardsEl.textContent = "Cards: "
+    for (let i = 0; i < cards.length; i++) {
+        cardsEl.textContent += cards[i] + " "
+    }
+    
+    sumEl.textContent = "Sum: " + sum
+    if (sum <= 20) {
+        message = "Do you want to draw a new card?"
+    } else if (sum === 21) {
+        message = "You've got Blackjack!"
+        hasBlackJack = true
+    } else {
+        message = "You're out of the game!"
+        isAlive = false
+    }
+    messageEl.textContent = message
+}
+
+
+function newCard() {
+    if (isAlive === true && hasBlackJack === false) {
+        let card = getRandomCard()
+        sum += card
+        cards.push(card)
+        renderGame()        
+    }
+}
+ */
 
 /* Lesson 53: Use an object to store player data */
+/* // 2. Create the player object. Give it two keys, name and chips, and set their values
+let player = {
+    name: "Sonu Patel",
+    chips: 100
+}
+let cards = []
+let sum = 0
+let hasBlackJack = false
+let isAlive = false
+let message = ""
+let messageEl = document.getElementById("message-el")
+let sumEl = document.getElementById("sum-el")
+let cardsEl = document.getElementById("cards-el") 
+// 3. Grab ahold of the player-el paragraph and store it in a variable called playerEl
+let playerEl = document.getElementById("player-el")
+// 4. Render the player's name and chips in playerEl
+playerEl.textContent = player.name + ": ₹" + player.chips
 
+function getRandomCard() {
+    let randomNumber = Math.floor( Math.random()*13 ) + 1
+    if (randomNumber > 10) {
+        return 10
+    } else if (randomNumber === 1) {
+        return 11
+    } else {
+        return randomNumber
+    }
+}
+
+function startGame() {
+    isAlive = true
+    let firstCard = getRandomCard()
+    let secondCard = getRandomCard()
+    cards = [firstCard, secondCard]
+    sum = firstCard + secondCard
+    renderGame()
+}
+
+function renderGame() {
+    cardsEl.textContent = "Cards: "
+    for (let i = 0; i < cards.length; i++) {
+        cardsEl.textContent += cards[i] + " "
+    }
+    
+    sumEl.textContent = "Sum: " + sum
+    if (sum <= 20) {
+        message = "Do you want to draw a new card?"
+    } else if (sum === 21) {
+        message = "You've got Blackjack!"
+        hasBlackJack = true
+    } else {
+        message = "You're out of the game!"
+        isAlive = false
+    }
+    messageEl.textContent = message
+}
+
+
+function newCard() {
+    if (isAlive === true && hasBlackJack === false) {
+        let card = getRandomCard()
+        sum += card
+        cards.push(card)
+        renderGame()        
+    }
+}
+ */
 
 /* Lesson 52: Create your first object */
+/* 
+// Create an object that represents an airbnb castle listing.
+// It should contain at least one boolean, one string, one number, and one array
+// Log out at least two of the keys using the dot notation
 
+let castle = {
+    title: "Live like a king in my castle",
+    price: 190,
+    isSuperHost: true,
+    images: ["img/castle1.png", "img/caste2.png"]
+}
 
+console.log(castle.price)
+console.log(castle.isSuperHost)
+
+ */
 /* Lesson 51: Aside: Intro to objects */
+/* 
+// Objects - store data in-depth - composite / complex data type
+// key-value pairs
+// Objects - store data in-depth - composite / complex data type
+// key-value pairs
 
+let course = {
+    title: "Learn CSS Grid for free",
+    lessons: 16,
+    creator: "Per Harald Borgen",
+    length: 63,
+    level: 2,
+    isFree: true,
+    tags: ["html", "css"]
+}
+
+
+console.log( course.tags )
+ */
 
 /* Lesson 50: Object sneak peek */
 
 
 /* Lesson 49: Only trigger newCard() if you're allowed to */
+/* let cards = []
+let sum = 0
+let hasBlackJack = false
+let isAlive = false
+let message = ""
+let messageEl = document.getElementById("message-el")
+let sumEl = document.getElementById("sum-el")
+let cardsEl = document.getElementById("cards-el")
 
+function getRandomCard() {
+    let randomNumer = Math.floor( Math.random()*13 ) + 1
+    if (randomNumer > 10) {
+        return 10
+    } else if (randomNumer === 1) {
+        return 11
+    } else {
+        return randomNumer
+    }
+}
+
+function startGame() {
+    isAlive = true
+    let firstCard = getRandomCard()
+    let secondCard = getRandomCard()
+    cards = [firstCard, secondCard]
+    sum = firstCard + secondCard
+    renderGame()
+}
+
+function renderGame() {
+    cardsEl.textContent = "Cards: "
+    for (let i = 0; i < cards.length; i++) {
+        cardsEl.textContent += cards[i] + " "
+    }
+    
+    sumEl.textContent = "Sum: " + sum
+    if (sum <= 20) {
+        message = "Do you want to draw a new card?"
+    } else if (sum === 21) {
+        message = "You've got Blackjack!"
+        hasBlackJack = true
+    } else {
+        message = "You're out of the game!"
+        isAlive = false
+    }
+    messageEl.textContent = message
+}
+
+
+function newCard() {
+    // Only allow the player to get a new card if she IS alive and does NOT have Blackjack
+    if(isAlive && !hasBlackJack) {
+        let card = getRandomCard()
+        sum += card
+        cards.push(card)
+        renderGame()
+
+    }
+}
+ */
 
 /* Lesson 48: Aside: The OR operator (||) */
+/* 
+// Create two boolean variables, likesDocumentaries and likesStartups
+// Use an OR statement (||) to call recommendMovie() if either of those variables are true
 
+let likesDocumentaries = true
+let likesStartups = true
+
+if(likesDocumentaries || likesStartups) {
+    recommendMovie()
+}
+
+function recommendMovie() {
+    console.log("Hey, check out this new film we think you will like!")
+}
+ */
 
 /* Lesson 47: Write your first logical operator */
+/* 
+let hasSolvedChallenge = false
+let hasHintsLeft = false
 
+// Create an if statement that checks that both variables are false.
+// If so, run the showSolution() function
+if(!hasSolvedChallenge && !hasHintsLeft) {
+    showSolution()
+}
+
+function showSolution() {
+    console.log("Showing the solution....")
+}
+ */
 
 /* Lesson 46: Aside: The AND operator (&&) */
 
 
-/* Lesson 45: Our new card feature is broken */
 
+/* Lesson 45: Our new card feature is broken */
+/* 
+let cards = []
+let sum = 0
+let hasBlackJack = false
+let isAlive = false
+let message = ""
+let messageEl = document.getElementById("message-el")
+let sumEl = document.getElementById("sum-el")
+let cardsEl = document.getElementById("cards-el")
+
+function getRandomCard() {
+    let randomNumer = Math.floor( Math.random()*13 ) + 1
+    if (randomNumer > 10) {
+        return 10
+    } else if (randomNumer === 1) {
+        return 11
+    } else {
+        return randomNumer
+    }
+}
+
+function startGame() {
+    isAlive = true
+    // Generate two random numbes
+    // Re-assign the cards and sum variables so that the game can start
+    let firstCard = getRandomCard()
+    let secondCard = getRandomCard()
+    sum = firstCard + secondCard
+    cards = []
+    cards.push(firstCard)
+    cards.push(secondCard)
+
+    renderGame()
+}
+
+function renderGame() {
+    cardsEl.textContent = "Cards: "
+    for (let i = 0; i < cards.length; i++) {
+        cardsEl.textContent += cards[i] + " "
+    }
+    
+    sumEl.textContent = "Sum: " + sum
+    if (sum <= 20) {
+        message = "Do you want to draw a new card?"
+    } else if (sum === 21) {
+        message = "You've got Blackjack!"
+        hasBlackJack = true
+    } else {
+        message = "You're out of the game!"
+        isAlive = false
+    }
+    messageEl.textContent = message
+}
+
+
+function newCard() {
+    let card = getRandomCard()
+    sum += card
+    cards.push(card)
+    renderGame()
+}
+ */
 
 /* Lesson 44: Assign values in the startGame function */
+/* 
+let firstCard = getRandomCard()
+let secondCard = getRandomCard()
+let cards = [firstCard, secondCard]
+let sum = firstCard + secondCard
+let hasBlackJack = false
+let isAlive = true
+let message = ""
+let messageEl = document.getElementById("message-el")
+let sumEl = document.getElementById("sum-el")
+let cardsEl = document.getElementById("cards-el")
 
+console.log(cards)
+
+function getRandomCard() {
+    let randomNumer = Math.floor( Math.random()*13 ) + 1
+    if (randomNumer > 10) {
+        return 10
+    } else if (randomNumer === 1) {
+        return 11
+    } else {
+        return randomNumer
+    }
+}
+
+function startGame() {
+    // Generate two random numbes
+    // Re-assign the cards and sum variables so that the game can start
+    renderGame()
+}
+
+function renderGame() {
+    cardsEl.textContent = "Cards: "
+    for (let i = 0; i < cards.length; i++) {
+        cardsEl.textContent += cards[i] + " "
+    }
+    
+    sumEl.textContent = "Sum: " + sum
+    if (sum <= 20) {
+        message = "Do you want to draw a new card?"
+    } else if (sum === 21) {
+        message = "You've got Blackjack!"
+        hasBlackJack = true
+    } else {
+        message = "You're out of the game!"
+        isAlive = false
+    }
+    messageEl.textContent = message
+}
+
+
+function newCard() {
+    let card = getRandomCard()
+    sum += card
+    cards.push(card)
+    renderGame()
+}
+ */
 
 /* Lesson 43: Complete getRandomNumber function */
+/* 
+let firstCard = getRandomCard()
+let secondCard = getRandomCard()
+let cards = [firstCard, secondCard]
+let sum = firstCard + secondCard
+let hasBlackJack = false
+let isAlive = true
+let message = ""
+let messageEl = document.getElementById("message-el")
+let sumEl = document.getElementById("sum-el")
+let cardsEl = document.getElementById("cards-el")
 
+
+function getRandomCard() {
+    // if 1     -> return 11
+    // if 11-13 -> return 10
+    const rand= Math.floor( Math.random()*13 ) + 1
+    if (rand > 10) return 10
+    else if(rand === 1) return 11
+    else {
+        return rand
+    }
+}
+
+function startGame() {
+    renderGame()
+}
+
+function renderGame() {
+    cardsEl.textContent = "Cards: "
+    for (let i = 0; i < cards.length; i++) {
+        cardsEl.textContent += cards[i] + " "
+    }
+    
+    sumEl.textContent = "Sum: " + sum
+    if (sum <= 20) {
+        message = "Do you want to draw a new card?"
+    } else if (sum === 21) {
+        message = "You've got Blackjack!"
+        hasBlackJack = true
+    } else {
+        message = "You're out of the game!"
+        isAlive = false
+    }
+    messageEl.textContent = message
+}
+
+
+function newCard() {
+    let card = getRandomCard()
+    sum += card
+    cards.push(card)
+    renderGame()
+}
+ */
 
 /* Lesson 42: Make getRandomCard() work */
+/* let firstCard = getRandomCard()
+let secondCard = getRandomCard()
+let cards = [firstCard, secondCard]
+let sum = firstCard + secondCard
+let hasBlackJack = false
+let isAlive = true
+let message = ""
+let messageEl = document.getElementById("message-el")
+let sumEl = document.getElementById("sum-el")
+let cardsEl = document.getElementById("cards-el")
 
+// Make this function return a random number between 1 and 13
+function getRandomCard() {
+    return Math.floor(Math.random() * 13) + 1
+}
+
+function startGame() {
+    renderGame()
+}
+
+function renderGame() {
+    cardsEl.textContent = "Cards: "
+    for (let i = 0; i < cards.length; i++) {
+        cardsEl.textContent += cards[i] + " "
+    }
+    
+    sumEl.textContent = "Sum: " + sum
+    if (sum <= 20) {
+        message = "Do you want to draw a new card?"
+    } else if (sum === 21) {
+        message = "You've got Blackjack!"
+        hasBlackJack = true
+    } else {
+        message = "You're out of the game!"
+        isAlive = false
+    }
+    messageEl.textContent = message
+}
+
+
+function newCard() {
+    let card = getRandomCard()
+    sum += card
+    cards.push(card)
+    renderGame()
+}
+ */
 
 /* Lesson 41: Completing our dice function */
+/* 
+// Try to modify the expression so that we get a range from 1 to 6
+let randomNumber = Math.floor( Math.random() * 6 ) + 1
 
+console.log(randomNumber)
+
+// Create a function, rollDice(), that returns a random number between 1 and 6
+
+function rollDice() {
+    let randomNumber = Math.floor( Math.random() * 6 ) + 1
+    console.log(randomNumber)
+    return randomNumber
+}
+ */
 
 /* Lesson 40: Using Math.random() and Math.floor() to create a dice */
+/* 
+let randomNumber = Math.floor( Math.random() * 6)
 
+console.log(randomNumber) */
+
+/* 
+
+Write down all the possible values randomNumber can hold now!
+
+ 0, 1, 2, 3, 4. 5
+
+*/
 
 /* Lesson 39: Flooring the number with Math.floor() */
+/* 
+let flooredNumber = Math.floor(2.45632)
 
+console.log(flooredNumber)
+ */
+
+/* 
+
+What does Math.floor() do to positive numbers?
+
+Your answer: it removes the  numbers after the point and return the complete whole number downward.
+
+*/
 
 /* Lesson 38: Math.random() * 6 */
+/* 
+let randomNumber = Math.random() * 6
 
+console.log(randomNumber) */
+
+/* 
+
+In which range will our randomNumber be now?
+
+From: 0
+To: 5.999999
+
+*/
 
 /* Lesson 37: Aside: Math.random() */
+/* 
+let randomNumber = Math.random()
 
+console.log(randomNumber)
+ */
 
+/* 
+
+What does Math.random() do?
+
+Your answer: it generates a random number between 0 and 1 (not inclusive of 1)
+
+*/
 /* Lesson 36: Use a function to set the card values */
+/* 
+// 2. Use getRandomCard() to set the values of firstCard and secondCard
+
+let firstCard = getRandomCard()
+let secondCard = getRandomCard()
+let cards = [firstCard, secondCard]
+let sum = firstCard + secondCard
+let hasBlackJack = false
+let isAlive = true
+let message = ""
+let messageEl = document.getElementById("message-el")
+let sumEl = document.getElementById("sum-el")
+let cardsEl = document.getElementById("cards-el")
+
+// 1. Create a function, getRandomCard(), that always returns the number 5
+function getRandomCard() {
+    return 5
+}
+
+function startGame() {
+    renderGame()
+}
+
+function renderGame() {
+    cardsEl.textContent = "Cards: " 
+    for(let i = 0; i < cards.length; i++) {
+        cardsEl.textContent += cards[i] + " "
+        
+    }
+    
+    sumEl.textContent = "Sum: " + sum
+    if (sum <= 20) {
+        message = "Do you want to draw a new card?"
+    } else if (sum === 21) {
+        message = "You've got Blackjack!"
+        hasBlackJack = true
+    } else {
+        message = "You're out of the game!"
+        isAlive = false
+    }
+    messageEl.textContent = message
+}
 
 
+function newCard() {
+    // 3. Use the getRandomCard() to set the value of card
+    let card = getRandomCard()
+    sum += card
+    cards.push(card)
+    console.log(cards)
+    renderGame()
+}
+ */
 /* Lesson 35: Aside: Returning values in functions */
+/* 
+let player1Time = 102
+let player2Time = 107
 
+function getFastestRaceTime() {
+    if(player1Time < player2Time) {
+        return player1Time
+    } else if(player2Time < player1Time) {
+        return player2Time
+    } else {
+        return player1Time
+    }
+}
+
+let fastestRace = getFastestRaceTime()
+console.log(fastestRace)
+
+// let fastestRace = getFastestRaceTime()
+// console.log(fastestRace)
+
+// Write a function that returns the total race time
+// Call/invoke the function and store the returned value in a new variable
+// Finally, log the variable out
+
+function totalRaceTime() {
+    return player1Time + player2Time
+}
+
+let totalTime = totalRaceTime()
+
+console.log(totalTime) */
 
 /* Lesson 34: How can we avoid to hard-code card values? */
 
 
 /* Lesson 33: Use a loop to render cards */
+/* 
+let firstCard = 10
+let secondCard = 4
+let cards = [firstCard, secondCard]
+let sum = firstCard + secondCard
+let hasBlackJack = false
+let isAlive = true
+let message = ""
+let messageEl = document.getElementById("message-el")
+let sumEl = document.getElementById("sum-el")
+let cardsEl = document.getElementById("cards-el")
 
+function startGame() {
+    renderGame()
+}
+
+function renderGame() {
+    cardsEl.textContent = "Cards: " 
+    // Create a for loop that renders out all the cards instead of just two
+    for(let i = 0; i < cards.length; i++) {
+        cardsEl.textContent += cards[i] + " "
+        
+    }
+    
+    sumEl.textContent = "Sum: " + sum
+    if (sum <= 20) {
+        message = "Do you want to draw a new card?"
+    } else if (sum === 21) {
+        message = "You've got Blackjack!"
+        hasBlackJack = true
+    } else {
+        message = "You're out of the game!"
+        isAlive = false
+    }
+    messageEl.textContent = message
+}
+
+
+function newCard() {
+    let card = 6
+    sum += card
+    // Push the card to the cards array
+    cards.push(card)
+    console.log(cards)
+    renderGame()
+}
+ */
 
 /* Lesson 32: For loops, arrays, and DOM */
+/* 
+let sentence = ["Hello ", "my ", "name ", "is ", "Per"] 
+let greetingEl = document.getElementById("greeting-el")
 
+// Render the sentence in the greetingEl paragraph using a for loop and .textContent
 
+for(let i = 0; i < sentence.length; i++) {
+    greetingEl.textContent += sentence[i]
+} 
+ */
 /* Lesson 31: Write your first array-based for loop */
+/* 
+let cards = [7, 3, 9]
 
+// Create a for loop that logs out all the cards in the array
+// Use cards.length to specify how long the loop should run
+
+for(let i = 0; i < cards.length; i++){
+    console.log([i])
+}
+ */
 
 /* Lesson 30: Aside: For loops and arrays */
 
 
 /* Lesson 29: Write your first loop */
+/* 
 for (let i = 0; i < 6; i += 1) {
     console.log(i)
 }
@@ -125,7 +847,7 @@ for (let i = 0; i < 6; i += 1) {
 for(let i = 10; i <= 100; i += 10) {
     console.log(i)
 }
-
+ */
 /* Lesson 28: Aside: Loops */
 /* 
 // Count to ten!
