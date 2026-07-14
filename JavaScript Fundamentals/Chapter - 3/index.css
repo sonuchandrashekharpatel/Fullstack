@@ -4,11 +4,63 @@
 
 
 /* Lesson 66: Sorting fruits */
+body {
+    padding: 40px;
+    background: whitesmoke;
+    text-align: center;
+}
 
+#apple-shelf {
+    background: lightcoral;
+    border-radius: 10px;
+    height: 30px;
+    margin: 10px 0;
+}
+
+#orange-shelf {
+    background: lightsalmon;
+    border-radius: 10px;
+    height: 30px;
+}
 
 /* Lesson 65: EmojiFighter */
+/* 
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-family: 'Permanent Marker', cursive;
+    height: 100vh;
+    color: #e98a1d;
 
+}
 
+h1 {
+    text-shadow: 0px 3px 0px black;
+    line-height: 24px;
+    transform: rotate(-9deg);
+}
+
+#stage {
+    width: 100%;
+    height: 60px;
+    padding: 30px 0;
+    font-size: 50px;
+    margin: 0;
+}
+
+button {
+    margin: 20px;
+    cursor: pointer;
+    border: 0;
+    padding: 8px 16px;
+    border-radius: 10px;
+    background: #e98a1d;
+    color: white;
+    font-family: inherit;
+    font-size: 20px
+}
+ */
 /* Lesson 64: Rock papers scissors */
 
 
@@ -148,7 +200,7 @@
 
 
 /* Lesson 18: New card button */
-body {
+/* body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-align: center;
     background: url(images/table.png);
@@ -177,7 +229,7 @@ button {
     display: block;
     margin: 5px auto;
 }
-
+ */
 /* Lesson 17: Display the cards */
 
 
