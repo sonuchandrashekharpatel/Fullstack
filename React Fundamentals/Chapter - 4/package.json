@@ -1,0 +1,23 @@
+{
+  "name": "chapter - 4",
+  "version": "1.0.0",
+  "description": "Understanding the concept of React useEffect",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "author": "Sonu Patel",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "vite": "latest"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.3"
+  }
+}
