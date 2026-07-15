@@ -1,0 +1,843 @@
+/* Chapter - 3: React State */
+
+/* Lesson 1: Section 3 Intro */
+
+
+/* Lesson 2: Chef Claude: Header */
+/**
+header box shadow code:
+box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.10), 0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+*/
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Inter, sans-serif;
+    background: #FAFAF8;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    height: 80px;
+    background: #FFF;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.10), 0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+}
+
+header > img {
+    width : 50px;
+}
+
+header > h1 {
+    font-weight: 400;
+}
+
+/* Lesson 3: Chef Claude: form */
+
+main {
+    padding: 4em 2em;
+
+}
+.add-ingredient-form {
+    display: flex;
+    justify-content: center;
+    height: 38px;
+    gap: 12px;
+}
+
+.add-ingredient-form input {
+    flex-grow: 1;
+    max-width: 400px;
+    min-width: 150px;
+    box-shadow: 0px 1px 2px 0px #0000000D;
+}
+
+.add-ingredient-form > input, .add-ingredient-form > button  {
+    border-radius: 6px;
+    padding: 9px 13px;
+    border: 1px solid #D1D5DB;
+}
+
+.add-ingredient-form > button {
+    background: #141413;
+    color: #FAFAF8;
+    padding: 9px 17px;
+    border:none;
+    font-family: "Inter", sans-serif;
+    font-size: .875rem;
+    font-weight: 500;
+}
+
+
+.add-ingredient-form > button::before {
+    content: "+";
+    margin-right: 5px;
+}
+
+
+/* Lesson 4: Chef Claude: Project overview */
+
+
+/* Lesson 5: Event Listeners */
+
+
+/* Lesson 6: Chef Claude: Map ingredients list */
+
+
+/* Lesson 7: Props vs. State: Props */
+
+
+/* Lesson 8: Props vs. State: State */
+
+
+/* Lesson 9: useState */
+/* * {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #262626;
+    color: #D9D9D9;
+    padding: 20px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main > .title {
+    text-align: center;
+}
+
+main > .value {
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #262626;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+ */
+/* Lesson 10: useState array destructuring */
+
+
+/* Lesson 11: Changing state */
+
+
+/* Lesson 12: State practice */
+/* * {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #262626;
+    color: #D9D9D9;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.container > h1 {
+    font-size: 1.5rem;
+    margin-top: 0;
+}
+
+.counter {
+    display: flex;
+    align-items: flex-end;
+    align-self: center;
+    margin-top: 40px;
+}
+
+.counter > button {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background-color: #737373;
+    color: #D9D9D9;
+    font-size: 1.5rem;
+}
+
+.counter > button:hover {
+    background-color: #404040;
+    color: #D9D9D9;
+}
+
+.count {
+    background-color: white;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #262626;
+    margin-block: 0 10px;
+    font-size: 2rem;
+}
+
+.plus {
+    margin-left: -20px;
+}
+
+.minus {
+    margin-right: -20px;
+    z-index: 1;
+}
+ */
+
+/* Lesson 13: Updating state with a callback function */
+
+
+/* Lesson 14: Changing state quiz */
+
+
+/* Lesson 15: Ternary practice */
+
+
+/* Lesson 16: Toggling state */
+
+
+/* Lesson 17: Complex state: Arrays */
+/* * {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #70B85D;
+    color: white;
+    padding: 20px;
+    font-size: 1.3rem;
+}
+
+main {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+}
+
+button {
+    width: 100%;
+    max-width: 300px;
+    background-color: transparent;
+    padding: 1rem;
+    color: white;
+    border: 2px solid white;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Karla', sans-serif;
+    margin-bottom: 20px;
+}
+
+button:hover {
+    background-color: #FFFEF1;
+    color: #2C5E2E;
+}
+
+button:focus {
+    outline: 0;
+}
+
+p {
+    margin-block: 10px;
+    font-size: 2rem;
+}
+ */
+/* Lesson 18: Chef Claude: Refactor array state */
+
+
+/* Lesson 19: Complex state: Objects */
+/* 
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0C4A6E;
+    margin: 0;
+    font-family: "Inter", sans-serif;
+}
+
+main {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    background-color: white;
+    width: 200px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    height: 350px;
+}
+
+.card .avatar {
+    width: 100%;
+    padding: 10%;
+    padding-bottom: 0;
+}
+
+.card .name {
+    margin-block: 13px;
+    color: #333333;
+}
+
+.card .info {
+    padding: 10px;
+}
+
+.card .favorite {
+    width: 25px;
+    cursor: pointer;
+}
+
+.card .contact {
+    font-size: 0.75rem;
+    color: gray;
+    margin-block: 7px;
+}
+
+.card .favorite-button {
+    border: none;
+    background: transparent;
+}
+
+.card .favorite-button:active {
+    transform: none;
+    box-shadow: none;
+}
+ */
+
+/* Lesson 20: Complex state: updating state objects */
+
+
+/* Lesson 21: React forms intro */
+
+/* * {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding: 2rem;
+    background-color: #2DD4BF;
+}
+
+.input {
+    border-radius: 100px;
+    border: 1px solid black;
+    margin-block: 10px;
+    display: block;
+    height: 2rem;
+    text-indent: 10px;
+}
+
+input[type="submit"] {
+    padding: 10px;
+}
+ */
+
+ /* Lesson 22: Form basics */
+
+
+/* Lesson 23: Form submission */
+/* 
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 10px;
+    background-color: #2DD4BF;
+    color: #262626;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    padding-inline: 40px;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    width: 80%
+}
+
+label {
+    margin-bottom: 4px;
+}
+
+input {
+    border-radius: 100px;
+    border: 1px solid #0D9488;
+    height: 2rem;
+    text-indent: 10px;
+}
+
+button {
+    border-radius: 100px;
+    border: 1px solid #0D9488;
+    padding: 10px 30px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.1s ease-in-out;
+}
+
+button:hover {
+    background-color: #115E59;
+    border-color: #042F2E;
+    color: white;
+}
+ */
+
+ /* Lesson 24: Form action */
+
+
+/* Lesson 25: Chef Claude: Refactor form submission */
+
+
+/* Lesson 26: Forms: textarea & defaultValue */
+
+/* 
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 10px;
+    background-color: #2DD4BF;
+    color: #262626;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    padding-inline: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 4px;
+}
+
+input[type="email"], input[type="password"] {
+    border-radius: 100px;
+    border: 1px solid #0D9488;
+    height: 2rem;
+    text-indent: 10px;
+    margin-bottom: 20px;
+}
+
+textarea {
+    margin-bottom: 20px;
+}
+
+input[type="checkbox"], input[type="radio"] {
+    margin-right: 10px;
+}
+
+fieldset {
+    border: 1px solid #262626;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    border-radius: 100px;
+    border: 1px solid #0D9488;
+    padding: 10px 30px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.1s ease-in-out;
+}
+
+button:hover {
+    background-color: #115E59;
+    border-color: #042F2E;
+    color: white;
+}
+ 
+*/
+
+/* Lesson 27: Forms: radio */
+
+
+/* Lesson 28: Forms: checkbox */
+
+
+/* Lesson 29: Forms: select and option */
+
+/* 
+select {
+    padding: 0.5em
+}
+ */
+
+ /* Lesson 30: Forms: Object.fromEntries */
+
+
+/* Lesson 31: Chef Claude: conditional rendering intro */
+
+
+/* Lesson 32: Conditional rendering: && */
+
+
+/* Lesson 33: Conditional rendering: Why does && work? */
+
+
+/* Lesson 34: Conditional rendering practice: && */
+
+
+/* Lesson 35: Conditional rendering: ternary */
+
+
+/* Lesson 36: Conditional rendering practice */
+
+
+/* Lesson 37: Conditional rendering quiz */
+
+
+/* Lesson 38: Chef Claude: conditional rendering challenge 1 */
+
+ul.ingredients-list {
+    margin-bottom: 48px;
+}
+
+ul.ingredients-list > li {
+    color: #475467;
+    line-height: 28px;
+}
+
+.get-recipe-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    background: #F0EFEB;
+    padding: 10px 28px;
+}
+
+.get-recipe-container h3 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.get-recipe-container p {
+    color: #6B7280;
+    font-size: 0.875rem;
+    line-height: 20px;
+}
+
+.get-recipe-container button {
+    border: none;
+    border-radius: 6px;
+    background: #D17557;
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+    color: #FAFAF8;
+    padding: 9px 17px;
+    font-family: Inter, sans-serif;
+    font-size: 0.875rem;
+    cursor: pointer;
+}
+
+/* Lesson 39: Chef Claude: conditional rendering challenge 2 */
+
+
+/* Lesson 40: Chef Claude: Get recipe placeholder challenge */
+
+
+/* Lesson 41: Passing state as props */
+/* * {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #262626;
+    color: #D9D9D9;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.counter {
+    display: flex;
+    align-items: flex-end;
+    align-self: center;
+    margin-top: 40px;
+}
+
+.counter > button {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background-color: #737373;
+    color: #D9D9D9;
+    font-size: 1.5rem;
+}
+
+.counter > button:hover {
+    background-color: #404040;
+    color: #D9D9D9;
+}
+
+.count {
+    background-color: white;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #262626;
+    margin-block: 0 10px;
+    font-size: 2rem;
+}
+
+.plus {
+    margin-left: -20px;
+}
+
+.minus {
+    margin-right: -20px;
+    z-index: 1;
+}
+ */
+
+ /* Lesson 42: Setting state from child components */
+/* * {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0C4A6E;
+    margin: 0;
+    font-family: "Inter", sans-serif;
+}
+
+main {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    background-color: white;
+    width: 200px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    height: 350px;
+}
+
+.card .avatar {
+    width: 100%;
+    padding: 10%;
+    padding-bottom: 0;
+}
+
+.card .name {
+    margin-block: 13px;
+    color: #333333;
+}
+
+.card .info {
+    padding: 10px;
+}
+
+.card .favorite {
+    width: 25px;
+    cursor: pointer;
+}
+
+.card .contact {
+    font-size: 0.75rem;
+    color: gray;
+    margin-block: 7px;
+}
+
+.card .favorite-button {
+    border: none;
+    background: transparent;
+}
+
+.card .favorite-button:active {
+    transform: none;
+    box-shadow: none;
+}
+ */
+
+ /* Lesson 43: Passing data around React */
+/* 
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: whitesmoke;
+}
+
+header {
+    height: 65px;
+    box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-inline: 20px;
+    background-color: #dce6fd
+}
+
+header > img, header > p {
+    cursor: pointer;
+}
+
+section {
+    padding: 20px;
+}
+ */
+
+ /* Lesson 44: Sound pads challenge, part 1 */
+/* 
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1C1917;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pad-container {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(2, 100px);
+    gap: 10px;
+}
+
+button {
+    height: 100px;
+    width: 100px;
+    border: 3px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+ */
+
+/* Lesson 45: Dynamic styles */
+
+
+/* Lesson 46: Sound pads challenge, part 2 */
+
+
+/* Lesson 47: Sound pads challenge, part 3 */
+/* 
+button {
+    opacity: 0.1;
+}
+button.on {
+    opacity: 1;
+}
+ */
+
+/* Lesson 48: Sound pads challenge part 4.1 - local state */
+
+
+/* Lesson 49: Sound pads challenge part 4.2 - shared state */
+
+
+/* Lesson 50: Sound pads challenge part 4.3 - updating item in array */
+
+
+/* Lesson 51: Chef Claude challenge: refactor to separate components */
+
+
+/* Lesson 52: API Sign Ups */
+
+
+/* Lesson 53: AI code walkthrough */
+
+
+/* Lesson 54: Quick AI Update */
+
+
+/* Lesson 55: Challenge quiz: prep to get recipe from the AI chef 🤖👨‍🍳 */
+
+
+/* Lesson 56: Challenge: Get recipe from the AI chef 🤖👨‍🍳 */
+
+
+/* Lesson 57: Format recipe response */
+
+.suggested-recipe-container {
+    color: #475467;
+    line-height: 28px;
+    font-size: 1.125rem;
+    font-weight: 400;
+}
+
+.suggested-recipe-container ul li, .suggested-recipe-container ol li {
+    margin-bottom: 8px;
+}
+
+/* Lesson 58: Section 3 Outro */
+
+/* body {
+    background: #1c1c1c;
+    background: #000;
+    color: green;
+    color: #86EFAC;
+}
+ */
