@@ -1,0 +1,106 @@
+
+/* Chapter - 5: Capstone Project #1 - Tenzies */
+
+/* Lesson 1: Tenzies Intro */
+
+
+/* Lesson 2: Tenzies: Setup */
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+    background: #0B2434;
+    padding: 20px;
+    height: 100vh;
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: center;
+}
+
+div#root {
+    height: 100%;
+    width: 100%;
+    max-width: 400px;
+    max-height: 400px;
+}
+
+main {
+    background: #F5F5F5;
+    height: 100%;
+    border-radius: 5px;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* Lesson 3: Tenzies: Die component */
+.dice-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+}
+
+button {
+    background: #FFF;
+    padding: 0.4em 0.8em;
+    border-radius: 9px;
+    font-family: "Inter", sans-serif;
+    font-size: 1.25rem;
+    color: #2B283A;
+    border: none;
+    font-weight: 700;
+    box-shadow: 0px 2px 2px 0px #00000026;
+    cursor: pointer
+}
+
+/* Lesson 4: Tenzies: Generate 10 random numbers */
+
+
+/* Lesson 5: Tenzies: Map array to Die components */
+
+
+/* Lesson 6: Tenzies: Roll dice button */
+
+
+/* Lesson 7: Tenzies: Change dice to objects */
+
+
+/* Lesson 8: Tenzies: Styling held dice */
+
+
+/* Lesson 9: Tenzies: Hold dice - part 1 */
+
+
+/* Lesson 10: Tenzies: Hold dice - part 2 */
+
+
+/* Lesson 11: Tenzies: Hold dice - part 3 */
+
+
+/* Lesson 12: Tenzies: End game - part 1 */
+
+
+/* Lesson 13: Tenzies: End game - part 2 */
+
+
+/* Lesson 14: Tenzies: End game - part 3 */
+
+
+/* Lesson 15: Tenzies: Lazy State Initialization */
+
+
+/* Lesson 16: Tenzies: New game */
+
+
+/* Lesson 17: Tenzies: Accessibility Improvements */
+
+
+/* Lesson 18: Tenzies: Accessibility Improvements - part 2 */
+
+
+/* Lesson 19: Tenzies Outro */
