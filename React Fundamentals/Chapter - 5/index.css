@@ -13,6 +13,7 @@
 body {
     margin: 0;
     background: #0B2434;
+    font-family: "Karla",sans-serif;
     padding: 20px;
     height: 100vh;
     display: flex;
@@ -24,18 +25,23 @@ body {
 div#root {
     height: 100%;
     width: 100%;
-    max-width: 400px;
-    max-height: 400px;
+    max-width: 500px;
+    max-height: 500px;
 }
 
 main {
     background: #F5F5F5;
     height: 100%;
+    min-height: 300px;
+    min-width: 400px;
     border-radius: 5px;
     display: flex;
+    flex-direction: column;
     align-items:center;
-    justify-content:center;
+    justify-content:space-evenly;
+    padding: 1.5em;
 }
+
 
 /* Lesson 3: Tenzies: Die component */
 .dice-container {
@@ -46,16 +52,19 @@ main {
 }
 
 button {
+    font-family: "Karla", sans-serif;
+    cursor: pointer;
+
+}
+.dice-container button {
     background: #FFF;
     padding: 0.4em 0.8em;
     border-radius: 9px;
-    font-family: "Inter", sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.75rem;
     color: #2B283A;
     border: none;
     font-weight: 700;
     box-shadow: 0px 2px 2px 0px #00000026;
-    cursor: pointer
 }
 
 /* Lesson 4: Tenzies: Generate 10 random numbers */
@@ -65,10 +74,22 @@ button {
 
 
 /* Lesson 6: Tenzies: Roll dice button */
-
+button.roll-dice {
+    margin-top: 2em;
+    background: #5035FF;
+    border: none;
+    padding: .8em 1.6em;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #FFF;
+    border-radius: 4px;
+    line-height: 100%;
+}
 
 /* Lesson 7: Tenzies: Change dice to objects */
-
+.light-green {
+    background-color: #59E391;
+}
 
 /* Lesson 8: Tenzies: Styling held dice */
 
@@ -80,7 +101,16 @@ button {
 
 
 /* Lesson 11: Tenzies: Hold dice - part 3 */
+.title {
+    font-size: 40px;
+    margin: 0;
+}
 
+.instructions {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    font-weight: 400;
+}
 
 /* Lesson 12: Tenzies: End game - part 1 */
 
