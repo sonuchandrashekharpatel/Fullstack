@@ -1,0 +1,193 @@
+/* Chapter - 6: Capstone Project #2 - Assembly: Endgame */
+
+/* Lesson 1: Assembly Endgame Intro */
+
+
+/* Lesson 2: Assembly Endgame - Project Planning */
+
+
+/* Lesson 3: Assembly Endgame - Header Section */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Hanken Grotesk", Arial, sans-serif;
+    background-color: #262626;
+    color: #D9D9D9;
+    padding: 20px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+header {
+    width: 352px;
+}
+
+.title, .status-section h2 {
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: #F9F4DA;
+}
+
+.description {
+    font-size: 0.875rem;
+    color: #8E8E8E;
+}
+
+
+/* Lesson 4: Assembly Endgame - Status Section */
+.status-section {
+    background: #10A95B;
+    border-radius: 4px;
+    padding: 6px 0;
+    margin-block: 30px;
+}
+
+.status-section h2  {
+    margin: 0;
+}
+
+.status-section p  { 
+    margin: 5px;
+}
+
+/* Lesson 5: Assembly Endgame - Languages List */
+section.language-chips {
+    width: 352px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4.5px;
+}
+
+section.language-chips p {
+    margin:0;
+    border-radius: 3px;
+    padding: 4.5px;
+    font-weight: 700;
+    font-size: .75rem;
+}
+
+
+/* Lesson 6: Assembly Endgame - Word Display */
+section.word {
+    margin-block: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+span.letter {
+    width: 40px;
+    height: 40px;
+    background-color: #323232;
+    border-bottom: 1px solid #F9F4DA;
+    padding: 8px;
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+/* Lesson 7: Assembly Endgame - Keyboard */
+
+section.keyboard {
+    margin-block: 40px;
+    width: 480px;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+section.keyboard  button {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid #D7D7D7;
+    background: #FCBA29;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #1E1E1E;
+    padding: 5px;
+}
+
+button.new-game {
+    width: 240px;
+    height: 40px;
+    background: #11B5E5;
+    border-radius: 4px;
+    border: 1px solid #D7D7D7;
+    padding: 6px 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #1E1E1E;
+    margin-bottom: 60px;
+}
+
+/* Lesson 8: Assembly Endgame - Save the guessed letters */
+
+
+/* Lesson 9: Assembly Endgame - Keyboard letter styles for guesses */
+section.keyboard .wrong-guessed {
+    background-color: #EC5D49;
+}
+
+section.keyboard .right-guessed {
+    background-color: #10A95B;
+}
+
+/* Lesson 10: Assembly Endgame - Only display correctly guessed letters in word */
+
+
+/* Lesson 11: Assembly Endgame - Wrong guess count */
+
+
+/* Lesson 12: Assembly Endgame - Lost languages */
+
+
+/* Lesson 13: Assembly Endgame - isGameOver */
+
+
+/* Lesson 14: Assembly Endgame - Display won/lost status */
+
+
+/* Lesson 15: Assembly Endgame - Quick CSS alignment fix 🤦🏻‍♂️ */
+
+
+/* Lesson 16: Assembly Endgame - Conditional rendering with a helper function */
+
+
+/* Lesson 17: Assembly Endgame - Backlog inventory */
+
+
+/* Lesson 18: Assembly Endgame - Farewell messages */
+
+
+/* Lesson 19: Assembly Endgame - Disable keyboard when the game is over */
+
+
+/* Lesson 20: Assembly Endgame - Make the game more a11y-friendly part 1 */
+
+
+/* Lesson 21: Assembly Endgame - Make the game more a11y-friendly part 2 */
+
+
+/* Lesson 22: Assembly Endgame - Choose random word */
+
+
+/* Lesson 23: Assembly Endgame - New game button resets the game */
+
+
+/* Lesson 24: Assembly Endgame - Display missed letters when lost */
+
+
+/* Lesson 25: Assembly Endgame - 🎊🎊🎊🎊🎊 */
+
+
+/* Lesson 26: Assembly Endgame Outro */
