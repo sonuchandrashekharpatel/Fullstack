@@ -15,7 +15,9 @@
   "dependencies": {
     "nanoid": "^6.0.0",
     "react": "^19.2.7",
+    "react-confetti": "^6.4.0",
     "react-dom": "^19.2.7",
+    "react-use": "^17.6.1",
     "vite": "^8.1.4"
   },
   "devDependencies": {

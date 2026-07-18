@@ -1,25 +1,436 @@
 /* Chapter - 5: Capstone Project #1 - Tenzies */
 
 /* Lesson 19: Tenzies Outro */
+/* 
+Extra credits ideas:
 
+1.  Add a timer and roll counter to see how quickly you can 
+    win the game
+
+2.  Style the dice to look like real dice with pips instead numbers
+
+3. Deploy your project live for others to play!
+
+*/
 
 /* Lesson 18: Tenzies: Accessibility Improvements - part 2 👻*/
+/**
+ * Challenge:
+ * Make it so when the game is over, the "New Game" button
+ * automatically receives keyboard focus so keyboard users
+ * can easily trigger that button without having to tab
+ * through all the dice first.
+ * 
+ * Hints:
+ * 1. Focusing a DOM element with the DOMNode.focus() method
+ *    requires accessing the native DOM node. What tool have
+ *    we learned about that allows us to do that?
+ * 
+ * 2. Automatically calling the .focus() on a DOM element when
+ *    the game is won requires us to synchronize the local
+ *    `gameWon` variable with an external system (the DOM). What
+ *    tool have we learned about that allows us to do that?
+ */
+
+import Die from "./components/Die";
+import { useState, useEffect, useRef } from 'react'
+import { nanoid } from 'nanoid'
+import { useWindowSize } from "react-use";
+import ReactConfetti from "react-confetti";
+
+export default function App() {
+
+    const {width, height} = useWindowSize()
+
+    const [dice, setDice ] = useState(() => generateAllNewDice())
+    
+    const newGame = useRef(null)
+    
+    const gameWon = dice.every(die => die.isHeld && die.value === dice[0].value)
+
+    useEffect(() => {
+        if(gameWon) {
+            newGame.current.focus()
+        }
+    }, [gameWon])
+    
+    const buttonText = gameWon ? "New Game" : "Roll Dice"
+    
+    function generateAllNewDice() {
+        
+        return new Array(10)
+        .fill(0)
+        .map(() => ({
+                id: nanoid(),
+                value: Math.ceil(Math.random() * 6),
+                isHeld: false
+            })
+        )
+    }
+    
+    function hold(id) {
+        setDice(prevDice => {
+            return prevDice.map(die => {
+                return die.id === id ?  { ...die, isHeld: !die.isHeld } : die
+            })
+        })
+    }
+    
+    const diceElements = dice.map(die => <Die 
+        key={die.id}
+        value={die.value} 
+        isHeld={die.isHeld}
+        hold={() => hold(die.id)}
+        />)
+        
+        function rollDice() {
+            
+            if(!gameWon) {
+                setDice(oldDice => {
+                    return oldDice.map(die => 
+                        die.isHeld ? 
+                        die :
+                        { ...die, value: Math.ceil(Math.random() * 6) }
+                    )
+                })
+            } else {
+                setDice(generateAllNewDice())
+        }
+
+    }
+
+    return (
+        <main>
+            <h1 className="title">Tenzies</h1>
+            {gameWon && <ReactConfetti width={width} height={height} />}
+            <div aria-live="polite">
+                {gameWon && <p>Congratulation! You won! Press "New Game" to start again.</p>}
+            </div>
+            <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
+            <div className="dice-container">
+                {diceElements}
+            </div>
+            <button className="roll-dice" onClick={rollDice} ref={newGame}>{buttonText}</button>
+        </main>
+    )
+}
 
 
 /* Lesson 17: Tenzies: Accessibility Improvements */
 
+/* 
+import Die from "./components/Die";
+import { useState } from 'react'
+import { nanoid } from 'nanoid'
+import { useWindowSize } from "react-use";
+import ReactConfetti from "react-confetti";
+
+export default function App() {
+
+    const {width, height} = useWindowSize()
+
+    const [dice, setDice ] = useState(() => generateAllNewDice())
+
+    const gameWon = dice.every(die => die.isHeld && die.value === dice[0].value)
+
+    const buttonText = gameWon ? "New Game" : "Roll Dice"
+    
+    function generateAllNewDice() {
+        
+        return new Array(10)
+            .fill(0)
+            .map(() => ({
+                id: nanoid(),
+                value: Math.ceil(Math.random() * 6),
+                isHeld: false
+            })
+        )
+    }
+
+    function hold(id) {
+        setDice(prevDice => {
+            return prevDice.map(die => {
+                return die.id === id ?  { ...die, isHeld: !die.isHeld } : die
+            })
+        })
+    }
+
+    const diceElements = dice.map(die => <Die 
+        key={die.id}
+        value={die.value} 
+        isHeld={die.isHeld}
+        hold={() => hold(die.id)}
+    />)
+
+    function rollDice() {
+
+        if(!gameWon) {
+            setDice(oldDice => {
+                return oldDice.map(die => 
+                    die.isHeld ? 
+                    die :
+                    { ...die, value: Math.ceil(Math.random() * 6) }
+                )
+            })
+        } else {
+            setDice(generateAllNewDice())
+        }
+
+    }
+
+    return (
+        <main>
+            <h1 className="title">Tenzies</h1>
+            {gameWon && <ReactConfetti width={width} height={height} />}
+            <div aria-live="polite">
+                {gameWon && <p>Congratulation! You won! Press "New Game" to start again.</p>}
+            </div>
+            <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
+            <div className="dice-container">
+                {diceElements}
+            </div>
+            <button className="roll-dice" onClick={rollDice}>{buttonText}</button>
+        </main>
+    )
+}
+ */
 
 /* Lesson 16: Tenzies: New game 👻*/
+/**
+ * Challenge: Allow the user to play a new game when the
+ * button is clicked
+*/
+/* 
+import Die from "./components/Die";
+import { useState } from 'react'
+import { nanoid } from 'nanoid'
+import { useWindowSize } from "react-use";
+import ReactConfetti from "react-confetti";
+
+export default function App() {
+
+    const {width, height} = useWindowSize()
+
+    const [dice, setDice ] = useState(() => generateAllNewDice())
+
+    const gameWon = dice.every(die => die.isHeld && die.value === dice[0].value)
+
+    const buttonText = gameWon ? "New Game" : "Roll Dice"
+    
+    function generateAllNewDice() {
+        
+        return new Array(10)
+            .fill(0)
+            .map(() => ({
+                id: nanoid(),
+                value: Math.ceil(Math.random() * 6),
+                isHeld: false
+            })
+        )
+    }
+
+    function hold(id) {
+        setDice(prevDice => {
+            return prevDice.map(die => {
+                return die.id === id ?  { ...die, isHeld: !die.isHeld } : die
+            })
+        })
+    }
+
+    const diceElements = dice.map(die => <Die 
+        key={die.id}
+        value={die.value} 
+        isHeld={die.isHeld}
+        hold={() => hold(die.id)}
+    />)
+
+    function rollDice() {
+
+        if(!gameWon) {
+
+            setDice(oldDice => {
+                return oldDice.map(die => 
+                    die.isHeld ? 
+                    die :
+                    { ...die, value: Math.ceil(Math.random() * 6) }
+                )
+            })
+        } else {
+            setDice(generateAllNewDice())
+        }
+
+    }
+
+    return (
+        <main>
+            <h1 className="title">Tenzies</h1>
+            <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
+            <div className="dice-container">
+                {diceElements}
+            </div>
+            <button className="roll-dice" onClick={rollDice}>{buttonText}</button>
+            {gameWon && <ReactConfetti width={width} height={height} />}
+        </main>
+    )
+}
+ */
 
 
 /* Lesson 15: Tenzies: Lazy State Initialization */
+/* 
+import Die from "./components/Die";
+import { useState } from 'react'
+import { nanoid } from 'nanoid'
+import { useWindowSize } from "react-use";
+import ReactConfetti from "react-confetti";
 
+export default function App() {
 
+    const {width, height} = useWindowSize()
+
+    const [dice, setDice ] = useState(() => generateAllNewDice())
+
+    const gameWon = dice.every(die => die.isHeld && die.value === dice[0].value)
+
+    const buttonText = gameWon ? "New Game" : "Roll Dice"
+    
+    function generateAllNewDice() {
+        
+        return new Array(10)
+            .fill(0)
+            .map(() => ({
+                id: nanoid(),
+                value: Math.ceil(Math.random() * 6),
+                isHeld: false
+            })
+        )
+    }
+
+    function hold(id) {
+        setDice(prevDice => {
+            return prevDice.map(die => {
+                return die.id === id ?  { ...die, isHeld: !die.isHeld } : die
+            })
+        })
+    }
+
+    const diceElements = dice.map(die => <Die 
+        key={die.id}
+        value={die.value} 
+        isHeld={die.isHeld}
+        hold={() => hold(die.id)}
+    />)
+
+    function rollDice() {
+        setDice(oldDice => {
+            return oldDice.map(die => 
+                die.isHeld ? 
+                die :
+                { ...die, value: Math.ceil(Math.random() * 6) }
+            )
+        })
+    }
+
+    return (
+        <main>
+            <h1 className="title">Tenzies</h1>
+            <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
+            <div className="dice-container">
+                {diceElements}
+            </div>
+            <button className="roll-dice" onClick={rollDice}>{buttonText}</button>
+            {gameWon && <ReactConfetti width={width} height={height} />}
+        </main>
+    )
+}
+ */
 /* Lesson 14: Tenzies: End game - part 3 👻*/
+/**
+ * Challenge:
+ * Make the confetti drop when the game is won! 🎉🎊
+*/
+/* 
 
+import Die from "./components/Die";
+import { useState } from 'react'
+import { nanoid } from 'nanoid'
+import { useWindowSize } from "react-use";
+import ReactConfetti from "react-confetti";
 
+export default function App() {
+
+    const {width, height} = useWindowSize()
+
+    const [dice, setDice ] = useState(generateAllNewDice())
+
+    const gameWon = dice.every(die => die.isHeld && die.value === dice[0].value)
+
+    const buttonText = gameWon ? "New Game" : "Roll Dice"
+    
+    function generateAllNewDice() {
+        
+        return new Array(10)
+            .fill(0)
+            .map(() => ({
+                id: nanoid(),
+                value: Math.ceil(Math.random() * 6),
+                isHeld: false
+            })
+        )
+    }
+
+    function hold(id) {
+        setDice(prevDice => {
+            return prevDice.map(die => {
+                return die.id === id ?  { ...die, isHeld: !die.isHeld } : die
+            })
+        })
+    }
+
+    const diceElements = dice.map(die => <Die 
+        key={die.id}
+        value={die.value} 
+        isHeld={die.isHeld}
+        hold={() => hold(die.id)}
+    />)
+
+    function rollDice() {
+        setDice(oldDice => {
+            return oldDice.map(die => 
+                die.isHeld ? 
+                die :
+                { ...die, value: Math.ceil(Math.random() * 6) }
+            )
+        })
+    }
+
+    return (
+        <main>
+            <h1 className="title">Tenzies</h1>
+            <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
+            <div className="dice-container">
+                {diceElements}
+            </div>
+            <button className="roll-dice" onClick={rollDice}>{buttonText}</button>
+            {gameWon && <ReactConfetti width={width} height={height} />}
+        </main>
+    )
+}
+
+*/
 /* Lesson 13: Tenzies: End game - part 2 👻 👻*/
+/**
+ * Challenge:
+ * Log "Game won!" to the console only if the 2 winning
+ * conditions are met.
+ * 
+ * 1. all the dice are being held, and
+ * 2. all the dice have the same value
+ * 
+ * For now, no need to even save a variable!
+ */
 
+/* 
 import Die from "./components/Die";
 import { useState } from 'react'
 import { nanoid } from 'nanoid'
@@ -28,8 +439,9 @@ export default function App() {
 
     const [dice, setDice ] = useState(generateAllNewDice())
 
-    for(let i = 0; i< dice.length; i++) {
-        if(dice[i].isHeld && dice[i].value)
+    const gameWon = dice.every(die => die.isHeld && die.value === dice[0].value)
+    if(gameWon){
+        console.log("Game won!")
     }
     
     function generateAllNewDice() {
@@ -80,11 +492,81 @@ export default function App() {
         </main>
     )
 }
-
-/* Lesson 12: Tenzies: End game - part 1 👻*/
-// check if the game is won
+ */
 
 /**
+ * Challenge part 2:
+ * 1. Create a new `gameWon` variable.
+ * 2. If `gameWon` is true, change the button text to
+ *    "New Game" instead of "Roll"
+ */
+
+/* 
+import Die from "./components/Die";
+import { useState } from 'react'
+import { nanoid } from 'nanoid'
+
+export default function App() {
+
+    const [dice, setDice ] = useState(generateAllNewDice())
+
+    const gameWon = dice.every(die => die.isHeld && die.value === dice[0].value)
+
+    const buttonText = gameWon ? "New Game" : "Roll Dice"
+    
+    function generateAllNewDice() {
+        
+        return new Array(10)
+            .fill(0)
+            .map(() => ({
+                id: nanoid(),
+                value: Math.ceil(Math.random() * 6),
+                isHeld: false
+            })
+        )
+    }
+
+    function hold(id) {
+        setDice(prevDice => {
+            return prevDice.map(die => {
+                return die.id === id ?  { ...die, isHeld: !die.isHeld } : die
+            })
+        })
+    }
+
+    const diceElements = dice.map(die => <Die 
+        key={die.id}
+        value={die.value} 
+        isHeld={die.isHeld}
+        hold={() => hold(die.id)}
+    />)
+
+    function rollDice() {
+        setDice(oldDice => {
+            return oldDice.map(die => 
+                die.isHeld ? 
+                die :
+                { ...die, value: Math.ceil(Math.random() * 6) }
+            )
+        })
+    }
+
+    return (
+        <main>
+            <h1 className="title">Tenzies</h1>
+            <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
+            <div className="dice-container">
+                {diceElements}
+            </div>
+            <button className="roll-dice" onClick={rollDice}>{buttonText}</button>
+        </main>
+    )
+}
+ */
+/* Lesson 12: Tenzies: End game - part 1 👻*/
+
+/**
+ * // check if the game is won
  * Critical thinking time!
  * 
  * We want to indicate to the user that the game is over
@@ -167,7 +649,6 @@ export default function App() {
     )
 } */
 
-
 /* Lesson 11: Tenzies: Hold dice - part 3 👻*/
 /**
  * Challenge: Update the `rollDice` function to not just roll
@@ -178,6 +659,7 @@ export default function App() {
  * function below. When we're "rolling" a die, we're really
  * just updating the `value` property of the die object.
 */
+
 /* 
 import Die from "./components/Die";
 import { useState } from 'react'
@@ -247,6 +729,7 @@ export default function App() {
  * Hint: as usual, there's more than one way to 
  * accomplish this.
 */
+
 /* 
 import Die from "./components/Die";
 import { useState } from 'react'
@@ -310,6 +793,7 @@ export default function App() {
  * than one way to make that work, so just choose whichever
  * you want)
 */
+
 /* 
 import Die from "./components/Die";
 import { useState } from 'react'
@@ -549,6 +1033,7 @@ export default function App() {
  * of Die components and render those in place of our
  * manually-written 10 Die elements.
  */
+
 /* 
 import Die from "./components/Die";
 import { useState} from 'react'
@@ -588,6 +1073,7 @@ export default function App() {
  * 
  * Log the array of numbers to the console for now
 */
+
 /* 
 import Die from "./components/Die";
 
@@ -639,6 +1125,7 @@ export default function App() {
  *      - Use flexbox on main to center the dice container
  *        in the center of the page
  */
+
 /* 
 import Die from "./components/Die";
 
@@ -662,6 +1149,7 @@ export default function App() {
     )
 }
  */
+
 /* Lesson 2: Tenzies: Setup 👻*/
 
 /* 
