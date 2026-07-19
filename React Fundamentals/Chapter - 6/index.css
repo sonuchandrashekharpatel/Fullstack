@@ -200,12 +200,37 @@ section.game-status {
 
 /* Lesson 18: Assembly Endgame - Farewell messages */
 
+section.game-status.farewell {
+    background: #7A5EA7;
+    font-size: 400;
+    font-style: italic;
+    font-size: 1rem;
+    color: #F9F4DA;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
 
 /* Lesson 19: Assembly Endgame - Disable keyboard when the game is over */
 
+section.keyboard button:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
 
 /* Lesson 20: Assembly Endgame - Make the game more a11y-friendly part 1 */
 
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
 
 /* Lesson 21: Assembly Endgame - Make the game more a11y-friendly part 2 */
 
@@ -217,7 +242,9 @@ section.game-status {
 
 
 /* Lesson 24: Assembly Endgame - Display missed letters when lost */
-
+.letter.missed {
+    color: #EC5D49;
+}
 
 /* Lesson 25: Assembly Endgame - 🎊🎊🎊🎊🎊 */
 

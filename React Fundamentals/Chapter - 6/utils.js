@@ -1,3 +1,10 @@
+/* Lesson 22: Assembly Endgame - Choose random word 👻*/
+import { words } from './words.js'
+
+export function getRandomWord() {
+    return words[Math.floor(Math.random() * words.length)]
+}
+
 /* Lesson 18: Assembly Endgame - Farewell messages 👻*/
 export function getFarewellText(language) {
     const options = [
