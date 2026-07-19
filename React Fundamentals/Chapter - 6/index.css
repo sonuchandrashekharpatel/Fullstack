@@ -24,10 +24,10 @@ body {
 }
 
 header {
-    width: 352px;
+    width: 480px;
 }
 
-.title, .status-section h2 {
+.title, section.game-status h2 {
     font-weight: 500;
     font-size: 1.25rem;
     color: #F9F4DA;
@@ -40,24 +40,28 @@ header {
 
 
 /* Lesson 4: Assembly Endgame - Status Section */
-.status-section {
-    background: #10A95B;
+section.game-status {
+    width: 480px;
+    height: 65px;
+    /* background: #10A95B; */
+    background: #262626;
     border-radius: 4px;
     padding: 6px 0;
     margin-block: 30px;
 }
 
-.status-section h2  {
+section.game-status h2  {
     margin: 0;
 }
 
-.status-section p  { 
-    margin: 5px;
+section.game-status p  { 
+    margin: 0px;
 }
 
 /* Lesson 5: Assembly Endgame - Languages List */
 section.language-chips {
     width: 352px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -134,11 +138,11 @@ button.new-game {
 
 
 /* Lesson 9: Assembly Endgame - Keyboard letter styles for guesses */
-section.keyboard .wrong-guessed {
+section.keyboard button.wrong {
     background-color: #EC5D49;
 }
 
-section.keyboard .right-guessed {
+section.keyboard button.correct {
     background-color: #10A95B;
 }
 
@@ -149,13 +153,41 @@ section.keyboard .right-guessed {
 
 
 /* Lesson 12: Assembly Endgame - Lost languages */
+section.language-chips p {
+    position: relative;
+}
+/* Dimmed overlay with skull on "lost" languages */
+p.chip.lost::before {
+    content: "💀";
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    font-size: 0.85rem;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+}
 
 
 /* Lesson 13: Assembly Endgame - isGameOver */
 
 
 /* Lesson 14: Assembly Endgame - Display won/lost status */
+section.game-status.won {
+    background: #10A95B;
 
+}
+
+section.game-status.lost {
+    background-color: #BA2A2A;
+}
+
+section.game-status {
+    padding-bottom: 1em;
+}
 
 /* Lesson 15: Assembly Endgame - Quick CSS alignment fix 🤦🏻‍♂️ */
 

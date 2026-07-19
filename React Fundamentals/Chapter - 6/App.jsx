@@ -27,10 +27,131 @@
 
 
 /* Lesson 18: Assembly Endgame - Farewell messages 👻*/
+/**
+ * Challenge: Bid farewell to each programming language
+ * as it gets erased from existance 👋😭
+ * 
+ * Use the `getFarewellText` function from the new utils.js
+ * file to generate the text.
+ * 
+ * Check hint.md if you're feeling stuck, but do your best
+ * to solve the challenge without the hint! 🕵️
+ */
+
+
+import Header from "./components/Header"
+import { getFarewellText } from "./utils"
+import { languages } from "./languages"
+import { useState, useEffect } from "react"
+import { clsx } from "clsx"
+
+export default function AssemblyEndgame() {
+
+    const [currentWord, setCurrentWord] = useState("react")
+    const [ guessedLetters, setGuessedLetters] = useState([])
+    const [ farewellText , setFarewellText] = useState("")
+    
+    const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length
+
+    useEffect( () => {
+        if (wrongGuessCount) {
+            let language = languages[wrongGuessCount - 1].name
+            setFarewellText(getFarewellText(language))
+        }
+    }, [wrongGuessCount])
+
+    const isGameWon = currentWord.split("").every(letter => guessedLetters.includes(letter))
+    const isGameLost = wrongGuessCount >= languages.length - 1;
+
+    const isGameOver = isGameWon || isGameLost
+    
+    const alphabet = "abcdefghijklmnopqrstuvwxyz"
+    
+    function addGuessedLetter(letter) {
+        setGuessedLetters(prevGuessedLetters => prevGuessedLetters.includes(letter) ? prevGuessedLetters : [...prevGuessedLetters, letter])
+    }
+
+    const keyboardElements = alphabet.split("").map(letter => {
+
+            const isGuessed = guessedLetters.includes(letter)
+            const isCorrect = isGuessed && currentWord.split("").includes(letter)
+            const isWrong = isGuessed && !currentWord.split("").includes(letter)
+            const className = clsx({
+                correct: isCorrect,
+                wrong: isWrong
+            })
+
+            return <button 
+                className={className}
+                key={letter}
+                onClick={()=> addGuessedLetter(letter)}
+                >{letter.toUpperCase()}
+            </button>
+        })
+    
+    const languageElements = languages.map((lang, index) => {
+        
+        const styles = { backgroundColor: lang.backgroundColor, color: lang.color}
+        const className = clsx("chip", index < wrongGuessCount && "lost") 
+
+        return <p className={className} key={lang.name} style={styles}>{lang.name}</p>
+    })
+    
+    const letterElements = currentWord.split("")
+        .map((letter, index) => {
+            const isGuessed = guessedLetters.includes(letter)
+
+            return <span 
+                key={index}
+                className="letter"
+            >{ isGuessed && letter.toUpperCase()}
+            </span>
+
+        })
+
+        const gameStatusClass = clsx("game-status", isGameWon && "won", isGameLost && "lost")
+    return (
+        <main>
+            <Header />
+            <section className={gameStatusClass}>
+                {isGameWon && <div>
+                    <h2>You win!</h2>
+                    <p>Well done! 🎉</p>
+                </div>}
+
+                { isGameLost && <div>
+                    <h2>Game over!</h2>
+                    <p>You lose! Better start learning Assembly 😭</p>
+                </div>}
+
+                { farewellText && 
+                    <p>{farewellText}</p>
+
+                }
+
+            </section>
+
+
+            <section className="language-chips">
+                {languageElements}
+            </section>
+
+            <section className="word">{letterElements}</section>
+            <section className="keyboard">{keyboardElements}</section>
+            { isGameOver && <button className="new-game">New Game</button> }
+        </main>
+    )
+}
 
 
 /* Lesson 17: Assembly Endgame - Backlog inventory */
-
+/**
+ * 
+ * - Farewell messages in the status section
+ * - Fix a11y issues
+ * - Choose a random word from a list of words
+ * - Confetti drops when user wins    
+*/
 
 /* Lesson 16: Assembly Endgame - Conditional rendering with a helper function */
 
@@ -39,22 +160,476 @@
 
 
 /* Lesson 14: Assembly Endgame - Display won/lost status 👻*/
+/**
+ * Goal: Add in the incorrect guesses mechanism to the game
+ * 
+ * Challenge:
+ * Conditionally render either the "won" or "lost" statuses
+ * from the design, both the text and the styles, based on the
+ * new derived variables.
+ * 
+ * Note: We always want the surrounding `section` to be rendered,
+ * so only change the content inside that section. Otherwise the
+ * content on the page would jump around a bit too much.
+ */
+
+/* 
+import Header from "./components/Header"
+import { languages } from "./languages"
+import { useState } from "react"
+import { clsx } from "clsx"
+
+export default function AssemblyEndgame() {
+
+    const [currentWord, setCurrentWord] = useState("react")
+    const [ guessedLetters, setGuessedLetters] = useState([])
+    
+    const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length
+
+    const isGameWon = currentWord.split("").every(letter => guessedLetters.includes(letter))
+    const isGameLost = wrongGuessCount >= languages.length - 1;
+
+    const isGameOver = isGameWon || isGameLost
+    
+    const alphabet = "abcdefghijklmnopqrstuvwxyz"
+    
+    function addGuessedLetter(letter) {
+        setGuessedLetters(prevGuessedLetters => prevGuessedLetters.includes(letter) ? prevGuessedLetters : [...prevGuessedLetters, letter])
+    }
+
+    const keyboardElements = alphabet.split("").map(letter => {
+
+            const isGuessed = guessedLetters.includes(letter)
+            const isCorrect = isGuessed && currentWord.split("").includes(letter)
+            const isWrong = isGuessed && !currentWord.split("").includes(letter)
+            const className = clsx({
+                correct: isCorrect,
+                wrong: isWrong
+            })
+
+            return <button 
+                className={className}
+                key={letter}
+                onClick={()=> addGuessedLetter(letter)}
+                >{letter.toUpperCase()}
+            </button>
+        })
+    
+    const languageElements = languages.map((lang, index) => {
+        
+        const styles = { backgroundColor: lang.backgroundColor, color: lang.color}
+        const className = clsx("chip", index < wrongGuessCount && "lost") 
+
+        return <p className={className} key={lang.name} style={styles}>{lang.name}</p>
+    })
+    
+    const letterElements = currentWord.split("")
+        .map((letter, index) => {
+            const isGuessed = guessedLetters.includes(letter)
+
+            return <span 
+                key={index}
+                className="letter"
+            >{ isGuessed && letter.toUpperCase()}
+            </span>
+
+        })
+
+        const gameStatusClass = clsx("game-status", isGameWon && "won", isGameLost && "lost")
+    return (
+        <main>
+            <Header />
+            <section className={gameStatusClass}>
+                {isGameWon && <div>
+                    <h2>You win!</h2>
+                    <p>Well done! 🎉</p>
+                </div>}
+
+                { isGameLost && <div>
+                    <h2>Game over!</h2>
+                    <p>You lose! Better start learning Assembly 😭</p>
+                </div>}
+
+            </section>
+
+
+            <section className="language-chips">
+                {languageElements}
+            </section>
+
+            <section className="word">{letterElements}</section>
+            <section className="keyboard">{keyboardElements}</section>
+            { isGameOver && <button className="new-game">New Game</button> }
+        </main>
+    )
+}
+
+                // { isGameOver ? (
+                //     isGameWon ? (
+                //         <>
+                //             <h2>You win!</h2>
+                //             <p>Well done! 🎉</p>
+                //         </>
+                //     ) : (
+                //         <>
+                //             <h2>Game over!</h2>
+                //             <p>You lose! Better start learning Assembly 😭</p>
+                //         </>
+                //     )
+                // ) : (
+                //         null
+                //     )
+                // } 
+ */
 
 
 /* Lesson 13: Assembly Endgame - isGameOver 👻*/
+/**
+ * Goal: Add in the incorrect guesses mechanism to the game
+ * 
+ * Challenge:
+ * 1. Create a variable `isGameOver` which evaluates to `true`
+ *    if the user has guessed incorrectly 8 times. Consider how
+ *    we might make this more dynamic if we were ever to add or
+ *    remove languages from the languages array.
+ * 2. Conditionally render the New Game button only if the game
+ *    is over.
+ */
+/* 
+import Header from "./components/Header"
+import { languages } from "./languages"
+import { useState } from "react"
+import { clsx } from "clsx"
 
+export default function AssemblyEndgame() {
+
+    const [currentWord, setCurrentWord] = useState("react")
+    const [ guessedLetters, setGuessedLetters] = useState([])
+    
+    const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length
+
+    const isGameOver = wrongGuessCount >= languages.length - 1;
+    
+    const alphabet = "abcdefghijklmnopqrstuvwxyz"
+    
+    function addGuessedLetter(letter) {
+        setGuessedLetters(prevGuessedLetters => prevGuessedLetters.includes(letter) ? prevGuessedLetters : [...prevGuessedLetters, letter])
+    }
+
+    const keyboardElements = alphabet.split("").map(letter => {
+
+            const isGuessed = guessedLetters.includes(letter)
+            const isCorrect = isGuessed && currentWord.split("").includes(letter)
+            const isWrong = isGuessed && !currentWord.split("").includes(letter)
+            const className = clsx({
+                correct: isCorrect,
+                wrong: isWrong
+            })
+
+            return <button 
+                className={className}
+                key={letter}
+                onClick={()=> addGuessedLetter(letter)}
+                >{letter.toUpperCase()}
+            </button>
+        })
+    
+    const languageElements = languages.map((lang, index) => {
+        
+        const styles = { backgroundColor: lang.backgroundColor, color: lang.color}
+        const className = clsx("chip", index < wrongGuessCount && "lost") 
+
+        return <p className={className} key={lang.name} style={styles}>{lang.name}</p>
+    })
+    
+    const letterElements = currentWord.split("")
+        .map((letter, index) => {
+            const isGuessed = guessedLetters.includes(letter)
+
+            return <span 
+                key={index}
+                className="letter"
+            >{ isGuessed && letter.toUpperCase()}
+            </span>
+
+        })
+
+    return (
+        <main>
+            <Header />
+            <section className="game-status">
+                <h2>You win!</h2>
+                <p>Well done! 🎉</p>
+            </section>
+            <section className="language-chips">
+                {languageElements}
+            </section>
+
+            <section className="word">{letterElements}</section>
+            <section className="keyboard">{keyboardElements}</section>
+            { isGameOver && <button className="new-game">New Game</button> }
+        </main>
+    )
+}
+ */
 
 /* Lesson 12: Assembly Endgame - Lost languages 👻*/
+/**
+ * Goal: Add in the incorrect guesses mechanism to the game
+ * 
+ * Challenge: When mapping over the languages, determine how
+ * many of them have been "lost" and add the "lost" class if
+ * so.
+ * 
+ * Hint: use the wrongGuessCount combined with the index of
+ * the item in the array while inside the languages.map code
+*/
+/* 
+import Header from "./components/Header"
+import { languages } from "./languages"
+import { useState } from "react"
+import { clsx } from "clsx"
 
+export default function AssemblyEndgame() {
+
+    const [currentWord, setCurrentWord] = useState("react")
+    const [ guessedLetters, setGuessedLetters] = useState([])
+    
+    const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length
+
+    const alphabet = "abcdefghijklmnopqrstuvwxyz"
+    
+    function addGuessedLetter(letter) {
+        setGuessedLetters(prevGuessedLetters => prevGuessedLetters.includes(letter) ? prevGuessedLetters : [...prevGuessedLetters, letter])
+    }
+
+    const keyboardElements = alphabet.split("").map(letter => {
+
+            const isGuessed = guessedLetters.includes(letter)
+            const isCorrect = isGuessed && currentWord.split("").includes(letter)
+            const isWrong = isGuessed && !currentWord.split("").includes(letter)
+            const className = clsx({
+                correct: isCorrect,
+                wrong: isWrong
+            })
+
+            return <button 
+                className={className}
+                key={letter}
+                onClick={()=> addGuessedLetter(letter)}
+                >{letter.toUpperCase()}
+            </button>
+        })
+    
+    const languageElements = languages.map((lang, index) => {
+        
+        const styles = { backgroundColor: lang.backgroundColor, color: lang.color}
+        const className = clsx("chip", index < wrongGuessCount && "lost") 
+
+        return <p className={className} key={lang.name} style={styles}>{lang.name}</p>
+    })
+    
+    const letterElements = currentWord.split("")
+        .map((letter, index) => {
+            const isGuessed = guessedLetters.includes(letter)
+
+            return <span 
+                key={index}
+                className="letter"
+            >{ isGuessed && letter.toUpperCase()}
+            </span>
+
+        })
+
+    return (
+        <main>
+            <Header />
+            <section className="game-status">
+                <h2>You win!</h2>
+                <p>Well done! 🎉</p>
+            </section>
+            <section className="language-chips">
+                {languageElements}
+            </section>
+
+            <section className="word">{letterElements}</section>
+            <section className="keyboard">{keyboardElements}</section>
+            <button className="new-game">New Game</button>
+        </main>
+    )
+}
+ */
 
 /* Lesson 11: Assembly Endgame - Wrong guess count 👻*/
+/**
+ * Goal: Add in the incorrect guesses mechanism to the game
+ * 
+ * Challenge: Derive a variable (`wrongGuessCount`) for the 
+ * number of incorrect guesses by using the other state 
+ * values we're already holding in the component.
+ * 
+ * console.log the wrongGuessCount for now
+ */
 
+/* 
+import Header from "./components/Header"
+import { languages } from "./languages"
+import { useState } from "react"
+import { clsx } from "clsx"
+
+export default function AssemblyEndgame() {
+
+    const [currentWord, setCurrentWord] = useState("react")
+    const [ guessedLetters, setGuessedLetters] = useState([])
+    
+    let wrongGuessedCount = 0
+    for(let letter of guessedLetters) {
+        !currentWord.includes(letter) && wrongGuessedCount++
+    }
+    console.log(wrongGuessedCount)
+
+    const alphabet = "abcdefghijklmnopqrstuvwxyz"
+    
+    function addGuessedLetter(letter) {
+        setGuessedLetters(prevGuessedLetters => prevGuessedLetters.includes(letter) ? prevGuessedLetters : [...prevGuessedLetters, letter])
+    }
+
+    const keyboardElements = alphabet.split("").map(letter => {
+
+            const isGuessed = guessedLetters.includes(letter)
+            const isCorrect = isGuessed && currentWord.split("").includes(letter)
+            const isWrong = isGuessed && !currentWord.split("").includes(letter)
+            const className = clsx({
+                correct: isCorrect,
+                wrong: isWrong
+            })
+
+            return <button 
+                className={className}
+                key={letter}
+                onClick={()=> addGuessedLetter(letter)}
+                >{letter.toUpperCase()}
+            </button>
+        })
+    
+    const languageElements = languages.map(lang => {
+        
+        const styles = { backgroundColor: lang.backgroundColor, color: lang.color}
+        return <p key={lang.name} style={styles}>{lang.name}</p>
+    })
+    
+    const letterElements = currentWord.split("")
+        .map((letter, index) => {
+            const isGuessed = guessedLetters.includes(letter)
+
+            return <span 
+                key={index}
+                className="letter"
+            >{ isGuessed && letter.toUpperCase()}
+            </span>
+
+        })
+
+    return (
+        <main>
+            <Header />
+            <section className="game-status">
+                <h2>You win!</h2>
+                <p>Well done! 🎉</p>
+            </section>
+            <section className="language-chips">
+                {languageElements}
+            </section>
+
+            <section className="word">{letterElements}</section>
+            <section className="keyboard">{keyboardElements}</section>
+            <button className="new-game">New Game</button>
+        </main>
+    )
+}
+ */
 
 /* Lesson 10: Assembly Endgame - Only display correctly guessed letters in word 👻*/
+/**
+ * Goal: Allow the user to start guessing the letters
+ * 
+ * Challenge: Only display the correctly-guessed letters
+ * in the word
+ */
 
+/* 
+import Header from "./components/Header"
+import { languages } from "./languages"
+import { useState } from "react"
+import { clsx } from "clsx"
+
+export default function AssemblyEndgame() {
+
+    const [currentWord, setCurrentWord] = useState("react")
+    const [ guessedLetters, setGuessedLetters] = useState([])
+    
+    const alphabet = "abcdefghijklmnopqrstuvwxyz"
+    
+    function addGuessedLetter(letter) {
+        setGuessedLetters(prevGuessedLetters => prevGuessedLetters.includes(letter) ? prevGuessedLetters : [...prevGuessedLetters, letter])
+    }
+
+    const keyboardElements = alphabet.split("").map(letter => {
+
+            const isGuessed = guessedLetters.includes(letter)
+            const isCorrect = isGuessed && currentWord.split("").includes(letter)
+            const isWrong = isGuessed && !currentWord.split("").includes(letter)
+            const className = clsx({
+                correct: isCorrect,
+                wrong: isWrong
+            })
+
+            return <button 
+                className={className}
+                key={letter}
+                onClick={()=> addGuessedLetter(letter)}
+                >{letter.toUpperCase()}
+            </button>
+        })
+    
+    const languageElements = languages.map(lang => {
+        
+        const styles = { backgroundColor: lang.backgroundColor, color: lang.color}
+        return <p key={lang.name} style={styles}>{lang.name}</p>
+    })
+    
+    const letterElements = currentWord.split("")
+        .map((letter, index) => {
+            const isGuessed = guessedLetters.includes(letter)
+
+            return <span 
+                key={index}
+                className="letter"
+            >{ isGuessed && letter.toUpperCase()}
+            </span>
+
+        })
+
+    return (
+        <main>
+            <Header />
+            <section className="game-status">
+                <h2>You win!</h2>
+                <p>Well done! 🎉</p>
+            </section>
+            <section className="language-chips">
+                {languageElements}
+            </section>
+
+            <section className="word">{letterElements}</section>
+            <section className="keyboard">{keyboardElements}</section>
+            <button className="new-game">New Game</button>
+        </main>
+    )
+}
+ */
 
 /* Lesson 9: Assembly Endgame - Keyboard letter styles for guesses 👻*/
-
 /**
  * Goal: Allow the user to start guessing the letters
  * 
@@ -66,12 +641,13 @@
  * to learn how to use it 📖
 */
 
+/* 
 import Header from "./components/Header"
 import { languages } from "./languages"
 import { useState } from "react"
 import { clsx } from "clsx"
 
-export default function AssembyEndgame() {
+export default function AssemblyEndgame() {
 
     const [currentWord, setCurrentWord] = useState("react")
     const [ guessedLetters, setGuessedLetters] = useState([])
@@ -86,14 +662,24 @@ export default function AssembyEndgame() {
     const keyboardElements = alphabet.split("")
         .map(letter => {
             
-            let className = "key"
-            if(guessedLetters.includes(letter)){
-                if(currentWord.split("").includes(letter)){
-                    className += " right-guessed"
-                } else {
-                    className += " wrong-guessed"
-                }
-            }
+            // let className = ""
+            // if(guessedLetters.includes(letter)){
+            //     if(currentWord.split("").includes(letter)){
+            //         className += " right-guessed"
+            //     } else {
+            //         className += " wrong-guessed"
+            //     }
+            // }
+            const isGuessed = guessedLetters.includes(letter)
+            const isCorrect = isGuessed && currentWord.split("").includes(letter)
+            const isWrong = isGuessed && !currentWord.split("").includes(letter)
+            const className = clsx({
+                correct: isCorrect,
+                wrong: isWrong
+            })
+
+            console.log(className)
+
             return <button 
                 className={className}
                 key={letter}
@@ -121,7 +707,7 @@ export default function AssembyEndgame() {
     return(
         <main>
             <Header />
-            <section className="status-section">
+            <section className="game-status">
                 <h2>You win!</h2>
                 <p>Well done! 🎉</p>
             </section>
@@ -135,7 +721,7 @@ export default function AssembyEndgame() {
         </main>
     )
 }
-
+ */
 
 /* Lesson 8: Assembly Endgame - Save the guessed letters 👻👻👻*/
 /**
@@ -165,7 +751,7 @@ import Header from "./components/Header"
 import { languages } from "./languages"
 import { useState } from "react"
 
-export default function AssembyEndgame() {
+export default function AssemblyEndgame() {
 
     const [currentWord, setCurrentWord] = useState("react")
     const [ guessedLetters, setGuessedLetters] = useState([])
@@ -207,7 +793,7 @@ export default function AssembyEndgame() {
     return(
         <main>
             <Header />
-            <section className="status-section">
+            <section className="game-status">
                 <h2>You win!</h2>
                 <p>Well done! 🎉</p>
             </section>
@@ -235,7 +821,7 @@ export default function AssembyEndgame() {
 import { languages } from "./languages"
 import { useState } from "react"
 
-export default function AssembyEndgame() {
+export default function AssemblyEndgame() {
 
     const [currentWord, setCurrentWord] = useState("react")
     
@@ -262,7 +848,7 @@ export default function AssembyEndgame() {
     return(
         <main>
             <Header />
-            <section className="status-section">
+            <section className="game-status">
                 <h2>You win!</h2>
                 <p>Well done! 🎉</p>
             </section>
@@ -297,7 +883,7 @@ import Header from "./components/Header"
 import { languages } from "./languages"
 import { useState } from "react"
 
-export default function AssembyEndgame() {
+export default function AssemblyEndgame() {
 
     const [currentWord, setCurrentWord] = useState("react")
     
@@ -319,7 +905,7 @@ export default function AssembyEndgame() {
     return(
         <main>
             <Header />
-            <section className="status-section">
+            <section className="game-status">
                 <h2>You win!</h2>
                 <p>Well done! 🎉</p>
             </section>
@@ -349,7 +935,7 @@ export default function AssembyEndgame() {
 import Header from "./components/Header"
 import { languages } from "./languages"
 
-export default function AssembyEndgame() {
+export default function AssemblyEndgame() {
 
     const languageElements = languages.map(lang => {
 
@@ -360,7 +946,7 @@ export default function AssembyEndgame() {
     return(
         <main>
             <Header />
-            <section className="status-section">
+            <section className="game-status">
                 <h2>You win!</h2>
                 <p>Well done! 🎉</p>
             </section>
@@ -384,12 +970,12 @@ export default function AssembyEndgame() {
 /* 
 import Header from "./components/Header";
 
-export default function AssembyEndgame() {
+export default function AssemblyEndgame() {
 
     return(
         <main>
             <Header />
-            <section className="status-section">
+            <section className="game-status">
                 <h2>You win!</h2>
                 <p>Well done! 🎉</p>
             </section>
@@ -409,7 +995,7 @@ export default function AssembyEndgame() {
 /* 
 import Header from "./components/Header";
 
-export default function AssembyEndgame() {
+export default function AssemblyEndgame() {
 
     return(
         <main>
