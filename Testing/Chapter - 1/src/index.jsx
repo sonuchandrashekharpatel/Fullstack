@@ -1,13 +1,84 @@
 /* Chapter - 1: Testing */
 
 /* Lesson 12: Congratulations! */
+/* 
+What you learned:
+1. What is testing is
+2. Why test our apps
+3. Setting up the tooling
+4. Writing your first test
+5. Organizing your test
+6. Structuring your test
+7. Testing user interactions
+8. Mocking external services
+9. Code coverage
+10. Accessibility testing
+11. TDD
+12. Different types of testing
+13. Vitest
+14. React Testing Library
+15. Mock Service Worker
 
+...with lots of challanges
+
+*/
 
 /* Lesson 11: Types of testing */
+/* 
+Types of Testing:
+How ?
+1. Manual Testing
+2. Automated testing
+1. Functional Testing
+2. Not-functinal Testing
+3. Unit testing
+4. Component testing
+5. Integration Testing
+6. End to end testing
+7. System Testing 
+8. UI Testing
+9. Acceptance Testing
+10. API Testing
+11. Contract testing
+12. Usability testing
+13. Accessibility Testing
+14. Compatablity Testing
+15. Performance Testing
+16. Stress Testing
+17. Load Testing
+18. Security Testing
 
+How Much and why?
+1. Regression Testing
+2. Smoke Testing
+
+At What level of abstraction:
+1. Black box testing
+2. Gray box testin
+3. White box testing
+
+Recap: 
+1. Different ways to classify testing
+2. Different types of testing
+3. Manual vs automated testing
+4. Functional vs non-functional testing
+5. Regression vs smoke testing
+6. Black box, gray box and white box testing
+
+*/
 
 /* Lesson 10: Accessibility testing with a side of TDD 👻*/
 /* 
+Accessibility Testing:
+It's a type of testing that ensures "that the web app can be use 
+by people with disablilities, conforming to accessibility 
+guidelines such as the web content Accessibility Guidelines."
+ ~ MDN
+
+TTest Driven Devlopment
+  1. Write a failing test
+  2. Write just enough code to make it pass
+  3. Refactor to improve the code.
 
 */
 
