@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1784521158789" clover="3.2.0">
+  <project timestamp="1784521158789" name="All files">
+    <metrics statements="14" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="10" coveredmethods="8" elements="24" coveredelements="20" complexity="0" loc="14" ncloc="14" packages="2" files="3" classes="3"/>
+    <package name="src">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="App.jsx" path="C:/Career/GitHub/Fullstack/Testing/Chapter - 1/src/App.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="5" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components">
+      <metrics statements="13" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="7"/>
+      <file name="Header.jsx" path="C:/Career/GitHub/Fullstack/Testing/Chapter - 1/src/components/Header.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="4" count="3" type="stmt"/>
+      </file>
+      <file name="Main.jsx" path="C:/Career/GitHub/Fullstack/Testing/Chapter - 1/src/components/Main.jsx">
+        <metrics statements="12" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="6"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="10" count="6" type="stmt"/>
+        <line num="12" count="6" type="stmt"/>
+        <line num="13" count="4" type="stmt"/>
+        <line num="14" count="4" type="stmt"/>
+        <line num="15" count="4" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="35" count="6" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
