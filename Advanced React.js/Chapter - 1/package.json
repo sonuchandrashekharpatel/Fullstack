@@ -1,0 +1,25 @@
+{
+  "name": "reusability",
+  "version": "1.0.0",
+  "description": "Understanding the concept of Reusability",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "attach": "node --inspect-brk ./node_modules/vite/bin/vite.js"
+  },
+  "author": "Sonu Patel",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-icons": "^5.7.0",
+    "vite": "^8.1.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.3"
+  }
+}

@@ -5,19 +5,130 @@
 
 
 /* Lesson 2: Button - props review challenge */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #e9e3ff;
+}
+
+main {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    background-color: #E5E7EB;
+    color: #4B5563;
+    border: 1px solid #6B7280;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    font-weight: 700;
+    padding: 9px 17px;
+    border-radius: 6px;
+    line-height: 24px;
+}
 
 
 /* Lesson 3: Aside - children in HTML */
 
 
 /* Lesson 4: Aside - React Children */
+/* * {
+    box-sizing: border-box;
+}
 
+@font-face {
+    font-family: "RubikDistressed";
+    src: url("/fonts/RubikDistressed-Regular.ttf") format("truetype");
+}
 
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #e9e3ff;
+}
+
+main {
+    height: 100vh;
+    width: 100vw;
+}
+
+.marquee {
+    height: 50px;
+    white-space: nowrap;
+    position: relative;
+    background-color: #e9e3ff;
+    color: #333;
+}
+
+.marquee h1 {
+    font-family: RubikDistressed;
+    position: absolute;
+    height: 100%;
+    margin: 0;
+    line-height: 50px;
+    text-align: center;
+    -moz-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    -moz-animation: scroll-left 15s linear infinite;
+    -webkit-animation: scroll-left 15s linear infinite;
+    animation: scroll-left 15s linear infinite;
+}
+
+@-moz-keyframes scroll-left {
+    0% {
+        -moz-transform: translateX(100%);
+    }
+    100% {
+        -moz-transform: translateX(-100%);
+    }
+}
+
+@-webkit-keyframes scroll-left {
+    0% {
+        -webkit-transform: translateX(100%);
+    }
+    100% {
+        -webkit-transform: translateX(-100%);
+    }
+}
+
+@keyframes scroll-left {
+    0% {
+        -moz-transform: translateX(100%);
+        -webkit-transform: translateX(100%);
+        transform: translateX(100%);
+    }
+    100% {
+        -moz-transform: translateX(-100%);
+        -webkit-transform: translateX(-100%);
+        transform: translateX(-100%);
+    }
+}
+ */
 /* Lesson 5: Challenge - Button w/ Children */
 
 
 /* Lesson 6: Button - More Complex React Children */
+button {
+    display: flex;
+    align-items: center;
+}
 
+button > svg {
+    font-size: 20px;
+    margin-right: 8px;
+    color: green;
+}
 
 /* Lesson 7: Challenge - add onClick event listener */
 
@@ -30,6 +141,14 @@
 
 /* Lesson 10: Button - size prop */
 
+button.button-small {
+    padding: 7px 11px;
+    font-size: 12px;
+}
+
+button.button-large {
+    padding: 30px 40px;
+}
 
 /* Lesson 11: Button - fix className issue */
 

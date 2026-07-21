@@ -103,12 +103,13 @@ export default function AssemblyEndgame() {
         setGuessedLetters([])
         setFarewellText("")
     }
+      // recycle={false}
+    // NumberOfPieces={3000}
     return (
         <main>
             { isGameWon && 
                 <ReactConfetti
-                recycle={false}
-                NumberOfPieces={3000}
+              
                 />
             }
             <Header />
