@@ -46,25 +46,226 @@
 
 
 /* Lesson 39: Checking localStorage before rendering */
+let myLeads = []
+const inputEl = document.getElementById("input-el")
+const inputBtn = document.getElementById("input-btn")
+const ulEl = document.getElementById("ul-el")
+
+// ["lead1", "lead2"] or null
+let leadsFromLocalStorage = JSON.parse( localStorage.getItem("myLeads") )
+
+// 1. Check if leadsFromLocalStorage is truthy
+
+// 2. If so, set myLeads to its value and call renderLeads()
+ if(leadsFromLocalStorage.length)  {
+    myLeads = leadsFromLocalStorage
+    renderLeads()
+ } 
+inputBtn.addEventListener("click", function() {
+    myLeads.push(inputEl.value)
+    inputEl.value = ""
+    localStorage.setItem("myLeads", JSON.stringify(myLeads) )
+    renderLeads()
+})
+
+function renderLeads() {
+    let listItems = ""
+    for (let i = 0; i < myLeads.length; i++) {
+        listItems += `
+            <li>
+                <a target='_blank' href='${myLeads[i]}'>
+                    ${myLeads[i]}
+                </a>
+            </li>
+        `
+    }
+    ulEl.innerHTML = listItems  
+}
 
 
 /* Lesson 38: Guess the expression - truthy or falsy? */
-
+/* 
+console.log(  Boolean("")   ) // false
+console.log(  Boolean("0")  ) //true
+console.log(  Boolean(100)  ) //true
+console.log(  Boolean(null) ) //false
+console.log(  Boolean([0])  ) //true
+console.log(  Boolean(-0)   ) //false
+ */
 
 /* Lesson 37: Truthy and falsy values */
+/* 
+// const credits = 0
 
+// if (credits) {
+//     console.log("Let's play 🎰")
+// } else {
+//     console.log("Sorry, you have no credits 😭")
+// }
+
+// truthy
+// falsy
+
+// false
+// 0
+// ""
+// null -> how you as a developer signalize emptiness
+// undefined -> how JavaScript signalizes emptiness
+// NaN
+
+let currentViewers = ["jane"]
+
+console.log(currentViewers[5])
+
+*/
 
 /* Lesson 36: Get the leads from localStorage */
+/* 
+let myLeads = []
+const inputEl = document.getElementById("input-el")
+const inputBtn = document.getElementById("input-btn")
+const ulEl = document.getElementById("ul-el")
 
+// Get the leads from the localStorage - PS: JSON.parse()
+const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"))
+// Store it in a variable, leadsFromLocalStorage
+// Log out the variable
+console.log(leadsFromLocalStorage)
+
+inputBtn.addEventListener("click", function() {
+    myLeads.push(inputEl.value)
+    inputEl.value = ""
+    localStorage.setItem("myLeads", JSON.stringify(myLeads) )
+    renderLeads()
+    
+    // To verify that it works:
+    console.log( localStorage.getItem("myLeads") )
+})
+
+function renderLeads() {
+    let listItems = ""
+    for (let i = 0; i < myLeads.length; i++) {
+        listItems += `
+            <li>
+                <a target='_blank' href='${myLeads[i]}'>
+                    ${myLeads[i]}
+                </a>
+            </li>
+        `
+    }
+    ulEl.innerHTML = listItems  
+}
+
+*/
 
 /* Lesson 35: Save the leads to localStorage */
+/* 
+let myLeads = []
+const inputEl = document.getElementById("input-el")
+const inputBtn = document.getElementById("input-btn")
+const ulEl = document.getElementById("ul-el")
 
+inputBtn.addEventListener("click", function() {
+    myLeads.push(inputEl.value)
+    inputEl.value = ""
+    // Save the myLeads array to localStorage 
+    localStorage.setItem("myLeads", JSON.stringify(myLeads))
+    // PS: remember JSON.stringify()
+    
+    renderLeads()
+    
+    // To verify that it works:
+    console.log( localStorage.getItem("myLeads") )
+})
+
+function renderLeads() {
+    let listItems = ""
+    for (let i = 0; i < myLeads.length; i++) {
+        listItems += `
+            <li>
+                <a target='_blank' href='${myLeads[i]}'>
+                    ${myLeads[i]}
+                </a>
+            </li>
+        `
+    }
+    ulEl.innerHTML = listItems  
+}
+ */
 
 /* Lesson 34: Storing arrays in localStorage */
 
+/* 
+let myLeads = `["www.awesomelead.com"]`
+const inputEl = document.getElementById("input-el")
+const inputBtn = document.getElementById("input-btn")
+const ulEl = document.getElementById("ul-el")
+
+// 1. Turn the myLeads string into an array
+myLeads = JSON.parse(myLeads)
+
+// 2. Push a new value to the array
+myLeads.push("www.epiclead.com")
+
+// 3. Turn the array into a string again
+myLeads = JSON.stringify(myLeads)
+
+// 4. Console.log the string using typeof to verify that it's a string
+console.log(typeof myLeads)
+
+inputBtn.addEventListener("click", function() {
+    myLeads.push(inputEl.value)
+    inputEl.value = ""
+    renderLeads()
+})
+
+function renderLeads() {
+    let listItems = ""
+    for (let i = 0; i < myLeads.length; i++) {
+        listItems += `<li><a target='_blank' href='${myLeads[i]}'> ${myLeads[i]}</a></li>`
+    }
+    ulEl.innerHTML = listItems  
+}
+
+renderLeads()
+ */
 
 /* Lesson 33: Your first localStorage */
 
+/* 
+let myLeads = ["www.awesomelead.com", "epiclead.com"]
+const inputEl = document.getElementById("input-el")
+const inputBtn = document.getElementById("input-btn")
+const ulEl = document.getElementById("ul-el")
+
+// 1. Save a key-value pair in localStorage
+// localStorage.setItem("myName", "Sonu Patel")
+
+// Refresh the page. get value and log it to the console
+
+console.log(localStorage.getItem("myName"))
+
+// Clear localStorage
+
+localStorage.clear()
+
+
+inputBtn.addEventListener("click", function() {
+    myLeads.push(inputEl.value)
+    inputEl.value = ""
+    renderLeads()
+})
+
+function renderLeads() {
+    let listItems = ""
+    for (let i = 0; i < myLeads.length; i++) {
+        listItems += `<li><a target='_blank' href='${myLeads[i]}'> ${myLeads[i]}</a></li>`
+    }
+    ulEl.innerHTML = listItems  
+}
+
+renderLeads()
+ */
 
 /* Lesson 32: What is localStorage? */
 
@@ -76,33 +277,245 @@
 
 
 /* Lesson 29: Style the list */
+/* 
+let myLeads = ["www.awesomelead.com", "epiclead.com"]
+const inputEl = document.getElementById("input-el")
+const inputBtn = document.getElementById("input-btn")
+const ulEl = document.getElementById("ul-el")
 
+inputBtn.addEventListener("click", function() {
+    myLeads.push(inputEl.value)
+    inputEl.value = ""
+    renderLeads()
+})
+
+function renderLeads() {
+    let listItems = ""
+    for (let i = 0; i < myLeads.length; i++) {
+        listItems += `<li><a target='_blank' href='${myLeads[i]}'> ${myLeads[i]}</a></li>`
+    }
+    ulEl.innerHTML = listItems  
+}
+
+renderLeads()
+ */
+
+/* Lesson Updates: Aside: Convert string to numbers with Number() */
+/* 
+// reference html elements
+const form = document.getElementById('form');
+const numOneInput = document.getElementById('num1');
+const numTwoInput = document.getElementById('num2');
+const resultText = document.getElementById('result');
+
+// form event listener
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    // we can convert the strings into numbers using the Number() function
+    const numOneVal = Number(numOneInput.value); 
+    const numTwoVal = Number(numTwoInput.value);
+    
+    console.log(`numOneVal is of type: ${typeof numOneVal}, with a value of ${numOneVal}`);
+    console.log(`numTwoVal is of type: ${typeof numTwoVal}, with a value of ${numTwoVal}`);
+    // now the numbers add up correctly
+    resultText.innerText = `${numOneVal} + ${numTwoVal} = ${numOneVal + numTwoVal}`;
+})
+ */
 
 /* Lesson 28: Refactor the app to use a template string */
+/* 
+let myLeads = []
+const inputEl = document.getElementById("input-el")
+const inputBtn = document.getElementById("input-btn")
+const ulEl = document.getElementById("ul-el")
 
+inputBtn.addEventListener("click", function() {
+    myLeads.push(inputEl.value)
+    inputEl.value = ""
+    renderLeads()
+})
+
+function renderLeads() {
+    let listItems = ""
+    for (let i = 0; i < myLeads.length; i++) {
+        // Refactor the code below to use a template string
+        listItems += `<li><a target='_blank' href='${myLeads[i]}'> ${myLeads[i]}</a></li>`
+    }
+    ulEl.innerHTML = listItems  
+}
+
+*/
 
 /* Lesson 27: Template strings on multiple lines */
+/* 
+// template strings/literals
 
+const recipient = "James"
+const sender = "Per Harald Borgen"
+
+// Break the email string into multiple lines
+const email = `Hey ${recipient}!
+How is it going? Cheers 
+ 
+Regards 
+${sender}`
+
+console.log(email)
+*/
 
 /* Lesson 26: Make the template string even more dynamic */
+/* 
+// template strings/literals
 
+const recipient = "James"
+// Create a new variable, sender, and set its value to your name
+const sender = "Per"
+// Use your sender variable instead of "Per"
+const email = `Hey ${recipient}! How is it going? Cheers ${sender}`
+
+console.log(email)
+*/
 
 /* Lesson 25: Write your first template string */
+/* 
+// template strings/literals
 
+const recipient = "James"
+
+// Refactor the email string to use template strings
+const email = `Hey ${recipient}! How is it going? Cheers Per`
+
+console.log(email)
+
+*/
 
 /* Lesson 24: Template strings */
 
+/* 
+let myLeads = []
+const inputEl = document.getElementById("input-el")
+const inputBtn = document.getElementById("input-btn")
+const ulEl = document.getElementById("ul-el")
+
+inputBtn.addEventListener("click", function() {
+    myLeads.push(inputEl.value)
+    inputEl.value = ""
+    renderLeads()
+})
+
+function renderLeads() {
+    let listItems = ""
+    for (let i = 0; i < myLeads.length; i++) {
+        listItems += `<li><a target='_blank' href='${myLeads[i]}'> ${myLeads[i]}</a></li>`
+    }
+    ulEl.innerHTML = listItems  
+}
+renderLeads()
+ */
 
 /* Lesson 23: Add the <a> tag */
+/* 
+let myLeads = []
+const inputEl = document.getElementById("input-el")
+const inputBtn = document.getElementById("input-btn")
+const ulEl = document.getElementById("ul-el")
+
+inputBtn.addEventListener("click", function() {
+    myLeads.push(inputEl.value)
+    inputEl.value = ""
+    renderLeads()
+})
+
+function renderLeads() {
+    let listItems = ""
+    for (let i = 0; i < myLeads.length; i++) {
+        // Wrap the lead in an anchor tag (<a>) inside the <li>
+        // Can you make the link open in a new tab?
+        listItems += "<li><a target='_blank' href='" + myLeads[i] + "'>" + myLeads[i] + "</a></li>"
+    }
+    ulEl.innerHTML = listItems  
+}
+renderLeads()
+ */
+/* Lesson Updates: Aside: another way to render leads */
+/* 
+let myLeads = []
+const inputEl = document.getElementById("input-el")
+const inputBtn = document.getElementById("input-btn")
+const ulEl = document.getElementById("ul-el")
+
+inputBtn.addEventListener("click", function() {
+    myLeads.push(inputEl.value)
+    ulEl.innerHTML += "<li>" + inputEl.value + "</li>"
+    inputEl.value = ""
+})
+
+// function renderLeads() {
+//     let listItems = ""
+//     for (let i = 0; i < myLeads.length; i++) {
+//         listItems += "<li>" + myLeads[i] + "</li>"
+//     }
+//     ulEl.innerHTML = listItems  
+// }
+
+*/
 
 
 /* Lesson 22: Clear the input field */
+/* 
+let myLeads = []
+const inputEl = document.getElementById("input-el")
+const inputBtn = document.getElementById("input-btn")
+const ulEl = document.getElementById("ul-el")
 
+inputBtn.addEventListener("click", function() {
+    myLeads.push(inputEl.value)
+    // Clear out the input field
+    inputEl.value = ""
+    renderLeads()
+})
+
+function renderLeads() {
+    let listItems = ""
+    for (let i = 0; i < myLeads.length; i++) {
+        listItems += "<li>" + myLeads[i] + "</li>"
+    }
+    ulEl.innerHTML = listItems  
+}
+
+*/
 
 /* Lesson 21: Create the render function */
+/* 
+1. Wrap the code below in a renderLeads() function
+2. Call the renderLeads() function
+*/
 
+/* 
+let myLeads = ["www.awesomelead.com", "www.epiclead.com", "www.greatlead.com"]
+const inputEl = document.getElementById("input-el")
+const inputBtn = document.getElementById("input-btn")
+const ulEl = document.getElementById("ul-el")
+
+inputBtn.addEventListener("click", function() {
+    myLeads.push(inputEl.value)
+    renderLeads()
+})
+
+function renderLeads() {
+    let listItems = ""
+    for (let i = 0; i < myLeads.length; i++) {
+        listItems += "<li>" + myLeads[i] + "</li>"
+    }
+    
+    ulEl.innerHTML = listItems
+}
+
+renderLeads()
+ */
 
 /* Lesson 20: Improving the performance of our app */
+/* 
 let myLeads = ["www.awesomelead.com", "www.epiclead.com", "www.greatlead.com"]
 const inputEl = document.getElementById("input-el")
 const inputBtn = document.getElementById("input-btn")
@@ -115,15 +528,14 @@ inputBtn.addEventListener("click", function() {
 
 // 1. Create a variable, listItems, to hold all the HTML for the list items
 // Assign it to an empty string to begin with
+
 let listItems = ""
 for (let i = 0; i < myLeads.length; i++) {
     // 2. Add the item to the listItems variable instead of the ulEl.innerHTML
     listItems += "<li>" + myLeads[i] + "</li>"
 }
 // 3. Render the listItems inside the unordered list using ulEl.innerHTML
-ulEl.innerHTML = listItems
-
-
+ulEl.innerHTML = listItems */
 
 
 /* Lesson 19: Use createElement() and append() instead of innerHTML */
