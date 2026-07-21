@@ -157,14 +157,110 @@
 
 
 /* Lesson 14: Menu Component Intro */
+/* 
+What the problem?
 
+Complications:
+1. Inflexible / tightly coupled
+2. Opaque
+3. Not DRY
+4. "Prop drilling"
+
+
+What we'll Learn
+1. Compound Components
+2. React.Children API
+3. Context
+4. Implicit State
+
++ Many challenges!
+
+*/
+import Menu from "./aside/Menu/Menu"
+
+export default function App() {
+  return (
+    <>
+      <Menu
+        buttonText="Sports"
+        items={["Tennis", "Racquetball", "Pickleball", "Squash"]}
+      />
+    </>
+  )
+}
 
 /* Lesson 13: Mega Challenge - Overloaded Avatar Component 👻*/
+/**
+ * Challenge: Create a flexible Avatar component!
+ * 
+ * Check the slides for notes on how the component 
+ * should be used.
+ * 
+ * Each of the 3 different avatars should have a 
+ * wrapper div with the classes below:
+ * 
+ * With image: `avatar`
+ * With initials: `avatar avatar-letters`
+ * Anonymous: `avatar avatar-icon`
+ * 
+ * E.g. <Avatar>BZ</Avatar> should render
+ * <div className="avatar avatar-letters">...</div>
+ * 
+ * Check the hints.md file if you are really stuck.
+ * 
+ * EXTRA CREDIT:
+ * Randomize the background color of the non-image
+ * avatars. Check the styles.css for some pre-written
+ * color classes to add to the wrapper div.
+*/
 
+/* 
+import Avatar from "./aside/Avatar"
+export default function App() {
+
+  return (
+  <>
+    <Avatar src="./images/bob.jpg" alt="Bob Ziroll" />
+    <br />
+    <Avatar>BZ</Avatar>
+    <br />
+    <Avatar />
+  </>
+
+  )
+}
+ */
 
 /* Lesson 12: Challenge - Button w/ Variants 👻*/
+/**
+ * Challenge: 
+ * 
+ * Accept a `variant` prop and style the Button component
+ * accordingly. The values can be `success`, `warning`, or `danger`. 
+ * Check the Figma design for the specific colors to be used for each
+ * variant.
+ 
+*/
+/* 
+import { FcGoogle } from 'react-icons/fc';
+import Button from './aside/Button';
 
+export default function App() {
 
+  function handleClick() {
+    console.log("Logging in...")
+  }
+
+  return (
+  <main>
+    <Button size="sm" variant="danger" onClick={handleClick} className="green">
+      <FcGoogle />
+      Log in with Google
+    </Button>
+  </main>
+  )
+}
+ */
 /* Lesson 11: Button - fix className issue 👻*/
 
 
@@ -180,22 +276,22 @@
  * instance in index.js yet. (DO add `className` to this file
  * as part of the challenge, though.)
  */
-
+/* 
 import { FcGoogle } from 'react-icons/fc';
 import Button from './aside/Button';
 
 export default function App() {
 
-    function handleClick() {
-      console.log("Logging in...")
-    }
+  function handleClick() {
+    console.log("Logging in...")
+  }
 
-    return (
-    <main>
-      <Button size="sm" onClick={handleClick} style={{color: "green"}}>
-        <FcGoogle />
-        Log in with Google
-      </Button>
-    </main>
-    )
-}
+  return (
+  <main>
+    <Button size="sm" onClick={handleClick} className="green">
+      <FcGoogle />
+      Log in with Google
+    </Button>
+  </main>
+  )
+} */

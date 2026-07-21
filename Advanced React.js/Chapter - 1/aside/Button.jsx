@@ -2,10 +2,38 @@
 
 
 /* Lesson 12: Challenge - Button w/ Variants 👻*/
+import classNames from "classnames"
+
+export default function Button({size, variant, children, className, ...rest}) {
+    const sizeClass = size && "button-" + size
+    const variantClass = variant && variant 
+
+    const allClasses = classNames(sizeClass, className, variantClass)
+    console.log(allClasses)
+
+    return <button className={allClasses} {...rest} >{children}</button>
+}
 
 
 /* Lesson 11: Button - fix className issue 👻*/
+/**
+ * Challenge: See if you can fix the problem with the
+ * conflicting `className` props. Doesn't need to be
+ * elegant, just see if you can get the button to be
+ * both large AND with green text
+ */
+/* 
+import classNames from "classnames"
 
+export default function Button({size, children, className, ...rest}) {
+    const sizeClass = size ? `button-${size}` : ""
+
+    const allClasses = classNames(sizeClass, className)
+    console.log(allClasses)
+
+    return <button className={allClasses} {...rest} >{children}</button>
+}
+ */
 
 /* Lesson 10: Button - size prop 👻👻*/
 /**
@@ -19,14 +47,14 @@
  * instance in index.js yet. (DO add `className` to this file
  * as part of the challenge, though.)
  */
-
+/* 
 export default function Button({size, children, ...rest}) {
     const className = size === "sm" ? "button-small" : size === "lg" && "button-large"
     console.log(size, className)
 
     return <button {...rest} className={className}>{children}</button>
 }
-
+ */
 /* Lesson 9: Aside - Destructuring props */
 /* 
 export default function Button({variant, children, ...rest}) {
