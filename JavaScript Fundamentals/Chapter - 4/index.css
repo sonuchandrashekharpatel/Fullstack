@@ -31,7 +31,7 @@ input {
 
 button {
     background: #5f9341;
-    border: none;
+    border: 1px solid #5f9341;
     margin-top: 5px;
     padding: 10px 20px;
     color: white;
@@ -279,7 +279,10 @@ body {
 
 
 /* Lesson 41: Make the delete button work */
-
+#delete-btn {
+    background-color: white;
+    color: #5f9341;
+}
 
 /* Lesson 42: How function parameters can improve our code */
 

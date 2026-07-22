@@ -1,7 +1,19 @@
 /* Chapter - 4: Build a Chrome Extension */
 
 /* Lesson 54: Congrats & recap */
-
+/* 
+Recap:
+    1. const
+    2. addEventListener()
+    3. innerHTML
+    4. input.value
+    5. function parameters
+    6. template literal
+    7. localStorage
+    8. The JSON Object
+    9. objects in arrays
+    
+*/
 
 /* Lesson 53: Deploy the final version */
 
@@ -13,39 +25,321 @@
 
 
 /* Lesson 50: Save the tab url */
+let myLeads = []
+const inputEl = document.getElementById("input-el")
+const inputBtn = document.getElementById("input-btn")
+const ulEl = document.getElementById("ul-el")
+const deleteBtn = document.getElementById("delete-btn")
+const leadsFromLocalStorage = JSON.parse( localStorage.getItem("myLeads") )
+const tabBtn = document.getElementById("tab-btn")
 
+if (leadsFromLocalStorage) {
+    myLeads = leadsFromLocalStorage
+    render(myLeads)
+}
+
+const tabs = [
+    {url: "https://www.linkedin.com/in/per-harald-borgen/"}
+]
+
+tabBtn.addEventListener("click", function(){
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+        myLeads.push(tabs[0].url)
+        localStorage.setItem("myLeads", JSON.stringify(myLeads))
+        render(myLeads)
+    })
+})
+
+function render(leads) {
+    let listItems = ""
+    for (let i = 0; i < leads.length; i++) {
+        listItems += `
+            <li>
+                <a target='_blank' href='${leads[i]}'>
+                    ${leads[i]}
+                </a>
+            </li>
+        `
+    }
+    ulEl.innerHTML = listItems
+}
+
+deleteBtn.addEventListener("dblclick", function() {
+    localStorage.clear()
+    myLeads = []
+    render(myLeads)
+})
+
+inputBtn.addEventListener("click", function() {
+    myLeads.push(inputEl.value)
+    inputEl.value = ""
+    localStorage.setItem("myLeads", JSON.stringify(myLeads) )
+    render(myLeads)
+})
 
 /* Lesson 49: Create the tabBtn */
+/* 
+let myLeads = []
+const inputEl = document.getElementById("input-el")
+const inputBtn = document.getElementById("input-btn")
+const ulEl = document.getElementById("ul-el")
+const deleteBtn = document.getElementById("delete-btn")
+const leadsFromLocalStorage = JSON.parse( localStorage.getItem("myLeads") )
+// 1. Grab the SAVE TAB button and store it in a tabBtn variable
+const tabBtn = document.getElementById("tab-btn")
 
+if (leadsFromLocalStorage) {
+    myLeads = leadsFromLocalStorage
+    render(myLeads)
+}
+
+const tabs = [
+    {url: "https://www.linkedin.com/in/per-harald-borgen/"}
+]
+
+// 2. Listen for clicks on tabBtn. Log Per's LinkedIn URL to the console
+tabBtn.addEventListener("click", function() {
+    console.log(tabs[0].url)
+})
+
+function render(leads) {
+    let listItems = ""
+    for (let i = 0; i < leads.length; i++) {
+        listItems += `
+            <li>
+                <a target='_blank' href='${leads[i]}'>
+                    ${leads[i]}
+                </a>
+            </li>
+        `
+    }
+    ulEl.innerHTML = listItems
+}
+
+deleteBtn.addEventListener("dblclick", function() {
+    localStorage.clear()
+    myLeads = []
+    render(myLeads)
+})
+
+inputBtn.addEventListener("click", function() {
+    myLeads.push(inputEl.value)
+    inputEl.value = ""
+    localStorage.setItem("myLeads", JSON.stringify(myLeads) )
+    render(myLeads)
+})
+ */
 
 /* Lesson 48: Refactor renderLeads() to use a parameter */
 
+/* 
+let myLeads = []
+const inputEl = document.getElementById("input-el")
+const inputBtn = document.getElementById("input-btn")
+const ulEl = document.getElementById("ul-el")
+const deleteBtn = document.getElementById("delete-btn")
+const leadsFromLocalStorage = JSON.parse( localStorage.getItem("myLeads") )
 
+if (leadsFromLocalStorage) {
+    myLeads = leadsFromLocalStorage
+    render(myLeads)
+}
+
+// Refector the function so that it takes a parameter, leads, that it uses
+// instead of the global myLeads variable. Remember to update all invocations 
+// of the function as well.
+
+function render(leads) {
+    let listItems = ""
+    for (let i = 0; i < leads.length; i++) {
+        listItems += `
+            <li>
+                <a target='_blank' href='${leads[i]}'>
+                    ${leads[i]}
+                </a>
+            </li>
+        `
+    }
+    ulEl.innerHTML = listItems
+}
+
+deleteBtn.addEventListener("dblclick", function() {
+    localStorage.clear()
+    myLeads = []
+    render(myLeads)
+})
+
+inputBtn.addEventListener("click", function() {
+    myLeads.push(inputEl.value)
+    inputEl.value = ""
+    localStorage.setItem("myLeads", JSON.stringify(myLeads) )
+    render(myLeads)
+})
+ */
 /* Lesson 47: Arrays as parameters */
+/* 
+// Create a function, getFirst(arr), that returns the first item in the array
+function getFirst(arr) {
+    return arr[0]
+}
 
+
+
+// Call it with an array as an argument to verify that it works
+
+
+console.log(getFirst([3,4,5,6,7,2,7]))
+*/
 
 /* Lesson 46: Aside: Arguments vs Parameters */
+/* 
+// What are greeting and name?  parameters
+// What are "Howdy" and "James"? arguments
+// What are num1 and num2? parameters
+// What are 3 and 4? arguments
 
+
+//.                parameters
+function greetUser(greeting, name) { 
+    welcomeEl.textContent = `${greeting}, ${name} 👋`
+}
+
+//.        arguments
+let hi = "Howdy"
+greetUser(hi, "James")
+
+
+function add(num1, num2) {
+    return num1 + num2
+}
+
+add(3, 4)
+*/
 
 /* Lesson 45: Numbers as function parameters */
+/* 
+// Create a function, add(), that adds two numbers together and returns the sum
 
+
+
+console.log( add(3, 4)   ) // should log 7
+console.log( add(9, 102) ) // should log 111
+
+function add(a, b) {
+    return a + b
+}
+*/
+
+/* 
+// What are greeting and name?  parameters
+// What are "Howdy" and "James"? arguments
+// What are num1 and num2? parameters
+// What are 3 and 4? arguments
+
+
+//.                parameters
+function greetUser(greeting, name) { 
+    welcomeEl.textContent = `${greeting}, ${name} 👋`
+}
+
+//.        arguments
+let hi = "Howdy"
+greetUser(hi, "James")
+
+
+function add(num1, num2) {
+    return num1 + num2
+}
+
+add(3, 4)
+*/
 
 /* Lesson 44: Functions with multiple parameters */
+/* 
 
+const welcomeEl = document.getElementById("welcome-el")
+
+// Add the ability to choose the emoji as well!
+function greetUser(greeting, name, emoji) {
+    welcomeEl.textContent = `${greeting}, ${name} ${emoji}`
+}
+
+greetUser("Howdy", "James", "👋")
+ */
+/* 
+const welcomeEl = document.getElementById("welcome-el")
+
+function greetUser(greeting, name) {
+    // Rewrite the expression using template literals
+    welcomeEl.textContent = `${greeting}, ${name} 👋`
+}
+
+greetUser("Howdy", "James") */
 
 /* Lesson 43: Write your first function parameter */
+/* const welcomeEl = document.getElementById("welcome-el")
 
+// Give the function a parameter, greeting, that replaces "Welcome back"
+function greetUser(greeting) {
+    welcomeEl.textContent = greeting + " , Per Harald Borgen 👋"    
+}
+
+greetUser("Howdy") */
 
 /* Lesson 42: How function parameters can improve our code */
 
 
 /* Lesson 41: Make the delete button work */
+/* 
+let myLeads = []
+const inputEl = document.getElementById("input-el")
+const inputBtn = document.getElementById("input-btn")
+const ulEl = document.getElementById("ul-el")
+// 1. Store the delete button in a deleteBtn variable
+const deleteBtn = document.getElementById("delete-btn")
 
+const leadsFromLocalStorage = JSON.parse( localStorage.getItem("myLeads") )
 
+if (leadsFromLocalStorage) {
+    myLeads = leadsFromLocalStorage
+    renderLeads()
+}
+
+// 2. Listen for double clicks on the delete button (google it!)
+deleteBtn.addEventListener("dblclick", function() {
+    localStorage.clear()
+    myLeads = []
+    renderLeads()
+})
+// 3. When clicked, clear localStorage, myLeads, and the DOM
+
+inputBtn.addEventListener("click", function() {
+    myLeads.push(inputEl.value)
+    inputEl.value = ""
+    localStorage.setItem("myLeads", JSON.stringify(myLeads) )
+    renderLeads()
+})
+
+function renderLeads() {
+    let listItems = ""
+    for (let i = 0; i < myLeads.length; i++) {
+        listItems += `
+            <li>
+                <a target='_blank' href='${myLeads[i]}'>
+                    ${myLeads[i]}
+                </a>
+            </li>
+        `
+    }
+    ulEl.innerHTML = listItems  
+}
+
+ */
 /* Lesson 40: Style the delete button */
 
 
 /* Lesson 39: Checking localStorage before rendering */
+/* 
 let myLeads = []
 const inputEl = document.getElementById("input-el")
 const inputBtn = document.getElementById("input-btn")
@@ -81,7 +375,7 @@ function renderLeads() {
     }
     ulEl.innerHTML = listItems  
 }
-
+ */
 
 /* Lesson 38: Guess the expression - truthy or falsy? */
 /* 

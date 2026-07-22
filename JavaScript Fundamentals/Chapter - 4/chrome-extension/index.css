@@ -13,7 +13,7 @@ input {
 
 button {
     background: #5f9341;
-    border: none;
+    border: 1px solid #5f9341;
     margin-top: 5px;
     padding: 10px 20px;
     color: white;
@@ -22,7 +22,6 @@ button {
     border-radius: 4px;
     box-shadow: 0 4px 4px #00000026;
 }
-
 
 ul {
     margin-top: 20px;
@@ -37,4 +36,9 @@ li {
 
 a {
     color: green;
+}
+
+#delete-btn {
+    background-color: white;
+    color: #5f9341;
 }
