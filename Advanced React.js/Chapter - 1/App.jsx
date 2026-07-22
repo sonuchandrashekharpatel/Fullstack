@@ -127,33 +127,227 @@
 
 
 /* Lesson 24: React.Children shortcomings 👻👻*/
+/* 
+What's wrong with React.Children?
+. Fragile/ Delicate
+. Limited in depth
 
+*/
+
+/* 
+Wouldn't it be great if there were a way to 
+"teleport" data to the components in the tree that 
+need it without passing props? With React's 
+context feature, there is!
+
+*/
 
 /* Lesson 23: The React.Children API 👻👻*/
+/* 
+React.Children
+  . Utility that provides method for interacting with a component's 
+      direct children elements.
 
+    . React.Children.map()
+    . React.Children.forEach()
+    
+  . Others which you can check out in the React Docs
+
+React.cloneElement()
+  . Utility that duplicates a React element and provides a way to 
+    inject additional props to that element.
+
+  . When used with React.Children.map(), it can be used to 
+    "augment" the original children with new props.
+*/
 
 /* Lesson 22: Prop Drilling Problem #2 - Implicit State */
+/* 
+Implicit State
+. React.Children
+. Context
+*/
+
 
 
 /* Lesson 21: Summarize Challenge - Compound Components in React */
+/* 
+* Write a summary of the steps you took when completing
+the previous challenge, and how the parts all work
+together:
 
+*/
 
 /* Lesson 20: Compound Components in React - Part 3 👻*/
+/**
+ * 1. MenuDropdown should render children instead of items
+ * 2. MenuItem (new component you need to create) should also
+ *    render children. Grab the <div className="menu-item">
+ *    from MenuDropdown before deleting it if you want to be
+ *    lazy :)
+ * 3. Map over the `sports` array inside MenuDropdown in this
+ *    file and render a MenuItem for each sport in the array
+ */
+
+import Menu from "./aside/Menu/Menu"
+import MenuButton from "./aside/Menu/MenuButton"
+import MenuDropdown from "./aside/Menu/MenuDropdown"
+import MenuItem from "./aside/Menu/MenuItem"
+
+export default function App() {
+  const sports = ["Tennis", "Pickleball", "Racquetball", "Squash"]
+
+  return (
+    <>
+      <Menu>
+        <MenuButton>Sports</MenuButton>
+        <MenuDropdown >
+          
+            {
+              sports.map(sport => {
+                return <MenuItem key={sport}>{sport}</MenuItem>
+              })
+            }
+          
+        </MenuDropdown>
+      </Menu>
+    </>
+  )
+}
 
 
 /* Lesson 19: Compound Components in React - Part 2 👻*/
+/**
+ * Challenge:
+ * 1. Convert the MenuButton to accept children and 
+ *    render them. (In this case, the children will
+ *    just be the button text)
+ * 2. Change the MenuButton below to pass "Sports"
+ *    in as a child of the component instead of by
+ *    using the `buttonText` prop.
+ * 
+ * NOTE: It's fine that the menu is still broken, I
+ * promise we're getting there! 😃
+ */
 
+/* 
+import Menu from "./aside/Menu/Menu"
+import MenuButton from "./aside/Menu/MenuButton"
+import MenuDropdown from "./aside/Menu/MenuDropdown"
+
+export default function App() {
+  return (
+    <>
+      <Menu>
+      <MenuButton>Sports</MenuButton>
+        <MenuDropdown items={["Tennis", "Racquetball", "Pickleball", "Squash"]} />
+      </Menu>
+    </>
+  )
+}
+ */
 
 /* Lesson 18: Compound Components Quiz 👻*/
+/* 
+# Compound Components Quiz
 
+1. How would you explain the concept of compound components in React to someone who
+   only knows the very basics of React?
+
+Components that work together to accomplish a greater objective than might make
+sense to try and accomplish with a single component alone.
+
+
+2. What are some examples of HTML elements that work together to add functionality
+   or styling to each other?
+
+<ul> & <li>, <select> & <option>, <table> & all the other table elements
+
+
+3. How can compound components help you avoid having to drill props multiple levels
+   down?
+   
+Compound component "flatten" the heirarchy that I would otherwise need to pass
+props through. Since I need to provide the children to render, the parent-most
+component has direct access to those "grandchild" components, to which it can
+pass whatever props it needs to pass directly.
+
+*/
 
 /* Lesson 17: Compound Components in React - Part 1 👻*/
+/**
+ * Challenge:
+ * 1. Convert the Menu component to use props.children 
+ *    instead of taking an `items` prop. (We'll update 
+ *    the MenuButton and MenuDropdown components later.) 
+ *    See note inside the Menu.js file for more info
+ * 
+ * 2. import MenuButton and MenuDropdown into THIS file
+ *    and render them as children of the Menu component. 
+ *    Remember to pass the buttonText and items array to 
+ *    the components that need those props to function.
+ *    (We'll also be updating that soon!)
+ * 
+ * NOTE: The functionality of the menu will be broken after 
+ * these changes, but that's okay! As such, don't worry 
+ * about moving the state or toggle function from the Menu; 
+ * there's more we need to learn before we can do that.
+*/
 
+/* 
+import Menu from "./aside/Menu/Menu"
+import MenuButton from "./aside/Menu/MenuButton"
+import MenuDropdown from "./aside/Menu/MenuDropdown"
 
+export default function App() {
+  return (
+    <>
+      <Menu>
+        <MenuButton buttonText="Sports" />
+        <MenuDropdown items={["Tennis", "Racquetball", "Pickleball", "Squash"]} />
+      </Menu>
+    </>
+  )
+}
+ */
 /* Lesson 16: Aside: Compound Components Intro */
+/* 
+HTML Examples
+. <form>, <input>
+. <ul>, <li>
+. <table, <thead>, <tbody>, <td>, etc.
+. <select>, <option>
++ Many others
 
+Compound Components
+. Use children props
+. Have dedicated function/styling
+. Make the component structure more transparent
+. Give more control to the "user" of the component
+
+*/
 
 /* Lesson 15: Prop Drilling */
+
+/* 
+What isnProp drilling?
+Prop drilling happens when a component down the component tree 
+need access to data in a grandparent (or higher) component, and 
+the data is manually passed down to  each child component until 
+it finally reaches the component that needs it.
+
+Solutions to prop drilling
+1. Do nothing!
+. Avoid Hasty Abstractions
+
+2. Compound Components
+. "Flattens" the structure
+. Easy pass props to more deeply-nested components
+
+3. Context
+. Accessible state directly from the components that need it
+
+*/
 
 
 /* Lesson 14: Menu Component Intro */
@@ -176,6 +370,8 @@ What we'll Learn
 + Many challenges!
 
 */
+
+/* 
 import Menu from "./aside/Menu/Menu"
 
 export default function App() {
@@ -187,7 +383,7 @@ export default function App() {
       />
     </>
   )
-}
+} */
 
 /* Lesson 13: Mega Challenge - Overloaded Avatar Component 👻*/
 /**
