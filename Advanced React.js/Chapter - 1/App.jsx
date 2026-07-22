@@ -103,28 +103,150 @@
 
 
 /* Lesson 32: A11y in menu component */
-
+/* 
+. role="menu"
+. aria-expanded
+. aria-haspopup
+. aria-hidden
+. aria-controls
+*/
 
 /* Lesson 31: Menu component final touches 👻*/
 
 
 /* Lesson 30: Theme switcher final touches 👻*/
+import Menu from "./aside/Menu/index"
 
+export default function App() {
+  const sports = ["Tennis", "Pickleball", "Racquetball", "Squash"]
+
+  return (
+    <>
+      <Menu>
+        <Menu.Button>Sports</Menu.Button>
+        <Menu.Dropdown>
+          {
+            sports.map(sport => {
+              return <Menu.Item key={sport}>{sport}</Menu.Item>
+            })
+          }
+        </Menu.Dropdown>
+      </Menu>
+    </>
+  )
+}
 
 /* Lesson 29: State + Context 👻👻👻👻*/
+/**
+ * Challenge part 1:
+ * Add state to the App component. Default value === "light". 
+ * Pass that state as the value to the context provider.
+ */
 
+/**
+ * Challenge part 2:
+ * Create a `toggleTheme` function to that uses `setTheme`
+ * to change the value from "light" to "dark" and vice versa.
+ */
 
+/**
+ * Challenge part 3:
+ * Figure out how to pass BOTH the `theme` value and 
+ * the `toggleTheme` function down through the context value
+ */
+
+/**
+ * Challenge part 4:
+ * Now that we're passing an object instead of a string through
+ * context, update the Button and Header components to receive the
+ * correct values again.
+*/
+/* 
+import React from "react"
+import Header from "./aside/context/Header"
+import Button from "./aside/context/Button"
+
+const ThemeContext = React.createContext()
+
+export default function App() {
+  const [theme, setTheme ] = React.useState("light")
+
+  function toggleTheme() {
+    setTheme(prevTheme => prevTheme === "light" ? "dark" : "light")
+  }
+
+  return (
+    <ThemeContext.Provider value={{theme, toggleTheme}}>
+
+      <div className={`container ${theme}-theme`}>
+        <Header />
+        <Button />
+      </div>
+    </ThemeContext.Provider>
+  )
+}
+export { ThemeContext }
+ */
 /* Lesson 28: Add context to the Menu component 👻👻*/
+/* 
+import Menu from "./aside/Menu/Menu"
+import MenuButton from "./aside/Menu/MenuButton"
+import MenuDropdown from "./aside/Menu/MenuDropdown"
+import MenuItem from "./aside/Menu/MenuItem"
 
+export default function App() {
+  const sports = ["Tennis", "Pickleball", "Racquetball", "Squash"]
 
+  return (
+    <>
+      <Menu>
+        <MenuButton>Sports</MenuButton>
+        <MenuDropdown >
+          
+            {
+              sports.map(sport => {
+                return <MenuItem key={sport}>{sport}</MenuItem>
+              })
+            }
+          
+        </MenuDropdown>
+      </Menu>
+    </>
+  )
+}
+ */
 /* Lesson 27: useContext() 👻👻*/
 
 
 /* Lesson 26: createContext() & Context Provider 👻*/
+/**
+ * Challenge: set up the context again on your own!
+ */
+/* 
+import React from "react"
+import Header from "./aside/context/Header"
+import Button from "./aside/context/Button"
 
+const ThemeContext = React.createContext()
+
+export default function App() {
+
+  return (
+    <ThemeContext.Provider value="dark">
+      <div className="container dark-theme">
+        <Header />
+        <Button />
+      </div>
+    </ThemeContext.Provider>
+  )
+}
+export { ThemeContext }
+ */
 
 /* Lesson 25: Context Intro */
+/* 
 
+*/
 
 /* Lesson 24: React.Children shortcomings 👻👻*/
 /* 
@@ -188,7 +310,7 @@ together:
  * 3. Map over the `sports` array inside MenuDropdown in this
  *    file and render a MenuItem for each sport in the array
  */
-
+/* 
 import Menu from "./aside/Menu/Menu"
 import MenuButton from "./aside/Menu/MenuButton"
 import MenuDropdown from "./aside/Menu/MenuDropdown"
@@ -214,7 +336,7 @@ export default function App() {
     </>
   )
 }
-
+ */
 
 /* Lesson 19: Compound Components in React - Part 2 👻*/
 /**
