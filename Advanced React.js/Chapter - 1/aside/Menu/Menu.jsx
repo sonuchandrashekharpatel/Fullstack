@@ -70,14 +70,42 @@
 
 
 /* Lesson 43: onToggle event listener 👻👻*/
+import React from "react"
+import Toggle from "../Toggle/index"
+export default function Menu({children, onOpen}) {
+    const menuId = React.useId()
+
+    
+    return (
+        <Toggle onToggle={onOpen}>
+            <div className="menu" role="menu">
+                {children}
+            </div>
+        </Toggle>
+    )
+}
 
 
 /* Lesson 42: Composing new components with Toggle 👻*/
 
 
 /* Lesson 41: Use Toggle with Menu component 👻*/
+/* 
+import React from "react"
+import Toggle from "../Toggle/index"
+export default function Menu({children}) {
+    const menuId = React.useId()
 
-
+    
+    return (
+        <Toggle>
+            <div className="menu" role="menu">
+                {children}
+            </div>
+        </Toggle>
+    )
+}
+ */
 /* Lesson 40: Remove Star component 👻*/
 
 
@@ -103,7 +131,7 @@
 
 
 /* Lesson 32: A11y in menu component */
-import React from "react"
+/* import React from "react"
 
 const MenuContext = React.createContext()
 
@@ -126,7 +154,7 @@ export default function Menu({children}) {
     )
 }
 
-export { MenuContext }
+export { MenuContext } */
 
 
 /* Lesson 31: Menu component final touches 👻*/

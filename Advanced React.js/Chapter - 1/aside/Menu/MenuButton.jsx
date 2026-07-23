@@ -74,9 +74,41 @@
 
 /* Lesson 42: Composing new components with Toggle 👻*/
 
+import React from "react"
+import Button from "../Button/Button"
+import Toggle from "../Toggle/index"
+
+export default function MenuButton({ children }) {
+    const menuId = React.useId()
+    
+    return (
+        <Toggle.Button>
+            <Button 
+                aria-haspopup="true"
+                aria-controls={menuId}
+                >{children}
+            </Button>
+        </Toggle.Button>
+    )
+}
+
 
 /* Lesson 41: Use Toggle with Menu component 👻*/
+/* 
+import React from "react"
+import Button from "../Button/Button"
 
+export default function MenuButton({ children }) {
+    const menuId = React.useId()
+    
+    return (
+        <Button 
+            aria-haspopup="true"
+            aria-controls={menuId}
+            >{children}</Button>
+    )
+}
+ */
 
 /* Lesson 40: Remove Star component 👻*/
 
@@ -103,7 +135,7 @@
 
 
 /* Lesson 32: A11y in menu component */
-
+/* 
 import React from "react"
 import Button from "../Button/Button"
 import { MenuContext } from "./Menu"
@@ -121,7 +153,7 @@ export default function MenuButton({ children }) {
         >{children}</Button>
     )
 }
-
+ */
 /* Lesson 31: Menu component final touches 👻*/
 /* 
 import React from "react"

@@ -73,22 +73,39 @@
 
 
 /* Lesson 42: Composing new components with Toggle 👻*/
-export default function MenuItem({children}) {
-    return(
-        <div className="menu-item">
-            {children}
-        </div>
-    )
+
+
+/* Lesson 41: Use Toggle with Menu component 👻*/
+
+
+/* Lesson 40: Remove Star component 👻*/
+
+
+/* Lesson 39: Toggle.On & Toggle.Off 👻👻*/
+
+
+/* Lesson 38: Toggle.Button 👻*/
+
+
+/* Lesson 37: Toggle Context 👻*/
+
+
+/* Lesson 36: Toggle - Planning */
+
+
+/* Lesson 35: Toggle - setup 👻*/
+
+
+/* Lesson 34: Headless Toggle component */
+import React from "react"
+import { ToggleContext } from "./Toggle"
+
+export default function ToggleDisplay({ children }) {
+    const {on, toggle} = React.useContext(ToggleContext)
+    
+    if (!children || typeof children !== "function") {
+        throw new Error("You must pass ToggleDisplay a function as a child")
+    }
+    
+    return children(on, toggle) 
 }
-
-/* Lesson 14: Menu Component Intro */
-
-
-/* export default function MenuItem({children, open, toggle}) {
-    console.log(open, toggle)
-    return(
-        <div className="menu-item">
-            {children}
-        </div>
-    )
-} */

@@ -73,22 +73,57 @@
 
 
 /* Lesson 42: Composing new components with Toggle 👻*/
-export default function MenuItem({children}) {
-    return(
-        <div className="menu-item">
-            {children}
-        </div>
+
+
+/* Lesson 41: Use Toggle with Menu component 👻*/
+
+
+/* Lesson 40: Remove Star component 👻*/
+
+
+/* Lesson 39: Toggle.On & Toggle.Off 👻👻*/
+/**
+ * Challenge:
+ * 
+ * 1. Create a new component, ToggleOn, that accepts children
+ *    in props
+ * 2. Receive the `on` state from context
+ * 3. Conditionally render `children` if `on` is true. If `on`
+ *    is false, render `null` instead of `children`
+ */
+
+import React from "react"
+import { ToggleContext } from "./Toggle"
+
+export default function ToggleOn({children}) {
+    const { on } = React.useContext(ToggleContext)
+
+    return (
+        <>
+            {
+                on ? children : null
+            }
+        </>
     )
 }
 
-/* Lesson 14: Menu Component Intro */
+/* Lesson 38: Toggle.Button 👻*/
 
 
-/* export default function MenuItem({children, open, toggle}) {
-    console.log(open, toggle)
-    return(
-        <div className="menu-item">
-            {children}
-        </div>
-    )
+/* Lesson 37: Toggle Context 👻*/
+
+
+/* Lesson 36: Toggle - Planning */
+
+
+/* Lesson 35: Toggle - setup 👻*/
+
+
+/* Lesson 34: Headless Toggle component */
+/* import React from "react"
+import { ToggleContext } from "./Toggle"
+
+export default function ToggleOn({ children }) {
+    const { on } = React.useContext(ToggleContext)
+    return on ? children : null
 } */

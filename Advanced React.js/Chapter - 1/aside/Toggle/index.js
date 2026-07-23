@@ -73,22 +73,55 @@
 
 
 /* Lesson 42: Composing new components with Toggle 👻*/
-export default function MenuItem({children}) {
-    return(
-        <div className="menu-item">
-            {children}
-        </div>
-    )
-}
-
-/* Lesson 14: Menu Component Intro */
 
 
-/* export default function MenuItem({children, open, toggle}) {
-    console.log(open, toggle)
-    return(
-        <div className="menu-item">
-            {children}
-        </div>
-    )
-} */
+/* Lesson 41: Use Toggle with Menu component 👻*/
+
+
+/* Lesson 40: Remove Star component 👻*/
+
+
+/* Lesson 39: Toggle.On & Toggle.Off 👻👻*/
+import Toggle from "./Toggle"
+import ToggleButton from "./ToggleButton"
+import ToggleOn from "./ToggleOn"
+import ToggleOff from './ToggleOff'
+
+Toggle.Button = ToggleButton
+Toggle.On = ToggleOn
+Toggle.Off = ToggleOff
+
+export default Toggle
+
+/* Lesson 38: Toggle.Button 👻*/
+/* 
+import Toggle from "./Toggle"
+import ToggleButton from "./ToggleButton"
+
+Toggle.Button = ToggleButton
+
+export default Toggle
+ */
+/* Lesson 37: Toggle Context 👻*/
+
+
+/* Lesson 36: Toggle - Planning */
+
+
+/* Lesson 35: Toggle - setup 👻*/
+
+
+/* Lesson 34: Headless Toggle component */
+/* 
+import Toggle from "./Toggle"
+import ToggleButton from "./ToggleButton"
+import ToggleOn from "./ToggleOn"
+import ToggleOff from "./ToggleOff"
+import ToggleDisplay from "./ToggleDisplay"
+
+Toggle.Button = ToggleButton
+Toggle.On = ToggleOn
+Toggle.Off = ToggleOff
+Toggle.Display = ToggleDisplay
+export default Toggle
+ */

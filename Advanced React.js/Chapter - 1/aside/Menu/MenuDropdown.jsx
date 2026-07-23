@@ -74,9 +74,32 @@
 
 /* Lesson 42: Composing new components with Toggle 👻*/
 
+import React from "react"
+import Toggle from "../Toggle/index"
+
+export default function MenuDropdown({ children }) {
+    const menuId = React.useId()
+    return (
+        <Toggle.On>
+            <div className="menu-dropdown" id={menuId}>{children}</div>
+        </Toggle.On>
+    )
+}
+
 
 /* Lesson 41: Use Toggle with Menu component 👻*/
+/* 
+import React from "react"
 
+export default function MenuDropdown({ children }) {
+    return (
+        <>
+                <div className="menu-dropdown">{children}</div>
+            
+        </>
+    )
+}
+ */
 
 /* Lesson 40: Remove Star component 👻*/
 
@@ -103,6 +126,7 @@
 
 
 /* Lesson 32: A11y in menu component */
+/* 
 import React from "react"
 import { MenuContext } from "./Menu"
 
@@ -118,7 +142,7 @@ export default function MenuDropdown({ children }) {
         </>
     )
 }
-
+ */
 
 /* Lesson 31: Menu component final touches 👻*/
 

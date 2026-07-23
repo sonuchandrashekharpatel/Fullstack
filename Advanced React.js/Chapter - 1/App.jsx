@@ -70,35 +70,230 @@
 
 
 /* Lesson 43: onToggle event listener 👻👻*/
+import Toggle from "./aside/Toggle/index"
+import Menu from "./aside/Menu/index"
+import Star from "./aside/Star/Star"
+
+export default function App() {
+  const sports = ["Home", "About", "contact", "Squash"]
+
+  return (
+    <>
+      <Star onChange={()=> console.log("This is Star")}/>
+
+      <br />
+        <Menu onOpen={() => console.log("This is Menu")}>
+            <Menu.Button>Menu</Menu.Button>
+            <Menu.Dropdown>
+              {sports.map(item => <Menu.Item key={item}>{item}</Menu.Item>)}
+            </Menu.Dropdown>
+        </Menu>
+    </>
+  )
+}
 
 
 /* Lesson 42: Composing new components with Toggle 👻*/
+/* 
+import Toggle from "./aside/Toggle/index"
+import Menu from "./aside/Menu/index"
+import Star from "./aside/Star/Star"
 
+export default function App() {
+  const sports = ["Home", "About", "contact", "Squash"]
+
+  return (
+    <>
+      <Star />
+
+      <br />
+        <Menu>
+            <Menu.Button>Menu</Menu.Button>
+            <Menu.Dropdown>
+              {sports.map(item => <Menu.Item key={item}>{item}</Menu.Item>)}
+            </Menu.Dropdown>
+        </Menu>
+    </>
+  )
+}
+ */
 
 /* Lesson 41: Use Toggle with Menu component 👻*/
+/**
+ * Challenge: Refactor the Menu components to use the logic 
+ * from Toggle instead of doing any logic of its own.
+ * 
+ * 1. Remove all context and state logic from the menu components
+ * 2. Using Toggle and its "sub-components", add a menu to this
+ *    App component below the Star. Make sure to use a separate
+ *    <Toggle> wrapper so the state isn't tied to the Star's 
+ *    Toggle state
+ */
+/* 
+import Toggle from "./aside/Toggle/index"
+import { BsStar, BsStarFill } from "react-icons/bs"
+import Menu from "./aside/Menu/index"
 
+export default function App() {
+  const sports = ["Home", "About", "contact", "Squash"]
+
+  return (
+    <>
+      <Toggle>
+        <Toggle.Button>
+          <Toggle.On><BsStarFill className="star filled"/></Toggle.On>
+          <Toggle.Off><BsStar className="star "/></Toggle.Off>
+        </Toggle.Button>
+      </Toggle>
+
+      <br />
+
+      <Toggle>
+        <Menu>
+          <Toggle.Button>
+            <Menu.Button>Sports</Menu.Button>
+          </Toggle.Button>
+
+          <Toggle.On>
+            <Menu.Dropdown>
+              {sports.map(sport => <Menu.Item>{sport}</Menu.Item>)}
+            </Menu.Dropdown>
+          </Toggle.On>
+        </Menu>
+      </Toggle>
+    </>
+  )
+}
+ */
 
 /* Lesson 40: Remove Star component 👻*/
+/**
+ * Challenge: refactor our app to use the Toggle.On 
+ * and Toggle.Off components to conditionally render the
+ * star icons from react-icons. (See Star.js for that code).
+ * 
+ * Reminders:
+ * 1. Make sure to copy over the classNames from Star.js too!
+ *    I've added some CSS that we don't want to lose.
+ * 2. Clicking the Star should flip the Toggle state. Try to
+ *    figure out how you can do that 🤔. Hint: we built something
+ *    that lets us flip the Toggle state back and forth 😉
+ */
+/* 
+import Toggle from "./aside/Toggle/index"
+import { BsStar, BsStarFill } from "react-icons/bs"
 
-
+export default function App() {
+  return (
+    <>
+      <Toggle>
+        <Toggle.Button>
+          <Toggle.On><BsStarFill className="star filled"/></Toggle.On>
+          <Toggle.Off><BsStar className="star "/></Toggle.Off>
+        </Toggle.Button>
+      </Toggle>
+    </>
+  )
+}
+ */
 /* Lesson 39: Toggle.On & Toggle.Off 👻👻*/
 
 
 /* Lesson 38: Toggle.Button 👻*/
+/* 
+import Star from "./aside/Star/Star"
+import Toggle from "./aside/Toggle/index"
 
+export default function App() {
+  return (
+    <>
+      <Toggle>
+        <Toggle.Button>
+          <Star />
+        </Toggle.Button>
+        <Toggle.On>Toggle is On</Toggle.On>
+        <Toggle.Off>The toggle is Off</Toggle.Off>
+      </Toggle>
+    </>
+  )
+}
+ */
 
 /* Lesson 37: Toggle Context 👻*/
 
 
 /* Lesson 36: Toggle - Planning */
+/* 
+Toggle Compound Components
+. Button (to flip state)
+. On (what to display when Toggle state is 'on')
+. Off (what to display when Toggle state is 'off')
+. Display (Export internal state to give more control to user)
 
+*/
 
 /* Lesson 35: Toggle - setup 👻*/
+/**
+ * Challenge: Fix the broken parts! You'll know it's 
+ * working when the star is displayed again.
+ */
+/* 
+import Star from "./aside/Star/Star"
+import Toggle from "./aside/Toggle/Toggle"
 
+export default function App() {
+  return (
+    <>
+      <Toggle>
+        <Star />
+      </Toggle>
+    </>
+  )
+}
+ */
 
 /* Lesson 34: Headless Toggle component */
+/* 
+Headless components don't have any styled UI to display; they're 
+purely intended to provide functionality.
+*/
+/* 
+import { BsStar, BsStarFill } from "react-icons/bs"
 
+import Menu from "./aside/Menu/index"
+import Toggle from "./aside/Toggle/index"
 
+export default function App() {
+  const sports = ["Tennis", "Pickleball", "Racquetball", "Squash"]
+
+  return (
+    <>
+      <Toggle>
+        <Toggle.Button>
+          <Toggle.On>
+            <BsStarFill className="star filled" />
+          </Toggle.On>
+          <Toggle.Off>
+            <BsStar className="star" />
+          </Toggle.Off>
+        </Toggle.Button>
+      </Toggle>
+
+      <br />
+      <hr />
+      <br />
+      <Menu>
+        <Menu.Button>Sports</Menu.Button>
+        <Menu.Dropdown>
+          {sports.map(sport => (
+            <Menu.Item key={sport}>{sport}</Menu.Item>
+          ))}
+        </Menu.Dropdown>
+      </Menu>
+    </>
+  )
+}
+ */
 /* Lesson 33: Aside - Compound components w/ dot syntax */
 
 
@@ -115,6 +310,7 @@
 
 
 /* Lesson 30: Theme switcher final touches 👻*/
+/* 
 import Menu from "./aside/Menu/index"
 
 export default function App() {
@@ -135,6 +331,7 @@ export default function App() {
     </>
   )
 }
+ */
 
 /* Lesson 29: State + Context 👻👻👻👻*/
 /**
