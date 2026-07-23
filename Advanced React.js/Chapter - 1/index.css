@@ -759,6 +759,7 @@ body {
 
 
 /* Lesson 41: Use Toggle with Menu component */
+/* 
 * {
     box-sizing: border-box;
 }
@@ -869,8 +870,9 @@ button.button-danger {
 .menu-item:not(:last-child) {
     border-bottom: 1px solid #6B7280;
 }
+ */
 
-/* Lesson 42: Composing new components with Toggle */
+ /* Lesson 42: Composing new components with Toggle */
 
 
 /* Lesson 43: onToggle event listener */
@@ -883,8 +885,53 @@ button.button-danger {
 
 
 /* Lesson 46: Refs and DOM manipulation */
+/* body {
+    background-color: #6D28D9;
+    color: #111827;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1rem;
+}
 
+form {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #111827;
+    padding: 1rem;
+    border-radius: 5px;
+}
 
+form > input {
+    border-radius: 5px;
+    border: none;
+    height: 2rem;
+    margin-bottom: 1rem;
+}
+
+form > input:focus {
+    outline: 4px solid #F43F5E;
+}
+
+form > button {
+    border-radius: 5px;
+    border: none;
+    padding: .5rem 1rem;
+    background-color: #C4B5FD;
+    color: #2b283a;
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+
+form > button:focus {
+    outline: 4px solid #F43F5E;
+}
+
+li {
+    font-size: 1.35rem;
+    color: #111827;
+}
+ */
 /* Lesson 47: Fix onToggle bug using refs */
 
 
@@ -892,7 +939,12 @@ button.button-danger {
 
 
 /* Lesson 49: Render Props Part 1 */
-
+.box {
+    height: 200px;
+    width: 200px;
+    background-color: firebrick;
+    border: 1px solid darkred;
+}
 
 /* Lesson 50: Render Props Part 2 */
 

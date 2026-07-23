@@ -43,14 +43,66 @@
 
 
 /* Lesson 52: Render Props Part 4 - children as render props */
+import React from "react"
+import Decision from "./aside/Decision"
+
+export default function App() {
+  const [isGoingOut, setIsGoingOut] = React.useState()
+  
+return (
+    <div>
+      <Decision >
+        { (goingOut) => {
+          return <h1>
+            Am I going out tonight?? { 
+              goingOut ? "Yes!" :
+               "Nope..."
+            }
+          </h1>
+        }
+      }
+      </Decision>
+    </div>
+    )
+}
 
 
 /* Lesson 51: Render Props Part 3 👻👻*/
+/* import React from "react"
+import Decision from "./aside/Decision"
 
+export default function App() {
+  const [isGoingOut, setIsGoingOut] = React.useState()
+  
+return (
+    <div>
+      <Decision render={(goingOut) => {
+        return <h1>Am I going out tonight?? {goingOut ? "Yes!" : "Nope..."}</h1>
+      }} />
+    </div>
+    )
+}
+ */
 
 /* Lesson 50: Render Props Part 2 👻*/
+/**
+ * Challenge:
+ * Pass a function down via props to Decision that receives
+ * the boolean in state and logs it
+*/
+/* import React from "react"
+import Decision from "./aside/Decision"
 
-
+export default function App() {
+  const [isGoingOut, setIsGoingOut] = React.useState()
+  
+return (
+    <div>
+        <Decision sayName={function(bool) {console.log(bool)}} />
+    </div>
+    )
+}
+ */
 /* Lesson 49: Render Props Part 1 */
 
 
@@ -58,18 +110,7 @@
 
 
 /* Lesson 47: Fix onToggle bug using refs 👻*/
-
-
-/* Lesson 46: Refs and DOM manipulation */
-
-
-/* Lesson 45: Intro to Refs */
-
-
-/* Lesson 44: Menu onClose event 👻*/
-
-
-/* Lesson 43: onToggle event listener 👻👻*/
+/* 
 import Toggle from "./aside/Toggle/index"
 import Menu from "./aside/Menu/index"
 import Star from "./aside/Star/Star"
@@ -91,7 +132,118 @@ export default function App() {
     </>
   )
 }
+ */
+/* Lesson 46: Refs and DOM manipulation */
+/* 
+import React from "react"
 
+export default function App () {
+  const [text, setText] = React.useState("")
+  const [list, setList] = React.useState([])
+  const inputRef = React.useRef(null)
+
+
+  function handleChange(e) {
+    setText(e.target.value)
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    if (!text) {
+      return;
+    }
+    setList(prevList => [...prevList, text])
+    setText("")
+    inputRef.current.focus()
+  }
+  
+  return (
+    <>
+      <h2>React Project Ideas</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          onChange={handleChange}
+          value={text}
+          placeholder="Idea"
+          ref={inputRef}
+        />
+        <button>Submit</button>
+      </form>
+
+      <ol>
+        {list.map((item, i) => <li key={i}>{item}</li>)}
+      </ol>
+    </>
+  )
+}
+ */
+/* Lesson 45: Intro to Refs */
+/* 
+Refs are just like state, except changing them dosen't cause a 
+re-render. They are frequently used for dom manipulation.
+
+*/
+/* 
+import React from "react"
+
+export default function App () {
+  const [on, setOn] = React.useState(true)
+  // const [renderCount, setRenderCount ] = React.useState(0)
+  const renderCount = React.useRef(0)
+
+  function forceRender() {
+    setOn(prevOn => !prevOn)
+  }
+
+  function incrementRenderCount() {
+    renderCount.current++
+  }
+
+  React.useEffect(() => {
+    // setRenderCount(prevCount => prevCount + 1)
+    renderCount.current++
+  })
+
+
+
+  return (
+    <>
+      <h3>Understanding refs</h3>
+      <button onClick={forceRender}> Force re-render w/state change</button>
+      <button onClick={incrementRenderCount}>IncrementRenderCount</button>
+      <h3>Render count: {renderCount.current}</h3>
+    </>
+  )
+}
+ */
+/* Lesson 44: Menu onClose event 👻*/
+
+
+/* Lesson 43: onToggle event listener 👻👻*/
+/* 
+import Toggle from "./aside/Toggle/index"
+import Menu from "./aside/Menu/index"
+import Star from "./aside/Star/Star"
+
+export default function App() {
+  const sports = ["Home", "About", "contact", "Squash"]
+
+  return (
+    <>
+      <Star onChange={()=> console.log("This is Star")}/>
+
+      <br />
+        <Menu onOpen={() => console.log("This is Menu")}>
+            <Menu.Button>Menu</Menu.Button>
+            <Menu.Dropdown>
+              {sports.map(item => <Menu.Item key={item}>{item}</Menu.Item>)}
+            </Menu.Dropdown>
+        </Menu>
+    </>
+  )
+}
+ */
 
 /* Lesson 42: Composing new components with Toggle 👻*/
 /* 

@@ -49,11 +49,24 @@
 
 
 /* Lesson 50: Render Props Part 2 👻*/
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from "./App"
 
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
 
 /* Lesson 49: Render Props Part 1 */
+/* document.getElementById("button").addEventListener("click", function() {
+  console.log("Clicked")
+})
 
+document.getElementById("input").addEventListener("input", function(e) {
+  console.log(e.target.value)
+})
 
+function addEventListener(eventType, callback) {
+  callback()
+} */
 /* Lesson 48: Fix missing onToggle bug using a noop function */
 
 
@@ -169,13 +182,13 @@
 
 
 /* Lesson 10: Button - size prop 👻👻*/
-
+/* 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from "./App"
 
 ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-
+ */
 /* Lesson 9: Aside - Destructuring props */
 /* 
 import React from 'react';

@@ -7,6 +7,5 @@ Menu.Button = MenuButton
 Menu.Dropdown = MenuDropdown
 Menu.Item = MenuItem
 
-console.dir(Menu)
 
 export default Menu
