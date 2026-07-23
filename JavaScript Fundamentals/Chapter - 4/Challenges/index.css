@@ -1,0 +1,79 @@
+/* Chapter - 4.2: JavaScript Challanges - part 3 */
+
+/* Lesson 1: let & const */
+
+
+/* Lesson 2: Log out items in an array */
+
+
+/* Lesson 3: save to localStorage */
+
+
+/* Lesson 4: addEventListener and object in array */
+/* body {
+    text-align: center;
+    background: whitesmoke;
+    color: darkgreen;
+    padding: 20px 0;
+}
+
+button {
+    background: lightcoral;
+    padding: 10px 16px;
+    border-radius: 4px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+ */
+/* Lesson 5: Generate sentence */
+
+
+/* Lesson 6: Render images */
+/*
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: whitesmoke;
+    text-align: center;
+    color: #130e0f;
+}
+
+h1 {
+    font-weight: 200;
+    letter-spacing: 2px;
+}
+
+#container {
+    width: 100%;
+}
+
+.team-img {
+    width: 100px;
+    border-radius: 100%;
+    margin: 10px;
+}
+
+ */
+
+/* Lesson 7: Rounding numbers */
+html, body {
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+button {
+    border: none;
+    border-radius: 200px;
+    padding: 15px 30px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #fc807f;
+    color: white;
+}
+
+
+/* Lesson 8: Convert string to number challenge */
+
+
+/* Lesson 9: Solo Project - Unit converter */
