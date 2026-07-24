@@ -5,9 +5,47 @@
 
 /* Lesson 65: Custom Hooks - useToggle part 9 */
 
+import React from "react"
+import useToggle from "../../hooks/useToggle"
+
+const MenuContext = React.createContext()
+
+export default function Menu({children, onOpen}) {
+const [open, toggleOpen] = useToggle({ initialValue: true, onToggle: onOpen})
+
+    return (
+        <MenuContext.Provider value={{open, toggleOpen}}>
+            <div className="menu" role="menu">
+                {children}
+            </div>
+        </MenuContext.Provider>
+    )
+}
+
+export {MenuContext}
+
 
 /* Lesson 64: Custom Hooks - useToggle part 8 👻*/
+/* 
+import React from "react"
+import useToggle from "../../hooks/useToggle"
 
+const MenuContext = React.createContext()
+
+export default function Menu({children, onOpen}) {
+const [open, toggleOpen] = useToggle(true, onOpen)
+
+    return (
+        <MenuContext.Provider value={{open, toggleOpen}}>
+            <div className="menu" role="menu">
+                {children}
+            </div>
+        </MenuContext.Provider>
+    )
+}
+
+export {MenuContext}
+ */
 
 /* Lesson 63: Custom Hooks - useToggle part 7 👻*/
 
@@ -16,10 +54,58 @@
 
 
 /* Lesson 61: Custom Hooks - useToggle part 5 👻*/
+/**
+ * Challenge:
+ * 3. Create context (MenuContext). Make sure to export
+ *    it so we can access it in the other Menu components!
+ *    (Will be a named export, not default export).
+ * 4. Wrap the div below with the context provider
+ * 5. What do you think we should pass as the values
+ *    to the provider? 🤔
+ */
+/* 
+import React from "react"
+import useToggle from "../../hooks/useToggle"
 
+const MenuContext = React.createContext()
+
+export default function Menu({children, onOpen}) {
+    const [open, toggleOpen] = useToggle()
+
+    return (
+        <MenuContext.Provider value={{open, toggleOpen}}>
+            <div className="menu" role="menu">
+                {children}
+            </div>
+        </MenuContext.Provider>
+    )
+}
+
+export {MenuContext}
+ */
 
 /* Lesson 60: Custom Hooks - useToggle part 4 👻*/
+/**
+ * Challenge:
+ * 1. Remove all references to Toggle in the all 4 Menu
+ *    components
+ * 2. import and use `useToggle()` to create new state
+ *    and toggle functions so we can use those in the Menu.
+ *    Call the variables "open" and "toggleOpen".
+*/
+/* import React from "react"
+import useToggle from "../../hooks/useToggle"
 
+export default function Menu({children, onOpen}) {
+    const [open, toggleOpen] = useToggle()
+
+    return (
+        <div className="menu" role="menu">
+            {children}
+        </div>
+    )
+}
+ */
 
 /* Lesson 59: Custom Hooks - useToggle part 3 👻*/
 
@@ -43,7 +129,20 @@
 
 
 /* Lesson 52: Render Props Part 4 - children as render props */
+/* import React from "react"
+import Toggle from "../Toggle/index"
 
+export default function Menu({children, onOpen}) {
+    
+    return (
+        <Toggle onToggle={onOpen}>
+            <div className="menu" role="menu">
+                {children}
+            </div>
+        </Toggle>
+    )
+}
+ */
 
 /* Lesson 51: Render Props Part 3 👻👻*/
 
@@ -70,7 +169,7 @@
 
 
 /* Lesson 43: onToggle event listener 👻👻*/
-import React from "react"
+/* import React from "react"
 import Toggle from "../Toggle/index"
 export default function Menu({children, onOpen}) {
     const menuId = React.useId()
@@ -84,7 +183,7 @@ export default function Menu({children, onOpen}) {
         </Toggle>
     )
 }
-
+ */
 
 /* Lesson 42: Composing new components with Toggle 👻*/
 

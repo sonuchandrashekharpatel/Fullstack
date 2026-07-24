@@ -20,19 +20,82 @@
 
 /* Lesson 60: Custom Hooks - useToggle part 4 👻*/
 
+import React from "react"
+import useEffectOnUpdate from "../../hooks/useEffectOnUpdate"
+import useToggle from "../../hooks/useToggle"
+
+const ToggleContext = React.createContext()
+export default function Toggle({children, onToggle = () => {}}) {
+
+    const [on, toggle] = useToggle()
+    
+    useEffectOnUpdate(onToggle, [on])
+
+    return <ToggleContext.Provider value={{on, toggle}}>{children}</ToggleContext.Provider>
+}
+
+export { ToggleContext }
+
 
 /* Lesson 59: Custom Hooks - useToggle part 3 👻*/
 
 
 /* Lesson 58: Custom Hooks - useToggle part 2 👻*/
+/* 
+import React from "react"
+import useEffectOnUpdate from "../../hooks/useEffectOnUpdate"
+import useToggle from "../../hooks/useToggle"
 
+const ToggleContext = React.createContext()
+export default function Toggle({children, onToggle = () => {}}) {
+
+    const [on, toggle] = useToggle()
+
+    useEffectOnUpdate(onToggle, [on])
+
+    return <ToggleContext.Provider value={{on, toggle}}>{children}</ToggleContext.Provider>
+}
+
+export { ToggleContext }
+ */
 
 /* Lesson 57: Custom Hooks - useToggle 👻*/
+/* 
+import React from "react"
+import useEffectOnUpdate from "../../hooks/useEffectOnUpdate"
 
+const ToggleContext = React.createContext()
+export default function Toggle({children, onToggle = () => {}}) {
+
+
+    useEffectOnUpdate(onToggle, [on])
+
+    return <ToggleContext.Provider value={{on, toggle}}>{children}</ToggleContext.Provider>
+}
+
+export { ToggleContext }
+ */
 
 /* Lesson 56: Custom Hooks - useEffectOnUpdate 👻👻👻👻👻*/
+/* 
+import React from "react"
+import useEffectOnUpdate from "../../hooks/useEffectOnUpdate"
 
+const ToggleContext = React.createContext()
+export default function Toggle({children, onToggle = () => {}}) {
+    const [on, setOn] = React.useState(false)
 
+    function toggle() {
+        setOn(prevState => !prevState)
+    }
+
+    useEffectOnUpdate(onToggle, [on])
+
+    return <ToggleContext.Provider value={{on, toggle}}>{children}</ToggleContext.Provider>
+}
+
+export { ToggleContext }
+ */
 /* Lesson 55: Custom Hooks Intro */
 
 
@@ -55,6 +118,7 @@
 
 
 /* Lesson 48: Fix missing onToggle bug using a noop function */
+/* 
 import React from "react"
 const ToggleContext = React.createContext()
 export default function Toggle({children, onToggle = () => {}}) {
@@ -78,7 +142,7 @@ export default function Toggle({children, onToggle = () => {}}) {
 }
 
 export { ToggleContext }
-
+ */
 
 /* Lesson 47: Fix onToggle bug using refs 👻*/
 /**

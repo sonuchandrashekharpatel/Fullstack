@@ -1,5 +1,22 @@
 /* Chapter - 1: Reusability */
+/* 
+What we learned:
+  1. Children
+  2. Compound Components
+  3. Context
+  4. Composition
+  6. Render Props
+  7. Custom Hooks
 
+What we build:
+  1. Button
+  2. Avatar
+  3. Menu
+  4. Toggle
+  6. useEffectOnUpdate()
+  7. useToggle()
+
+*/
 /* Lesson 66: Reusability section recap */
 
 
@@ -7,7 +24,22 @@
 
 
 /* Lesson 64: Custom Hooks - useToggle part 8 👻*/
+import Toggle from "./aside/Toggle/index"
+import Menu from "./aside/Menu/index"
 
+export default function App() {
+  const sports = ["Home", "About", "contact", "Squash"]
+  return (
+    <>
+      <Menu onOpen={() => console.log(" open/closed")}>
+        <Menu.Button>Menu</Menu.Button>
+        <Menu.Dropdown>
+          {sports.map(item => <Menu.Item key={item}>{item}</Menu.Item>)}
+        </Menu.Dropdown>
+      </Menu>
+    </>
+  )
+}
 
 /* Lesson 63: Custom Hooks - useToggle part 7 👻*/
 
@@ -19,10 +51,37 @@
 
 
 /* Lesson 60: Custom Hooks - useToggle part 4 👻*/
+/* import Toggle from "./aside/Toggle/index"
+import Menu from "./aside/Menu/index"
 
-
+export default function App() {
+  const sports = ["Home", "About", "contact", "Squash"]
+  return (
+    <>
+      <Menu onOpen={() => console.log("This is Menu")}>
+        <Menu.Button>Menu</Menu.Button>
+        <Menu.Dropdown>
+          {sports.map(item => <Menu.Item key={item}>{item}</Menu.Item>)}
+        </Menu.Dropdown>
+      </Menu>
+    </>
+  )
+} */
 /* Lesson 59: Custom Hooks - useToggle part 3 👻*/
+/* 
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import Menu from "./aside/Menu/index"
+import Star from "./aside/Star/Star"
+import Toggle from "./aside/Toggle/index"
 
+export default function App() {
+  return (
+    <>
+      <Star />
+    </>
+  )
+} */
 
 /* Lesson 58: Custom Hooks - useToggle part 2 👻*/
 
@@ -31,18 +90,150 @@
 
 
 /* Lesson 56: Custom Hooks - useEffectOnUpdate 👻👻👻👻👻*/
+/* 
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import Menu from "./aside/Menu/index"
+import Star from "./aside/Star/Star"
+import Toggle from "./aside/Toggle/index"
 
+ export default function App() {
+  return (
+    <>
+      <Toggle onToggle={() => console.log("Toggled")}>
+        <Toggle.Button>
+          <Toggle.Display>{ on => on ? <div className="box filled"></div> : <div className="box"></div> }</Toggle.Display>
+        </Toggle.Button>
+      </Toggle>
+    </>
+  )
+}
+ */
 
 /* Lesson 55: Custom Hooks Intro */
+/* 
+Hooks allow you "hook into" the rendering cycles of React.
+E.g. useState maintains variable across render cycles and 
+trigger re-renders on changes. useRef maintains values across 
+render cylces without causing re-render.
 
+Reack Hooks: 
+Build in
+. useState
+. useEffect
+. useRef
+. etc.
+
+Custom:
+. Combine existing hooks into custom, reusable pieces of logic.
+. Similar to regular utility functions. but use hooks to access 
+  the render cycles of React.
+
+*/
 
 /* Lesson 54: Toggle.Display 👻👻*/
+/**
+ * Challenge: 
+ * Part 1: 
+ * Create a ToggleDisplay component and attach
+ * it to Toggle as Toggle.Display.
+ * 
+ * It should grab the `on` value from the Toggle context
+ * and render children by calling children as a function, 
+ * passing the `on` value to it. (E.g. children(on)).
+ */
 
+/* 
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import Menu from "./aside/Menu/index"
+import Star from "./aside/Star/Star"
+import Toggle from "./aside/Toggle/index"
+
+ export default function App() {
+  return (
+    <>
+      <Toggle>
+        <Toggle.Button>
+          <Toggle.On>
+            <Toggle.Display>{(on) => <div className="box filled"></div>}</Toggle.Display>
+          </Toggle.On>
+          <Toggle.Off>
+            <Toggle.Display>{(on) => <div className="box"></div>}</Toggle.Display>
+          </Toggle.Off>
+        </Toggle.Button>
+      </Toggle>
+    </>
+  )
+}
+ */
+
+/**
+ * Challenge: 
+ * Part 2:
+ * Instead of rendering Toggle.On and Toggle.Off, use a single
+ * Toggle.Display to render the div below. Toggle.Display will
+ * take a function as a child (don't forget to wrap that function
+ * in curly braces since it's JS inside of JSX) and will receive
+ * the `on` state as its parameter.
+ * 
+ * From that function, you should return the div below, but this
+ * time conditionally render the `filled` className based on
+ * the value of `on`.
+ * 
+ * You'll know it worked if clicking the box shows a transition
+ * between the white background and the blue background. See
+ * style.css for details on what's happening there.
+ */
+
+/* 
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import Menu from "./aside/Menu/index"
+import Star from "./aside/Star/Star"
+import Toggle from "./aside/Toggle/index"
+
+ export default function App() {
+  return (
+    <>
+      <Toggle>
+        <Toggle.Button>
+          <Toggle.Display>{ on => on ? <div className="box filled"></div> : <div className="box"></div> }</Toggle.Display>
+        </Toggle.Button>
+      </Toggle>
+    </>
+  )
+}
+ */
 
 /* Lesson 53: Toggle.Display intro */
+/* 
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import Menu from "./aside/Menu/index"
+import Star from "./aside/Star/Star"
+import Toggle from "./aside/Toggle/index"
 
+ export default function App() {
+  return (
+    <>
+      <Toggle>
+        <Toggle.Button>
+          <Toggle.On>
+            <div className="box filled"></div>
+          </Toggle.On>
+          <Toggle.Off>
+            <div className="box"></div>
+          </Toggle.Off>
+        </Toggle.Button>
+      </Toggle>
+    </>
+  )
+}
+ */
 
 /* Lesson 52: Render Props Part 4 - children as render props */
+/* 
 import React from "react"
 import Decision from "./aside/Decision"
 
@@ -65,10 +256,11 @@ return (
     </div>
     )
 }
-
+ */
 
 /* Lesson 51: Render Props Part 3 👻👻*/
-/* import React from "react"
+/* 
+import React from "react"
 import Decision from "./aside/Decision"
 
 export default function App() {
@@ -90,7 +282,9 @@ return (
  * Pass a function down via props to Decision that receives
  * the boolean in state and logs it
 */
-/* import React from "react"
+
+/* 
+import React from "react"
 import Decision from "./aside/Decision"
 
 export default function App() {
@@ -103,6 +297,7 @@ return (
     )
 }
  */
+
 /* Lesson 49: Render Props Part 1 */
 
 
@@ -133,6 +328,7 @@ export default function App() {
   )
 }
  */
+
 /* Lesson 46: Refs and DOM manipulation */
 /* 
 import React from "react"

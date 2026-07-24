@@ -22,6 +22,28 @@
 
 
 /* Lesson 59: Custom Hooks - useToggle part 3 👻*/
+/**
+ * Challenge: Remove all parts of our Toggle component
+ * (don't delete the react-icons stars though!) and use 
+ * the useToggle hook to conditionally render the stars. 
+ * Make sure to add an onClick that runs the `toggle` function
+ * you get from useToggle()
+ */
+
+import { BsStar, BsStarFill } from "react-icons/bs"
+import useToggle from "../../hooks/useToggle"
+
+export default function Star({onChange}) {
+  const [on, toggle] = useToggle()
+
+  return (
+    <>
+    { on ? <BsStarFill onClick={toggle} className="star filled"/>:
+     <BsStar onClick={toggle} className="star "/>
+    }
+    </>
+  )
+}
 
 
 /* Lesson 58: Custom Hooks - useToggle part 2 👻*/
@@ -108,7 +130,7 @@ export default function Star() {
      * 2. Add an onChange prop to the Star component instance
      *    in index.js that just runs a console.log() for now.
      */
-
+/* 
 import { BsStar, BsStarFill } from "react-icons/bs"
 import Toggle  from "../Toggle/index"
 
@@ -124,7 +146,7 @@ export default function Star({onChange}) {
       </Toggle>
     )
 }
-
+ */
 /* Lesson 42: Composing new components with Toggle 👻*/
 /* 
 import { BsStar, BsStarFill } from "react-icons/bs"

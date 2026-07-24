@@ -37,7 +37,13 @@
 
 
 /* Lesson 54: Toggle.Display 👻👻*/
+import React from "react"
+import { ToggleContext } from "./Toggle"
 
+export default function ToggleDispaly({ children }) {
+    const { on } = React.useContext(ToggleContext)
+    return children (on)
+}
 
 /* Lesson 53: Toggle.Display intro */
 
@@ -97,6 +103,7 @@
 
 
 /* Lesson 34: Headless Toggle component */
+/* 
 import React from "react"
 import { ToggleContext } from "./Toggle"
 
@@ -109,3 +116,4 @@ export default function ToggleDisplay({ children }) {
     
     return children(on, toggle) 
 }
+ */
