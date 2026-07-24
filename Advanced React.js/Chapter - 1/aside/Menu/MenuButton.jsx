@@ -14,12 +14,55 @@
 
 /* Lesson 62: Custom Hooks - useToggle part 6 👻*/
 
+/**
+ * Challenge:
+ * 6. Access the needed context values in the MenuButton
+ *    and MenuDropdown components. See if you can remember
+ *    (or figure out again) how those values are used in each 
+ *    of those components. Once you've done this successfully,
+ *    the Menu should start working again (except for the onOpen
+ *    callback, which we'll work on fixing soon).
+ */
+
+import React from "react"
+import Button from "../Button/Button"
+import { MenuContext } from "./Menu"
+
+export default function MenuButton({ children }) {
+    const menuId = React.useId()
+    const {toggleOpen } = React.useContext(MenuContext)
+
+    return (
+        <Button 
+            aria-haspopup="true"
+            aria-controls={menuId}
+            onClick={toggleOpen}
+            >{children}
+        </Button>
+    )
+}
+
 
 /* Lesson 61: Custom Hooks - useToggle part 5 👻*/
 
 
 /* Lesson 60: Custom Hooks - useToggle part 4 👻*/
+/* 
+import React from "react"
+import Button from "../Button/Button"
 
+export default function MenuButton({ children }) {
+    const menuId = React.useId()
+    
+    return (
+        <Button 
+            aria-haspopup="true"
+            aria-controls={menuId}
+            >{children}
+        </Button>
+    )
+}
+ */
 
 /* Lesson 59: Custom Hooks - useToggle part 3 👻*/
 
@@ -73,7 +116,7 @@
 
 
 /* Lesson 42: Composing new components with Toggle 👻*/
-
+/* 
 import React from "react"
 import Button from "../Button/Button"
 import Toggle from "../Toggle/index"
@@ -91,7 +134,7 @@ export default function MenuButton({ children }) {
         </Toggle.Button>
     )
 }
-
+ */
 
 /* Lesson 41: Use Toggle with Menu component 👻*/
 /* 

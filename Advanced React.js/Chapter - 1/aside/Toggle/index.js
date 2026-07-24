@@ -37,6 +37,18 @@
 
 
 /* Lesson 54: Toggle.Display 👻👻*/
+import Toggle from "./Toggle"
+import ToggleButton from "./ToggleButton"
+import ToggleOn from "./ToggleOn"
+import ToggleOff from './ToggleOff'
+import ToggleDisplay from "./ToggleDisplay"
+
+Toggle.Button = ToggleButton
+Toggle.On = ToggleOn
+Toggle.Off = ToggleOff
+Toggle.Display = ToggleDisplay
+
+export default Toggle
 
 
 /* Lesson 53: Toggle.Display intro */
@@ -82,7 +94,7 @@
 
 
 /* Lesson 39: Toggle.On & Toggle.Off 👻👻*/
-import Toggle from "./Toggle"
+/* import Toggle from "./Toggle"
 import ToggleButton from "./ToggleButton"
 import ToggleOn from "./ToggleOn"
 import ToggleOff from './ToggleOff'
@@ -92,7 +104,7 @@ Toggle.On = ToggleOn
 Toggle.Off = ToggleOff
 
 export default Toggle
-
+ */
 /* Lesson 38: Toggle.Button 👻*/
 /* 
 import Toggle from "./Toggle"
