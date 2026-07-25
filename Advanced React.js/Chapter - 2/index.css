@@ -4,6 +4,7 @@
 
 
 /* Lesson 2: Recursive rendering */
+/* 
 body {
     background-color: #e9e3ff;
     color: #2b283a;
@@ -68,7 +69,7 @@ button {
     position: absolute;
     left: -30px;
 }
-
+ */
 /* Lesson 3: Three phases of "rendering" */
 
 
@@ -79,7 +80,54 @@ button {
 
 
 /* Lesson 6: StrictMode - double renders components */
+body { 
+    margin: 0;
+    padding: 10px;
+    background-color: #ddeae1ff;
+    font-family: 'Karla', sans-serif;
+}
 
+.products-list {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.product-card {
+    border: 1px solid #888;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+}
+
+.product-card:hover {
+    background-color: white;
+    cursor: pointer;
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.button {
+    width: 3rem;
+    padding: .3rem;
+    background-color: #b6d7a8;
+    border: 1px solid #888;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.button:active {
+    outline: 2px solid blue;
+}
+
+.button:hover {
+    background-color: #93c47d;
+}
 
 /* Lesson 7: StrictMode - rerunning side effects */
 

@@ -40,7 +40,15 @@
 
 
 /* Lesson 6: StrictMode - double renders components 👻*/
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 
+import App from './App'
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+   <App />
+  </React.StrictMode>
+); 
 
 /* Lesson 5: Using Dev Tools to Measure Performance */
 
@@ -55,13 +63,12 @@
 /* 
 
 */
-import React from 'react';
+/* import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from "./App"
-console.log("Index.jsx")
 
-// ReactDOM.createRoot(document.getElementById('root')).render(<App />); 
-
+ReactDOM.createRoot(document.getElementById('root')).render(<App />); 
+ */
 /* Lesson 1: Performance Intro */
 
 /* 
@@ -98,7 +105,7 @@ import lessonGenerator from "../../Aside/index.js"
 const chapterName = "Performance"
 const chapterNum = 2
 const lesson = [
-  "Performance Intro",
+ "Performance Intro",
   "Recursive rendering",
   "Three phases of \"rendering\"",
   "Rendering Phases Quiz",
