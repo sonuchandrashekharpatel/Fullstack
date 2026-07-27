@@ -28,16 +28,99 @@
 
 
 /* Lesson 10: useMemo() */
+/* 
+useMemo(): To remember calculated values between renders
 
+When to use useMemo()?
+1. Avoid recalculating expensive calculations if it's not necessary.
+
+*/
 
 /* Lesson 9: Code Splitting, lazy, Suspense - Part 2 👻*/
 
 
 /* Lesson 8: Code Splitting, lazy, Suspense - Part 1 */
+/* 
+Code Splitting: For reducing the load size
+What is Code splitting?
+. Instead of always importing "heavy " code you can conditionally 
+  import it only if/when needed.
 
+. Splits up download, so your main feature aren't blocked by show 
+  connections.
+. Sometimes bypass unneeded code altogether.
 
-/* Lesson 7: StrictMode - rerunning side effects 👻*/
+How does it work?
+. Uses "dynamic import" function import()
+
+. Combine import() with React.lazy() to only load a "heavy" 
+  component if needed.
+  
+. Use <Suspense> to provide a fallback UI while the "lazy 
+  component" is loading.
+
+*/
+/**
+ * Challenge: Add back the dynamic import of the ProductsList
+ * component.
+ * 
+ * 1. Use `React.lazy()` to create a suspending component
+ *    that will only render when needed
+ * 2. Use the dynamic `import()` as the return value inside of
+ *    `React.lazy()`
+ * 3. Use the `<React.Suspense>` component will a `fallback`
+ *    prop to give React something to render in the meantime
+ *    while it's downloading all the code for the suspended
+ *    component.
+ */
 import React from "react"
+// import ProductsList from "./components/ProductList"
+
+const ProductsList = React.lazy(() => {
+  return import("./components/ProductList")
+})
+
+export default function App() {
+  const [count, setCount] = React.useState(0)
+  const [showProducts, setShowProducts] = React.useState(false)
+
+  function increment() {
+    setCount(prevCount => prevCount + 1)
+  }
+
+  function decrement() {
+    setCount(prevCount => prevCount - 1)
+  }
+
+  return (
+    <>
+      <h1>The current count is {count}</h1>
+      <button className="button" onClick={decrement}>
+        -
+            </button>
+      <button className="button" onClick={increment}>
+        +
+            </button>
+      <br />
+      <br />
+      <button
+        className="button"
+        onClick={() => setShowProducts(prev => !prev)}
+      >
+        Show Products
+            </button>
+      <br />
+      <br />
+      <React.Suspense fallback={<h2>Loading...</h2>}>
+        <div className="products-list">
+          {showProducts && <ProductsList />}
+        </div>
+      </React.Suspense>
+    </>
+  )
+}
+/* Lesson 7: StrictMode - rerunning side effects 👻*/
+/* import React from "react"
 import Timer from "./components/Timer"
 
 export default function App() {
@@ -56,6 +139,7 @@ export default function App() {
     </div>
   )
 }
+ */
 
 /* Lesson 6: StrictMode - double renders components 👻*/
 /* 
