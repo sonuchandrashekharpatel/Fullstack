@@ -19,13 +19,33 @@
 
 
 /* Lesson 13: React.memo() practice 👻*/
+import { faker } from "@faker-js/faker"
 
+const products = new Array(500).fill(null).map(() => ({
+    id: faker.database.mongodbObjectId(),
+    name: faker.commerce.productName(),
+    description: faker.commerce.productDescription(),
+    material: faker.commerce.productMaterial(),
+    price: faker.commerce.price(),
+    department: faker.commerce.department(),
+    quantity: faker.number.int({min: 0, max: 100})
+}))
 
 /* Lesson 12: React.memo() - reducing rerenders 👻*/
 
 
 /* Lesson 11: useMemo() practice 👻*/
+/* import { faker } from "@faker-js/faker"
 
+const products = new Array(3000).fill(null).map(() => ({
+    id: faker.database.mongodbObjectId(),
+    name: faker.commerce.productName(),
+    description: faker.commerce.productDescription(),
+    material: faker.commerce.productMaterial(),
+    price: faker.commerce.price(),
+    department: faker.commerce.department(),
+    quantity: faker.number.int({min: 0, max: 100})
+})) */
 
 /* Lesson 10: useMemo() */
 
@@ -34,7 +54,7 @@
 
 
 /* Lesson 8: Code Splitting, lazy, Suspense - Part 1 */
-import { faker } from "@faker-js/faker"
+/* import { faker } from "@faker-js/faker"
 
 const products = new Array(50).fill(null).map(() => ({
     id: faker.database.mongodbObjectId(),
@@ -44,7 +64,7 @@ const products = new Array(50).fill(null).map(() => ({
     price: faker.commerce.price(),
     department: faker.commerce.department(),
     quantity: faker.number.int({min: 0, max: 100})
-}))
+})) */
 
 export default products
 

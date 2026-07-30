@@ -19,14 +19,188 @@
 
 
 /* Lesson 13: React.memo() practice 👻*/
+/**
+ * Challenge: Using what you've learned about React.memo(),
+ * improve the performance of this app when the counter
+ * is changed. Since the products don't care about the `count`
+ * value at all, they shouldn't need to rerender when `count`
+ * changes.
+ */
 
+import React from "react"
+import productsData from './data/data'
+import Product from "./components/Product"
+
+export default function App() {
+  const [count, setCount] = React.useState(0)
+  const [darkMode, setDarkMode] = React.useState(false)
+
+  function increment() {
+    setCount(prevCount => prevCount + 1)
+  }
+
+  function decrement() {
+    setCount(prevCount => prevCount - 1)
+  }
+
+  return (
+    <>
+      <h1>The current count is {count}</h1>
+      <button className="button" onClick={decrement}>-</button>
+      <button className="button" onClick={increment}>+</button>
+      <br />
+      <br />
+      <button
+        className="button"
+        onClick={() => setDarkMode(prev => !prev)}
+      >
+        {darkMode ? "Light" : "Dark"}
+      </button>
+      <br />
+      <br />
+      <div className="products-list">
+        {
+          productsData.map(product => (
+            <Product
+              key={product.id}
+              product={product}
+              darkMode={darkMode}
+            />
+          ))
+        }
+      </div>
+    </>
+  )
+}
 
 /* Lesson 12: React.memo() - reducing rerenders 👻*/
+/* 
+React.memo() => To reduce unnecessary rerenders
 
+What is React.memo()?
+. A "Higher-Order" component (HOC) built by React.
+  . A higher order function is a method or function that takes 
+    another function as an argument (e.g. .map(), .filter(), etc)
+  
+  . A HOC is function that takes a component as an argument, adds 
+    some special abilities to it, and gives the "beefed-up" version 
+    of it back.
 
+What does React.memo() do?
+. Memoizes (caches/"remembers") a component if the props don't 
+  change from one render to the next
+
+. Reminder: "Rendering" phase in React isn't usually slow/expensive. 
+  It's more important to fix slow renders before worrying about reducing rerenders.
+
+*/
+/* import React from "react"
+import GrandParent from "./components/GrandParent"
+
+export default function App() {
+    const [count, setCount] = React.useState(0)
+
+    function increment() {
+        setCount(prevCount => prevCount + 1)
+    }
+    
+    function decrement() {
+        setCount(prevCount => prevCount - 1)
+    }
+
+    console.log("[GP] [P] [C] [GC] APP just rendered")
+    return (
+        <div>
+            <button onClick={decrement}>-1</button>
+            <button onClick={increment}>+1</button>
+            <h2>{count}</h2>
+            <p>App component</p>
+            <GrandParent count={count}/>
+            <GrandParent />
+        </div>
+    )
+} */
+/**
+ * Play around: what happens when you pass the count to just one
+ * of the `GrandParent` components? What gets re-rendered?
+ * Does it matter if the GrandParent component even uses
+ * that prop that was passed to it?
+ */
 /* Lesson 11: useMemo() practice 👻*/
+/* 
+Maintain referential equality of a complex data type between renders
+*/
+
+/**
+ * NOTE: I recommend opening the dev tools performance tab and throttling
+ * to a 6x slowdown to help highlight the delays that are happening with
+ * the expensive "sort" method call on each render.
+ */
+/* 
+import React from "react"
+import productsData from './data/data'
+import { slowCountItems } from "./utils/utils"
+import Product from "./components/Product"
+
+export default function App() {
+  const [count, setCount] = React.useState(0)
+  const [sort, setSort] = React.useState(false)
+
+  function increment() {
+    setCount(prevCount => prevCount + 1)
+  }
+
+  function decrement() {
+    setCount(prevCount => prevCount - 1)
+  }
 
 
+  // Comment these 4 lines out when testing your solution below
+  // const startTime1 = Date.now()
+  // const sortedProducts = [...productsData].sort(
+  //   (a,b) => 
+  //     a.name.localeCompare(b.name)
+  // )
+  // const endTime1 = Date.now()
+
+  // console.log(`Took ${endTime1 - startTime1}ms`)
+
+  const startTime2 = Date.now()
+  const sortedProducts = React.useMemo( () =>  
+    [...productsData].sort((a, b) => a.name.localeCompare(b.name)), [productsData] 
+  )
+  const endTime2 = Date.now()
+
+  console.log(`Took ${endTime2 - startTime2}ms`)
+
+  const visibleProducts = sort ? sortedProducts : productsData
+
+  return (
+    <>
+      <h1>The current count is {count}</h1>
+      <button className="button" onClick={decrement}>-</button>
+      <button className="button" onClick={increment}>+</button>
+      <br />
+      <br />
+      <button
+        className="button"
+        onClick={() => setSort(prev => !prev)}
+      >
+        {sort ? "Unsort" : "Sort"}
+      </button>
+      <br />
+      <br />
+      <div className="products-list">
+        {
+          visibleProducts.map(product => (
+            <Product key={product.id} product={product} />
+          ))
+        }
+      </div>
+    </>
+  )
+}
+ */
 /* Lesson 10: useMemo() */
 /* 
 useMemo(): To remember calculated values between renders
@@ -35,6 +209,52 @@ When to use useMemo()?
 1. Avoid recalculating expensive calculations if it's not necessary.
 
 */
+
+/* 
+import React from "react"
+import productsData from './data/data'
+import { slowCountItems } from "./utils/utils"
+import Product from "./components/Product"
+
+export default function App() {
+  const [count, setCount] = React.useState(0)
+
+  function increment() {
+    setCount(prevCount => prevCount + 1)
+  }
+
+  function decrement() {
+    setCount(prevCount => prevCount - 1)
+  }
+  
+  // React.useEffect(() => {
+  //   console.log("productsData changed") 
+  // }, [productsData])
+
+  // const productsCount = slowCountItems(productsData, 500)
+
+  const productsCount = React.useMemo(() => {
+    return slowCountItems(productsData, 500)
+  }, [productsData])
+  
+  return (
+    <>
+      <h1>The current count is {count}</h1>
+      <button className="button" onClick={decrement}>-</button>
+      <button className="button" onClick={increment}>+</button>
+      <br />
+      <br />
+      <h2>There are {productsCount} products</h2>
+      <div className="products-list">
+        {
+          productsData.map(product => (
+            <Product key={product.id} product={product} />
+          ))
+        }
+      </div>
+    </>
+  )
+} */
 
 /* Lesson 9: Code Splitting, lazy, Suspense - Part 2 👻*/
 
@@ -60,6 +280,7 @@ How does it work?
   component" is loading.
 
 */
+
 /**
  * Challenge: Add back the dynamic import of the ProductsList
  * component.
@@ -72,7 +293,9 @@ How does it work?
  *    prop to give React something to render in the meantime
  *    while it's downloading all the code for the suspended
  *    component.
- */
+*/
+
+/* 
 import React from "react"
 // import ProductsList from "./components/ProductList"
 
@@ -119,8 +342,11 @@ export default function App() {
     </>
   )
 }
+ */
+
 /* Lesson 7: StrictMode - rerunning side effects 👻*/
-/* import React from "react"
+/* 
+import React from "react"
 import Timer from "./components/Timer"
 
 export default function App() {

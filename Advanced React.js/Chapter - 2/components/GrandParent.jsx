@@ -22,7 +22,21 @@
 
 
 /* Lesson 12: React.memo() - reducing rerenders 👻*/
+import React from "react"
+import Parent from "./Parent"
 
+function GrandParent() {
+    console.log("[👴🏼]   [ ]   [ ]   [ ] rendered")
+    return (
+        <div className="grandparent">
+            <p>GrandParent Component.</p>
+            <Parent />
+            <Parent />
+        </div>
+    )
+}
+
+export default React.memo(GrandParent)
 
 /* Lesson 11: useMemo() practice 👻*/
 
@@ -52,7 +66,7 @@
 
 
 /* Lesson 2: Recursive rendering */
-
+/* 
 import React from "react"
 import Parent from "./Parent"
 
@@ -66,3 +80,4 @@ export default function GrandParent({ count }) {
         </div>
     )
 }
+ */

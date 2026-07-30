@@ -25,7 +25,13 @@
 
 
 /* Lesson 11: useMemo() practice 👻*/
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 
+import App from './App'
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <App />
+); 
 
 /* Lesson 10: useMemo() */
 
@@ -40,7 +46,7 @@
 
 
 /* Lesson 6: StrictMode - double renders components 👻*/
-import React from 'react';
+/* import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import App from './App'
@@ -48,7 +54,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
    <App />
   </React.StrictMode>
-); 
+);  */
 
 /* Lesson 5: Using Dev Tools to Measure Performance */
 

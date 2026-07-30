@@ -19,7 +19,22 @@
 
 
 /* Lesson 13: React.memo() practice 👻*/
+import React from "react"
+import { sleep } from "../utils/utils"
 
+function Product({ product, darkMode }) {
+    sleep(1)
+    const styles = {
+        backgroundColor: darkMode ? "#2b283a" : "whitesmoke",
+        color: darkMode ? "white" : "#2b283a"
+    }
+    return (
+        <div className="product-card" style={styles}>
+            <p className="truncate">{product.name}</p>
+        </div>
+    )
+}
+export default React.memo(Product)
 
 /* Lesson 12: React.memo() - reducing rerenders 👻*/
 
@@ -34,16 +49,16 @@
 
 
 /* Lesson 8: Code Splitting, lazy, Suspense - Part 1 */
-import React from "react"
+/* import React from "react"
 
-export default function Product({ product }) {
+export default function Product ({ product }) {
     return (
         <div className="product-card">
             <p className="truncate">{product.name}</p>
         </div>
     )
 }
-
+ */
 /* Lesson 7: StrictMode - rerunning side effects 👻*/
 
 
