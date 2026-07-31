@@ -240,7 +240,7 @@ body {
 
 
 /* Lesson 12: React.memo() - reducing rerenders */
-body {
+/* body {
     background-color: #e9e3ff;
     color: #2b283a;
     font-family: Arial, Helvetica, sans-serif;
@@ -304,8 +304,132 @@ button {
     position: absolute;
     left: -30px;
 }
-
+*/
 /* Lesson 13: React.memo() practice */
+/* body { 
+    margin: 0;
+    padding: 10px;
+    background-color: #ddeae1ff;
+    font-family: 'Karla', sans-serif;
+}
+
+.products-list {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.product-card {
+    border: 1px solid #888;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+}
+
+.product-card:hover {
+    background-color: white;
+    cursor: pointer;
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.button {
+    min-width: 3rem;
+    padding: .3rem;
+    background-color: #b6d7a8;
+    border: 1px solid #888;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.button:active {
+    outline: 2px solid blue;
+}
+
+.button:hover {
+    background-color: #93c47d;
+}
+ */
+/* Lesson 14: Value vs. Reference Types & referential equality */
+
+
+/* Lesson 15: useMemo(), React.memo(), and referential equality */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+.container {
+    background-color: #e9e3ff;
+    color: #2b283a;
+    padding: 10px;
+}
+
+p {
+    font-size: 1.3rem;
+    margin: 0.5rem;
+}
+
+button {
+    background-color: #c7b9ff;
+    border: 1px solid rebeccapurple;
+    border-radius: 5px;
+    padding: 5px;
+    margin-inline: 5px;
+    min-width: 50px;
+    cursor: pointer;
+}
+
+.grandparent {
+    position: relative;
+    margin-left: 45px;
+}
+
+.grandparent::before {
+    content: "‍👴🏼";
+    position: absolute;
+    left: -30px;
+}
+
+.parent {
+    margin-left: 25px;
+    position: relative;
+}
+
+.parent::before {
+    content: "️️️👩🏽";
+    position: absolute;
+    left: -30px;
+}
+
+.child {
+    margin-left: 25px;
+    position: relative;
+}
+
+.child::before {
+    content: "‍👦🏽";
+    position: absolute;
+    left: -30px;
+}
+
+.grandchild {
+    margin-left: 25px;
+    position: relative;
+}
+
+.grandchild::before {
+    content: "‍👶🏽";
+    position: absolute;
+    left: -30px;
+}
+
+/* Lesson 16: useMemo() practice */
 body { 
     margin: 0;
     padding: 10px;
@@ -354,15 +478,6 @@ body {
 .button:hover {
     background-color: #93c47d;
 }
-
-/* Lesson 14: Value vs. Reference Types & referential equality */
-
-
-/* Lesson 15: useMemo(), React.memo(), and referential equality */
-
-
-/* Lesson 16: useMemo() practice */
-
 
 /* Lesson 17: useCallback() */
 

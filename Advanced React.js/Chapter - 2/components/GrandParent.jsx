@@ -7,14 +7,47 @@
 
 
 /* Lesson 17: useCallback() 👻*/
+import React from "react"
+import Parent from "./Parent"
+import { sleep } from "../utils/utils"
+
+function GrandParent({ style, increment }) {
+    sleep(30)
+    console.log("[👴🏼]   [ ]   [ ]   [ ] rendered")
+    return (
+        <div className="grandparent" style={style}>
+            <p>GrandParent Component <button onClick={increment}>+</button></p>
+            <Parent />
+            <Parent />
+        </div>
+    )
+}
+
+export default React.memo(GrandParent)
 
 
 /* Lesson 16: useMemo() practice 👻*/
 
 
 /* Lesson 15: useMemo(), React.memo(), and referential equality 👻*/
+/* import React from "react"
+import Parent from "./Parent"
+import { sleep } from "../utils/utils"
 
+function GrandParent({ style }) {
+    sleep(30)
+    console.log("[👴🏼]   [ ]   [ ]   [ ] rendered")
+    return (
+        <div className="grandparent" style={style}>
+            <p>GrandParent Component.</p>
+            <Parent />
+            <Parent />
+        </div>
+    )
+}
 
+export default React.memo(GrandParent)
+ */
 /* Lesson 14: Value vs. Reference Types & referential equality 👻*/
 
 
@@ -22,7 +55,7 @@
 
 
 /* Lesson 12: React.memo() - reducing rerenders 👻*/
-import React from "react"
+/* import React from "react"
 import Parent from "./Parent"
 
 function GrandParent() {
@@ -37,6 +70,7 @@ function GrandParent() {
 }
 
 export default React.memo(GrandParent)
+ */
 
 /* Lesson 11: useMemo() practice 👻*/
 

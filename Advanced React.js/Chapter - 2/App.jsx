@@ -1,22 +1,303 @@
 /* Chapter - 2: Performance */
 
+
+
+/* Lesson 20: Course Outro */
+/* 
+Reacap: 
+*/
+
+
 /* Lesson 19: Solo Project - Component Library++ */
 
 
 /* Lesson 18: useCallback() practice 👻👻👻*/
+/**
+ * Challenge - Part 1: Try passing `setSelectedProduct` (the 
+ * state setter function React made in the useState) down to
+ * the Product component. Set it up so when the div#product-card
+ * is clicked, it sets the selectedProduct to the id of that
+ * particular product.
+ * 
+ * After doing that, check if there has been a performance
+ * problem from passing a function down to the child component
+ * or not. Why or why not?
+*/
+
+/**
+ * Challenge - Part 2: Create your own function `chooseProduct` that takes
+ * and id parameter, and first logs "New product selected" 
+ * to the console, and THEN calls `setSelectedProduct`
+ * passing it the id. Then test the performance.
+ */
+/**
+ * Challenge - Part 3: cache the chooseProduct function so it
+ * doesn't get recreated on every render. Check again if the
+ * performance improved afterward.
+ */
+import React from 'react';
+import Product from "./components/Product"
+import productsData from "./data/data"
+
+export default function App() {
+  const [count, setCount] = React.useState(0)
+  const [darkMode, setDarkMode] = React.useState(false)
+  const [selectedProduct, setSelectedProduct] = React.useState(null)
+
+  function increment() {
+    setCount(prevCount => prevCount + 1)
+  }
+
+  function decrement() {
+    setCount(prevCount => prevCount - 1)
+  }
+
+  const chooseProduct = React.useCallback(function (id) {
+    console.log("New product selected")
+    setSelectedProduct(id)
+  } ,[setSelectedProduct])
+
+  const productStyles = React.useMemo(() => {
+    return {
+      backgroundColor: darkMode ? "#2b283a" : "whitesmoke",
+      color: darkMode ? "white" : "#2b283a"
+    }
+  }, [darkMode])
+
+  const selectedStyles = {
+    backgroundColor: "#93c47d"
+  }
+
+  return (
+    <>
+      <h1>The current count is {count}</h1>
+      <button className="button" onClick={decrement}>-</button>
+      <button className="button" onClick={increment}>+</button>
+      <br />
+      <br />
+      <button
+        className="button"
+        onClick={() => setDarkMode(prev => !prev)}
+      >
+        {darkMode ? "Light" : "Dark"}
+      </button>
+      <br />
+      <br />
+      <div className="products-list">
+        {
+          productsData.map(product => {
+            const isSelected = product.id === selectedProduct
+            return <Product
+              key={product.id}
+              // chooseProduct = {() => setSelectedProduct(product.id)}
+              chooseProduct={chooseProduct}
+              product={product}
+              style={isSelected ? { ...productStyles, ...selectedStyles } : productStyles}
+            />
+          })
+        }
+      </div>
+    </>
+  )
+}
 
 
 /* Lesson 17: useCallback() 👻*/
+/* 
+When to use useCallback() ? 
+. Maintain reference to function between renders
+  . Avoid rerenders with React.memo()
+  . Avoiding too many useEffect() calls
+*/
 
+/* 
+import React from "react"
+import GrandParent from "./components/GrandParent"
+
+export default function App() {
+    const [count, setCount] = React.useState(0)
+    const [darkMode, setDarkMode] = React.useState(false)
+
+    const increment = React.useCallback(() => {
+        setCount(prevCount => prevCount + 1)
+    }, [setCount])
+
+    function decrement() {
+        setCount(prevCount => prevCount - 1)
+    }
+
+    const style = React.useMemo(() => {
+        return {
+            backgroundColor: darkMode ? "#2b283a" : "#e9e3ff",
+            color: darkMode ? "#e9e3ff" : "#2b283a",
+        }
+    }, [darkMode])
+
+
+    console.log("[GP] [P] [C] [GC] APP just rendered")
+    return (
+        <div className="container">
+            <button onClick={decrement}>-</button>
+            <button onClick={increment}>+</button>
+            <h2>Count: {count}</h2>
+            <button onClick={() => setDarkMode(prev => !prev)}>
+                {darkMode ? "Switch to Light" : "Switch to Dark"}
+            </button>
+            <p>App component</p>
+            <GrandParent style={style} increment={increment} />
+            <GrandParent />
+        </div>
+    )
+}
+ */
 
 /* Lesson 16: useMemo() practice 👻*/
+/**
+ * Challenge: we've measured a performance issue with our Product
+ * components, and we realized we don't need to rerender them every
+ * time the count changes! We need your help to fix this issue!
+*/
+/* 
+import React from 'react';
+import Product from "./components/Product"
+import productsData from "./data/data"
 
+export default function App() {
+  const [count, setCount] = React.useState(0)
+  const [darkMode, setDarkMode] = React.useState(false)
+
+  function increment() {
+    setCount(prevCount => prevCount + 1)
+  }
+
+  function decrement() {
+    setCount(prevCount => prevCount - 1)
+  }
+  
+
+  const productStyles = React.useMemo(() => {
+    return {
+      backgroundColor: darkMode ? "#2b283a" : "whitesmoke",
+      color: darkMode ? "white" : "#2b283a"
+    }
+  }, [darkMode])
+
+  console.log(productStyles)
+
+  return (
+    <>
+      <h1>The current count is {count}</h1>
+      <button className="button" onClick={decrement}>-</button>
+      <button className="button" onClick={increment}>+</button>
+      <br />
+      <br />
+      <button
+        className="button"
+        onClick={() => setDarkMode(prev => !prev)}
+      >
+        {darkMode ? "Light" : "Dark"}
+      </button>
+      <br />
+      <br />
+      <div className="products-list">
+        {
+          productsData.map(product => (
+            <Product key={product.id} product={product} style={productStyles} />
+          ))
+        }
+      </div>
+    </>
+  )
+}
+ */
 
 /* Lesson 15: useMemo(), React.memo(), and referential equality 👻*/
+/**
+ * Challenge: Figure out how to stop the Grandparent from
+ * rerendering when the value of `count` changes!
+ * 
+ * In other words, figure out how to teach React to hold on to
+ * the reference for the `style` object above, and only consider
+ * it different if the value of `darkMode` changes.
+*/
+/* 
+import React from "react"
+import GrandParent from "./components/GrandParent"
 
+export default function App() {
+  const [count, setCount] = React.useState(0)
+  const [darkMode, setDarkMode] = React.useState(false)
+
+  function increment() {
+    setCount(prevCount => prevCount + 1)
+  }
+
+  function decrement() {
+    setCount(prevCount => prevCount - 1)
+  }
+
+  const style = React.useMemo( () => {
+    return {  backgroundColor: darkMode ? "#2b283a" : "#e9e3ff",
+      color: darkMode ? "#e9e3ff" : "#2b283a",
+    }
+  }, [darkMode])
+  
+  React.useEffect(() => {
+    console.log("style changed")
+  }, [style])
+
+  console.log("[GP] [P] [C] [GC] APP just rendered")
+  return (
+    <div className="container">
+      <button onClick={decrement}>-</button>
+      <button onClick={increment}>+</button>
+      <h2>Count: {count}</h2>
+      <button onClick={() => setDarkMode(prev => !prev)}>
+        {darkMode ? "Switch to Light" : "Switch to Dark"}
+      </button>
+      <p>App component</p>
+      <GrandParent style={style} />
+      <GrandParent />
+    </div>
+  )
+}
+ */
 
 /* Lesson 14: Value vs. Reference Types & referential equality 👻*/
+/* 
+What is referential equality?
+. JavaScript stores all functions and values in memory,
+  . "Value types" (a.k.a. "primitive types"): boolean, numbers,
+    strings.
 
+  . "Reference types" (a.k.a. "Complex types"): object, arrays, 
+    functions.
+
+Values vs. Reference Types:
+  . Value/primitive types are equal if they have the same value.
+
+  . Reference/complex types are equal if they reference the exact 
+    same thing in memory.
+*/
+
+/* 
+let a = 1
+let b = 1
+
+console.log(a === b) // true
+a = {}
+b = {}
+console.log(a === b)
+
+b = a
+
+console.log( a === b)
+
+a = { name: "Joe" }
+b = { name: "Joe" }
+console.log(a === b)
+console.log(Object.is(a,b))
+ */
 
 /* Lesson 13: React.memo() practice 👻*/
 /**
@@ -27,6 +308,7 @@
  * changes.
  */
 
+/* 
 import React from "react"
 import productsData from './data/data'
 import Product from "./components/Product"
@@ -72,6 +354,7 @@ export default function App() {
     </>
   )
 }
+ */
 
 /* Lesson 12: React.memo() - reducing rerenders 👻*/
 /* 
@@ -94,7 +377,9 @@ What does React.memo() do?
   It's more important to fix slow renders before worrying about reducing rerenders.
 
 */
-/* import React from "react"
+
+/* 
+import React from "react"
 import GrandParent from "./components/GrandParent"
 
 export default function App() {
@@ -120,12 +405,14 @@ export default function App() {
         </div>
     )
 } */
+
 /**
  * Play around: what happens when you pass the count to just one
  * of the `GrandParent` components? What gets re-rendered?
  * Does it matter if the GrandParent component even uses
  * that prop that was passed to it?
- */
+*/
+
 /* Lesson 11: useMemo() practice 👻*/
 /* 
 Maintain referential equality of a complex data type between renders
@@ -136,6 +423,7 @@ Maintain referential equality of a complex data type between renders
  * to a 6x slowdown to help highlight the delays that are happening with
  * the expensive "sort" method call on each render.
  */
+
 /* 
 import React from "react"
 import productsData from './data/data'
@@ -201,6 +489,7 @@ export default function App() {
   )
 }
  */
+
 /* Lesson 10: useMemo() */
 /* 
 useMemo(): To remember calculated values between renders

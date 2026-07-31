@@ -4,13 +4,37 @@
 
 
 /* Lesson 18: useCallback() practice 👻👻👻*/
+import React from "react"
+import { sleep } from "../utils/utils"
 
+function Product({ product, style, chooseProduct }) {
+    sleep(1)
+    return (
+        // <div onClick={chooseProduct} className="product-card" style={style}>
+        <div onClick={() => chooseProduct(product.id)} className="product-card" style={style}>
+            <p className="truncate">{product.name}</p>
+        </div>
+    )
+}
+export default React.memo(Product)
 
 /* Lesson 17: useCallback() 👻*/
 
 
 /* Lesson 16: useMemo() practice 👻*/
+/* import React from "react"
+import { sleep } from "../utils/utils"
 
+function Product({ product, style }) {
+    sleep(1)
+    console.log(style)
+    return (
+        <div className="product-card" style={style}>
+            <p className="truncate">{product.name}</p>
+        </div>
+    )
+}
+export default React.memo(Product) */
 
 /* Lesson 15: useMemo(), React.memo(), and referential equality 👻*/
 
@@ -19,7 +43,7 @@
 
 
 /* Lesson 13: React.memo() practice 👻*/
-import React from "react"
+/* import React from "react"
 import { sleep } from "../utils/utils"
 
 function Product({ product, darkMode }) {
@@ -34,7 +58,7 @@ function Product({ product, darkMode }) {
         </div>
     )
 }
-export default React.memo(Product)
+export default React.memo(Product) */
 
 /* Lesson 12: React.memo() - reducing rerenders 👻*/
 
