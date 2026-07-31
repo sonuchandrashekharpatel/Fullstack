@@ -170,31 +170,194 @@
 
 /* Lesson 8: Link */
 
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
+
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Link to="/">Home</Link>
+      <Link to="/about">About</Link>
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/about" element={<About/>} />
+      </Routes>
+    </BrowserRouter>
+    )
+}
+
+function Home() {
+  return <h1>This is Home Page</h1>
+}
+
+function About() {
+  return <h1>This is About Page</h1>
+}
+
+ReactDOM.createRoot(document.getElementById('root'))
+  .render(
+    <App />
+);
+
+
+
+
 
 /* Lesson 7: Quick Re-org */
+/* 
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/about" element={<About/>} />
+      </Routes>
+    </BrowserRouter>
+    )
+}
+
+function Home() {
+  return <h1>This is Home Page</h1>
+}
+
+function About() {
+  return <h1>This is About Page</h1>
+}
+
+ReactDOM.createRoot(document.getElementById('root'))
+  .render(
+    <App />
+);
+
+ */
 /* Lesson 6: Route, path, & element */
+/**
+ * Challenge:
+ * 1. Create an "About" component (just render another h1 that says
+ *    "About page" or something more interesting of your choosing).
+ * 2. Create a new Route to render the About component when the path
+ *    is /about
+ */
+/* 
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 
+
+function App() {
+  return <h1>Hello, React Router!</h1>
+}
+
+function About() {
+  return <h1>This is About Page</h1>
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<App/>}/>
+      <Route path="/about" element={<About/>} />
+    </Routes>
+  </BrowserRouter>
+);
+ */
 
 /* Lesson 5: BrowserRouter & Routes challenge */
+/**
+ * Challenge: set up the BrowserRouter and Routes!
+ * Note: nothing will render to the page yet.
+*/
+/* 
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes } from "react-router-dom"
 
-
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <BrowserRouter>
+    <Routes>
+    </Routes>
+  </BrowserRouter>
+);
+ */
 /* Lesson 4: Routes */
+/* 
+import React from "react"
+import ReactDOM from "react-dom/client"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 
+function App() {
+  return(
+    <h1>Hello world!</h1>
+  )
+}
+
+// example.com/blog/1234
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
+    <Routes>
+      <Route>
+
+      </Route>
+    </Routes>
+  </BrowserRouter>
+)
+ */
 
 /* Lesson 3: React Router Setup & BrowserRouter */
+/* import React from "react"
+import ReactDOM from "react-dom/client"
+import { BrowserRouter } from "react-router-dom"
 
+function App() {
+  return(
+    <h1>Hello world!</h1>
+  )
+}
 
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+)
+ */
 /* Lesson 2: Multi-page vs single-page apps */
+/* 
+MPA vs SPA
 
+*/
 
 /* Lesson 1: Introduction to React Router 6 */
+/* 
+What we'll learn:
+1. Routing Basics
+2. Navigation
+3. Layout and Index Routes
+4. Nested Routes
+5. Routes and Search Parameters
+6. Protected Routes
 
++ More, with lots of hands-on practice
 
+What we'll build:
+1. SPA with 10+ routes
+2. Filter by van type
+3. Active nav link styling
+4. Protected Routes
+5. Nested routes (multiple levels deep)
+6. Using a real database (Firebase)
+7. Deployed (Netlify)
 
+*/
 
-
+/* 
 import lessonGenerator from "../../Aside/index.js"
 
 const chapterName = "Routing"
@@ -266,3 +429,4 @@ const lesson = [
   "Section wrapup"
 ]
 lessonGenerator(chapterName, lesson, chapterNum) 
+ */

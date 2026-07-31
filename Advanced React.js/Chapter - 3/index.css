@@ -3,7 +3,9 @@
 /* Chapter - 3: Routing */
 
 /* Lesson 1: Introduction to React Router 6 */
-
+body {
+    background: green;
+}
 
 /* Lesson 2: Multi-page vs single-page apps */
 
@@ -24,7 +26,10 @@
 
 
 /* Lesson 8: Link */
-
+a {
+    text-decoration: none;
+    margin: 10px;
+}
 
 /* Lesson 9: VanLife project bootstrapping */
 
