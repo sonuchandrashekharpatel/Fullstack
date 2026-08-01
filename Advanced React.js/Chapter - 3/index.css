@@ -3,9 +3,9 @@
 /* Chapter - 3: Routing */
 
 /* Lesson 1: Introduction to React Router 6 */
-body {
+/* body {
     background: green;
-}
+} */
 
 /* Lesson 2: Multi-page vs single-page apps */
 
@@ -26,18 +26,329 @@ body {
 
 
 /* Lesson 8: Link */
-a {
+/* a {
     text-decoration: none;
     margin: 10px;
 }
-
+ */
 /* Lesson 9: VanLife project bootstrapping */
+/* body {
+    margin:0 auto;
+    font-family: "Inter", sans-serif;
+    background: black;
+}
 
+div#root {
+    width: 550px;
+    margin: 0 auto;
+    background: #FFF7ED;
+}
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #FFF7ED;
+    padding:  .5em 1.5em;
+}
 
+header .logo {
+    font-weight: 900;
+    font-size: 1.5rem;
+}
+
+header a {
+    text-decoration: none;
+    color: #4D4D4D;
+    margin: 1em;
+    font-weight: 600;
+}
+
+*/
+
+/* 
+Step 1: Set relative positioning so the pseudo-element positions relative to this div
+Step 2: Create a semi-transparent background layer in ::before psedo element
+Step 3: Add Opacity in ::before pseudo-element
+Step 4: Keep background behind the text & button by using using z-index = 0;
+Step 5: Ensure children render on top the background pseudo-element.
+
+*/
+
+/*
+.home {
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    color: white;
+    padding: 3em 2em;
+}
+
+.home::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("assets/images/background.png");
+    background-size: cover;
+    background-position: center;
+
+    opacity: 0.5;
+
+    z-index: 0;
+}
+
+.home > * {
+    position: relative;
+    z-index: 1;
+}
+
+.home h2 {
+    margin: 0;
+    font-weight: 800;
+    font-size: 2.3rem;
+}
+
+.home button {
+    margin-top: 3em;
+    width: 100%;
+    background: #FF8C38;
+    border: none;
+    border-radius: 5px;
+    padding: .5em;
+    font-size: 1rem;
+    color: white;
+    font-weight: 700;
+}
+
+.about {
+    color: #161616;
+}
+
+.about .img-container {
+    width: 100%;
+    height: 233px;
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.about div.bottom {
+    padding: 0 1em 2em;
+}
+
+.about h2 {
+    font-size: 2.2rem;
+}
+
+.about p {
+    font-weight: 500;
+}
+
+.about p.top {
+    margin-bottom: 0;
+}
+
+.about p.mid {
+    margin: 0;
+}
+
+.about div.bottom div {
+    background: #FFCC8D;
+    border-radius: 5px;
+    padding: 2em;
+}
+
+.about div.bottom div h3 {
+    margin: 0;
+}
+
+.about div.bottom div button {
+    margin-top: 2em;
+    font-size: .875rem;
+    font-weight: 700;
+    color: white;
+    background: #161616;
+    border-radius: 10px;
+    border: none;
+    padding: .6em 1.2em;
+}
+
+.footer {
+    color: #AAAAAA;
+    background: #252525;
+    padding: 1em;
+    text-align: center;
+}
+
+.footer > p {
+ margin: 0;
+ font-weight: 500;
+ font-size: .875rem;
+}
+
+ */
 /* Lesson 10: Mirage JS Server */
 
 
 /* Lesson 11: Challenge: Vans Page - Part 1 */
+body {
+    margin:0 auto;
+    font-family: "Inter", sans-serif;
+    background: black;
+}
+
+div#root {
+    width: 550px;
+    margin: 0 auto;
+    background: #FFF7ED;
+}
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #FFF7ED;
+    padding:  .5em 1.5em;
+}
+
+header .logo {
+    color: black;
+    font-weight: 900;
+    font-size: 1.5rem;
+}
+
+header a {
+    text-decoration: none;
+    color: #4D4D4D;
+    margin: 1em;
+    font-weight: 600;
+}
+
+
+.home {
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    color: white;
+    padding: 3em 2em;
+}
+
+.home::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("assets/images/background.png");
+    background-size: cover;
+    background-position: center;
+
+    opacity: 0.5;
+
+    z-index: 0;
+}
+
+.home > * {
+    position: relative;
+    z-index: 1;
+}
+
+.home h2 {
+    margin: 0;
+    font-weight: 800;
+    font-size: 2.3rem;
+}
+
+.home button {
+    margin-top: 3em;
+    width: 100%;
+    background: #FF8C38;
+    border: none;
+    border-radius: 5px;
+    padding: .5em;
+    font-size: 1rem;
+    color: white;
+    font-weight: 700;
+}
+
+.about {
+    color: #161616;
+}
+
+.about .img-container {
+    width: 100%;
+    height: 233px;
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.about div.bottom {
+    padding: 0 1em 2em;
+}
+
+.about h2 {
+    font-size: 2.2rem;
+}
+
+.about p {
+    font-weight: 500;
+}
+
+.about p.top {
+    margin-bottom: 0;
+}
+
+.about p.mid {
+    margin: 0;
+}
+
+.about div.bottom div {
+    background: #FFCC8D;
+    border-radius: 5px;
+    padding: 2em;
+}
+
+.about div.bottom div h3 {
+    margin: 0;
+}
+
+.about div.bottom div button {
+    margin-top: 2em;
+    font-size: .875rem;
+    font-weight: 700;
+    color: white;
+    background: #161616;
+    border-radius: 10px;
+    border: none;
+    padding: .6em 1.2em;
+}
+
+.footer {
+    color: #AAAAAA;
+    background: #252525;
+    padding: 1em;
+    text-align: center;
+}
+
+.footer > p {
+ margin: 0;
+ font-weight: 500;
+ font-size: .875rem;
+}
+
 
 
 /* Lesson 12: Challenge: Vans Page - Part 2 */
@@ -64,10 +375,10 @@ a {
 /* Lesson 19: Nested Routes Intro */
 
 
-/* Lesson 20: Fixing the Navbar with a Layout Route */
+/* Lesson 20: Fixing the headerbar with a Layout Route */
 
 
-/* Lesson 21: Fixing the Navbar with a Layout Route part 2 */
+/* Lesson 21: Fixing the headerbar with a Layout Route part 2 */
 
 
 /* Lesson 22: Bootstrap the Host pages */
@@ -94,13 +405,13 @@ a {
 /* Lesson 29: Add Footer */
 
 
-/* Lesson 30: NavLink */
+/* Lesson 30: headerLink */
 
 
-/* Lesson 31: Active Link Styling with NavLink */
+/* Lesson 31: Active Link Styling with headerLink */
 
 
-/* Lesson 32: Active Link Styling with NavLink - part 2 */
+/* Lesson 32: Active Link Styling with headerLink - part 2 */
 
 
 /* Lesson 33: Adding Host Vans Routes */
@@ -121,7 +432,7 @@ a {
 /* Lesson 38: Add /host/vans/:id Nested Routes */
 
 
-/* Lesson 39: Add the Final Navbar! */
+/* Lesson 39: Add the Final headerbar! */
 
 
 /* Lesson 40: Outlet Context */
