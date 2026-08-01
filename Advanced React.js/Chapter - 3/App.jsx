@@ -139,7 +139,29 @@
 
 
 /* Lesson 18: Route Params Quiz */
+/* 
+1. What is a route/url parameter?
+Ans. Route/url parameter is a placeholder in url path that is replaced with the actual the value
 
+------------
+2. Add a route parameter called `productId` to the Route path below:
+
+
+<Route path="/products/:productId" element={<ProductDetail />} />
+
+
+------------
+3. Add whatever you need to add for the component below to display
+   the route parameter in the <h1>
+
+
+import { useParams } from "react-router-dom"
+
+function ProductDetail() {
+    const params = useParams()
+    return <h1>Product detail page goes here whose id is {params.productId}</h1>
+}
+*/
 
 /* Lesson 17: Route Params part 3.2 - useParams() challenge */
 
@@ -155,11 +177,33 @@
 
 /* Lesson 13: Route Params - part 1 */
 
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Header from "./components/Header"
+import Home from "./pages/Home"
+import About from "./pages/About"
+import Footer from "./components/Footer"
+import Vans from './pages/Vans'
+import "./server" 
+import VanDetail from "./pages/VanDetail"
+
+export default function App() {
+  return (
+    <BrowserRouter>
+        <Header />
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/vans" element={<Vans />} />
+            <Route path="vans/:id" element={<VanDetail />}/>
+        </Routes>
+    </BrowserRouter>
+  )
+}
 
 /* Lesson 12: Challenge: Vans Page - Part 2 */
-
+/* 
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import Navbar from "./components/Navbar"
+import Header from "./components/Header"
 import Home from "./pages/Home"
 import About from "./pages/About"
 import Footer from "./components/Footer"
@@ -169,16 +213,15 @@ import "./server"
 export default function App() {
   return (
     <BrowserRouter>
-        <Navbar />
+        <Header />
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/vans" element={<Vans />} />
         </Routes>
-        <Footer />
     </BrowserRouter>
   )
-}
+} */
 
 
 /* Lesson 11: Challenge: Vans Page - Part 1 */

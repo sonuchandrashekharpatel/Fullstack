@@ -159,6 +159,16 @@
 
 /* Lesson 12: Challenge: Vans Page - Part 2 */
 
+import { Link } from "react-router-dom"
+export default function Home() {
+    return (
+        <div className="home-container">
+            <h1>You got the travel plans, we got the travel vans.</h1>
+            <p>Add adventure to your life by joining the #vanlife movement. Rent the perfect van to make your perfect road trip.</p>
+            <Link to="vans">Find your van</Link>
+        </div>
+    )
+}
 
 /* Lesson 11: Challenge: Vans Page - Part 1 */
 
@@ -167,7 +177,7 @@
 
 
 /* Lesson 9: VanLife project bootstrapping */
-
+/* 
 export default function Home() {
     return (
         <div className="home">
@@ -176,4 +186,4 @@ export default function Home() {
             <button>Find your van</button>
         </div>
     )
-}
+} */

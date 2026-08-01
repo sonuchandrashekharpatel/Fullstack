@@ -157,10 +157,21 @@
 
 
 /* Lesson 12: Challenge: Vans Page - Part 2 */
-
+import { Link } from "react-router-dom"
+export default function  Header() {
+    return (
+        <header>
+            <Link to="/"className="site-logo">#VANLIFE</Link>
+            <nav>
+                <Link to="/about">About</Link>
+                <Link to="/vans">Vans</Link>
+            </nav>
+        </header>
+    )
+}
 
 /* Lesson 11: Challenge: Vans Page - Part 1 */
-
+/* 
 import { Link } from "react-router-dom"
 export default function  Navbar() {
     return (
@@ -173,7 +184,7 @@ export default function  Navbar() {
         </header>
     )
 }
-
+ */
 /* Lesson 10: Mirage JS Server */
 
 

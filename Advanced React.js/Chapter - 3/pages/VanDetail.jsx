@@ -142,10 +142,55 @@
 
 
 /* Lesson 17: Route Params part 3.2 - useParams() challenge */
+/**
+ * Challenge part 2:
+ * Using the endpoint set up (with mirage js), fetch the data
+ * for the van with the current ID from params.id. Log the data
+ * that comes back to the console.
+ * 
+ * Hint: the endpoint is a GET request to `/api/vans/:vanid`
+ */
+import React from "react"
+import { useParams } from "react-router-dom"
+
+export default function VanDetail() {
+    const params = useParams()
+    const [van, setVan] = React.useState(null)
+
+    React.useEffect(() => {
+        fetch(`/api/vans/${params.id}`)
+            .then(res => res.json())
+            .then(data => setVan(data.vans))
+    }, [params.id])
+
+    return (
+        <div className='van-detail-container'>
+            { van ? <div className="van-detail">
+                <img src={van.imageUrl} alt={`Image of ${van.name}`}/>
+                <i className={`van-type ${van.type} selected`}>{van.type}</i>
+                <h2>{van.name}</h2>
+                <p className="van-price"><span>${van.price}</span>/day</p>
+                <p>{van.description}</p>
+                <button className="link-button">Rent this van</button>
+            </div> : 
+            <h2>Loading...</h2>
+                
+            }
+        </div>
+    )
+}
 
 
 /* Lesson 16: Route Params part 3.1 - useParams() & challenge */
+/* import { useParams } from "react-router-dom"
 
+export default function VanDetail() {
+    const params = useParams()
+    console.log(params)
+    
+    return <h1>Van Detail goes here...</h1>
+}
+ */
 
 /* Lesson 15: A11y Update - wrapping complex content in a link */
 
@@ -154,55 +199,7 @@
 
 
 /* Lesson 13: Route Params - part 1 */
-
-
-/* Lesson 12: Challenge: Vans Page - Part 2 */
-import { Link } from "react-router-dom"
-
-export default function About() {
-    return (
-        <div className="about-page-container">
-            <img className="about-hero-image" src="assets/images/about-hero.png" alt="A man seated roof of van under the sky in night"/>
-            <div className="about-page-content">
-                <h1>Don’t squeeze in a sedan when you could relax in a van.</h1>
-                <p>Our mission is to enliven your road trip with the perfect travel van rental. Our vans are recertified before each trip to ensure your travel plans can go off without a hitch. (Hitch costs extra 😉)</p>
-                <p>Our team is full of vanlife enthusiasts who know firsthand the magic of touring the world on 4 wheels.</p>
-            </div>
-
-            <div className="about-page-cta">
-                <h2>Your destination is waiting.<br />Your van is ready.</h2>
-                <Link className="link-button" to="/vans">Explore our vans</Link>
-            </div>
-        </div>
-    )
-}
-
-/* Lesson 11: Challenge: Vans Page - Part 1 */
-
-
-/* Lesson 10: Mirage JS Server */
-
-
-/* Lesson 9: VanLife project bootstrapping */
 /* 
-export default function About() {
-    return (
-        <div className="about">
-            <div className="img-container top">
-                <img src="assets/images/about.png" alt="A man seated roof of van under the sky in night"/>
-            </div>
-            <div className="bottom">
-                <h2>Don’t squeeze in a sedan when you could relax in a van.</h2>
-                <p className="top">Our mission is to enliven your road trip with the perfect travel van rental. Our vans are recertified before each trip to ensure your travel plans can go off without a hitch.</p>
-                <p className="mid">(Hitch costs extra 😉)</p>
-                <p>Our team is full of vanlife enthusiasts who know firsthand the magic of touring the world on 4 wheels.</p>
-
-                <div>
-                    <h3>Your destination is waiting.</h3>
-                    <h3>Your van is ready.</h3>
-                    <button>Explore our vans</button>
-                </div>
-            </div>
-        </div>
-    )
+export default function VanDetail() {
+    return <h1>Van Detail goes here...</h1>
 } */
