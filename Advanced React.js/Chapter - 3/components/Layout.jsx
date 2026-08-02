@@ -111,7 +111,7 @@ import Header from "./Header"
 import Footer from "./Footer"
 export default function Layout() {
     return (
-        <div classNane="site-wrapper">
+        <div className="site-wrapper">
             <Header />
             <main>
                 <Outlet />

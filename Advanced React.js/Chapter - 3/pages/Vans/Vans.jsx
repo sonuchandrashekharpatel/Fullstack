@@ -161,7 +161,6 @@ export default function Vans() {
             .then(data => setVans(data.vans))
     }, [])
     
-    console.log(vans)
     let vanElements = vans.map(van => {
     return <div key={van.id} className="van-tile">
         <Link to={`/vans/${van.id}`} aria-label={`View Detail for ${van.name}, priced at $${van.price} per day`} >
