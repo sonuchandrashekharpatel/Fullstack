@@ -127,14 +127,41 @@
 
 
 /* Lesson 22: Bootstrap the Host pages */
+import { Link } from "react-router-dom"
+
+export default function  Header() {
+    return (
+        <header>
+            <Link to="/" className="site-logo">#VANLIFE</Link>
+            <nav>
+                <Link to="/about">About</Link>
+                <Link to="/vans">Vans</Link>
+                <Link to="/host">Host</Link>
+            </nav>
+        </header>
+    )
+}
+
 
 
 /* Lesson 21: Fixing the Navbar with a Layout Route part 2 */
 
 
 /* Lesson 20: Fixing the Navbar with a Layout Route */
+/* import { Link } from "react-router-dom"
+export default function  Header() {
+    return (
+        <header>
+            <Link to="/"className="site-logo">#VANLIFE</Link>
+            <nav>
+                <Link to="/about">About</Link>
+                <Link to="/vans">Vans</Link>
+            </nav>
+        </header>
+    )
+}
 
-
+ */
 /* Lesson 19: Nested Routes Intro */
 
 
@@ -157,7 +184,7 @@
 
 
 /* Lesson 12: Challenge: Vans Page - Part 2 */
-import { Link } from "react-router-dom"
+/* import { Link } from "react-router-dom"
 export default function  Header() {
     return (
         <header>
@@ -169,7 +196,7 @@ export default function  Header() {
         </header>
     )
 }
-
+ */
 /* Lesson 11: Challenge: Vans Page - Part 1 */
 /* 
 import { Link } from "react-router-dom"

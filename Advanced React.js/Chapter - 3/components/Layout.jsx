@@ -106,14 +106,21 @@
 
 
 /* Lesson 29: Add Footer */
-
-export default function Footer() {
+import { Outlet } from "react-router-dom"
+import Header from "./Header"
+import Footer from "./Footer"
+export default function Layout() {
     return (
-        <footer>
-            <p>Ⓒ 2022 #VANLIFE</p>
-        </footer>
+        <div classNane="site-wrapper">
+            <Header />
+            <main>
+                <Outlet />
+            </main>
+            <Footer />
+        </div>
     )
 }
+
 
 /* Lesson 28: Nested Routes Quiz */
 
@@ -134,50 +141,41 @@ export default function Footer() {
 
 
 /* Lesson 22: Bootstrap the Host pages */
-
+/**
+ * Challenge:
+ * 1. Add a "Host" link to the Navbar that takes you to the "/host" path
+ * 2. Create the following components in the pages/Host folder:
+ *    a. Dashboard ("/host")
+ *    b. Income ("/host/income")
+ *    c. Reviews ("/host/reviews")
+ *    These components can just have an h1 for now that says, e.g.
+ *    "Host Dashboard here".
+ * 3. Set up routes for each of these pages in the Routes below. FOR NOW,
+ *    don't worry about nesting anything, you can just put them on the same
+ *    level as the "/vans", etc. routes below.
+ */
 
 /* Lesson 21: Fixing the Navbar with a Layout Route part 2 */
+/**
+ * Challenge: get the Header working again
+ */
 
-
+/* import { Outlet } from "react-router-dom"
+import Header from "./Header"
+export default function Layout() {
+    return (
+        <>
+            <Header />
+            <Outlet />
+        </>
+    )
+}
+ */
 /* Lesson 20: Fixing the Navbar with a Layout Route */
 
-
-/* Lesson 19: Nested Routes Intro */
-
-
-/* Lesson 18: Route Params Quiz */
-
-
-/* Lesson 17: Route Params part 3.2 - useParams() challenge */
-
-
-/* Lesson 16: Route Params part 3.1 - useParams() & challenge */
-
-
-/* Lesson 15: A11y Update - wrapping complex content in a link */
-
-
-/* Lesson 14: Route Params - part 2 */
-
-
-/* Lesson 13: Route Params - part 1 */
-
-
-/* Lesson 12: Challenge: Vans Page - Part 2 */
-
-
-/* Lesson 11: Challenge: Vans Page - Part 1 */
-
-
-/* Lesson 10: Mirage JS Server */
-
-
-/* Lesson 9: VanLife project bootstrapping */
 /* 
-export default function Footer() {
+export default function Layout() {
     return (
-        <footer>
-            <p>Ⓒ 2022 #VANLIFE</p>
-        </footer>
+        <h1>This is the layout components.</h1>
     )
 } */

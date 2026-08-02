@@ -107,13 +107,6 @@
 
 /* Lesson 29: Add Footer */
 
-export default function Footer() {
-    return (
-        <footer>
-            <p>Ⓒ 2022 #VANLIFE</p>
-        </footer>
-    )
-}
 
 /* Lesson 28: Nested Routes Quiz */
 
@@ -128,56 +121,50 @@ export default function Footer() {
 
 
 /* Lesson 24: Creating the Host Layout */
+/**
+ * Challenge: Make the HostLayout component!
+ * The HostLayout should use Links to navigate to the following
+ * routes: 
+ *    * Dashboard ("/host")
+ *    * Income ("/host/income")
+ *    * Reviews ("/host/reviews")
+ * Then replace the parent "/host" route's element below with the
+ * new HostLayout component you made.
+ * 
+ * NOTE: The dashboard route/page will be gone for now, but don't fret.
+ * We'll be fixing that in the next lesson.
+*/
 
+import { Outlet } from "react-router-dom"
+
+export default function Dashboard() {
+    return (
+        <>
+            <h1>Dashboard goes here...</h1>
+            <Outlet />
+        </>
+    )
+}
 
 /* Lesson 23: Nesting the /host routes */
+/* import { Outlet } from "react-router-dom"
+
+export default function Dashboard() {
+    return (
+        <>
+            <h1>Dashboard goes here...</h1>
+            <Outlet />
+        </>
+    )
+} */
 
 
 /* Lesson 22: Bootstrap the Host pages */
-
-
-/* Lesson 21: Fixing the Navbar with a Layout Route part 2 */
-
-
-/* Lesson 20: Fixing the Navbar with a Layout Route */
-
-
-/* Lesson 19: Nested Routes Intro */
-
-
-/* Lesson 18: Route Params Quiz */
-
-
-/* Lesson 17: Route Params part 3.2 - useParams() challenge */
-
-
-/* Lesson 16: Route Params part 3.1 - useParams() & challenge */
-
-
-/* Lesson 15: A11y Update - wrapping complex content in a link */
-
-
-/* Lesson 14: Route Params - part 2 */
-
-
-/* Lesson 13: Route Params - part 1 */
-
-
-/* Lesson 12: Challenge: Vans Page - Part 2 */
-
-
-/* Lesson 11: Challenge: Vans Page - Part 1 */
-
-
-/* Lesson 10: Mirage JS Server */
-
-
-/* Lesson 9: VanLife project bootstrapping */
 /* 
-export default function Footer() {
+export default function Dashboard() {
     return (
-        <footer>
-            <p>Ⓒ 2022 #VANLIFE</p>
-        </footer>
+        <>
+            <h1>Dashboard goes here...</h1>
+        </>
     )
 } */
