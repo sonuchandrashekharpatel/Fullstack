@@ -1,0 +1,556 @@
+
+<!-- Chapter - 1: Build a Cookie Consent -->
+
+<!-- Lesson 31: Recap -->
+
+
+<!-- Lesson 30: Accessibility Issues -->
+
+
+<!-- Lesson 29: There is no choice 2 -->
+
+
+<!-- Lesson 28: Aside: Classlist Toggle Challenge -->
+
+
+<!-- Lesson 27: Aside: classlist.toggle -->
+
+
+<!-- Lesson 26: There is no choice 1 -->
+
+
+<!-- Lesson 25: Disable the close button -->
+
+
+<!-- Lesson 24: Aside: Disabling elements -->
+
+
+<!-- Lesson 23: Form Data 2 -->
+
+
+<!-- Lesson 22: Aside: FormData methods -->
+
+
+<!-- Lesson 21: Form Data 1 -->
+
+
+<!-- Lesson 20: Aside: FormData -->
+
+
+<!-- Lesson 19: Add modal message 3 -->
+
+
+<!-- Lesson 18: Add modal message 2 -->
+
+
+<!-- Lesson 17: Add modal message -->
+
+
+<!-- Lesson 16: Buttons in forms - weird behaviour -->
+
+
+<!-- Lesson 15: preventDefault Challenge -->
+
+
+<!-- Lesson 14: Aside: preventDefault -->
+
+
+<!-- Lesson 13: Submit the form -->
+<!-- 
+Challenge: 
+1. Add two buttons, one for "Accept" and one 
+   for "Decline".
+2. Give the "Accept" button a "type" property 
+   of "submit".
+3. Give each button a class of "modal-btn".
+4. Make sure the form won't submit unless
+   all fields are completed. 
+-->	
+<html>
+
+	<head>
+		<link rel="stylesheet" href="index.css">
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+	</head>
+
+	<body>
+		<main>
+			<section class="section-container">
+				<h1>Learning to code? This is the most important thing you will ever read!</h1>
+
+				<ul>
+					<li class="li-green">💰 Land a job with a 6 figure salary</li>
+					<li class="li-yellow">💻 Master JavaScript in 3 hours</li>
+					<li class="li-blue">⚛️ Learn React in 10 minutes</li>
+					<li class="li-pink">☕ Be a NodeJS Dev by lunchtime</li>
+				</ul>
+
+				<h3>My subliminal learning technique worked for Mark Zuckerberg and Albert Einstein, and it can work for you!</h3>
+				<img src="images/bugatti.jpg">
+				<p>Want a great job in tech? Want a six-figure salary? Then you have come to the right place. I am going to tell you all you need to know to get all of that and much more, without you lifting a finger. You can learn passively. Just sit back, close your eyes, and let the sound of my voice make the code sink deep into your brain. </p>
+			</section>
+		</main>
+		<div class="modal" id="modal">
+			<div class="close-modal-btn-container">
+				<button class="modal-close-btn" id="modal-close-btn">X</button>
+			</div>
+			<div class="modal-inner" id="modal-inner">
+				<h2>We ❤️ Your Data!</h2>
+				<p class="modal-text" id="modal-text">We have a strict policy on tracking and spamming: we'll definitely track you, and we'll definitely spam you. To use this site, enter your name and email address and accept our ridiculous terms and conditions.</p>
+				<form>
+					<input type="text" name="fullName" placeholder="Enter your full name" required/>
+					<input type="email" name="email" placeholder="Enter your email" required/>
+					<div class="modal-choice-btns" id="modal-choice-btns">
+						<button class="modal-btn" type="submit">Accept</button>
+						<button class="modal-btn">Decline</button>
+					</div>
+					
+				</form>
+			</div>
+		</div>
+		<script src="index.js"></script>
+	</body>
+
+</html>
+<!-- Lesson 12: Aside: Validation Attributes -->
+<!-- Challenge:
+1. Make sure users can only input a 3 character country 
+   code. These can be lower or upper case but exactly 
+   3 characters in length and no special characters or
+   numbers.
+   
+   USA, FRA, GBR, SWE ✅
+   US, UK, AB1, !USA ❌ 
+  -->
+<!-- Challenge:
+1. Use 'min' and 'max' to make sure that only ages of 
+   21 and over and 120 and under can be inputted.
+  -->
+
+<!--
+    minlength="2"
+    maxlength="7"
+    pattern="[a-zA-Z0-9]+"
+-->
+
+<!-- 
+<html>
+
+    <head>
+        <link rel="stylesheet" href="index.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
+    </head>
+
+    <body>        
+        <header>
+            <img src="images/NASA.png">
+        </header>
+        <main>
+            <form>
+              <label for="astronautName">Choose a username</label>
+                <input 
+                    required
+                    type="text" 
+                    id="astronautName" 
+                    name="astronautName"
+                    placeholder="Neil Armstrong"
+
+                    >
+              <label for="astronautName">How old are you?</label>
+
+                <input 
+                    required
+                    type="number" 
+                    id="astronautAge" 
+                    name="astronautAge"
+                    placeholder="21"
+                    min="21"
+                    max="120"
+                    >
+              <label for="astronautName">Country Code</label>
+
+                <input 
+                    required
+                    type="text" 
+                    id="astronautCountryCode" 
+                    name="astronautCountryCode"
+                    placeholder="Fra"
+                    pattern="[a-zA-Z]{3}"
+                    > 
+                <button type="submit">submit</button>
+            </form>    
+        </main>
+        <script src="index.js"></script>
+    </body>
+
+</html>
+ -->
+<!-- Lesson 11: Aside: Forms - challenge -->
+<!-- 
+Challenge:
+1. Add a submit button to the form. 
+2. Make all of the inputs compulsory.
+-- >
+<!--
+<html>
+
+    <head>
+        <link rel="stylesheet" href="index.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
+    </head>
+
+    <body>        
+        <header>
+            <img src="NASA.png">
+        </header>
+        <main>
+            <form>
+ 
+                <label for="astronautName">Astronaut Name 👩‍🚀</label>
+                <input 
+                    type="text" 
+                    id="astronautName" 
+                    name="astronautName"
+                    placeholder="Neil Armstrong"
+                    required
+                    >
+                <label for="astronautEmail">Astronaut Email</label>
+                <input 
+                    type="email" 
+                    id="astronautEmail" 
+                    name="astronautEmail"
+                    placeholder="n.armstrong@nasa.com"
+                    required
+                    >
+                <label for="astronautPassword">Password</label>
+                <input 
+                    type="password" 
+                    id="astronautPassword" 
+                    name="astronautPassword"
+                    placeholder="******"
+                    required
+                    >
+                <button type="submit">submit</button>
+            </form>    
+        </main>
+        <script src="index.js"></script>
+    </body>
+</html>
+ -->
+<!-- Lesson 10: Aside: Forms - submitting -->
+ <!-- <html>
+
+    <head>
+        <link rel="stylesheet" href="index.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
+    </head>
+
+    <body>        
+        <header>
+            <img src="images/NASA.png">
+        </header>
+        <main>
+            <form>
+                <label for="astronautName">Astronaut Name 👩‍🚀</label>
+                <input 
+                    type="text" 
+                    id="astronautName" 
+                    name="astronautName"
+                    placeholder="Neil Armstrong"
+                    required
+                    >
+                <label for="astronautEmail">Astronaut Email</label>
+                <input 
+                    type="email" 
+                    id="astronautEmail" 
+                    name="astronautEmail"
+                    placeholder="n.armstrong@nasa.com"
+                    >
+                <label for="astronautPassword">Password</label>
+                <input 
+                    type="password" 
+                    id="astronautPassword" 
+                    name="astronautPassword"
+                    placeholder="******"
+                    >
+                <button type="submit">submit</button>
+            </form>    
+        </main>
+        <script src="index.js"></script>
+    </body>
+
+</html> -->
+ <!-- 
+Challenge: 
+1. Create a form using form tags.
+2. Add two inputs: one for name and one 
+   for email address.
+3. Give each input "type", "name" and 
+   "placeholder" properties. You can see the
+   placeholder text we need in the slide. 
+-->	
+<!-- <html>
+
+	<head>
+		<link rel="stylesheet" href="index.css">
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+	</head>
+
+	<body>
+		<main>
+			<section class="section-container">
+				<h1>Learning to code? This is the most important thing you will ever read!</h1>
+
+				<ul>
+					<li class="li-green">💰 Land a job with a 6 figure salary</li>
+					<li class="li-yellow">💻 Master JavaScript in 3 hours</li>
+					<li class="li-blue">⚛️ Learn React in 10 minutes</li>
+					<li class="li-pink">☕ Be a NodeJS Dev by lunchtime</li>
+				</ul>
+
+				<h3>My subliminal learning technique worked for Mark Zuckerberg and Albert Einstein, and it can work for you!</h3>
+				<img src="images/bugatti.jpg">
+				<p>Want a great job in tech? Want a six-figure salary? Then you have come to the right place. I am going to tell you all you need to know to get all of that and much more, without you lifting a finger. You can learn passively. Just sit back, close your eyes, and let the sound of my voice make the code sink deep into your brain. </p>
+			</section>
+		</main>
+		<div class="modal" id="modal">
+			<div class="close-modal-btn-container">
+				<button class="modal-close-btn" id="modal-close-btn">X</button>
+			</div>
+			<div class="modal-inner" id="modal-inner">
+				<h2>We ❤️ Your Data!</h2>
+				<p class="modal-text" id="modal-text">We have a strict policy on tracking and spamming: we'll definitely track you, and we'll definitely spam you. To use this site, enter your name and email address and accept our ridiculous terms and conditions.</p>	
+				
+		
+            <form>
+                <input type="text" name="fullName" placeholder="Enter your full name">
+                <input type="email" name="email" placeholder="Enter your email">
+            </form>
+			</div>
+		</div>
+		<script src="index.js"></script>
+	</body>
+
+</html>
+ -->
+<!-- Lesson 9: Add a form 1 -->
+<!-- 
+Challenge:
+1. Add inputs for the email and password
+   fields. Remember to add all necessary
+   properties.
+2. Give the inputs labels and make it so
+   that clicking on the label brings the 
+   corresponding input into focus.    
+-->
+<!-- 
+<html>
+
+    <head>
+        <link rel="stylesheet" href="index.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
+    </head>  
+
+    <body>        
+        <header>
+            <img src="images/NASA.png">
+        </header>
+        <main>
+          <form>
+                <label for="astronautName">Astronaut Name 👩‍🚀</label>
+                <input 
+                    type="text" 
+                    id="astronautName" 
+                    name="astronautName"
+                    placeholder="Neil Armstrong"
+                    >
+                <label for="astronautEmail">Astronaut Email</label>
+                <input 
+                    type="email" 
+                    id="astronautEmail" 
+                    name="astronautEmail"
+                    placeholder="n.armstrong@nasa.com"
+                    >
+                <label for="astronautPassword">Password</label>
+                <input 
+                    type="password" 
+                    id="astronautPassword" 
+                    name="astronautPassword"
+                    placeholder="******"
+                    >
+            </form>
+        </main>
+        <script src="index.js"></script>
+    </body>
+
+</html>
+ -->
+<!-- Lesson 7: Close the modal -->
+<!-- <html>
+
+	<head>
+		<link rel="stylesheet" href="index.css">
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+	</head>
+
+	<body>
+		<main>
+			<section class="section-container">
+				<h1>Learning to code? This is the most important thing you will ever read!</h1>
+
+				<ul>
+					<li class="li-green">💰 Land a job with a 6 figure salary</li>
+					<li class="li-yellow">💻 Master JavaScript in 3 hours</li>
+					<li class="li-blue">⚛️ Learn React in 10 minutes</li>
+					<li class="li-pink">☕ Be a NodeJS Dev by lunchtime</li>
+				</ul>
+
+				<h3>My subliminal learning technique worked for Mark Zuckerberg and Albert Einstein, and it can work for you!</h3>
+				<img src="images/bugatti.jpg">
+				<p>Want a great job in tech? Want a six-figure salary? Then you have come to the right place. I am going to tell you all you need to know to get all of that and much more, without you lifting a finger. You can learn passively. Just sit back, close your eyes, and let the sound of my voice make the code sink deep into your brain. </p>
+			</section>
+		</main>
+		<div class="modal" id="modal">
+			<div class="close-modal-btn-container">
+				<button class="modal-close-btn" id="modal-close-btn">X</button>
+			</div>
+			<div class="modal-inner" id="modal-inner">
+				<h2>We ❤️ Your Data!</h2>
+				<p class="modal-text" id="modal-text">We have a strict policy on tracking and spamming: we'll definitely track you, and we'll definitely spam you. To use this site, enter your name and email address and accept our ridiculous terms and conditions.</p>				
+			</div>
+		</div>
+		<script src="index.js"></script>
+	</body>
+</html>
+ -->
+<!-- Lesson 6: Make the modal reappear -->
+<!-- <html>
+
+	<head>
+		<link rel="stylesheet" href="index.css">
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+	</head>
+
+	<body>
+		<main>
+			<section class="section-container">
+				<h1>Learning to code? This is the most important thing you will ever read!</h1>
+
+				<ul>
+					<li class="li-green">💰 Land a job with a 6 figure salary</li>
+					<li class="li-yellow">💻 Master JavaScript in 3 hours</li>
+					<li class="li-blue">⚛️ Learn React in 10 minutes</li>
+					<li class="li-pink">☕ Be a NodeJS Dev by lunchtime</li>
+				</ul>
+
+				<h3>My subliminal learning technique worked for Mark Zuckerberg and Albert Einstein, and it can work for you!</h3>
+				<img src="images/bugatti.jpg">
+				<p>Want a great job in tech? Want a six-figure salary? Then you have come to the right place. I am going to tell you all you need to know to get all of that and much more, without you lifting a finger. You can learn passively. Just sit back, close your eyes, and let the sound of my voice make the code sink deep into your brain. </p>
+			</section>
+		</main>
+		<div class="modal" id="modal">
+			<div class="close-modal-btn-container">
+				<button class="modal-close-btn" id="modal-close-btn" disabled>X</button>
+			</div>
+			<div class="modal-inner" id="modal-inner">
+				<h2>We ❤️ Your Data!</h2>
+				<p class="modal-text" id="modal-text">We have a strict policy on tracking and spamming: we'll definitely track you, and we'll definitely spam you. To use this site, enter your name and email address and accept our ridiculous terms and conditions.</p>				
+			</div>
+		</div>
+		<script src="index.js"></script>
+	</body>
+
+</html>
+ -->
+<!-- Lesson 5: Aside: element.style -->
+
+
+<!-- Lesson 4: Set the timer -->
+
+
+<!-- Lesson 3: Aside: setTimeout -->
+<!-- 
+<html>
+
+<head>
+	<link rel="stylesheet" href="index.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<header>
+		<h1>Animal Trivia!</h1>
+	</header>
+	<div class="container">
+		<div class="question-container">
+			<img src="images/bunny.png">
+			<div class="question" id="question">
+				<p>
+					How many whiskers does the average rabbit have?
+				</p>
+			</div>
+		</div>
+		<div id="answer" class="answer">
+			<p>
+				The average rabbit has 24 whiskers, 12 on each side!
+                Amazingly, no two whiskers are the same length! 
+            </p>
+		</div>
+		<button id="reveal-btn">Reveal Answer</button>
+	</div>
+	<script src="index.js"></script>
+</body>
+
+</html> -->
+
+<!-- Lesson 2: Position the modal -->
+<!-- <html>
+
+	<head>
+		<link rel="stylesheet" href="index.css">
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+	</head>
+
+	<body>
+		<main>
+			<section class="section-container">
+				<h1>Learning to code? This is the most important thing you will ever read!</h1>
+
+				<ul>
+					<li class="li-green">💰 Land a job with a 6 figure salary</li>
+					<li class="li-yellow">💻 Master JavaScript in 3 hours</li>
+					<li class="li-blue">⚛️ Learn React in 10 minutes</li>
+					<li class="li-pink">☕ Be a NodeJS Dev by lunchtime</li>
+				</ul>
+
+				<h3>My subliminal learning technique worked for Mark Zuckerberg and Albert Einstein, and it can work for you!</h3>
+				<img src="images/bugatti.jpg">
+				<p>Want a great job in tech? Want a six-figure salary? Then you have come to the right place. I am going to tell you all you need to know to get all of that and much more, without you lifting a finger. You can learn passively. Just sit back, close your eyes, and let the sound of my voice make the code sink deep into your brain. </p>
+			</section>
+		</main>
+		<div class="modal" id="modal">
+			<div class="close-modal-btn-container">
+				<button class="modal-close-btn" id="modal-close-btn" disabled>X</button>
+			</div>
+			<div class="modal-inner" id="modal-inner">
+				<h2>We ❤️ Your Data!</h2>
+				<p class="modal-text" id="modal-text">We have a strict policy on tracking and spamming: we'll definitely track you, and we'll definitely spam you. To use this site, enter your name and email address and accept our ridiculous terms and conditions.</p>				
+			</div>
+		</div>
+		<script src="index.js"></script>
+	</body>
+
+</html> -->
+
+<!-- Lesson 1: Cookie Consent Intro -->
+

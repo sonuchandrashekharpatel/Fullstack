@@ -1,0 +1,433 @@
+
+/* Chapter - 1: Build a Cookie Consent */
+
+/* Lesson 1: Cookie Consent Intro */
+
+
+/* Lesson 2: Position the modal */
+*{
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto';
+    color: #222;
+}
+
+/* typography */
+
+h1{
+    font-size: 48px;
+    line-height: 60px;
+    font-weight: 900;
+}
+
+h2{
+    margin-top: 0;
+}
+
+h3{
+    font-size: 20px;
+    font-weight: 700; 
+    line-height: 30px;
+}
+
+p{
+    font-size: 18px;
+    line-height: 28px;
+
+}
+
+ul{
+    list-style: none;
+    padding: 5px 0 0 0;
+}
+
+li{
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 12px;
+    font-weight: 500;
+    font-size: 22px;
+}
+
+.li-green{background-color:#E5FDEA}
+.li-yellow{background-color:#FCFDD6}
+.li-blue{background-color:#E5F9FE}
+.li-pink{background-color:#FCF1FE}
+
+/* layout */
+
+img{
+    width: 100%;
+}
+
+main{
+    width: 400px;
+    margin: 0 auto;
+}
+
+/* modal */
+  
+.modal {
+    
+/*
+Challenge:
+1. Make the modal sit on top of the other content. 
+2. Make sure it is centrally aligned both horizontally
+   and vertically (just like in the slide).
+3. When it's positioned correctly, set its display 
+   property to 'none'.
+*/
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    height: 420px;
+    width: 350px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 6px 2px #666;
+    background-color: #212529;
+    color: whitesmoke;
+}
+
+.modal-inner{
+    width: 290px;
+    margin: 0 auto;
+}
+
+.modal-inner-loading{
+    text-align: center;
+}
+
+/* modal buttons */
+
+.close-modal-btn-container{
+    text-align: right;
+    margin: 9px;
+}
+
+.modal-close-btn {
+  font-size: 22px;
+  font-weight: bold;
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: whitesmoke;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:active{
+    color: red;
+    cursor: pointer;
+}
+
+.modal-close-btn:disabled{
+    color: whitesmoke;
+    opacity: 0.2;
+    cursor: not-allowed;
+}
+
+.modal-choice-btns{
+    margin-top: 10px;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.modal-btn{
+    padding: 10px 24px;
+    cursor: pointer;
+}
+
+/* modal input */
+
+input{
+    margin-top: 10px; 
+    border: 1px solid #212529;
+    padding: 10px;
+    width: 100%;
+    border-radius: 3px;
+}
+
+/* modal after submit */
+
+.loading{
+    width: 100%; 
+    margin-top: 10px;
+}
+
+.modal-display-name{
+    color: fuchsia;
+}
+
+.modal-text{
+    height: 140px;
+    line-height: 23px;
+    margin-bottom: 0;
+}
+
+
+/* Lesson 3: Aside: setTimeout */
+
+
+/* Lesson 4: Set the timer */
+
+
+/* Lesson 5: Aside: element.style */
+/* html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto'
+}
+
+h1, h2{
+    text-align: center
+}
+
+h1{
+    font-family: 'Henny Penny';
+    color: #ee6c4d;
+    font-size: 55px;
+}
+
+p{
+    margin: 0;
+    line-height: 30px;
+    font-size: 20px
+}
+
+img{
+    width: 150px;
+}
+
+.question-container{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.question, .answer{
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 5px; 
+    font-weight: bold;
+}
+
+.question{
+    background-color: whitesmoke;
+}
+
+.answer{
+    display: none;
+    color: #ee6c4d;
+    border: 1px solid; 
+}
+
+.container, header{
+    padding: 0px 15px 0 15px;
+    margin: 0;
+    width: 360px;
+    margin: 0 auto;
+}
+
+button{
+    padding: 15px 17px;
+    border-radius: 5px;
+    border: 0;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px 1px #999;
+    margin-top: 20px;
+    background-color: #68e1fd;
+}
+
+button:hover{
+     background-color: lightgray;
+}
+
+button:active{
+     box-shadow: 1px 1px 10px 1px #fb923c;
+}           
+ */
+/* Lesson 6: Make the modal reappear */
+
+
+/* Lesson 7: Close the modal */
+
+
+/* Lesson 8: Aside: Forms */
+
+
+/* Lesson 9: Add a form 1 */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto';
+    background-color: steelblue;
+}
+
+header{
+    width: 230px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    width: 230px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 0px;
+    gap: 5px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 30px 2px whitesmoke;
+}
+
+label{
+    color: #0B3D91;
+    color: whitesmoke;
+    font-size: 20px;
+    margin-top: 15px; 
+}
+
+label:first-child{
+    margin-top: 0;
+}
+
+input{
+    border: 1px solid #0891b2;
+    padding: 8px;
+    border-radius: 5px;  
+}
+
+img {
+    width: 140px
+}
+
+/* Lesson 10: Aside: Forms - submitting */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto';
+    background-color: steelblue;
+}
+
+header{
+    width: 230px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    width: 230px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 0px;
+    gap: 5px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 30px 2px whitesmoke;
+}
+ 
+label{
+    color: #0B3D91;
+    color: whitesmoke;
+    font-size: 20px;
+    margin-top: 15px; 
+}
+
+label:first-child{
+    margin-top: 0;
+}
+
+input{
+    border: 1px solid #0891b2;
+    padding: 8px;
+    border-radius: 5px;  
+}
+
+input[type="submit"], button{
+    margin-top: 10px;
+    padding: 12px 17px;
+    border: none;
+    background-color: #FC3D21;
+    color: #ecfeff;
+    text-transform: uppercase;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer; 
+}
+
+img{
+    width: 140px
+}
+
+/* Lesson 11: Aside: Forms - challenge */
+
+
+/* Lesson 12: Aside: Validation Attributes */
+
+
+/* Lesson 13: Submit the form */
+
+
+/* Lesson 14: Aside: preventDefault */
+
+
+/* Lesson 15: preventDefault Challenge */
+
+
+/* Lesson 16: Buttons in forms - weird behaviour */
+
+
+/* Lesson 17: Add modal message */
+
+
+/* Lesson 18: Add modal message 2 */
+
+
+/* Lesson 19: Add modal message 3 */
+
+
+/* Lesson 20: Aside: FormData */
+
+
+/* Lesson 21: Form Data 1 */
+
+
+/* Lesson 22: Aside: FormData methods */
+
+
+/* Lesson 23: Form Data 2 */
+
+
+/* Lesson 24: Aside: Disabling elements */
+
+
+/* Lesson 25: Disable the close button */
+
+
+/* Lesson 26: There is no choice 1 */
+
+
+/* Lesson 27: Aside: classlist.toggle */
+
+
+/* Lesson 28: Aside: Classlist Toggle Challenge */
+
+
+/* Lesson 29: There is no choice 2 */
+
+
+/* Lesson 30: Accessibility Issues */
+
+
+/* Lesson 31: Recap */
