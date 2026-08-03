@@ -1032,6 +1032,7 @@ i[class*='van-type-'] {
     font-weight: 600;
 }
 /* Lesson 30: NavLink */
+/* 
 html, body {
     margin: 0;
     padding: 10px;
@@ -1057,7 +1058,7 @@ nav > a:first-of-type {
 .my-link {
     color: red;
 }
-
+ */
 /* Lesson 31: Active Link Styling with NavLink */
 
 
@@ -1069,6 +1070,43 @@ nav > a:first-of-type {
 
 /* Lesson 34: 🔀 Optional Side Quest - Building out the Host Vans List and Detail Pages */
 
+.host-van-link-wrapper {
+    color: unset;
+    text-decoration: unset;
+}
+
+.host-vans-list {
+    padding-inline: 26px;
+}
+
+.host-vans-title {
+    padding-inline: 26px;
+}
+
+.host-van-single {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    margin-bottom: 15px;
+    padding-block: 18px;
+    padding-left: 24px;
+}
+
+.host-van-single > img {
+    height: 70px;
+    border-radius: 5px;
+    margin-right: 17px;
+}
+
+.host-van-info h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-block: 10px;
+}
+
+.host-van-info p {
+    margin-block: 10px;
+}
 
 /* Lesson 35: Building out the Host Van Detail page */
 

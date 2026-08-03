@@ -94,12 +94,19 @@
 
 
 /* Lesson 33: Adding Host Vans Routes */
-
-
-/* Lesson 32: Active Link Styling with NavLink - part 2 */
-
-
-/* Lesson 31: Active Link Styling with NavLink */
+/**
+ * Challenge: add the /host/vans and /host/vans/:id routes, as well
+ * as the "Vans" link in the Host navbar.
+ * 
+ * For now, just create the stubbed-out version of the pages (i.e.
+ * components that just render an <h1>). Don't worry about adding
+ * navigation from /host/vans to /host/vans/:id yet - the link to
+ * /host/vans is enough for now.
+ * 
+ * When deciding whether or not to use nested routes, keep in mind
+ * what will/won't be shared between these two pages. See the Figma
+ * design file (or the screenshots) to help guide your choice.
+*/
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Home from "./pages/Home"
 import About from "./pages/About"
@@ -110,7 +117,51 @@ import Reviews from "./pages/Host/Reviews"
 import Dashboard from "./pages/Host/Dashboard"
 import Income from "./pages/Host/Income"
 import HostLayout from "./components/HostLayout"
-import "./server" 
+import HostVan from "./pages/Host/HostVans"
+import HostVanDetail from "./pages/Host/HostVanDetail"
+
+import "./server"
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+
+          <Route path="vans">
+            <Route index element={<Vans />} />
+            <Route path=":id" element={<VanDetail />}/>
+          </Route>
+
+          <Route path="host" element={<HostLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="income" element={<Income />} />
+            <Route path="reviews" element={<Reviews />} />
+            <Route path="vans" element={<HostVan />}  />
+            <Route path="vans/:id" element={<HostVanDetail />}  />
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
+}
+/* Lesson 32: Active Link Styling with NavLink - part 2 */
+
+
+/* Lesson 31: Active Link Styling with NavLink */
+/* import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Home from "./pages/Home"
+import About from "./pages/About"
+import Vans from './pages/Vans/Vans'
+import VanDetail from "./pages/Vans/VanDetail"
+import Layout from "./components/Layout"
+import Reviews from "./pages/Host/Reviews"
+import Dashboard from "./pages/Host/Dashboard"
+import Income from "./pages/Host/Income"
+import HostLayout from "./components/HostLayout"
+import "./server"
 
 export default function App() {
   return (
@@ -134,7 +185,7 @@ export default function App() {
         </Routes>
     </BrowserRouter>
   )
-}
+} */
 
 /* Lesson 30: NavLink */
 /* 
