@@ -86,6 +86,52 @@
 
 /* Lesson 36: Relative Links */
 
+import { Outlet, NavLink } from "react-router-dom"
+
+export default function HostLayout() {
+    const activeStyle = {
+        fontWeight: "bold",
+        textDecoration: "underline",
+        color: "#161616"
+    }
+    return (
+        <>
+            <nav className="host-nav">
+                <NavLink 
+                    style={({isActive}) => isActive ? activeStyle : null} 
+                    to='.'
+                    end
+                >
+                    Dashboard
+                </NavLink>
+
+                <NavLink 
+                    style={({isActive}) => isActive ? activeStyle : null} 
+                    to='income'
+                >
+                    Income
+                </NavLink>
+
+                <NavLink 
+                    style={({isActive}) => isActive ? activeStyle : null} 
+                    to='vans'
+                >
+                    Vans
+                </NavLink>
+
+                <NavLink 
+                    style={({isActive}) => isActive ? activeStyle : null} 
+                    to='reviews'
+                >
+                    Reviews
+                </NavLink>
+                
+            </nav>
+            <Outlet />
+        </>
+    )
+}
+
 
 /* Lesson 35: Building out the Host Van Detail page */
 
@@ -94,7 +140,7 @@
 
 
 /* Lesson 33: Adding Host Vans Routes */
-
+/* 
 import { Outlet, NavLink } from "react-router-dom"
 
 export default function HostLayout() {
@@ -140,7 +186,7 @@ export default function HostLayout() {
         </>
     )
 }
-
+ */
 
 /* Lesson 32: Active Link Styling with NavLink - part 2 */
 /**
