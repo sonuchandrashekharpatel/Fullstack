@@ -26,16 +26,180 @@
 
 /* Lesson 56: Link state */
 
+import React from "react"
+import { Link, useSearchParams } from "react-router-dom"
+
+export default function Vans() {
+    const [searchParams, setSearchParams] = useSearchParams()
+    const typeFilter = searchParams.get("type")
+
+    const [vans, setVans] = React.useState([])
+
+    const displayedVan = typeFilter ? vans.filter(van => typeFilter === van.type) : vans
+    React.useEffect(() => {
+        fetch("/api/vans")
+            .then(res => res.json())
+            .then(data => setVans(data.vans))
+    }, [])
+    
+    let vanElements = displayedVan.map(van => {
+    return (
+        <div key={van.id} className="van-tile">
+            <Link to={`${van.id}`} state={{search: searchParams.toString()}} aria-label={`View Detail for ${van.name}, priced at $${van.price} per day`} >
+                <img src={van.imageUrl} alt={`Image of ${van.name}`}/>
+                <div className="van-info">
+                    <h3>{van.name}</h3>
+                    <p>${van.price}<span>/day</span></p>
+                </div>
+                <i className={`van-type ${van.type} selected`}>{van.type}</i>
+            </Link>
+        </div>
+    )
+})
+
+    return (
+        <div className="van-list-container">
+            <h1>Explore our van options</h1>
+            <div className="van-list-filter-buttons">
+                <button onClick={() => setSearchParams({type: "simple"})} className={`van-type simple ${typeFilter === "simple" ? "selected" : null}`}>Simple</button>    
+                <button onClick={() => setSearchParams({type: "luxury"})} className={`van-type luxury ${typeFilter === "luxury" ? "selected" : null}`}>Luxury</button>    
+                <button onClick={() => setSearchParams({type: "rugged"})} className={`van-type rugged ${typeFilter === "rugged" ? "selected" : null}`}>Rugged</button>    
+                {typeFilter && 
+                    <button onClick={() => setSearchParams({})} className="van-type clear-filters">Clear</button>    
+                }            
+            </div>
+            <div className="van-list">
+                {vanElements}
+            </div>
+        </div>
+    )
+}
+
 
 /* Lesson 55: Back to all vans */
 
 
 /* Lesson 54: Fix remaining absolute paths */
+/**
+ * Mini-challenge: change the absolute path in the Link below
+ * to a relative path. There's also one still in the HostVans.jsx
+ * file that you should change, too.
+*/
+/* 
+import React from "react"
+import { Link, useSearchParams } from "react-router-dom"
 
+export default function Vans() {
+    const [searchParams, setSearchParams] = useSearchParams()
+    const typeFilter = searchParams.get("type")
 
+    const [vans, setVans] = React.useState([])
+
+    const displayedVan = typeFilter ? vans.filter(van => typeFilter === van.type) : vans
+    React.useEffect(() => {
+        fetch("/api/vans")
+            .then(res => res.json())
+            .then(data => setVans(data.vans))
+    }, [])
+    
+    let vanElements = displayedVan.map(van => {
+    return (
+        <div key={van.id} className="van-tile">
+            <Link to={`${van.id}`}  aria-label={`View Detail for ${van.name}, priced at $${van.price} per day`} >
+                <img src={van.imageUrl} alt={`Image of ${van.name}`}/>
+                <div className="van-info">
+                    <h3>{van.name}</h3>
+                    <p>${van.price}<span>/day</span></p>
+                </div>
+                <i className={`van-type ${van.type} selected`}>{van.type}</i>
+            </Link>
+        </div>
+    )
+})
+
+    return (
+        <div className="van-list-container">
+            <h1>Explore our van options</h1>
+            <div className="van-list-filter-buttons">
+                <button onClick={() => setSearchParams({type: "simple"})} className={`van-type simple ${typeFilter === "simple" ? "selected" : null}`}>Simple</button>    
+                <button onClick={() => setSearchParams({type: "luxury"})} className={`van-type luxury ${typeFilter === "luxury" ? "selected" : null}`}>Luxury</button>    
+                <button onClick={() => setSearchParams({type: "rugged"})} className={`van-type rugged ${typeFilter === "rugged" ? "selected" : null}`}>Rugged</button>    
+                {typeFilter && 
+                    <button onClick={() => setSearchParams({})} className="van-type clear-filters">Clear</button>    
+                }            
+            </div>
+            <div className="van-list">
+                {vanElements}
+            </div>
+        </div>
+    )
+}
+ */
 /* Lesson 53: Challenge: Conditional rendering practice */
+    /**
+     * Challenges:
+     * 1. Conditionally render the "Clear filter" button only if
+     *    there's a `type` filter currently applied in the search params
+     * 
+     * 2. On just the 3 filter buttons (not the Clear filter button),
+     *    conditionally render the className "selected" if the
+     *    typeFilter value equals the value that button sets it to.
+     *    (We don't have a variable for that, so it'll be a hard-coded
+     *    string).
+     * 
+     *    Hint: `...${typeFilter === "simple" ? ...}`
+     */
+/* 
+import React from "react"
+import { Link, useSearchParams } from "react-router-dom"
 
+export default function Vans() {
+    const [searchParams, setSearchParams] = useSearchParams()
+    const typeFilter = searchParams.get("type")
 
+    const [vans, setVans] = React.useState([])
+
+    const displayedVan = typeFilter ? vans.filter(van => typeFilter === van.type) : vans
+    React.useEffect(() => {
+        fetch("/api/vans")
+            .then(res => res.json())
+            .then(data => setVans(data.vans))
+    }, [])
+    
+    let vanElements = displayedVan.map(van => {
+    return (
+        <div key={van.id} className="van-tile">
+            <Link to={`/vans/${van.id}`} aria-label={`View Detail for ${van.name}, priced at $${van.price} per day`} >
+                <img src={van.imageUrl} alt={`Image of ${van.name}`}/>
+                <div className="van-info">
+                    <h3>{van.name}</h3>
+                    <p>${van.price}<span>/day</span></p>
+                </div>
+                <i className={`van-type ${van.type} selected`}>{van.type}</i>
+            </Link>
+        </div>
+    )
+})
+
+    return (
+        <div className="van-list-container">
+            <h1>Explore our van options</h1>
+            <div className="van-list-filter-buttons">
+                <button onClick={() => setSearchParams({type: "simple"})} className={`van-type simple ${typeFilter === "simple" ? "selected" : null}`}>Simple</button>    
+                <button onClick={() => setSearchParams({type: "luxury"})} className={`van-type luxury ${typeFilter === "luxury" ? "selected" : null}`}>Luxury</button>    
+                <button onClick={() => setSearchParams({type: "rugged"})} className={`van-type rugged ${typeFilter === "rugged" ? "selected" : null}`}>Rugged</button>    
+                {typeFilter && 
+                    <button onClick={() => setSearchParams({})} className="van-type clear-filters">Clear</button>    
+                }            
+            </div>
+            <div className="van-list">
+                {vanElements}
+            </div>
+        </div>
+    )
+}
+
+ */
 /* Lesson 52: Merging search params with the setSearchParams function */
 
 
@@ -46,26 +210,234 @@
 
 
 /* Lesson 49: Challenge: Filter the vans with a setter function */
+/**
+ * Challenge: change the Links to buttons and use the
+ * setSearchParams function to set the search params
+ * when the buttons are clicked. Keep all the classNames
+ * the same.
+ */
+/* import React from "react"
+import { Link, useSearchParams } from "react-router-dom"
 
+export default function Vans() {
+    const [searchParams, setSearchParams] = useSearchParams()
+    const typeFilter = searchParams.get("type")
+
+    const [vans, setVans] = React.useState([])
+
+    const displayedVan = typeFilter ? vans.filter(van => typeFilter === van.type) : vans
+    React.useEffect(() => {
+        fetch("/api/vans")
+            .then(res => res.json())
+            .then(data => setVans(data.vans))
+    }, [])
+    
+    let vanElements = displayedVan.map(van => {
+    return (
+        <div key={van.id} className="van-tile">
+            <Link to={`/vans/${van.id}`} aria-label={`View Detail for ${van.name}, priced at $${van.price} per day`} >
+                <img src={van.imageUrl} alt={`Image of ${van.name}`}/>
+                <div className="van-info">
+                    <h3>{van.name}</h3>
+                    <p>${van.price}<span>/day</span></p>
+                </div>
+                <i className={`van-type ${van.type} selected`}>{van.type}</i>
+            </Link>
+        </div>
+    )
+})
+
+    return (
+        <div className="van-list-container">
+            <h1>Explore our van options</h1>
+            <div className="van-list-filter-buttons">
+                <button onClick={() => setSearchParams({type: "simple"})} className="van-type simple">Simple</button>    
+                <button onClick={() => setSearchParams({type: "luxury"})} className="van-type luxury">Luxury</button>    
+                <button onClick={() => setSearchParams({type: "rugged"})} className="van-type rugged">Rugged</button>    
+                <button onClick={() => setSearchParams({})} className="van-type clear-filters">Clear</button>    
+            </div>
+            <div className="van-list">
+                {vanElements}
+            </div>
+        </div>
+    )
+}
+ */
 
 /* Lesson 48: Using the search params setter function */
 
 
 /* Lesson 47: Challenge: Filter the vans with Links */
+/**
+ * Challenge: add links to filter the vans by type. Use a hard-coded
+ * `to` string like we just practiced. The types are "simple", 
+ * "luxury", and "rugged".
+ * 
+ * For now, give the Links a className of `van-type simple` (and
+ * manually replace "simple" with "luxury" and "rugged" for 
+ * the Links that filter by those types.)
+ * 
+ * Include a Link to clear the filters. Its className should be
+ * `van-type clear-filters`
+ */
+/* import React from "react"
+import { Link, useSearchParams } from "react-router-dom"
 
+export default function Vans() {
+    const [searchParams, setSearchParams] = useSearchParams()
+    const typeFilter = searchParams.get("type")
 
+    const [vans, setVans] = React.useState([])
+    console.log(vans)
+
+    const displayedVan = typeFilter ? vans.filter(van => typeFilter === van.type) : vans
+    React.useEffect(() => {
+        fetch("/api/vans")
+            .then(res => res.json())
+            .then(data => setVans(data.vans))
+    }, [])
+    
+    let vanElements = displayedVan.map(van => {
+    return (
+        <div key={van.id} className="van-tile">
+            <Link to={`/vans/${van.id}`} aria-label={`View Detail for ${van.name}, priced at $${van.price} per day`} >
+                <img src={van.imageUrl} alt={`Image of ${van.name}`}/>
+                <div className="van-info">
+                    <h3>{van.name}</h3>
+                    <p>${van.price}<span>/day</span></p>
+                </div>
+                <i className={`van-type ${van.type} selected`}>{van.type}</i>
+            </Link>
+        </div>
+    )
+})
+
+    return (
+        <div className="van-list-container">
+            <h1>Explore our van options</h1>
+            <div className="van-list-filter-buttons">
+                <Link to="?type=simple" className="van-type simple">Simple</Link>    
+                <Link to="?type=luxury" className="van-type luxury">Luxury</Link>    
+                <Link to="?type=rugged" className="van-type rugged">Rugged</Link>    
+                <Link to="." className="van-type ">Clear</Link>    
+            </div>
+            <div className="van-list">
+                {vanElements}
+            </div>
+        </div>
+    )
+}
+ */
 /* Lesson 46: Using Links to add search params */
 
 
-/* Lesson 45: Challenge: Filter the vans in VanLife */
 
+/* Lesson 45: Challenge: Filter the vans in VanLife */
+/**
+ * Challenge: filter the list of vans based on the `typeFilter`
+ * we created earlier. For now, just enter "simple", "luxury",
+ * or "rugged" into the search param in the URL to check your work.
+ */
+/* 
+import React from "react"
+import { Link, useSearchParams } from "react-router-dom"
+
+export default function Vans() {
+    const [searchParams, setSearchParams] = useSearchParams()
+    const typeFilter = searchParams.get("type")
+
+    
+
+    const [vans, setVans] = React.useState([])
+    console.log(vans)
+
+    const displayedVan = typeFilter ? vans.filter(van => typeFilter === van.type) : vans
+    React.useEffect(() => {
+        fetch("/api/vans")
+            .then(res => res.json())
+            .then(data => setVans(data.vans))
+    }, [])
+    
+    let vanElements = displayedVan.map(van => {
+    return (
+        <div key={van.id} className="van-tile">
+            <Link to={`/vans/${van.id}`} aria-label={`View Detail for ${van.name}, priced at $${van.price} per day`} >
+                <img src={van.imageUrl} alt={`Image of ${van.name}`}/>
+                <div className="van-info">
+                    <h3>{van.name}</h3>
+                    <p>${van.price}<span>/day</span></p>
+                </div>
+                <i className={`van-type ${van.type} selected`}>{van.type}</i>
+            </Link>
+        </div>
+    )
+})
+
+    return (
+        <div className="van-list-container">
+            <h1>Explore our van options</h1>
+            <div className="van-list">
+                {vanElements}
+            </div>
+        </div>
+    )
+}
+ */
 
 /* Lesson 44: Filter the array w/ the search param */
 
 
 /* Lesson 43: Challenge: Set up search params in VanLife */
+/**
+ * Challenge: access the search params in this component
+ * 1. Using the hook from react-router-dom, set a variable
+ *    called `searchParams`
+ * 2. Save the value of the `type` parameter (from the
+ *    `searchParams` object) to a variable called `typeFilter`
+ * 3. Log the value of the `typeFilter` to the console
+ */
+/* 
+import React from "react"
+import { Link, useSearchParams } from "react-router-dom"
+
+export default function Vans() {
+    const [searchParams, setSearchParams] = useSearchParams()
+    const typeFilter = searchParams.get("type")
+
+    console.log(typeFilter)
 
 
+    const [vans, setVans] = React.useState([])
+    React.useEffect(() => {
+        fetch("/api/vans")
+            .then(res => res.json())
+            .then(data => setVans(data.vans))
+    }, [])
+    
+    let vanElements = vans.map(van => {
+    return <div key={van.id} className="van-tile">
+        <Link to={`/vans/${van.id}`} aria-label={`View Detail for ${van.name}, priced at $${van.price} per day`} >
+            <img src={van.imageUrl} alt={`Image of ${van.name}`}/>
+            <div className="van-info">
+                <h3>{van.name}</h3>
+                <p>${van.price}<span>/day</span></p>
+            </div>
+            <i className={`van-type ${van.type} selected`}>{van.type}</i>
+        </Link>
+    </div>
+})
+
+
+    return (
+        <div className="van-list-container">
+            <h1>Explore our van options</h1>
+            <div className="van-list">
+                {vanElements}
+            </div>
+        </div>
+    )
+}
+ */
 /* Lesson 42: useSearchParams */
 
 
@@ -148,7 +520,7 @@
 
 
 /* Lesson 15: A11y Update - wrapping complex content in a link */
-
+/* 
 import React from "react"
 import { Link } from "react-router-dom"
 
@@ -184,7 +556,7 @@ export default function Vans() {
         </div>
     )
 }
-
+ */
 
 /* Lesson 14: Route Params - part 2 */
 /* 

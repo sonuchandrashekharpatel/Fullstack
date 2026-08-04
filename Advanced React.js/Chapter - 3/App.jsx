@@ -34,71 +34,13 @@
 
 
 /* Lesson 53: Challenge: Conditional rendering practice */
-
-
-/* Lesson 52: Merging search params with the setSearchParams function */
-
-
-/* Lesson 51: Merging search params with Links */
-
-
-/* Lesson 50: Caveats to setting params */
-
-
-/* Lesson 49: Challenge: Filter the vans with a setter function */
-
-
-/* Lesson 48: Using the search params setter function */
-
-
-/* Lesson 47: Challenge: Filter the vans with Links */
-
-
-/* Lesson 46: Using Links to add search params */
-
-
-/* Lesson 45: Challenge: Filter the vans in VanLife */
-
-
-/* Lesson 44: Filter the array w/ the search param */
-
-
-/* Lesson 43: Challenge: Set up search params in VanLife */
-
-
-/* Lesson 42: useSearchParams */
-
-
-/* Lesson 41: Search Params Intro */
-
-
-/* Lesson 40: Outlet Context */
-
-
-/* Lesson 39: Add the Final Navbar! */
-
-
-/* Lesson 38: Add /host/vans/:id Nested Routes */
-/**
- * Challenge: Add the routes necessary so we can access
- * /host/vans/:id/pricing and /host/vans/:id/photos.
- * 
- * Add stubbed-out components in separate files for
- * these routes (e.g. <h2>Pricing view here</h2>). I already
- * made the `HostVanInfo.jsx`, `HostVanPricing.jsx` and
- * `HostVanPhotos.jsx` files for you, but they're empty.
- * 
- * Don't forget: you'll need to use a special tool from
- * React Router so we can keep the top info (and 
- * eventually the navbar we build) on the page while going
- * from nested route to nested route. This will require some
- * slight changes to HostVanDetail.jsx
- * 
- * Since we don't have the navbar yet, you can test them
- * by manually navigating to e.g. /host/vans/1/pricing.
-*/
-
-
+    /**
+     * Challenges:
+     * 1. Conditionally render the "Clear filter" button only if
+     *    there's a `type` filter currently applied in the search params
+     * 
+     * 2. TBA
+     */
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Home from "./pages/Home"
 import About from "./pages/About"
@@ -145,6 +87,736 @@ export default function App() {
     </BrowserRouter>
   )
 }
+
+/* Lesson 52: Merging search params with the setSearchParams function */
+/* 
+import { BrowserRouter, Routes, Route, Link, useSearchParams } from "react-router-dom";
+
+const swCharacters = [
+  { name: "Luke Skywalker", type: "Jedi" },
+  { name: "Darth Vader", type: "Sith" },
+  { name: "Emperor Palpatine", type: "Sith" },
+  { name: "Yoda", type: "Jedi" }
+]
+
+function HomePage() {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const typeFilter = searchParams.get("type")
+  
+  const characters = typeFilter ? swCharacters.filter(character => character.type.toLowerCase() === typeFilter) : swCharacters
+  const charEls = characters
+    .map(char => (
+      <div key={char.name}>
+        <h3
+          style={{ color: char.type.toLowerCase() === "jedi" ? "blue" : "red" }}
+        >
+          Name: {char.name}
+        </h3>
+        <p>Type: {char.type}</p>
+        <hr />
+      </div>
+    ))
+
+    function genNewSearchParamsString(key, value) {
+      const sp = new URLSearchParams(searchParams)
+      if(value === null) {
+        sp.delete(key)
+      } else {
+        sp.set(key, value)
+      }
+      return `?${sp.toString()}`
+    }
+
+    function handleFilterChange(key, value) {
+      setSearchParams(prevParams => {
+        if(value === null) {
+          prevParams.delete(key)
+        } else {
+          prevParams.set(key, value)
+        }
+        return prevParams
+      })
+    } 
+
+  return (
+    <main>
+      <h2>Home</h2>
+      <div>
+        <Link to={genNewSearchParamsString("type", "jedi")}>Jedi</Link>
+        <Link to={genNewSearchParamsString("type", "sith")}>Sith</Link>
+        <Link to={genNewSearchParamsString("type", null)}>Clear</Link>
+      </div>      
+      <div>
+        <button onClick={() => handleFilterChange("type", "jedi")}>Jedi</button>
+        <button onClick={() => handleFilterChange("type", "sith")}>Sith</button>
+        <button onClick={() => handleFilterChange("type", null)}>Clear</button>
+      </div>
+      {charEls}
+    </main>
+  );
+}
+
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/characters" element={<HomePage />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
+ */
+
+/* Lesson 51: Merging search params with Links */
+/* 
+import { BrowserRouter, Routes, Route, Link, useSearchParams } from "react-router-dom";
+
+const swCharacters = [
+  { name: "Luke Skywalker", type: "Jedi" },
+  { name: "Darth Vader", type: "Sith" },
+  { name: "Emperor Palpatine", type: "Sith" },
+  { name: "Yoda", type: "Jedi" }
+]
+
+function HomePage() {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const typeFilter = searchParams.get("type")
+  
+  const characters = typeFilter ? swCharacters.filter(character => character.type.toLowerCase() === typeFilter) : swCharacters
+  const charEls = characters
+    .map(char => (
+      <div key={char.name}>
+        <h3
+          style={{ color: char.type.toLowerCase() === "jedi" ? "blue" : "red" }}
+        >
+          Name: {char.name}
+        </h3>
+        <p>Type: {char.type}</p>
+        <hr />
+      </div>
+    ))
+
+    function genNewSearchParamsString(key, value) {
+      const sp = new URLSearchParams(searchParams)
+      if(value === null) {
+        sp.delete(key)
+      } else {
+        sp.set(key, value)
+      }
+      return `?${sp.toString()}`
+    }
+
+  return (
+    <main>
+      <h2>Home</h2>
+      <div>
+        <button onClick={() => setSearchParams({ type: "jedi"})}>Jedi</button>
+        <button onClick={() => setSearchParams({ type: "sith"})}>Sith</button>
+        <button onClick={() => setSearchParams({})}>Clear</button>
+      </div>
+      <div>
+        <Link to={genNewSearchParamsString("type", "jedi")}>Jedi</Link>
+        <Link to={genNewSearchParamsString("type", "sith")}>Sith</Link>
+        <Link to={genNewSearchParamsString("type", null)}>Clear</Link>
+      </div>      
+      {charEls}
+    </main>
+  );
+}
+
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/characters" element={<HomePage />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
+ */
+
+/* Lesson 50: Caveats to setting params */
+/* 
+import { BrowserRouter, Routes, Route, Link, useSearchParams } from "react-router-dom";
+
+const swCharacters = [
+  { name: "Luke Skywalker", type: "Jedi" },
+  { name: "Darth Vader", type: "Sith" },
+  { name: "Emperor Palpatine", type: "Sith" },
+  { name: "Yoda", type: "Jedi" }
+]
+
+function HomePage() {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const typeFilter = searchParams.get("type")
+  
+  const characters = typeFilter ? swCharacters.filter(character => character.type.toLowerCase() === typeFilter) : swCharacters
+  const charEls = characters
+    .map(char => (
+      <div key={char.name}>
+        <h3
+          style={{ color: char.type.toLowerCase() === "jedi" ? "blue" : "red" }}
+        >
+          Name: {char.name}
+        </h3>
+        <p>Type: {char.type}</p>
+        <hr />
+      </div>
+    ))
+
+  return (
+    <main>
+      <h2>Home</h2>
+      <div>
+        <button onClick={() => setSearchParams({ type: "jedi"})}>Jedi</button>
+        <button onClick={() => setSearchParams({ type: "sith"})}>Sith</button>
+        <button onClick={() => setSearchParams({})}>Clear</button>
+      </div>
+      
+      {charEls}
+    </main>
+  );
+}
+
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/characters" element={<HomePage />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
+ */
+
+/* Lesson 49: Challenge: Filter the vans with a setter function */
+/* 
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Home from "./pages/Home"
+import About from "./pages/About"
+import Vans from './pages/Vans/Vans'
+import VanDetail from "./pages/Vans/VanDetail"
+import Layout from "./components/Layout"
+import Reviews from "./pages/Host/Reviews"
+import Dashboard from "./pages/Host/Dashboard"
+import Income from "./pages/Host/Income"
+import HostLayout from "./components/HostLayout"
+import HostVan from "./pages/Host/HostVans"
+import HostVanDetail from "./pages/Host/HostVanDetail"
+import HostVanPricing from "./pages/Host/HostVanPricing"
+import HostVanPhotos from "./pages/Host/HostVanPhotos"
+import HostVanInfo from "./pages/Host/HostVanInfo"
+import "./server"
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+
+          <Route path="vans">
+            <Route index element={<Vans />} />
+            <Route path=":id" element={<VanDetail />}/>
+          </Route>
+
+          <Route path="host" element={<HostLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="income" element={<Income />} />
+            <Route path="reviews" element={<Reviews />} />
+            <Route path="vans" element={<HostVan />}  />
+            <Route path="vans/:id" element={<HostVanDetail />}>
+              <Route index element={<HostVanInfo />}></Route>
+              <Route path="pricing" element={<HostVanPricing />}></Route>
+              <Route path="photos" element={<HostVanPhotos />}></Route>
+            </Route>
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
+} 
+ */
+
+/* Lesson 48: Using the search params setter function */
+/**
+ * Challenge: add another Link that clears out the search params
+*/
+
+/* 
+import { BrowserRouter, Routes, Route, Link, useSearchParams } from "react-router-dom";
+
+const swCharacters = [
+  { name: "Luke Skywalker", type: "Jedi" },
+  { name: "Darth Vader", type: "Sith" },
+  { name: "Emperor Palpatine", type: "Sith" },
+  { name: "Yoda", type: "Jedi" }
+]
+
+function HomePage() {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const typeFilter = searchParams.get("type")
+  
+  const characters = typeFilter ? swCharacters.filter(character => character.type.toLowerCase() === typeFilter) : swCharacters
+  const charEls = characters
+    .map(char => (
+      <div key={char.name}>
+        <h3
+          style={{ color: char.type.toLowerCase() === "jedi" ? "blue" : "red" }}
+        >
+          Name: {char.name}
+        </h3>
+        <p>Type: {char.type}</p>
+        <hr />
+      </div>
+    ))
+
+  return (
+    <main>
+      <h2>Home</h2>
+      <div>
+        <button onClick={() => setSearchParams({ type: "jedi"})}>Jedi</button>
+        <button onClick={() => setSearchParams({ type: "sith"})}>Sith</button>
+        <button onClick={() => setSearchParams({})}>Clear</button>
+      </div>
+      {charEls}
+    </main>
+  );
+}
+
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/characters" element={<HomePage />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
+ */
+
+/* Lesson 47: Challenge: Filter the vans with Links */
+/* 
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Home from "./pages/Home"
+import About from "./pages/About"
+import Vans from './pages/Vans/Vans'
+import VanDetail from "./pages/Vans/VanDetail"
+import Layout from "./components/Layout"
+import Reviews from "./pages/Host/Reviews"
+import Dashboard from "./pages/Host/Dashboard"
+import Income from "./pages/Host/Income"
+import HostLayout from "./components/HostLayout"
+import HostVan from "./pages/Host/HostVans"
+import HostVanDetail from "./pages/Host/HostVanDetail"
+import HostVanPricing from "./pages/Host/HostVanPricing"
+import HostVanPhotos from "./pages/Host/HostVanPhotos"
+import HostVanInfo from "./pages/Host/HostVanInfo"
+import "./server"
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+
+          <Route path="vans">
+            <Route index element={<Vans />} />
+            <Route path=":id" element={<VanDetail />}/>
+          </Route>
+
+          <Route path="host" element={<HostLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="income" element={<Income />} />
+            <Route path="reviews" element={<Reviews />} />
+            <Route path="vans" element={<HostVan />}  />
+            <Route path="vans/:id" element={<HostVanDetail />}>
+              <Route index element={<HostVanInfo />}></Route>
+              <Route path="pricing" element={<HostVanPricing />}></Route>
+              <Route path="photos" element={<HostVanPhotos />}></Route>
+            </Route>
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
+} 
+
+ */
+
+/* Lesson 46: Using Links to add search params */
+/**
+ * Challenge: add another Link that clears out the search params
+ */
+/* import { BrowserRouter, Routes, Route, Link, useSearchParams } from "react-router-dom";
+
+const swCharacters = [
+  { name: "Luke Skywalker", type: "Jedi" },
+  { name: "Darth Vader", type: "Sith" },
+  { name: "Emperor Palpatine", type: "Sith" },
+  { name: "Yoda", type: "Jedi" }
+]
+
+function HomePage() {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const typeFilter = searchParams.get("type")
+  
+  const characters = typeFilter ? swCharacters.filter(character => character.type.toLowerCase() === typeFilter) : swCharacters
+  const charEls = characters
+    .map(char => (
+      <div key={char.name}>
+        <h3
+          style={{ color: char.type.toLowerCase() === "jedi" ? "blue" : "red" }}
+        >
+          Name: {char.name}
+        </h3>
+        <p>Type: {char.type}</p>
+        <hr />
+      </div>
+    ))
+
+  return (
+    <main>
+      <h2>Home</h2>
+      <div>
+        <Link to="?type=jedi">Jedi</Link>
+        <Link to="?type=sith">Sith</Link>
+        <Link to=".">Clear</Link>
+      </div>
+      {charEls}
+    </main>
+  );
+}
+
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/characters" element={<HomePage />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
+ */
+
+/* Lesson 45: Challenge: Filter the vans in VanLife */
+/*
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Home from "./pages/Home"
+import About from "./pages/About"
+import Vans from './pages/Vans/Vans'
+import VanDetail from "./pages/Vans/VanDetail"
+import Layout from "./components/Layout"
+import Reviews from "./pages/Host/Reviews"
+import Dashboard from "./pages/Host/Dashboard"
+import Income from "./pages/Host/Income"
+import HostLayout from "./components/HostLayout"
+import HostVan from "./pages/Host/HostVans"
+import HostVanDetail from "./pages/Host/HostVanDetail"
+import HostVanPricing from "./pages/Host/HostVanPricing"
+import HostVanPhotos from "./pages/Host/HostVanPhotos"
+import HostVanInfo from "./pages/Host/HostVanInfo"
+import "./server"
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+
+          <Route path="vans">
+            <Route index element={<Vans />} />
+            <Route path=":id" element={<VanDetail />}/>
+          </Route>
+
+          <Route path="host" element={<HostLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="income" element={<Income />} />
+            <Route path="reviews" element={<Reviews />} />
+            <Route path="vans" element={<HostVan />}  />
+            <Route path="vans/:id" element={<HostVanDetail />}>
+              <Route index element={<HostVanInfo />}></Route>
+              <Route path="pricing" element={<HostVanPricing />}></Route>
+              <Route path="photos" element={<HostVanPhotos />}></Route>
+            </Route>
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
+} 
+*/
+
+/* Lesson 44: Filter the array w/ the search param */
+/**
+ * Challenge: think how we might approach filtering the list of
+ * characters down based on the typeFilter we grabbed from the 
+ * searchParams.
+ * 
+ * Extra credit: try doing it yourself!
+ */
+/* 
+import { BrowserRouter, Routes, Route, Link, useSearchParams } from "react-router-dom";
+
+const swCharacters = [
+  { name: "Luke Skywalker", type: "Jedi" },
+  { name: "Darth Vader", type: "Sith" },
+  { name: "Emperor Palpatine", type: "Sith" },
+  { name: "Yoda", type: "Jedi" }
+]
+
+function HomePage() {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const typeFilter = searchParams.get("type")
+  
+  const characters = typeFilter ? swCharacters.filter(character => character.type.toLowerCase() === typeFilter) : swCharacters
+  const charEls = characters
+    .map(char => (
+      <div key={char.name}>
+        <h3
+          style={{ color: char.type.toLowerCase() === "jedi" ? "blue" : "red" }}
+        >
+          Name: {char.name}
+        </h3>
+        <p>Type: {char.type}</p>
+        <hr />
+      </div>
+    ))
+
+  return (
+    <main>
+      <h2>Home</h2>
+      {charEls}
+    </main>
+  );
+}
+
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/characters" element={<HomePage />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
+ */
+
+/* Lesson 43: Challenge: Set up search params in VanLife */
+/* import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Home from "./pages/Home"
+import About from "./pages/About"
+import Vans from './pages/Vans/Vans'
+import VanDetail from "./pages/Vans/VanDetail"
+import Layout from "./components/Layout"
+import Reviews from "./pages/Host/Reviews"
+import Dashboard from "./pages/Host/Dashboard"
+import Income from "./pages/Host/Income"
+import HostLayout from "./components/HostLayout"
+import HostVan from "./pages/Host/HostVans"
+import HostVanDetail from "./pages/Host/HostVanDetail"
+import HostVanPricing from "./pages/Host/HostVanPricing"
+import HostVanPhotos from "./pages/Host/HostVanPhotos"
+import HostVanInfo from "./pages/Host/HostVanInfo"
+import "./server"
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+
+          <Route path="vans">
+            <Route index element={<Vans />} />
+            <Route path=":id" element={<VanDetail />}/>
+          </Route>
+
+          <Route path="host" element={<HostLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="income" element={<Income />} />
+            <Route path="reviews" element={<Reviews />} />
+            <Route path="vans" element={<HostVan />}  />
+            <Route path="vans/:id" element={<HostVanDetail />}>
+              <Route index element={<HostVanInfo />}></Route>
+              <Route path="pricing" element={<HostVanPricing />}></Route>
+              <Route path="photos" element={<HostVanPhotos />}></Route>
+            </Route>
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
+} */
+
+/* Lesson 42: useSearchParams */
+/* 
+import { BrowserRouter, Routes, Route, Link, useSearchParams } from "react-router-dom";
+
+const swCharacters = [
+  { name: "Luke Skywalker", type: "Jedi" },
+  { name: "Darth Vader", type: "Sith" },
+  { name: "Emperor Palpatine", type: "Sith" },
+  { name: "Yoda", type: "Jedi" }
+]
+
+function HomePage() {
+  const [searchParams, setSearchParams] = useSearchParams()
+  console.log(searchParams.get("type"))
+  
+  const charEls = swCharacters
+    .map(char => (
+      <div key={char.name}>
+        <h3
+          style={{ color: char.type.toLowerCase() === "jedi" ? "blue" : "red" }}
+        >
+          Name: {char.name}
+        </h3>
+        <p>Type: {char.type}</p>
+        <hr />
+      </div>
+    ))
+
+  return (
+    <main>
+      <h2>Home</h2>
+      {charEls}
+    </main>
+  );
+}
+
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/characters" element={<HomePage />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
+
+ */
+/* Lesson 41: Search Params Intro */
+/* 
+Search/Query parameters
+
+Query Parameters:
+. Represent a change in the UI
+  . Sorting, filtering, pagination
+. Used as a "Single source of truth" for certain 
+  application state.
+
+  . Ask yourself: "should a user be able to revisit 
+  or share this page just like it is?" If "yes", then 
+  you might consider raising that state up to the URL 
+  in a query parameter.
+
+
+What about state?
+. What happens to a state when you refresh the page?
+. Can you share the current state of your app with 
+  your friend?
+  . E.g. You have 4 filters and a text search on the 
+  list of vans and you want to share the list view 
+  with your friend.
+
+. Best practices about React state are always changing...
+
+Query Parameters: 
+. Key/value pairs in the URL 
+. Begins with ?
+  . /vans?type=rugged
+. Separated by &
+  . /vans?type=rugged&filterBy=price
+*/
+
+/* Lesson 40: Outlet Context */
+
+
+/* Lesson 39: Add the Final Navbar! */
+
+
+/* Lesson 38: Add /host/vans/:id Nested Routes */
+/**
+ * Challenge: Add the routes necessary so we can access
+ * /host/vans/:id/pricing and /host/vans/:id/photos.
+ * 
+ * Add stubbed-out components in separate files for
+ * these routes (e.g. <h2>Pricing view here</h2>). I already
+ * made the `HostVanInfo.jsx`, `HostVanPricing.jsx` and
+ * `HostVanPhotos.jsx` files for you, but they're empty.
+ * 
+ * Don't forget: you'll need to use a special tool from
+ * React Router so we can keep the top info (and 
+ * eventually the navbar we build) on the page while going
+ * from nested route to nested route. This will require some
+ * slight changes to HostVanDetail.jsx
+ * 
+ * Since we don't have the navbar yet, you can test them
+ * by manually navigating to e.g. /host/vans/1/pricing.
+*/
+
+/* 
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Home from "./pages/Home"
+import About from "./pages/About"
+import Vans from './pages/Vans/Vans'
+import VanDetail from "./pages/Vans/VanDetail"
+import Layout from "./components/Layout"
+import Reviews from "./pages/Host/Reviews"
+import Dashboard from "./pages/Host/Dashboard"
+import Income from "./pages/Host/Income"
+import HostLayout from "./components/HostLayout"
+import HostVan from "./pages/Host/HostVans"
+import HostVanDetail from "./pages/Host/HostVanDetail"
+import HostVanPricing from "./pages/Host/HostVanPricing"
+import HostVanPhotos from "./pages/Host/HostVanPhotos"
+import HostVanInfo from "./pages/Host/HostVanInfo"
+import "./server"
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+
+          <Route path="vans">
+            <Route index element={<Vans />} />
+            <Route path=":id" element={<VanDetail />}/>
+          </Route>
+
+          <Route path="host" element={<HostLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="income" element={<Income />} />
+            <Route path="reviews" element={<Reviews />} />
+            <Route path="vans" element={<HostVan />}  />
+            <Route path="vans/:id" element={<HostVanDetail />}>
+              <Route index element={<HostVanInfo />}></Route>
+              <Route path="pricing" element={<HostVanPricing />}></Route>
+              <Route path="photos" element={<HostVanPhotos />}></Route>
+            </Route>
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
+}
+ */
 
 /* Lesson 37: Back to all vans */
 

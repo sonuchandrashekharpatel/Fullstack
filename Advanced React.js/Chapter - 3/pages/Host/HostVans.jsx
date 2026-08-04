@@ -31,6 +31,54 @@
 
 
 /* Lesson 54: Fix remaining absolute paths */
+    /**
+     * Here's the other absolute path Link that needs changing 👇
+     */
+import React from "react"
+import { Link } from "react-router-dom"
+
+export default function HostVans() {
+    const [vans, setVans] = React.useState([])
+
+    React.useEffect(() => {
+        fetch("/api/host/vans")
+            .then(res => res.json())
+            .then(data => setVans(data.vans))
+    }, [])
+    
+    const hostVanEls = vans.map( van => {
+        return <Link
+            to={`${van.id}`}
+            key={van.id}
+            className="host-van-link-wrapper"
+        >
+            <div className="host-van-single">
+                <img src={van.imageUrl} alt={`Photo of ${van.name}`} />
+                <div className="host-van-info">
+                    <h3>{van.name}</h3>
+                    <p>${van.price}/day</p>
+                </div>
+            </div>
+        </Link>
+    })
+
+    return (
+        <section>
+            <h1 className="host-van-title">Your listed vans</h1>
+            <div className="host-van-list">
+                {
+                    vans.length > 0 ? (
+                        <section>
+                            {hostVanEls}
+                        </section>
+                    ) : (
+                        <h2>Loading ...</h2>
+                    )
+                }
+            </div>
+        </section>
+    )
+}
 
 
 /* Lesson 53: Challenge: Conditional rendering practice */
@@ -91,7 +139,7 @@
 
 
 /* Lesson 34: 🔀 Optional Side Quest - Building out the Host Vans List and Detail Pages */
-import React from "react"
+/* import React from "react"
 import { Link } from "react-router-dom"
 
 export default function HostVans() {
@@ -136,7 +184,7 @@ export default function HostVans() {
         </section>
     )
 }
-
+ */
 /* Lesson 33: Adding Host Vans Routes */
 
 
