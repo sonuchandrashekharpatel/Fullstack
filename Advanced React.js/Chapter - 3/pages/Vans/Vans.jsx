@@ -11,23 +11,9 @@
 
 /* Lesson 61: Quick update to our fetching code */
 
-
-/* Lesson 60: "Happy Path" vs. "Sad Path" (new) */
-
-
-/* Lesson 59: 404 Page */
-
-
-/* Lesson 58: Challenge: conditionally render the back button text */
-
-
-/* Lesson 57: useLocation */
-
-
-/* Lesson 56: Link state */
-
 import React from "react"
 import { Link, useSearchParams } from "react-router-dom"
+import getVans from "../../api"
 
 export default function Vans() {
     const [searchParams, setSearchParams] = useSearchParams()
@@ -37,25 +23,28 @@ export default function Vans() {
 
     const displayedVan = typeFilter ? vans.filter(van => typeFilter === van.type) : vans
     React.useEffect(() => {
-        fetch("/api/vans")
-            .then(res => res.json())
-            .then(data => setVans(data.vans))
+        async function loadVans() {
+            const data = await getVans()
+            setVans(data)
+        }
+        loadVans()
+
     }, [])
     
     let vanElements = displayedVan.map(van => {
-    return (
-        <div key={van.id} className="van-tile">
-            <Link to={`${van.id}`} state={{search: searchParams.toString()}} aria-label={`View Detail for ${van.name}, priced at $${van.price} per day`} >
-                <img src={van.imageUrl} alt={`Image of ${van.name}`}/>
-                <div className="van-info">
-                    <h3>{van.name}</h3>
-                    <p>${van.price}<span>/day</span></p>
-                </div>
-                <i className={`van-type ${van.type} selected`}>{van.type}</i>
-            </Link>
-        </div>
-    )
-})
+        return (
+            <div key={van.id} className="van-tile">
+                <Link to={`${van.id}`} state={{ search: `?${searchParams.toString()}`, type: typeFilter }} aria-label={`View Detail for ${van.name}, priced at $${van.price} per day`} >
+                    <img src={van.imageUrl} alt={`Image of ${van.name}`}/>
+                    <div className="van-info">
+                        <h3>{van.name}</h3>
+                        <p>${van.price}<span>/day</span></p>
+                    </div>
+                    <i className={`van-type ${van.type} selected`}>{van.type}</i>
+                </Link>
+            </div>
+        )
+    })
 
     return (
         <div className="van-list-container">
@@ -75,6 +64,168 @@ export default function Vans() {
     )
 }
 
+
+/* Lesson 60: "Happy Path" vs. "Sad Path" (new) */
+
+
+/* Lesson 59: 404 Page */
+
+
+/* Lesson 58: Challenge: conditionally render the back button text */
+/* 
+import React from "react"
+import { Link, useSearchParams } from "react-router-dom"
+
+export default function Vans() {
+    const [searchParams, setSearchParams] = useSearchParams()
+    const typeFilter = searchParams.get("type")
+
+    const [vans, setVans] = React.useState([])
+
+    const displayedVan = typeFilter ? vans.filter(van => typeFilter === van.type) : vans
+    React.useEffect(() => {
+        fetch("/api/vans")
+            .then(res => res.json())
+            .then(data => setVans(data.vans))
+    }, [])
+    
+    let vanElements = displayedVan.map(van => {
+        return (
+            <div key={van.id} className="van-tile">
+                <Link to={`${van.id}`} state={{ search: `?${searchParams.toString()}`, type: typeFilter }} aria-label={`View Detail for ${van.name}, priced at $${van.price} per day`} >
+                    <img src={van.imageUrl} alt={`Image of ${van.name}`}/>
+                    <div className="van-info">
+                        <h3>{van.name}</h3>
+                        <p>${van.price}<span>/day</span></p>
+                    </div>
+                    <i className={`van-type ${van.type} selected`}>{van.type}</i>
+                </Link>
+            </div>
+        )
+    })
+
+    return (
+        <div className="van-list-container">
+            <h1>Explore our van options</h1>
+            <div className="van-list-filter-buttons">
+                <button onClick={() => setSearchParams({type: "simple"})} className={`van-type simple ${typeFilter === "simple" ? "selected" : null}`}>Simple</button>    
+                <button onClick={() => setSearchParams({type: "luxury"})} className={`van-type luxury ${typeFilter === "luxury" ? "selected" : null}`}>Luxury</button>    
+                <button onClick={() => setSearchParams({type: "rugged"})} className={`van-type rugged ${typeFilter === "rugged" ? "selected" : null}`}>Rugged</button>    
+                {typeFilter && 
+                    <button onClick={() => setSearchParams({})} className="van-type clear-filters">Clear</button>    
+                }            
+            </div>
+            <div className="van-list">
+                {vanElements}
+            </div>
+        </div>
+    )
+}
+ */
+
+/* Lesson 57: useLocation */
+
+/* import React from "react"
+import { Link, useSearchParams } from "react-router-dom"
+
+export default function Vans() {
+    const [searchParams, setSearchParams] = useSearchParams()
+    const typeFilter = searchParams.get("type")
+
+    const [vans, setVans] = React.useState([])
+
+    const displayedVan = typeFilter ? vans.filter(van => typeFilter === van.type) : vans
+    React.useEffect(() => {
+        fetch("/api/vans")
+            .then(res => res.json())
+            .then(data => setVans(data.vans))
+    }, [])
+    
+    let vanElements = displayedVan.map(van => {
+        return (
+            <div key={van.id} className="van-tile">
+                <Link to={`${van.id}`} state={{ search: `?${searchParams.toString()}` }} aria-label={`View Detail for ${van.name}, priced at $${van.price} per day`} >
+                    <img src={van.imageUrl} alt={`Image of ${van.name}`}/>
+                    <div className="van-info">
+                        <h3>{van.name}</h3>
+                        <p>${van.price}<span>/day</span></p>
+                    </div>
+                    <i className={`van-type ${van.type} selected`}>{van.type}</i>
+                </Link>
+            </div>
+        )
+    })
+
+    return (
+        <div className="van-list-container">
+            <h1>Explore our van options</h1>
+            <div className="van-list-filter-buttons">
+                <button onClick={() => setSearchParams({type: "simple"})} className={`van-type simple ${typeFilter === "simple" ? "selected" : null}`}>Simple</button>    
+                <button onClick={() => setSearchParams({type: "luxury"})} className={`van-type luxury ${typeFilter === "luxury" ? "selected" : null}`}>Luxury</button>    
+                <button onClick={() => setSearchParams({type: "rugged"})} className={`van-type rugged ${typeFilter === "rugged" ? "selected" : null}`}>Rugged</button>    
+                {typeFilter && 
+                    <button onClick={() => setSearchParams({})} className="van-type clear-filters">Clear</button>    
+                }            
+            </div>
+            <div className="van-list">
+                {vanElements}
+            </div>
+        </div>
+    )
+}
+ */
+
+/* Lesson 56: Link state */
+/* 
+import React from "react"
+import { Link, useSearchParams } from "react-router-dom"
+
+export default function Vans() {
+    const [searchParams, setSearchParams] = useSearchParams()
+    const typeFilter = searchParams.get("type")
+
+    const [vans, setVans] = React.useState([])
+
+    const displayedVan = typeFilter ? vans.filter(van => typeFilter === van.type) : vans
+    React.useEffect(() => {
+        fetch("/api/vans")
+            .then(res => res.json())
+            .then(data => setVans(data.vans))
+    }, [])
+    
+    let vanElements = displayedVan.map(van => {
+        return (
+            <div key={van.id} className="van-tile">
+                <Link to={`${van.id}`} state={{search: searchParams.toString()}} aria-label={`View Detail for ${van.name}, priced at $${van.price} per day`} >
+                    <img src={van.imageUrl} alt={`Image of ${van.name}`}/>
+                    <div className="van-info">
+                        <h3>{van.name}</h3>
+                        <p>${van.price}<span>/day</span></p>
+                    </div>
+                    <i className={`van-type ${van.type} selected`}>{van.type}</i>
+                </Link>
+            </div>
+        )
+    })
+
+    return (
+        <div className="van-list-container">
+            <h1>Explore our van options</h1>
+            <div className="van-list-filter-buttons">
+                <button onClick={() => setSearchParams({type: "simple"})} className={`van-type simple ${typeFilter === "simple" ? "selected" : null}`}>Simple</button>    
+                <button onClick={() => setSearchParams({type: "luxury"})} className={`van-type luxury ${typeFilter === "luxury" ? "selected" : null}`}>Luxury</button>    
+                <button onClick={() => setSearchParams({type: "rugged"})} className={`van-type rugged ${typeFilter === "rugged" ? "selected" : null}`}>Rugged</button>    
+                {typeFilter && 
+                    <button onClick={() => setSearchParams({})} className="van-type clear-filters">Clear</button>    
+                }            
+            </div>
+            <div className="van-list">
+                {vanElements}
+            </div>
+        </div>
+    )
+}
+ */
 
 /* Lesson 55: Back to all vans */
 

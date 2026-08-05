@@ -19,16 +19,109 @@
 
 
 /* Lesson 58: Challenge: conditionally render the back button text */
+/**
+ * Challenge: When a filter is applied, change the text of
+ * the button to say "Back to luxury vans" (e.g.) instead of
+ * "Back to all vans".
+ * 
+ * As usual, there's more than one way to solve this, so just
+ * give it your best shot
+ */
+import React from "react"
+import { useParams, Link, useLocation, useSearchParams } from "react-router-dom"
 
+export default function VanDetail() {
+    const params = useParams()
+    const location = useLocation()
+    const [searchParams, setSearchParams ] = useSearchParams()
+
+    const [van, setVan] = React.useState(null)
+
+    React.useEffect(() => {
+        fetch(`/api/vans/${params.id}`)
+            .then(res => res.json())
+            .then(data => setVan(data.vans))
+    }, [params.id])
+
+    
+    const search = location.state?.search || ''
+    return (
+        <div className='van-detail-container'>
+            <Link
+                to={`..${search}`}
+                relative="path"
+                className="back-button"
+            >&larr; <span>Back to {location.state?.type || "all"} vans</span></Link>
+            
+            { van ? <div className="van-detail">
+                <img src={van.imageUrl} alt={`Image of ${van.name}`}/>
+                <i className={`van-type ${van.type} selected`}>{van.type}</i>
+                <h2>{van.name}</h2>
+                <p className="van-price"><span>${van.price}</span>/day</p>
+                <p>{van.description}</p>
+                <button className="link-button">Rent this van</button>
+            </div> : 
+            <h2>Loading...</h2>
+                
+            }
+        </div>
+    )
+}
 
 /* Lesson 57: useLocation */
+/**
+ * Challenge: modify the Link `to` prop below to send the user
+ * back to the previous page with the searchParams included, if
+ * they exist. (Remember we may not have anything in that state
+ * if there were no filters applied before coming to this
+ * van detail page, so make sure to "code defensively" to handle
+ * that case.)
+ */
+/* import React from "react"
+import { useParams, Link, useLocation } from "react-router-dom"
 
+export default function VanDetail() {
+    const params = useParams()
+    const location = useLocation()
+    const [van, setVan] = React.useState(null)
+
+    React.useEffect(() => {
+        fetch(`/api/vans/${params.id}`)
+            .then(res => res.json())
+            .then(data => setVan(data.vans))
+    }, [params.id])
+
+
+    const search = location.state?.search || ''
+    return (
+        <div className='van-detail-container'>
+            <Link
+                to={`..${search}`}
+                relative="path"
+                className="back-button"
+            >&larr; <span>Back to all vans</span></Link>
+            
+            { van ? <div className="van-detail">
+                <img src={van.imageUrl} alt={`Image of ${van.name}`}/>
+                <i className={`van-type ${van.type} selected`}>{van.type}</i>
+                <h2>{van.name}</h2>
+                <p className="van-price"><span>${van.price}</span>/day</p>
+                <p>{van.description}</p>
+                <button className="link-button">Rent this van</button>
+            </div> : 
+            <h2>Loading...</h2>
+                
+            }
+        </div>
+    )
+}
+ */
 
 /* Lesson 56: Link state */
 
 
 /* Lesson 55: Back to all vans */
-import React from "react"
+/* import React from "react"
 import { useParams, Link } from "react-router-dom"
 
 export default function VanDetail() {
@@ -63,7 +156,7 @@ export default function VanDetail() {
         </div>
     )
 }
-
+ */
 
 /* Lesson 54: Fix remaining absolute paths */
 

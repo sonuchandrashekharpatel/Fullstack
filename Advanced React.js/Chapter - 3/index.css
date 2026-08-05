@@ -1631,7 +1631,7 @@ a, button {
 
 
 /* Lesson 51: Merging search params with Links */
-html, body {
+/* html, body {
     margin: 0;
     padding: 10px;
     padding-top: 0;
@@ -1641,7 +1641,7 @@ html, body {
 a, button {
     margin-right: 15px;
 }
-
+ */
 /* Lesson 52: Merging search params with the setSearchParams function */
 
 
@@ -1665,6 +1665,15 @@ a, button {
 
 /* Lesson 59: 404 Page */
 
+.not-found-container {
+    padding-inline: 26px;
+}
+
+.not-found-container .link-button {
+    width: 100%;
+    background-color: #161616;
+    color: white;
+}
 
 /* Lesson 60: "Happy Path" vs. "Sad Path" (new) */
 

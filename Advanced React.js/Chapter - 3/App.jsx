@@ -13,9 +13,125 @@
 
 
 /* Lesson 60: "Happy Path" vs. "Sad Path" (new) */
+/* 
+"Happy Path"
+. Assumes everything goes according to plan exactly as we hope it does
 
+. Dosen't account for errors or other problems that could occur.
+
+"Sad Path"
+. Forces us to imagine what could go wrong and plan accordingly.
+. Error handling, loading state, form validation etc.
+
+*/
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Home from "./pages/Home"
+import About from "./pages/About"
+import Vans from './pages/Vans/Vans'
+import VanDetail from "./pages/Vans/VanDetail"
+import Layout from "./components/Layout"
+import Reviews from "./pages/Host/Reviews"
+import Dashboard from "./pages/Host/Dashboard"
+import Income from "./pages/Host/Income"
+import HostLayout from "./components/HostLayout"
+import HostVan from "./pages/Host/HostVans"
+import HostVanDetail from "./pages/Host/HostVanDetail"
+import HostVanPricing from "./pages/Host/HostVanPricing"
+import HostVanPhotos from "./pages/Host/HostVanPhotos"
+import HostVanInfo from "./pages/Host/HostVanInfo"
+import "./server"
+import NotFound from "./pages/NotFound"
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+
+          <Route path="vans">
+            <Route index element={<Vans />} />
+            <Route path=":id" element={<VanDetail />}/>
+          </Route>
+
+          <Route path="host" element={<HostLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="income" element={<Income />} />
+            <Route path="reviews" element={<Reviews />} />
+            <Route path="vans" element={<HostVan />}  />
+            <Route path="vans/:id" element={<HostVanDetail />}>
+              <Route index element={<HostVanInfo />}></Route>
+              <Route path="pricing" element={<HostVanPricing />}></Route>
+              <Route path="photos" element={<HostVanPhotos />}></Route>
+            </Route>
+          </Route>
+          <Route path="*" element={<NotFound />}/>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
+}
 
 /* Lesson 59: 404 Page */
+/**
+ * Challenge: Create a 404 page.
+ * 
+ * 1. Create a new component in the pages dir called "NotFound"
+ * 2. Add the elements from the design. Style it if you want.
+ * 3. Add a "catch-all" route as a nested route under the Route. 
+ *    (It doesn't matter where amongst the children it is.)
+ * 4. Use the NotFound component as the element for that catch-all route
+*/
+
+/* import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Home from "./pages/Home"
+import About from "./pages/About"
+import Vans from './pages/Vans/Vans'
+import VanDetail from "./pages/Vans/VanDetail"
+import Layout from "./components/Layout"
+import Reviews from "./pages/Host/Reviews"
+import Dashboard from "./pages/Host/Dashboard"
+import Income from "./pages/Host/Income"
+import HostLayout from "./components/HostLayout"
+import HostVan from "./pages/Host/HostVans"
+import HostVanDetail from "./pages/Host/HostVanDetail"
+import HostVanPricing from "./pages/Host/HostVanPricing"
+import HostVanPhotos from "./pages/Host/HostVanPhotos"
+import HostVanInfo from "./pages/Host/HostVanInfo"
+import "./server"
+import NotFound from "./pages/NotFound"
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+
+          <Route path="vans">
+            <Route index element={<Vans />} />
+            <Route path=":id" element={<VanDetail />}/>
+          </Route>
+
+          <Route path="host" element={<HostLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="income" element={<Income />} />
+            <Route path="reviews" element={<Reviews />} />
+            <Route path="vans" element={<HostVan />}  />
+            <Route path="vans/:id" element={<HostVanDetail />}>
+              <Route index element={<HostVanInfo />}></Route>
+              <Route path="pricing" element={<HostVanPricing />}></Route>
+              <Route path="photos" element={<HostVanPhotos />}></Route>
+            </Route>
+          </Route>
+          <Route path="*" element={<NotFound />}/>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
+} */
 
 
 /* Lesson 58: Challenge: conditionally render the back button text */
@@ -41,7 +157,7 @@
      * 
      * 2. TBA
      */
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+/* import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Home from "./pages/Home"
 import About from "./pages/About"
 import Vans from './pages/Vans/Vans'
@@ -87,7 +203,7 @@ export default function App() {
     </BrowserRouter>
   )
 }
-
+ */
 /* Lesson 52: Merging search params with the setSearchParams function */
 /* 
 import { BrowserRouter, Routes, Route, Link, useSearchParams } from "react-router-dom";
