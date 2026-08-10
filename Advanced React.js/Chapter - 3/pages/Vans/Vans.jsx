@@ -8,9 +8,82 @@
 
 /* Lesson 62: Coding the Sad Path - Loading state (new) */
 
+import React from "react"
+import { Link, useSearchParams } from "react-router-dom"
+import getVans from "../../api"
+
+export default function Vans() {
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [vans, setVans] = React.useState([])
+    const [loading, setLoading] = React.useState(false)
+    const [error, setError] = React.useState(null)
+    
+    const typeFilter = searchParams.get("type")
+    const displayedVan = typeFilter ? vans.filter(van => typeFilter === van.type) : vans
+    
+    React.useEffect(() => {
+        async function loadVans() {
+            setLoading(true)
+            try {
+                const data = await getVans()
+                console.log(data)
+                setVans(data)
+            } catch(err) {
+                console.log(err)
+                setError(err)
+            } finally {
+                setLoading(false)
+            }
+        }
+        loadVans()
+
+    }, [])
+    
+    let vanElements = displayedVan.map(van => {
+        return (
+            <div key={van.id} className="van-tile">
+                <Link to={`${van.id}`} state={{ search: `?${searchParams.toString()}`, type: typeFilter }} aria-label={`View Detail for ${van.name}, priced at $${van.price} per day`} >
+                    <img src={van.imageUrl} alt={`Image of ${van.name}`}/>
+                    <div className="van-info">
+                        <h3>{van.name}</h3>
+                        <p>${van.price}<span>/day</span></p>
+                    </div>
+                    <i className={`van-type ${van.type} selected`}>{van.type}</i>
+                </Link>
+            </div>
+        )
+    })
+
+    if(loading) {
+        return <h1>Loading...</h1>
+    }
+
+    if(error) {
+        return <h1>Something went wrong...</h1>
+    }
+
+    return (
+        <div className="van-list-container">
+            <h1>Explore our van options</h1>
+            <div className="van-list-filter-buttons">
+                <button onClick={() => setSearchParams({type: "simple"})} className={`van-type simple ${typeFilter === "simple" ? "selected" : null}`}>Simple</button>    
+                <button onClick={() => setSearchParams({type: "luxury"})} className={`van-type luxury ${typeFilter === "luxury" ? "selected" : null}`}>Luxury</button>    
+                <button onClick={() => setSearchParams({type: "rugged"})} className={`van-type rugged ${typeFilter === "rugged" ? "selected" : null}`}>Rugged</button>    
+                {typeFilter && 
+                    <button onClick={() => setSearchParams({})} className="van-type clear-filters">Clear</button>    
+                }            
+            </div>
+            <div className="van-list">
+                {vanElements}
+            </div>
+        </div>
+    )
+}
+
+
 
 /* Lesson 61: Quick update to our fetching code */
-
+/* 
 import React from "react"
 import { Link, useSearchParams } from "react-router-dom"
 import getVans from "../../api"
@@ -64,7 +137,7 @@ export default function Vans() {
     )
 }
 
-
+ */
 /* Lesson 60: "Happy Path" vs. "Sad Path" (new) */
 
 
