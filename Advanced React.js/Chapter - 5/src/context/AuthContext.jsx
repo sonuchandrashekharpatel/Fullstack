@@ -95,12 +95,125 @@
 
 /* Lesson 5: Auth Session state - part 2 */
 
+import  { createContext, useState, useContext, useEffect } from "react"
+import supabase from "../supabase-client"
+
+const AuthContext = createContext()
+
+export const AuthContextProvider = ({children}) => {
+    // Session state (user info, sign-in status)
+    const [session, setSession] = useState(undefined)
+    
+    //  1. Check on 1st render for session (getSession())
+    useEffect(() => {
+        const getInitialSession = async () => {
+            
+            try {
+                const { data, error } = await supabase.auth.getSession()
+
+                if(error) {
+                    throw error
+                }
+                setSession(data.session)
+            } catch(err) {
+                console.error("Error: Failed to get initial session", err.message)
+            }
+        }
+        getInitialSession()
+
+        //  2. Listen for changes in auth state (onAuthStateChange())
+        supabase.auth.onAuthStateChange((_event, session) => {
+            setSession(session)
+            console.log("Session Changed: ", session)
+        })
+
+    }, [])
+
+    // Auth functions ( signin, signup, logout)
+    
+
+    return (
+        <AuthContext.Provider value={{ session }}>
+            { children }
+        </AuthContext.Provider>
+    )
+}
+
+export const useAuth = () => {
+    return useContext(AuthContext)
+}
+
 
 /* Lesson 4: Auth Session state - part 1 */
+/* 
+Session state variable
+Initialized as undefined - loading/checking
+    Updated to
+    . null (Unauthorized/not logged in)
+    . { data } (Authorised/signed in)
+*/
+  /**
+Challenge:
+* 1) Inside the useEffect, write an asynchronous 'getInitialSession' function 
+     which executes the 'auth.getSession()' method from the Supabase client 
+     library
+* 2) Destructure the response into 'data' and 'error' variables
+* 3) Using the try/catch syntax, handle both Supabase-specific errors and 
+     unexpected errors
+* 4) If successful, log the value of the 'session' property of the 'data' 
+     object to the console and then use it to update the 'session' state 
+* 5) Call the new function below the function definition
+* 6) Check your browser's dev tools for 'null' being logged
+     Hint: follow the same error handling pattern as the 'fetchMetrics' function
+**/
+/* 
+import  { createContext, useState, useContext, useEffect } from "react"
+import supabase from "../supabase-client"
 
+const AuthContext = createContext()
 
+export const AuthContextProvider = ({children}) => {
+    // Session state (user info, sign-in status)
+    const [session, setSession] = useState(undefined)
+    
+    //  1. Check on 1st render for session (getSession())
+    useEffect(() => {
+        const getInitialSession = async () => {
+            
+            try {
+                const { data, error } = await supabase.auth.getSession()
+
+                if(error) {
+                    throw error
+                }
+                setSession(data.session)
+                console.log(data.session)
+            } catch(err) {
+                console.error("Error: Failed to get initial session", err.message)
+            }
+        }
+        getInitialSession()
+
+        //  2. Listen for changes in auth state
+
+    }, [])
+
+    // Auth functions ( signin, signup, logout)
+    
+
+    return (
+        <AuthContext.Provider value={{ session }}>
+            { children }
+        </AuthContext.Provider>
+    )
+}
+
+export const useAuth = () => {
+    return useContext(AuthContext)
+}
+ */
 /* Lesson 3: Context API */
-
+/* 
 import  { createContext, useState, useContext } from "react"
 
 const AuthContext = createContext()
@@ -121,4 +234,4 @@ export const AuthContextProvider = ({children}) => {
 
 export const useAuth = () => {
     return useContext(AuthContext)
-}
+} */

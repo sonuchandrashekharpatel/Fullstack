@@ -94,7 +94,35 @@
 
 
 /* Lesson 5: Auth Session state - part 2 */
-
+/**
+ * Challenge (delete 2 options to leave your answer)
+ * 
+ * Multiple choice quiz:
+ * 
+ * 1. Which part of the JWT includes the role of either authenticated or anon?
+ *  
+ * B) PAYLOAD
+ * 
+ * 
+ * 2. How does Supabase know the JWT is authentic (not forged)?
+ *
+ * B) It verifies the JWT's signature was created with the project's secret
+ *
+ * 
+ * 3. What does the JWT signature prove?
+ *
+ * A) That the JWT hasn't been tampered with and came from a trusted source
+ * 
+ * 
+ * 4. In our castle metaphor, what represents the project secret?
+ *
+ * C) The castle's secret pen
+ * 
+ * 
+ * 5. What's the main difference between an anon JWT and an authenticated JWT?
+ *
+ * A) The role field in the payload is different
+ */
 
 /* Lesson 4: Auth Session state - part 1 */
 
@@ -116,7 +144,6 @@ ReactDOM.createRoot(document.getElementById("root"))
         </AuthContextProvider>
     </StrictMode>
 )
-
 
 /* Lesson 2: Router setup */
 /* 
