@@ -54,7 +54,6 @@ function Dashboard() {
             if(error) {
                 throw err
             } else {
-                console.log(data)
                 setMetrics(data)
             }
         } catch(err) {

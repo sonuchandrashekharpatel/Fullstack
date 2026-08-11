@@ -15,34 +15,34 @@ Challenge:
 * 4) Save and use the form to add a new deal
 		 Hint: Check the supabase-js docs for "Insert Data"
 */
-
-import { useActionState } from 'react';
-import supabase from './supabase-client';
+import { useActionState } from "react"
+import supabase from "./supabase-client.js"
 
 function Form({ metrics }) {
-  const [error, submitAction, isPending] = useActionState(
-    async (previousState, formData) => {
-        //Action logic
-        const newDeal = {
-            name: formData.get('name'),
-            value: formData.get('value'),
-        };
-        console.log(newDeal);
-        //Async operation
-        const { error } = await supabase
-            .from("sales_deals")
-            .insert(newDeal)
+  const [error, submitAction, isPending] = useActionState( 
+    async (prevState, formData) => {
 
-        //Return error state
-        if(error) {
-            console.error(error)
-            return new Error("Error in inserting the details")
-        }
+      // Action logic
+      const newDeal = {
+        name: formData.get('name'),
+        value: formData.get('value')
+      }
+      console.log(newDeal)
 
-        return null;
-    },
-    null // Initial state
-  );
+      // Async Operation
+      const { error } = await supabase
+        .from("sales_deals")
+        .insert(newDeal)
+
+      if(error) {
+        console.error("Failed to insert the deal", error)
+        return new Error("Failed to insert  the new deal")
+      }
+      // Return error state
+      return null
+    }
+    , null // initial State
+  )
 
   const generateOptions = () => {
     return metrics.map((metric) => (
@@ -71,8 +71,8 @@ function Form({ metrics }) {
             name="name"
             defaultValue={metrics?.[0]?.name || ''}
             aria-required="true"
-            aria-invalid={error ? 'true' : 'false'}
-            disabled={isPending}
+            aria-invalid= {error ? "true" : "false"}
+            disabled= {isPending}
           >
             {generateOptions()}
           </select>
@@ -89,23 +89,23 @@ function Form({ metrics }) {
             min="0"
             step="10"
             aria-required="true"
-            aria-invalid={error ? 'true' : 'false'}
+            aria-invalid= { error ? "true" : "false" }
             aria-label="Deal amount in dollars"
-            disabled={isPending}
+            disabled = {isPending}
           />
         </label>
 
-        <button
-          type="submit"
+        <button 
+          type="submit" 
           disabled={isPending}
-          aria-busy={isPending}
+          aria-busy= {isPending}
         >
-          {isPending ? 'Adding...' : "Add Deal"}
+          { isPending ? "Adding..." : "Add Deal" }
         </button>
       </form>
 
-      {error && (
-        <div role='alert' className="error-message">
+      { error && (
+        <div role="alert" className="error-message">
           {error.message}
         </div>
       )}
@@ -117,26 +117,24 @@ export default Form;
 
 
 /* Lesson 8: New deal form */
-/* 
-import { useActionState } from 'react';
+/* import { useActionState } from "react"
 
 function Form({ metrics }) {
-  const [error, submitAction, isPending] = useActionState(
-    async (previousState, formData) => {
-      //Action logic
+  const [error, submitAction, isPending] = useActionState( 
+    async (prevState, formData) => {
+      // Action logic
       const newDeal = {
         name: formData.get('name'),
-        value: formData.get('value'),
-      };
-      console.log(newDeal);
-      //Async operation
+        value: formData.get('value')
+      }
+      console.log(newDeal)
+      // Async Operation
 
-      //Return error state
-
-      return null;
-    },
-    null // Initial state
-  );
+      // Return error state
+      return null
+    }
+    , null // initial State
+  )
 
   const generateOptions = () => {
     return metrics.map((metric) => (
@@ -165,8 +163,8 @@ function Form({ metrics }) {
             name="name"
             defaultValue={metrics?.[0]?.name || ''}
             aria-required="true"
-            aria-invalid={error ? 'true' : 'false'}
-            disabled={isPending}
+            aria-invalid= {error ? "true" : "false"}
+            disabled= {isPending}
           >
             {generateOptions()}
           </select>
@@ -183,23 +181,23 @@ function Form({ metrics }) {
             min="0"
             step="10"
             aria-required="true"
-            aria-invalid={error ? 'true' : 'false'}
+            aria-invalid= { error ? "true" : "false" }
             aria-label="Deal amount in dollars"
-            disabled={isPending}
+            disabled = {isPending}
           />
         </label>
 
-        <button
-          type="submit"
+        <button 
+          type="submit" 
           disabled={isPending}
-          aria-busy={isPending}
+          aria-busy= {isPending}
         >
-          {isPending ? 'Adding...' : "Add Deal"}
+          { isPending ? "Adding..." : "Add Deal" }
         </button>
       </form>
 
-      {error && (
-        <div role='alert' className="error-message">
+      { error && (
+        <div role="alert" className="error-message">
           {error.message}
         </div>
       )}
