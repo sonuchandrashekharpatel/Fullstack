@@ -61,7 +61,25 @@
 
 
 /* Lesson 16: Row Level Security */
+/* 
+Row Level Security
+1. Control access to data by row
+2. Restrict access to authorized users
+3. At database level
+4. Policies executed every time table accessed
+5. Default deny
+6. Context aware & flexible
 
+Write policies based on
+- JWT
+  - using auth.uid(), auth.jwt(), auth.role() and auth.email()
+
+- combined with database queries
+  - check additional conditions or relationships
+
+- data being sent
+
+*/
 
 /* Lesson 15: Navigate after sign out */
 

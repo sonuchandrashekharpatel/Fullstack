@@ -53,9 +53,86 @@
 
 /* Lesson 19: Protected Route */
 
+/**
+ Challenge:
+* 1) In 'router.jsx', import the 'ProtectedRoute' component
+* 2) Wrap the header and dashboard components in the 'ProtectedRoute' component 
+* 3) Save and navigate to '/dashboard' to test the protected route
+*/
+
+import { createBrowserRouter } from "react-router-dom"
+import Signin from './components/Signin'
+import Header from "./components/Header"
+import Dashboard from "./routes/Dashboard"
+import Signup from "./components/Signup"
+import RootRedirect from "./routes/RootRedirect"
+import ProtectedRoute from "./components/ProtectedRoute"
+
+export const router = createBrowserRouter([
+    { 
+        path: "/", 
+        element: <RootRedirect /> 
+    },
+    { 
+        path:"/dashboard", 
+        element: <ProtectedRoute>
+            <Header />
+            <Dashboard /> 
+        </ProtectedRoute>    
+    },
+    {
+        path: "/signup",
+        element: <Signup />
+    },
+    {
+        path: "/signin",
+        element: <Signin />
+    }
+])
+
 
 /* Lesson 18: Home redirect */
+/**
+Challenge:
+* 1) Update the root path ('/') to use the new 'RootRedirect' component
+* 2) Add a new route for '/signin' that renders the 'Signin' component
+* 3) In 'Header.jsx', update the navigation to '/signin' when the user 
+		 successfully signs out
+* 4) Save and test that navigating to ('/') 
+			- when signed out takes you to '/signin'
+			- when signed in takes you to '/dashboard'
+*/
+/* 
+import { createBrowserRouter } from "react-router-dom"
 
+import Signin from './components/Signin'
+import Header from "./components/Header"
+import Dashboard from "./routes/Dashboard"
+import Signup from "./components/Signup"
+import RootRedirect from "./routes/RootRedirect"
+
+export const router = createBrowserRouter([
+    { 
+        path: "/", 
+        element: <RootRedirect /> 
+    },
+    { 
+        path:"/dashboard", 
+        element: <>
+            <Header />
+            <Dashboard /> 
+        </>    
+    },
+    {
+        path: "/signup",
+        element: <Signup />
+    },
+    {
+        path: "/signin",
+        element: <Signin />
+    }
+])
+ */
 
 /* Lesson 17: RLS: Authenticated users only */
 
@@ -70,8 +147,37 @@
 
 
 /* Lesson 13: Navigate & Link */
+/**
+Challenge:
+* 1) Create a new route with path '/signup'
+* 2) Set the element as the 'Signup.jsx' component
+* 3) Save and test your path by navigating to '/signup'
+*/
+/* 
+import { createBrowserRouter } from "react-router-dom"
 
-
+import Signin from './components/Signin'
+import Header from "./components/Header"
+import Dashboard from "./routes/Dashboard"
+import Signup from "./components/Signup"
+export const router = createBrowserRouter([
+    { 
+        path: "/", 
+        element: <Signin /> 
+    },
+    { 
+        path:"/dashboard", 
+        element: <>
+            <Header />
+            <Dashboard /> 
+        </>    
+    },
+    {
+        path: "/signup",
+        element: <Signup />
+    }    
+])
+ */
 /* Lesson 12: Sign in auth function - part 2 */
 
 
@@ -117,6 +223,7 @@ Challenge:
 *    Hint: React Router's element prop needs one root element, just like a 
      component's return statement 
 */
+/* 
 import { createBrowserRouter } from "react-router-dom"
 
 import Signin from './components/Signin'
@@ -135,4 +242,4 @@ export const router = createBrowserRouter([
             <Dashboard /> 
         </>    
     },
-])
+]) */
