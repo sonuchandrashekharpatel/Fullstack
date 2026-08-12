@@ -158,7 +158,7 @@ const Signin = () => {
                     </button>
                     { error && (
                         <div
-                            id="signin=-error"
+                            id="signin-error"
                             role="alert"
                             className="sign-form-error-message"
                         >

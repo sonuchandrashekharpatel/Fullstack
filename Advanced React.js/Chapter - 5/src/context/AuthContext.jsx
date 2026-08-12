@@ -49,25 +49,6 @@
 
 
 /* Lesson 20: Sign up */
-
-
-/* Lesson 19: Protected Route */
-
-
-/* Lesson 18: Home redirect */
-
-
-/* Lesson 17: RLS: Authenticated users only */
-
-
-/* Lesson 16: Row Level Security */
-
-
-/* Lesson 15: Navigate after sign out */
-
-
-/* Lesson 14: Sign out */
-
 import  { createContext, useState, useContext, useEffect } from "react"
 import supabase from "../supabase-client"
 
@@ -121,7 +102,70 @@ export const AuthContextProvider = ({children}) => {
         }
 
     }
+ 
+    const signOut = async () => {
+        try {
+            const { error } = await supabase.auth.signOut()
+            if(error) {
+                console.error("Supabase sign-out error: ", error.message)
+                return { success: false, error: error.message}
+            }
+            return { success: true }
 
+        } catch(err) {
+            console.error("Unexpected error during sign-out", err.message)
+            return { success: false, error: "An unexpected error occur during sign out"}
+        }
+    }
+
+    // Signup
+    const signUpNewUser = async (email, password) => {
+        try {
+            const { data, error } = await supabase.auth.signUp({
+                email: email.toLowerCase(),
+                password
+            })
+
+            if(error) {
+                console.error("Supabase sign-up error", error.message)
+                return { success: false, error: error.message }
+            }
+            console.log("Supabase sign-up success", data)
+            return { success: true, data }
+        } catch(err) {
+            console.error("Unexpected error occur during sign-up", err.message)
+            return { success: false, error: "An unexpected error occur. Please try again."}
+        }
+    }
+
+    return (
+        <AuthContext.Provider value={{ session, signInUser, signOut, signUpNewUser }}>
+            { children }
+        </AuthContext.Provider>
+    )
+}
+
+export const useAuth = () => {
+    return useContext(AuthContext)
+}
+
+
+/* Lesson 19: Protected Route */
+
+
+/* Lesson 18: Home redirect */
+
+
+/* Lesson 17: RLS: Authenticated users only */
+
+
+/* Lesson 16: Row Level Security */
+
+
+/* Lesson 15: Navigate after sign out */
+
+
+/* Lesson 14: Sign out */
     // Sign out
 /**
 Challenge:
@@ -132,7 +176,63 @@ Challenge:
 * 3) Add this function to the AuthContext's value prop
   Note: There is no need to pass the Supabase '.signOut()' method any 
   parameters.
-*/    
+*/   
+
+/* 
+import  { createContext, useState, useContext, useEffect } from "react"
+import supabase from "../supabase-client"
+
+const AuthContext = createContext()
+
+export const AuthContextProvider = ({children}) => {
+    const [session, setSession] = useState(undefined)
+    
+    useEffect(() => {
+        const getInitialSession = async () => {
+            
+            try {
+                const { data, error } = await supabase.auth.getSession()
+                if(error) {
+                    throw error
+                }
+                setSession(data.session)
+            } catch(err) {
+                console.error("Error: Failed to get initial session", err.message)
+            }
+        }
+        getInitialSession()
+
+        supabase.auth.onAuthStateChange((_event, session) => {
+            setSession(session)
+            console.log("Session Changed: ", session)
+        })
+
+    }, [])
+
+    // Auth functions ( signin, signup, logout)
+    // Sign in (success, data, error)
+    const signInUser = async (email, password) => {
+        try {
+            const { data, error} = await supabase.auth.signInWithPassword({
+                email: email.toLowerCase(),
+                password
+            })
+    
+            if(error) {
+                console.error("Supabase sign-in error: ", error.message)
+                return { success: false, error: error.message}
+            }
+            console.log("Supabase sign-in success: ", data)
+    
+            return { success: true, data }
+
+        } catch(err) {
+            console.error("Unexpected error during sign-in:", err.message)
+            return { success: false, error: "An unexpected error occur during sign-in. Please try again." }
+        }
+
+    }
+ 
     const signOut = async () => {
         try {
             const { error } = await supabase.auth.signOut()
@@ -157,7 +257,7 @@ Challenge:
 export const useAuth = () => {
     return useContext(AuthContext)
 }
-
+ */
 
 /* Lesson 13: Navigate & Link */
 

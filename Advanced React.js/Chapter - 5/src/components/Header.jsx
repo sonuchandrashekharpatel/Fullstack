@@ -70,7 +70,6 @@ function Header() {
 
     const {success, error } = await signOut()
     if(success) {
-      // navigate to "/"
       navigate("/signin")
     } else {
       setError(error)
