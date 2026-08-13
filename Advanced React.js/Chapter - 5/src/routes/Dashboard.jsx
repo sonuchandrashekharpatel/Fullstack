@@ -113,8 +113,7 @@ function Dashboard() {
 
   useEffect(() => {
     fetchMetrics();
-
-
+    
     const channel = supabase
       .channel('deal-changes')
       .on(
