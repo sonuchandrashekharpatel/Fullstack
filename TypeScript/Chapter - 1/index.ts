@@ -22,20 +22,418 @@
 
 
 /* Lesson 23: Add automatic ids to menu items */
+/**
+ * Challenge part 1: Make it so we can use a global variable to track the nextPizzaId
+ * and use the same trick we use with `nextOrderId++` when you're calling addNewPizza.
+ * Update the menu items to use this as well so we don't have to manually enter ids 1-4
+ * like we're currently doing
+ */
+/**
+ * Challenge part 1.5: Try to move the logic for adding an ID to the pizza objects 
+ * inside the addNewPizza function, so that we can call addNewPizza with no id, and
+ * the function will handle that part for us.
+ * 
+ * NOTE: you will run into TS warnings that we'll address soon, but the code should
+ * still run.
+ */
+/* 
+type Pizza = {
+    id: number
+    name: string
+    price: number
+}
 
+type Order = {
+    id: number
+    pizza: Pizza
+    status: "ordered" | "completed"
+}
+let cashInRegister = 100
+let nextOrderId = 1
+const orderQueue: Order[] = []
+let nextPizzaId = 1
+
+const menu: Pizza[] = [
+    { id: nextPizzaId++, name: "Margherita", price: 8 },
+    { id: nextPizzaId++, name: "Pepperoni", price: 10 },
+    { id: nextPizzaId++, name: "Hawaiian", price: 10 },
+    { id: nextPizzaId++, name: "Veggie", price: 9 },
+]
+
+
+function addNewPizza(pizzaObj: Pizza): void {
+    menu.push(pizzaObj)
+}
+
+
+addNewPizza({ id: nextPizzaId++, name: "Chicken Bacon Ranch", price: 12 })
+addNewPizza({ id: nextPizzaId++, name: "BBQ Chicken", price: 12 })
+addNewPizza({ id: nextPizzaId++, name: "Spicy Sausage", price: 11 })
+
+
+
+
+
+function placeOrder(pizzaName: string): Order | undefined {
+    const selectedPizza = menu.find(pizzaObj => pizzaObj.name === pizzaName)
+    if (!selectedPizza) {
+        console.error(`${pizzaName} does not exist in the menu`)
+        return
+    }
+    cashInRegister += selectedPizza.price
+    const newOrder: Order = { id: nextOrderId++, pizza: selectedPizza, status: "ordered" }
+    orderQueue.push(newOrder)
+    return newOrder
+}
+
+function completeOrder(orderId: number): Order | undefined {
+    const order = orderQueue.find(order => order.id === orderId)
+    if (!order) {
+        console.error(`${orderId} was not found in the orderQueue`)
+        return
+    }
+    order.status = "completed"
+    return order
+}
+
+export function getPizzaDetail(identifier: string | number): Pizza | undefined {
+    if (typeof identifier === "string") {
+        return menu.find(pizza => pizza.name.toLowerCase() === identifier.toLowerCase())
+    } else if (typeof identifier === "number") {
+        return menu.find(pizza => pizza.id === identifier)
+    } else {
+        throw new TypeError("Parameter `identifier` must be either a string or a number")
+    }
+}
+
+
+// placeOrder("Chicken Bacon Ranch")
+// placeOrder("Pepperoni")
+// completeOrder(1)
+// placeOrder("Veggie")
+// completeOrder(2)
+
+console.log("Menu:", menu)
+console.log("Cash in register:", cashInRegister)
+console.log("Order queue:", orderQueue)
+ */
+
+type Pizza = {
+    id?: number
+    name: string
+    price: number
+}
+
+type Order = {
+    id: number
+    pizza: Pizza
+    status: "ordered" | "completed"
+}
+let cashInRegister = 100
+let nextOrderId = 1
+const orderQueue: Order[] = []
+let nextPizzaId = 1
+
+const menu: Pizza[] = [
+    { id: nextPizzaId++, name: "Margherita", price: 8 },
+    { id: nextPizzaId++, name: "Pepperoni", price: 10 },
+    { id: nextPizzaId++, name: "Hawaiian", price: 10 },
+    { id: nextPizzaId++, name: "Veggie", price: 9 },
+]
+
+
+function addNewPizza(pizzaObj: Pizza): void {
+    const newPizza = {
+        id: nextPizzaId++,
+        ...pizzaObj
+    }
+    menu.push(newPizza)
+}
+
+
+addNewPizza({ name: "Chicken Bacon Ranch", price: 12 })
+addNewPizza({ name: "BBQ Chicken", price: 12 })
+addNewPizza({ name: "Spicy Sausage", price: 11 })
+
+
+
+
+
+function placeOrder(pizzaName: string): Order | undefined {
+    const selectedPizza = menu.find(pizzaObj => pizzaObj.name === pizzaName)
+    if (!selectedPizza) {
+        console.error(`${pizzaName} does not exist in the menu`)
+        return
+    }
+    cashInRegister += selectedPizza.price
+    const newOrder: Order = { id: nextOrderId++, pizza: selectedPizza, status: "ordered" }
+    orderQueue.push(newOrder)
+    return newOrder
+}
+
+function completeOrder(orderId: number): Order | undefined {
+    const order = orderQueue.find(order => order.id === orderId)
+    if (!order) {
+        console.error(`${orderId} was not found in the orderQueue`)
+        return
+    }
+    order.status = "completed"
+    return order
+}
+
+export function getPizzaDetail(identifier: string | number): Pizza | undefined {
+    if (typeof identifier === "string") {
+        return menu.find(pizza => pizza.name.toLowerCase() === identifier.toLowerCase())
+    } else if (typeof identifier === "number") {
+        return menu.find(pizza => pizza.id === identifier)
+    } else {
+        throw new TypeError("Parameter `identifier` must be either a string or a number")
+    }
+}
+
+
+// placeOrder("Chicken Bacon Ranch")
+// placeOrder("Pepperoni")
+// completeOrder(1)
+// placeOrder("Veggie")
+// completeOrder(2)
+
+console.log("Menu:", menu)
+console.log("Cash in register:", cashInRegister)
+console.log("Order queue:", orderQueue)
 
 /* Lesson 22: Add return type to getPizzaDetail */
+/**
+ * Challenge (part 2): explicitly type the return value of this function
+ * to tell TypeScript it could either be a Pizza object or undefined
+ * as the return value.
+ */
+/* type Pizza = {
+    id: number
+    name: string
+    price: number
+}
 
+type Order = {
+    id: number
+    pizza: Pizza
+    status: "ordered" | "completed"
+}
+
+const menu: Pizza[] = [
+    { id: 1, name: "Margherita", price: 8 },
+    { id: 2, name: "Pepperoni", price: 10 },
+    { id: 3, name: "Hawaiian", price: 10 },
+    { id: 4, name: "Veggie", price: 9 },
+]
+
+let cashInRegister = 100
+let nextOrderId = 1
+const orderQueue: Order[] = []
+
+function addNewPizza(pizzaObj: Pizza): void {
+    menu.push(pizzaObj)
+}
+
+
+function placeOrder(pizzaName: string): Order | undefined {
+    const selectedPizza = menu.find(pizzaObj => pizzaObj.name === pizzaName)
+    if (!selectedPizza) {
+        console.error(`${pizzaName} does not exist in the menu`)
+        return
+    }
+    cashInRegister += selectedPizza.price
+    const newOrder: Order = { id: nextOrderId++, pizza: selectedPizza, status: "ordered" }
+    orderQueue.push(newOrder)
+    return newOrder
+}
+
+function completeOrder(orderId: number): Order | undefined {
+    const order = orderQueue.find(order => order.id === orderId)
+    if (!order) {
+        console.error(`${orderId} was not found in the orderQueue`)
+        return
+    }
+    order.status = "completed"
+    return order
+}
+
+export function getPizzaDetail(identifier: string | number) {
+    if (typeof identifier === "string") {
+        return menu.find(pizza => pizza.name.toLowerCase() === identifier.toLowerCase())
+    } else if (typeof identifier === "number") {
+        return menu.find(pizza => pizza.id === identifier)
+    } else {
+        throw new TypeError("Parameter `identifier` must be either a string or a number")
+    }
+} */
 
 /* Lesson 21: TS-specific types: any */
+/* 
+When should I use any?
+in short: DON'T
 
+One legitimate use-case: you're in the process 
+of transitioning a code base from JavaScript to
+TypeScript and don't immediately haven the time 
+to write all your complex types so you just need  
+a way  to "get around TypeScript" from now.
+*/
 
+/* 
+let value: any = 1
+value.toUpperCase()
+value = "Hi"
+value.map()
+ */
 /* Lesson 20: Void return type */
+/**
+ * Challenge: add explicit return types to the rest of our functions
+ */
+/* 
+type Pizza = {
+    id: number
+    name: string
+    price: number
+}
 
+type Order = {
+    id: number
+    pizza: Pizza
+    status: "ordered" | "completed"
+}
+
+const menu: Pizza[] = [
+    { id: 1, name: "Margherita", price: 8 },
+    { id: 2, name: "Pepperoni", price: 10 },
+    { id: 3, name: "Hawaiian", price: 10 },
+    { id: 4, name: "Veggie", price: 9 },
+]
+
+let cashInRegister = 100
+let nextOrderId = 1
+const orderQueue: Order[] = []
+
+function addNewPizza(pizzaObj: Pizza): void {
+    menu.push(pizzaObj)
+}
+
+
+function placeOrder(pizzaName: string): Order | undefined {
+    const selectedPizza = menu.find(pizzaObj => pizzaObj.name === pizzaName)
+    if (!selectedPizza) {
+        console.error(`${pizzaName} does not exist in the menu`)
+        return
+    }
+    cashInRegister += selectedPizza.price
+    const newOrder: Order = { id: nextOrderId++, pizza: selectedPizza, status: "ordered" }
+    orderQueue.push(newOrder)
+    return newOrder
+}
+
+function completeOrder(orderId: number): Order | undefined {
+    const order = orderQueue.find(order => order.id === orderId)
+    if (!order) {
+        console.error(`${orderId} was not found in the orderQueue`)
+        return
+    }
+    order.status = "completed"
+    return order
+}
+
+export function getPizzaDetail(identifier: string | number): Pizza | undefined {
+    if (typeof identifier === "string") {
+        return menu.find(pizza => pizza.name.toLowerCase() === identifier.toLowerCase())
+    } else if (typeof identifier === "number") {
+        return menu.find(pizza => pizza.id === identifier)
+    } else {
+        throw new TypeError("Parameter `identifier` must be either a string or a number")
+    }
+}
+ */
 
 /* Lesson 19: Be explicit whenever you can */
+/* 
+type Pizza = {
+    id: number
+    name: string
+    price: number
+}
 
+type Status = "ordered" | "completed"
+type Order = {
+    id: number
+    pizza: Pizza
+    status: Status
+}
 
+const menu: Pizza[]  = [
+    { id:1, name: "Margherita", price: 8 },
+    { id:2, name: "Pepperoni", price: 10 },
+    { id:3, name: "Hawaiian", price: 10 },
+    { id:4, name: "Veggie", price: 9 },
+]
+
+let cashInRegister = 100
+let nextOrderId = 1
+const orderQueue: Array<Order> = []
+
+function addNewPizza(pizzaObj: Pizza) {
+    menu.push(pizzaObj)
+}
+
+function placeOrder(pizzaName: string) {
+    const selectedPizza = menu.find(pizzaObj => pizzaObj.name === pizzaName)
+    if (!selectedPizza) {
+        console.error(`${pizzaName} does not exist in the menu`)
+        return
+    }
+
+    cashInRegister += selectedPizza.price
+    const newOrder: Order = { id: nextOrderId++, pizza: selectedPizza, status: "ordered" }
+    orderQueue.push(newOrder)
+    return newOrder
+}
+
+function completeOrder(orderId: number) {
+    const order = orderQueue.find(order => order.id === orderId)
+    if (!order) {
+        console.error(`${orderId} was not found in the orderQueue`)
+        return
+    }
+    order.status = "completed"
+    return order
+}
+
+function getPizzaDetail(identifier: string | number) {
+    let pizzaDetail
+    if(typeof(identifier) === "string") {
+        pizzaDetail = menu.find(item => item.name === identifier.toLowerCase())
+    } else if(typeof(identifier) === "number") {
+        pizzaDetail = menu.find(item => item.id === identifier)
+    } else {
+        throw new Error('TypeError: type of "identfier" does matched with function signature')
+    }
+
+    return pizzaDetail
+
+}
+
+addNewPizza({ id: 5, name: "Chicken Bacon Ranch", price: 12 })
+addNewPizza({ id: 6, name: "BBQ Chicken", price: 12 })
+addNewPizza({ id: 7, name: "Spicy Sausage", price: 11 })
+
+placeOrder("Chicken Bacon Ranch")
+placeOrder("Pepperoni")
+completeOrder(1)
+placeOrder("Anchovy")
+placeOrder("Veggie")
+completeOrder(2)
+
+console.log("Menu:", menu)
+console.log("Cash in register:", cashInRegister)
+console.log("Order queue:", orderQueue)
+ */
 /* Lesson 18: Type Narrowing */
 /**
  * Challenge: create a new utility function called getPizzaDetail. It will take
@@ -51,7 +449,7 @@
      * Challenge: write the code to check if the parameter is a string
      * or a number, and use the menu.find() method accordingly
      */
-type Pizza = {
+/* type Pizza = {
     id: number
     name: string
     price: number
@@ -130,7 +528,7 @@ completeOrder(2)
 console.log("Menu:", menu)
 console.log("Cash in register:", cashInRegister)
 console.log("Order queue:", orderQueue)
-
+ */
 /* Lesson 17: Add ids to pizzas */
 /* 
 type Pizza = {
