@@ -8,10 +8,49 @@
 
 /* Lesson 34: Update fetchMetrics - part 2 */
 
+-- Challenge:
+-- 1) Write an updated SQL query below
+-- 2) Start by selecting FROM the 'sales_deals' table since we need to sum the 
+--    values
+-- 3) Join with 'user_profiles' to get the names
+-- 4) Your query should show each rep's name and their total sales value
+-- 5) Be explicit (table_name.column)
+
+SELECT
+    SUM(sales_deals.value),
+    user_profiles.name
+FROM 
+    sales_deals
+INNER JOIN user_profiles ON sales_deals.user_id = user_profiles.id
+GROUP BY user_profiles.name
 
 /* Lesson 33: Update fetchMetrics - part 1 */
+/* 
+Update SQL query
+- SELECT
+  - SUM of value from sales_table
+    ( GROUP by...)
+  - name from user_profiles
+  - INNER JOIN sales_deals.user_id with user_profiles.id
+*/
 
+-- I wanted to join "courses" table (teacher) with "teachers" table (name)
+-- We don't need to specify which table if it's unique column name
 
+SELECT
+    title,
+    location
+FROM courses
+INNER JOIN teachers ON courses.teacher = teachers.name
+
+-- previous query
+SELECT
+    name
+    SUM(value)
+FROM 
+    sales_deals
+GROUP BY 
+    name;
 /* Lesson 32: Update new deal form - part 2 */
 
 

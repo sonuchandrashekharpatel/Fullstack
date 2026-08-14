@@ -1,8 +1,29 @@
 /* Chapter - 5: Authentication */
 
 /* Lesson 36: Recap */
+/* 
+What we've covered:
+- React Router DOM
+- Context API
+- Session
+- JWTs
+- Sign in / up / out
+- RLS
+- Trigger
 
+Plus Challenges!
+*/
+/* 
+Design:
+Colors, fonts, icon, layout, other CSS
 
+Format:
+Swap chart for leaderboard. Render an AI generated headshot for the top sales rep
+
+Stretch Goals:
+Add a read-only account type for managers.
+
+*/
 /* Lesson 35: Account type in Header */
 
 
