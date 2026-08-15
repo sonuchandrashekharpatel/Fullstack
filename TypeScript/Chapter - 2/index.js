@@ -61,7 +61,16 @@
 
 
 /* Lesson 1: Welcome to TypeScript and React! */
+/* 
+Overview:
+1. Quick TypeScript refresher
+2. Typing useState
+3. Typing React Components
+4. Typing React Components props
+5. Typing function props
 
+Plus Challenges!
+*/
 
 /* 
 import lessonGenerator from "../../Aside/index.js"

@@ -9,7 +9,6 @@ Recap:
 5. Type Narrowing
 6. Utility
 7. Generics
-
 */
 
 /* Lesson 29: Explicitly type generic function calls */
