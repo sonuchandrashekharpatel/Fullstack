@@ -1,0 +1,21 @@
+{
+  "name": "chapter---3",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "npx tsc && node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tsconfig/node22": "^22.0.6",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "typescript": "^7.0.2"
+  }
+}
+
