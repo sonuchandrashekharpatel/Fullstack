@@ -28,28 +28,218 @@
 
 
 /* Lesson 15: Non-existent IDs */
+/*
+CHALLENGE: Type and complete the `/:id` route
+    1. Type everything in the `.find()` callback function
+    2. Type the `pet` variable (keeping in mind that
+       we might not find a pet with that ID)
+    3. Handle what happens if we don't find a
+       pet with the provided ID
+    4. Type the Response generic
+*/
 
+import express from 'express'
+import {pets}  from "./data/pets"
+import cors from "cors"
+
+import type {Express, Request, Response} from "express"
+import type {Pet} from "./data/pets"
+
+const app: Express = express()
+const PORT: number = 8000
+
+app.use(cors())
+
+app.get("/", (req: Request, res: Response<Pet[]>): void => {
+    res.json(pets)
+})
+
+app.get("/:id", (req: Request<{id:string}>, res: Response<{message:string} | Pet>): void => {
+    const petId: string  = req.params.id
+    const pet: Pet | undefined = pets.find((pet: Pet): boolean => pet.id === Number(petId))
+
+    if(!pet){
+        res.status(404).send({message: "Pet not found"})
+        return
+    }
+
+    res.json(pet)
+})
+
+
+app.use((req: Request, res: Response<{message: string}>) => {
+    res.status(404).send({ message: "No endpoint found" })
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
 
 /* Lesson 14: A more specific Request */
+/*
+CHALLENGE: Complete the `/:id` route!
+1. Type req, res, and callback's return value
+2. Pull the `id` from the path params
+3. Find the pet that matches said `id`
+4. Send back said pet with `res.json()`
+       
+Don't worry about non-existent IDs or other TypeScript yet
+*/
 
+/* 
+import express from 'express'
+import {pets}  from "./data/pets"
+import cors from "cors"
+
+import type {Express, Request, Response} from "express"
+import type {Pet} from "./data/pets"
+
+const app: Express = express()
+const PORT: number = 8000
+
+app.use(cors())
+
+app.get("/", (req: Request, res: Response<Pet[]>): void => {
+    res.json(pets)
+})
+
+app.get("/:id", (req: Request<{id:string}>, res: Response): void => {
+    const petId: string  = req.params.id
+    const petObj: Pet = pets.find((pet: Pet) => pet.id === Number(petId))
+
+    res.json(petObj)
+})
+
+
+app.use((req: Request, res: Response<{message: string}>) => {
+    res.status(404).send({ message: "No endpoint found" })
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
+ */
 
 /* Lesson 13: A more specific Response */
+/* 
+import express from 'express'
+import {pets}  from "./data/pets"
+import cors from "cors"
 
+import type {Express, Request, Response} from "express"
+import type {Pet} from "./data/pets"
+
+const app: Express = express()
+const PORT: number = 8000
+
+app.use(cors())
+
+app.get("/", (req: Request, res: Response<Pet[]>): void => {
+    res.json(pets)
+})
+
+
+app.use((req: Request, res: Response<{message: string}>) => {
+    res.status(404).send({ message: "No endpoint found" })
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
+ */
 
 /* Lesson 12: Automating the server restart */
 
 
 /* Lesson 11: Typing the 404 catch-all */
+/* 
+CHALLENGE: Create a 404 catch-all after the `/` route
+           Don’t forget to type annotate everything!
+           (there are 3 places)
+           
+HINT: In `hint.md`
+*/
+/* 
+import express from 'express'
+import {pets}  from "./data/pets"
+import cors from "cors"
 
+import type {Express, Request, Response} from "express"
+
+const app: Express = express()
+const PORT: number = 8000
+
+app.use(cors())
+
+app.get("/", (req: Request, res: Response): void => {
+    res.json(pets)
+})
+
+// This is Okay But we use next one
+// app.get("*", (req: Request, res: Response) => {
+//     res.status(404).send({ message: "No page found"})
+// })
+
+// Here it is...
+
+app.use((req: Request, res: Response) => {
+    res.status(404).send({ message: "No route found" })
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
+ */
 
 /* Lesson 10: cors and TypeScript */
+/*
+CHALLENGE: Figure out why `cors` is cors-ing an error...
+.           and fix it!
+*/
+/* 
+import express from 'express'
+import {pets}  from "./data/pets"
+import cors from "cors"
 
+import type {Express, Request, Response} from "express"
 
+const app: Express = express()
+const PORT: number = 8000
+
+app.use(cors())
+
+app.get("/", (req: Request, res: Response): void => {
+    res.json(pets)
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
+
+ */
 /* Lesson 9: Request and Response types */
+/*
+CHALLENGE: Use the newly imported Request and Response types 
+.          to type the `req` and `res` parameters
+*/
+/* import express from 'express'
+import type {Express, Request, Response} from "express"
+import {pets}  from "./data/pets"
 
+const app: Express = express()
+const PORT: number = 8000
+
+app.get("/", (req: Request, res: Response): void => {
+    res.json(pets)
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
+ */
 
 /* Lesson 8: Typing the real data */
-import express from 'express'
+/* import express from 'express'
 import type {Express} from "express"
 import {pets}  from "./data/pets"
 
@@ -64,7 +254,7 @@ app.get("/", (req, res) => {
 app.listen(PORT, (): void => {
     console.log(`Listening on port ${PORT}`)
 })
-
+ */
 
 /* Lesson 7: Restarting the Express server */
 /* import express from 'express'

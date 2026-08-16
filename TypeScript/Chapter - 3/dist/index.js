@@ -17,20 +17,123 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* Lesson 14: A more specific Request */
 /* Lesson 13: A more specific Response */
 /* Lesson 12: Automating the server restart */
-/* Lesson 11: Typing the 404 catch-all */
-/* Lesson 10: cors and TypeScript */
-/* Lesson 9: Request and Response types */
-/* Lesson 8: Typing the real data */
 const express_1 = __importDefault(require("express"));
 const pets_1 = require("./data/pets");
+const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 const PORT = 8000;
+app.use((0, cors_1.default)());
 app.get("/", (req, res) => {
     res.json(pets_1.pets);
+});
+app.use((req, res) => {
+    res.status(404).send({ message: "No route found" });
 });
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
 });
+/* Lesson 11: Typing the 404 catch-all */
+/*
+CHALLENGE: Create a 404 catch-all after the `/` route
+           Don’t forget to type annotate everything!
+           (there are 3 places)
+           
+HINT: In `hint.md`
+*/
+/*
+import express from 'express'
+import {pets}  from "./data/pets"
+import cors from "cors"
+
+import type {Express, Request, Response} from "express"
+
+const app: Express = express()
+const PORT: number = 8000
+
+app.use(cors())
+
+app.get("/", (req: Request, res: Response): void => {
+    res.json(pets)
+})
+
+// This is Okay But we use next one
+// app.get("*", (req: Request, res: Response) => {
+//     res.status(404).send({ message: "No page found"})
+// })
+
+// Here it is...
+
+app.use((req: Request, res: Response) => {
+    res.status(404).send({ message: "No route found" })
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
+ */
+/* Lesson 10: cors and TypeScript */
+/*
+CHALLENGE: Figure out why `cors` is cors-ing an error...
+.           and fix it!
+*/
+/*
+import express from 'express'
+import {pets}  from "./data/pets"
+import cors from "cors"
+
+import type {Express, Request, Response} from "express"
+
+const app: Express = express()
+const PORT: number = 8000
+
+app.use(cors())
+
+app.get("/", (req: Request, res: Response): void => {
+    res.json(pets)
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
+
+ */
+/* Lesson 9: Request and Response types */
+/*
+CHALLENGE: Use the newly imported Request and Response types
+.          to type the `req` and `res` parameters
+*/
+/* import express from 'express'
+import type {Express, Request, Response} from "express"
+import {pets}  from "./data/pets"
+
+const app: Express = express()
+const PORT: number = 8000
+
+app.get("/", (req: Request, res: Response): void => {
+    res.json(pets)
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
+ */
+/* Lesson 8: Typing the real data */
+/* import express from 'express'
+import type {Express} from "express"
+import {pets}  from "./data/pets"
+
+const app: Express = express()
+const PORT: number = 8000
+
+
+app.get("/", (req, res) => {
+    res.json(pets)
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
+ */
 /* Lesson 7: Restarting the Express server */
 /* import express from 'express'
 import type {Express} from "express"
