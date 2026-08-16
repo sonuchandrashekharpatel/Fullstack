@@ -1,7 +1,21 @@
 /* Chapter - 3: TypeScript & Express */
 
 /* Lesson 24: Congratulations! */
+/* 
+What we did:
+1. Setup Express with TypeScript
+2. Created routes and type them
+3. Worked with data and query parameters
+4. Worked with Routers and controllers
+5. Wrote your own middleware
 
+
+What next?
+1. Real database (SQLite, MySQL, or PostgreSQL)
+2. async controllers and error handlers
+3. build a frontend that consumes your typed API
+
+*/
 
 /* Lesson 23: Your own middleware */
 
@@ -14,17 +28,236 @@
 
 /* Lesson 20: Separating concerns with Router */
 
+import express from 'express'
+import cors from "cors"
+import type {Express, Request, Response} from "express"
+import {petRouter} from "./routes/pets.routes"
+
+const app: Express = express()
+const PORT: number = 8000
+
+app.use(cors())
+app.use("/pets", petRouter)
+
+app.use((req: Request, res: Response<{message: string}>) => {
+    res.status(404).send({ message: "No endpoint found" })
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
 
 /* Lesson 19: Number query params */
+/* 
+import express from 'express'
+import {pets}  from "./data/pets"
+import cors from "cors"
+
+import type {Express, Request, Response} from "express"
+import type {Pet} from "./data/pets"
+
+type PetQueryParams = {
+    species?: string
+    adopted?: "true" | "false"
+    minAge?: string | undefined
+    maxAge?: string | undefined
+}
+
+const app: Express = express()
+const PORT: number = 8000
+
+app.use(cors())
+
+app.get("/", (
+    req: Request<{}, unknown, {}, PetQueryParams>,
+    res: Response<Pet[]>
+): void => {
+    let filteredPets = pets
+    const {species, adopted, minAge, maxAge} = req.query
+
+    if(species) {
+        filteredPets = filteredPets.filter((pet: Pet ): boolean =>
+            pet.species.toLowerCase() === species.toLowerCase()
+        )
+    }
+
+    if(adopted){
+        filteredPets = filteredPets.filter((pet: Pet): boolean => 
+            pet.adopted === JSON.parse(adopted)
+        )
+    }
+
+    if(maxAge) {
+        filteredPets = filteredPets.filter((pet: Pet): boolean => 
+            pet.age <= JSON.parse(maxAge)
+        )
+    }
+    
+    if(minAge) {
+        filteredPets = filteredPets.filter((pet: Pet): boolean => 
+            pet.age >= JSON.parse(minAge)
+        )
+    }
+    
+    res.json(filteredPets)
+    
+})
+
+app.get("/:id", (
+    req: Request<{id:string}>, 
+    res: Response<{message:string} | Pet>
+): void => {
+    const petId: string  = req.params.id
+
+    const pet: Pet | undefined = pets.find((pet: Pet): boolean => pet.id === Number(petId))
+
+    if(!pet){
+        res.status(404).send({message: "Pet not found"})
+        return
+    }
+
+    res.json(pet)
+})
+
+app.use((req: Request, res: Response<{message: string}>) => {
+    res.status(404).send({ message: "No endpoint found" })
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
+ */
 
 
 /* Lesson 18: Boolean query params */
+/*
+CHALLENGE: Allow users to filter by the adopted property
+1. Updated `PetQueryParams`
+2. Grab the adopted param from req.query
+3. Filter the filteredPets array based on its value
+ 
+Keep in mind that query strings come in strings... 
+but `adopted` should be a boolean... so, what can we do?
+*/
+/* 
+import express from 'express'
+import {pets}  from "./data/pets"
+import cors from "cors"
 
+import type {Express, Request, Response} from "express"
+import type {Pet} from "./data/pets"
+
+type PetQueryParams = {
+    species?: string
+    adopted?: "true" | "false"
+}
+const app: Express = express()
+const PORT: number = 8000
+
+app.use(cors())
+
+app.get("/", (
+    req: Request<{}, unknown, {}, PetQueryParams>,
+    res: Response<Pet[]>
+): void => {
+    let filteredPets = pets
+    const {species, adopted} = req.query
+
+    if(species) {
+        filteredPets = filteredPets.filter((pet: Pet ): boolean =>
+            pet.species.toLowerCase() === species.toLowerCase()
+        )
+    }
+
+    if(adopted){
+        filteredPets = filteredPets.filter((pet: Pet): boolean => 
+            pet.adopted.toString() === adopted
+        )
+    }
+    res.json(filteredPets)
+    
+})
+
+app.get("/:id", (
+    req: Request<{id:string}>, 
+    res: Response<{message:string} | Pet>
+): void => {
+    const petId: string  = req.params.id
+
+    const pet: Pet | undefined = pets.find((pet: Pet): boolean => pet.id === Number(petId))
+
+    if(!pet){
+        res.status(404).send({message: "Pet not found"})
+        return
+    }
+
+    res.json(pet)
+})
+
+
+app.use((req: Request, res: Response<{message: string}>) => {
+    res.status(404).send({ message: "No endpoint found" })
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
+ */
 
 /* Lesson 17: An even more specific Request */
+/* 
+import express from 'express'
+import {pets}  from "./data/pets"
+import cors from "cors"
+
+import type {Express, Request, Response} from "express"
+import type {Pet} from "./data/pets"
+
+const app: Express = express()
+const PORT: number = 8000
+
+app.use(cors())
+
+app.get("/", (
+    req: Request<{}, unknown, {}, {species?:string}>,
+    res: Response<Pet[]>
+): void => {
+    let filteredPets = pets
+    const species = req.query.species
+    if(species) {
+        filteredPets = filteredPets.filter((pet: Pet ): boolean => pet.species.toLowerCase() === species.toLowerCase())
+    }
+    res.json(filteredPets)
+    
+})
+
+app.get("/:id", (
+    req: Request<{id:string}>, 
+    res: Response<{message:string} | Pet>
+): void => {
+    const petId: string  = req.params.id
+
+    const pet: Pet | undefined = pets.find((pet: Pet): boolean => pet.id === Number(petId))
+
+    if(!pet){
+        res.status(404).send({message: "Pet not found"})
+        return
+    }
+
+    res.json(pet)
+})
 
 
+app.use((req: Request, res: Response<{message: string}>) => {
+    res.status(404).send({ message: "No endpoint found" })
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
+ */
 /* Lesson 16: String query params */
+
 /*
 CHALLENGE: Filter the pets by incoming species query and respond with the filtered list
 1. Grab the `species` query parameter
@@ -38,7 +271,7 @@ Example API call: http://localhost:8000/&species=cat
 Don't worry about any additional TypeScript yet.
 You'll get an error if you try to run this. Don't worry, we'll handle it soon!
 */
-
+/* 
 import express from 'express'
 import {pets}  from "./data/pets"
 import cors from "cors"
@@ -52,11 +285,13 @@ const PORT: number = 8000
 app.use(cors())
 
 app.get("/", (req: Request<{species: string}>, res: Response<Pet[]>): void => {
+    let filteredPets = pets
     const species = req.query.species
     if(species) {
-        const petArr = pets.filter(pet => pet.species.toLowerCase() === species.toLowerCase())
-        res.json(petArr)
-     }
+        filteredPets = filteredPets.filter((pet: Pet ): boolean => pet.species.toLowerCase() === species.toLowerCase())
+    }
+    res.json(filteredPets)
+    
 })
 
 app.get("/:id", (req: Request<{id:string}>, res: Response<{message:string} | Pet>): void => {
@@ -79,7 +314,7 @@ app.use((req: Request, res: Response<{message: string}>) => {
 app.listen(PORT, (): void => {
     console.log(`Listening on port ${PORT}`)
 })
-
+ */
 
 /* Lesson 15: Non-existent IDs */
 /*

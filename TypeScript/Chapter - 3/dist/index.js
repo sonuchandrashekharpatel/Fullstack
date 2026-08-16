@@ -10,13 +10,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* Lesson 21: Separating concerns with controllers */
 /* Lesson 20: Separating concerns with Router */
 /* Lesson 19: Number query params */
-/* Lesson 18: Boolean query params */
-/* Lesson 17: An even more specific Request */
-/* Lesson 16: String query params */
-/* Lesson 15: Non-existent IDs */
-/* Lesson 14: A more specific Request */
-/* Lesson 13: A more specific Response */
-/* Lesson 12: Automating the server restart */
 const express_1 = __importDefault(require("express"));
 const pets_1 = require("./data/pets");
 const cors_1 = __importDefault(require("cors"));
@@ -24,14 +17,345 @@ const app = (0, express_1.default)();
 const PORT = 8000;
 app.use((0, cors_1.default)());
 app.get("/", (req, res) => {
-    res.json(pets_1.pets);
+    let filteredPets = pets_1.pets;
+    const { species, adopted, minAge, maxAge } = req.query;
+    if (species) {
+        filteredPets = filteredPets.filter((pet) => pet.species.toLowerCase() === species.toLowerCase());
+    }
+    if (adopted) {
+        filteredPets = filteredPets.filter((pet) => pet.adopted === JSON.parse(adopted));
+    }
+    console.log(maxAge);
+    console.log(minAge);
+    if (maxAge || minAge) {
+        filteredPets = filteredPets.filter((pet) => pet.age <= Number(maxAge) && pet.age >= Number(minAge));
+    }
+    else if (maxAge) {
+        filteredPets = filteredPets.filter((pet) => pet.age <= Number(maxAge));
+    }
+    else if (minAge) {
+        filteredPets = filteredPets.filter((pet) => pet.age >= Number(minAge));
+    }
+    res.json(filteredPets);
+});
+app.get("/:id", (req, res) => {
+    const petId = req.params.id;
+    const pet = pets_1.pets.find((pet) => pet.id === Number(petId));
+    if (!pet) {
+        res.status(404).send({ message: "Pet not found" });
+        return;
+    }
+    res.json(pet);
 });
 app.use((req, res) => {
-    res.status(404).send({ message: "No route found" });
+    res.status(404).send({ message: "No endpoint found" });
 });
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
 });
+/* Lesson 18: Boolean query params */
+/*
+CHALLENGE: Allow users to filter by the adopted property
+1. Updated `PetQueryParams`
+2. Grab the adopted param from req.query
+3. Filter the filteredPets array based on its value
+ 
+Keep in mind that query strings come in strings...
+but `adopted` should be a boolean... so, what can we do?
+*/
+/*
+import express from 'express'
+import {pets}  from "./data/pets"
+import cors from "cors"
+
+import type {Express, Request, Response} from "express"
+import type {Pet} from "./data/pets"
+
+type PetQueryParams = {
+    species?: string
+    adopted?: "true" | "false"
+}
+const app: Express = express()
+const PORT: number = 8000
+
+app.use(cors())
+
+app.get("/", (
+    req: Request<{}, unknown, {}, PetQueryParams>,
+    res: Response<Pet[]>
+): void => {
+    let filteredPets = pets
+    const {species, adopted} = req.query
+
+    if(species) {
+        filteredPets = filteredPets.filter((pet: Pet ): boolean =>
+            pet.species.toLowerCase() === species.toLowerCase()
+        )
+    }
+
+    if(adopted){
+        filteredPets = filteredPets.filter((pet: Pet): boolean =>
+            pet.adopted.toString() === adopted
+        )
+    }
+    res.json(filteredPets)
+    
+})
+
+app.get("/:id", (
+    req: Request<{id:string}>,
+    res: Response<{message:string} | Pet>
+): void => {
+    const petId: string  = req.params.id
+
+    const pet: Pet | undefined = pets.find((pet: Pet): boolean => pet.id === Number(petId))
+
+    if(!pet){
+        res.status(404).send({message: "Pet not found"})
+        return
+    }
+
+    res.json(pet)
+})
+
+
+app.use((req: Request, res: Response<{message: string}>) => {
+    res.status(404).send({ message: "No endpoint found" })
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
+ */
+/* Lesson 17: An even more specific Request */
+/*
+import express from 'express'
+import {pets}  from "./data/pets"
+import cors from "cors"
+
+import type {Express, Request, Response} from "express"
+import type {Pet} from "./data/pets"
+
+const app: Express = express()
+const PORT: number = 8000
+
+app.use(cors())
+
+app.get("/", (
+    req: Request<{}, unknown, {}, {species?:string}>,
+    res: Response<Pet[]>
+): void => {
+    let filteredPets = pets
+    const species = req.query.species
+    if(species) {
+        filteredPets = filteredPets.filter((pet: Pet ): boolean => pet.species.toLowerCase() === species.toLowerCase())
+    }
+    res.json(filteredPets)
+    
+})
+
+app.get("/:id", (
+    req: Request<{id:string}>,
+    res: Response<{message:string} | Pet>
+): void => {
+    const petId: string  = req.params.id
+
+    const pet: Pet | undefined = pets.find((pet: Pet): boolean => pet.id === Number(petId))
+
+    if(!pet){
+        res.status(404).send({message: "Pet not found"})
+        return
+    }
+
+    res.json(pet)
+})
+
+
+app.use((req: Request, res: Response<{message: string}>) => {
+    res.status(404).send({ message: "No endpoint found" })
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
+ */
+/* Lesson 16: String query params */
+/*
+CHALLENGE: Filter the pets by incoming species query and respond with the filtered list
+1. Grab the `species` query parameter
+2. Create a variable (and type it) to house filtered pets
+3. Filter the pets by said parameter (and type the callback)
+   (Make sure the strings you're comparing are lowercase!)
+4. Send filtered data back via `res.json()`
+
+Example API call: http://localhost:8000/&species=cat
+
+Don't worry about any additional TypeScript yet.
+You'll get an error if you try to run this. Don't worry, we'll handle it soon!
+*/
+/*
+import express from 'express'
+import {pets}  from "./data/pets"
+import cors from "cors"
+
+import type {Express, Request, Response} from "express"
+import type {Pet} from "./data/pets"
+
+const app: Express = express()
+const PORT: number = 8000
+
+app.use(cors())
+
+app.get("/", (req: Request<{species: string}>, res: Response<Pet[]>): void => {
+    let filteredPets = pets
+    const species = req.query.species
+    if(species) {
+        filteredPets = filteredPets.filter((pet: Pet ): boolean => pet.species.toLowerCase() === species.toLowerCase())
+    }
+    res.json(filteredPets)
+    
+})
+
+app.get("/:id", (req: Request<{id:string}>, res: Response<{message:string} | Pet>): void => {
+    const petId: string  = req.params.id
+    const pet: Pet | undefined = pets.find((pet: Pet): boolean => pet.id === Number(petId))
+
+    if(!pet){
+        res.status(404).send({message: "Pet not found"})
+        return
+    }
+
+    res.json(pet)
+})
+
+
+app.use((req: Request, res: Response<{message: string}>) => {
+    res.status(404).send({ message: "No endpoint found" })
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
+ */
+/* Lesson 15: Non-existent IDs */
+/*
+CHALLENGE: Type and complete the `/:id` route
+    1. Type everything in the `.find()` callback function
+    2. Type the `pet` variable (keeping in mind that
+       we might not find a pet with that ID)
+    3. Handle what happens if we don't find a
+       pet with the provided ID
+    4. Type the Response generic
+*/
+/*
+import express from 'express'
+import {pets}  from "./data/pets"
+import cors from "cors"
+
+import type {Express, Request, Response} from "express"
+import type {Pet} from "./data/pets"
+
+const app: Express = express()
+const PORT: number = 8000
+
+app.use(cors())
+
+app.get("/", (req: Request, res: Response<Pet[]>): void => {
+    res.json(pets)
+})
+
+app.get("/:id", (req: Request<{id:string}>, res: Response<{message:string} | Pet>): void => {
+    const petId: string  = req.params.id
+    const pet: Pet | undefined = pets.find((pet: Pet): boolean => pet.id === Number(petId))
+
+    if(!pet){
+        res.status(404).send({message: "Pet not found"})
+        return
+    }
+
+    res.json(pet)
+})
+
+
+app.use((req: Request, res: Response<{message: string}>) => {
+    res.status(404).send({ message: "No endpoint found" })
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
+ */
+/* Lesson 14: A more specific Request */
+/*
+CHALLENGE: Complete the `/:id` route!
+1. Type req, res, and callback's return value
+2. Pull the `id` from the path params
+3. Find the pet that matches said `id`
+4. Send back said pet with `res.json()`
+       
+Don't worry about non-existent IDs or other TypeScript yet
+*/
+/*
+import express from 'express'
+import {pets}  from "./data/pets"
+import cors from "cors"
+
+import type {Express, Request, Response} from "express"
+import type {Pet} from "./data/pets"
+
+const app: Express = express()
+const PORT: number = 8000
+
+app.use(cors())
+
+app.get("/", (req: Request, res: Response<Pet[]>): void => {
+    res.json(pets)
+})
+
+app.get("/:id", (req: Request<{id:string}>, res: Response): void => {
+    const petId: string  = req.params.id
+    const petObj: Pet = pets.find((pet: Pet) => pet.id === Number(petId))
+
+    res.json(petObj)
+})
+
+
+app.use((req: Request, res: Response<{message: string}>) => {
+    res.status(404).send({ message: "No endpoint found" })
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
+ */
+/* Lesson 13: A more specific Response */
+/*
+import express from 'express'
+import {pets}  from "./data/pets"
+import cors from "cors"
+
+import type {Express, Request, Response} from "express"
+import type {Pet} from "./data/pets"
+
+const app: Express = express()
+const PORT: number = 8000
+
+app.use(cors())
+
+app.get("/", (req: Request, res: Response<Pet[]>): void => {
+    res.json(pets)
+})
+
+
+app.use((req: Request, res: Response<{message: string}>) => {
+    res.status(404).send({ message: "No endpoint found" })
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
+ */
+/* Lesson 12: Automating the server restart */
 /* Lesson 11: Typing the 404 catch-all */
 /*
 CHALLENGE: Create a 404 catch-all after the `/` route
