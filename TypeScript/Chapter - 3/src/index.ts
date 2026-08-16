@@ -25,6 +25,60 @@
 
 
 /* Lesson 16: String query params */
+/*
+CHALLENGE: Filter the pets by incoming species query and respond with the filtered list
+1. Grab the `species` query parameter
+2. Create a variable (and type it) to house filtered pets
+3. Filter the pets by said parameter (and type the callback)
+   (Make sure the strings you're comparing are lowercase!)
+4. Send filtered data back via `res.json()`
+
+Example API call: http://localhost:8000/&species=cat
+
+Don't worry about any additional TypeScript yet.
+You'll get an error if you try to run this. Don't worry, we'll handle it soon!
+*/
+
+import express from 'express'
+import {pets}  from "./data/pets"
+import cors from "cors"
+
+import type {Express, Request, Response} from "express"
+import type {Pet} from "./data/pets"
+
+const app: Express = express()
+const PORT: number = 8000
+
+app.use(cors())
+
+app.get("/", (req: Request<{species: string}>, res: Response<Pet[]>): void => {
+    const species = req.query.species
+    if(species) {
+        const petArr = pets.filter(pet => pet.species.toLowerCase() === species.toLowerCase())
+        res.json(petArr)
+     }
+})
+
+app.get("/:id", (req: Request<{id:string}>, res: Response<{message:string} | Pet>): void => {
+    const petId: string  = req.params.id
+    const pet: Pet | undefined = pets.find((pet: Pet): boolean => pet.id === Number(petId))
+
+    if(!pet){
+        res.status(404).send({message: "Pet not found"})
+        return
+    }
+
+    res.json(pet)
+})
+
+
+app.use((req: Request, res: Response<{message: string}>) => {
+    res.status(404).send({ message: "No endpoint found" })
+})
+
+app.listen(PORT, (): void => {
+    console.log(`Listening on port ${PORT}`)
+})
 
 
 /* Lesson 15: Non-existent IDs */
@@ -37,7 +91,7 @@ CHALLENGE: Type and complete the `/:id` route
        pet with the provided ID
     4. Type the Response generic
 */
-
+/* 
 import express from 'express'
 import {pets}  from "./data/pets"
 import cors from "cors"
@@ -74,7 +128,7 @@ app.use((req: Request, res: Response<{message: string}>) => {
 app.listen(PORT, (): void => {
     console.log(`Listening on port ${PORT}`)
 })
-
+ */
 /* Lesson 14: A more specific Request */
 /*
 CHALLENGE: Complete the `/:id` route!
