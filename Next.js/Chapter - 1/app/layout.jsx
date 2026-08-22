@@ -35,6 +35,30 @@
 
 /* Lesson 15: Layouts part 2 */
 
+export default function RootLayout({children}) {
+    return (
+        <html lang='en'>
+            <body>
+              <Header />
+              {children}
+            </body>
+        </html>
+    )
+}
+
+function Header() {
+  return (
+    <header>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Dashboard</a>
+        <a href="#">Lagout</a>
+      </nav>
+    </header>
+  )
+}
+
 
 /* Lesson 14: Layouts part 1 */
 
@@ -70,13 +94,13 @@
 
 
 /* Lesson 3: Challenge: create a new Next.js app from scratch! */
-export default function Whatever({children}) {
+/* export default function Whatever({children}) {
     return (
         <html lang='en'>
             <body>{children}</body>
         </html>
     )
-}
+} */
 
 /* Lesson 2: A Minimal Next.js Setup */
 /* 

@@ -1,6 +1,7 @@
 
 
 /* Chapter - 1: Build a Next.js App */
+@import "tailwindcss";
 
 /* Lesson 26: Section 1 Recap */
 
@@ -30,7 +31,9 @@
 
 
 /* Lesson 17: Optimizing Fonts */
-
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-montserrat-alternates);
+}
 
 /* Lesson 16: Challenge - Add Header to PrintForge */
 
@@ -51,7 +54,6 @@
 
 
 /* Lesson 10: PrintForge Challenge Setup */
-@import "tailwindcss";
 
 
 /* Lesson 9: create-next-app files walkthrough */
