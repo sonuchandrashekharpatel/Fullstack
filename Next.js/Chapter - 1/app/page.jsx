@@ -1,7 +1,19 @@
 /* Chapter - 1: Build a Next.js App */
 
 /* Lesson 26: Section 1 Recap */
+/* 
+What we've covered:
+1. Manual & auto setup
+2. File-based routig
+3. Nested Routes
+4. Layouts
+5. Optimizing images and fonts
+6. Client and Server components
+7. Dynamic routes
 
+Plus tons of challenges!
+
+*/
 
 /* Lesson 25: Model Detail Page */
 

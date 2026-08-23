@@ -1,0 +1,218 @@
+
+/* Chapter - 1: Build a Next.js App */
+
+/* Lesson 1: Bug Alert! */
+
+
+/* Lesson 2: A Minimal Next.js Setup */
+
+
+/* Lesson 3: Challenge: create a new Next.js app from scratch! */
+
+
+/* Lesson 4: Adding a new page to our site */
+
+
+/* Lesson 5: File-based routing in Next.js */
+
+
+/* Lesson 6: Understanding create-next-app */
+
+
+/* Lesson 7: Running create-next-app */
+
+
+/* Lesson 8: Scrimba's "Runner" */
+
+
+/* Lesson 9: create-next-app files walkthrough */
+
+
+/* Lesson 10: PrintForge Challenge Setup */
+
+
+/* Lesson 11: Challenge - PrintForge Home Page */
+
+
+/* Lesson 12: Challenge - PrintForge About Page */
+
+
+/* Lesson 13: Nested Routes */
+
+
+/* Lesson 14: Layouts part 1 */
+
+
+/* Lesson 15: Layouts part 2 */
+
+
+/* Lesson 16: Challenge - Add Header to PrintForge */
+
+
+/* Lesson 17: Optimizing Fonts */
+
+
+/* Lesson 18: Optimizing Images */
+
+
+/* Lesson 19: Links in Next.js */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+  margin-bottom: auto;
+  padding: 10px;
+}
+
+header {
+  background-color: #27272a;
+  color: #f4f4f5;
+  padding-left: 10px;
+}
+
+nav>ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  padding-left: 0;
+}
+
+nav>ul>* {
+  text-transform: uppercase;
+}
+
+a,
+a:visited,
+a:hover,
+a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+footer {
+  background-color: #27272a;
+  color: #f4f4f5;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+/* Lesson 20: Challenge - Add Links to Navbar */
+
+
+/* Lesson 21: Aside: TypeScript Organization in PrintForge */
+
+
+/* Lesson 22: Aside: Client vs. Server Components */
+
+
+/* Lesson 23: Challenge - Create the Models List Page */
+
+
+/* Lesson 24: Dynamic Routes */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+  margin-bottom: auto;
+  padding: 10px;
+}
+
+header {
+  background-color: #27272a;
+  color: #f4f4f5;
+  padding-left: 10px;
+}
+
+nav>ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  padding-left: 0;
+}
+
+nav>ul>* {
+  text-transform: uppercase;
+}
+
+a,
+a:visited,
+a:hover,
+a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+footer {
+  background-color: #27272a;
+  color: #f4f4f5;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.posts-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.posts-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-link {
+  display: block;
+  height: 100%;
+  width: 100%;
+  padding: 15px;
+}
+
+.post-item {
+  padding: 15px;
+  margin-bottom: 10px;
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.post-item:hover {
+  background-color: #f8f8f8;
+}
+
+.post-item h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #27272a;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Lesson 25: Model Detail Page */
+
+
+/* Lesson 26: Section 1 Recap */

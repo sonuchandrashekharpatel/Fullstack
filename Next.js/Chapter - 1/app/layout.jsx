@@ -14,6 +14,31 @@
 
 /* Lesson 22: Aside: Client vs. Server Components */
 
+import "./global.css"
+import Link from "next/link"
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <header>
+          <nav>
+            <ul>
+              <li><Link href="/">Home</Link></li>
+              <li><Link href="/about">About</Link></li>
+              <li><Link href="/post">Post</Link></li>
+            </ul>
+          </nav>
+        </header>
+
+        <main>{children}</main>
+
+        <footer>&copy; {new Date().getFullYear()} Generic Web Dev, LLC.</footer>
+
+      </body>
+    </html>
+  )
+}
 
 /* Lesson 21: Aside: TypeScript Organization in PrintForge */
 
@@ -22,7 +47,38 @@
 
 
 /* Lesson 19: Links in Next.js */
+/* 
+Link
+. Enables client-side navigation
+. Prefetches: When link in view
+. Maintains React State between navigation
 
+*/
+/* 
+import "./global.css"
+import Link from "next/link"
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <header>
+          <nav>
+            <ul>
+              <li><Link href="/">Home</Link></li>
+              <li><Link href="/about">About</Link></li>
+            </ul>
+          </nav>
+        </header>
+
+        <main>{children}</main>
+
+        <footer>&copy; {new Date().getFullYear()} Generic Web Dev, LLC.</footer>
+
+      </body>
+    </html>
+  )
+} */
 
 /* Lesson 18: Optimizing Images */
 
@@ -35,7 +91,7 @@
 
 /* Lesson 15: Layouts part 2 */
 
-export default function RootLayout({children}) {
+/* export default function RootLayout({children}) {
     return (
         <html lang='en'>
             <body>
@@ -58,7 +114,7 @@ function Header() {
     </header>
   )
 }
-
+ */
 
 /* Lesson 14: Layouts part 1 */
 

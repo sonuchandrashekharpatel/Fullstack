@@ -17,9 +17,125 @@
 
 /* Lesson 21: Aside: TypeScript Organization in PrintForge */
 
+import "./globals.css";
+import { Albert_Sans, Montserrat_Alternates } from "next/font/google"
+import PrintforgeLogoIcon from "@/public/printforge-logo-icon.svg"
+import PrintforgeLogo from "@/public/printforge-logo.svg"
+import  Link from "next/link"
+import { RootLayoutProps } from "./types";
+
+
+const albertSans = Albert_Sans({
+  subsets: ["latin"],
+  display: "swap"
+})
+
+const montserratAlternates = Montserrat_Alternates({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-montserrat-alternates"
+})
+
+export default function RootLayout({ children}: RootLayoutProps) {
+  return (
+    <html lang="en">
+      <body className={`${albertSans.className} ${montserratAlternates.variable}`}>
+        <header className="w-full bg-white">
+          <nav className="flex justify-between px-6 py-4">
+            <div className="relative cursor-pointer">
+              <Link href="/">
+                <img
+                  src={PrintforgeLogo.src}
+                  alt="PrintForge Logo"
+                  className="w-50 h-auto hidden md:block"
+                />
+                <img
+                  src={PrintforgeLogoIcon.src}
+                  alt="PrintForge Logo"
+                  className="w-10 h-auto block md:hidden"
+                />
+              </Link>
+            </div>
+            <ul className="flex items-center gap-2.5">
+              <Link href="/3d-models">3D Models</Link>
+              <Link href="/about">About</Link>
+            </ul>
+          </nav>
+        </header>
+        {children}
+      </body>
+    </html>
+  );
+}
+
 
 /* Lesson 20: Challenge - Add Links to Navbar */
+/**
+ * Challenge:
+ * Update the header code so our users can more easily navigate between routes.
+ * For now, send the "3d Models" link to a non-existant "/3d-models" route,
+ * we'll work on creating that page soon.
+ * 
+ * For the logo images, you can surround the entire `div` containing the images
+ * with the Link component.
+ */
+/* 
+import "./globals.css";
+import { Albert_Sans, Montserrat_Alternates } from "next/font/google"
+import PrintforgeLogoIcon from "@/public/printforge-logo-icon.svg"
+import PrintforgeLogo from "@/public/printforge-logo.svg"
+import  Link from "next/link"
 
+
+const albertSans = Albert_Sans({
+  subsets: ["latin"],
+  display: "swap"
+})
+
+const montserratAlternates = Montserrat_Alternates({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-montserrat-alternates"
+})
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body className={`${albertSans.className} ${montserratAlternates.variable}`}>
+        <header className="w-full bg-white">
+          <nav className="flex justify-between px-6 py-4">
+            <div className="relative cursor-pointer">
+              <Link href="/">
+                <img
+                  src={PrintforgeLogo.src}
+                  alt="PrintForge Logo"
+                  className="w-50 h-auto hidden md:block"
+                />
+                <img
+                  src={PrintforgeLogoIcon.src}
+                  alt="PrintForge Logo"
+                  className="w-10 h-auto block md:hidden"
+                />
+              </Link>
+            </div>
+            <ul className="flex items-center gap-2.5">
+              <Link href="/3d-models">3D Models</Link>
+              <Link href="/about">About</Link>
+            </ul>
+          </nav>
+        </header>
+        {children}
+      </body>
+    </html>
+  );
+}
+ */
 
 /* Lesson 19: Links in Next.js */
 
@@ -36,6 +152,8 @@ Image Optimization
  * static assets like you see above 👆
  
 */
+
+/* 
 import "./globals.css";
 import { Albert_Sans, Montserrat_Alternates } from "next/font/google"
 import PrintforgeLogoIcon from "@/public/printforge-logo-icon.svg"
@@ -86,7 +204,7 @@ export default function RootLayout({
     </html>
   );
 }
-
+ */
 /* Lesson 17: Optimizing Fonts */
 /* 
 Font Optimization

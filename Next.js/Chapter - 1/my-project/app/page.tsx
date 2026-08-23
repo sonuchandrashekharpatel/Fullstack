@@ -13,7 +13,10 @@
 
 
 /* Lesson 22: Aside: Client vs. Server Components */
-
+/* 
+Client components 
+. Code is only ru
+*/
 
 /* Lesson 21: Aside: TypeScript Organization in PrintForge */
 
@@ -22,7 +25,13 @@
 
 
 /* Lesson 19: Links in Next.js */
+/* 
+Link component
+. Enables client-side navigation
+. Prefetches when link preview
+. Maintain React State between navigations
 
+*/
 
 /* Lesson 18: Optimizing Images */
 import HeroImage from "@/public/hero-image.png"
@@ -42,7 +51,7 @@ export default function Home() {
             Join our community of creators and explore a vast
             library of user-submitted models.
           </p>
-
+ 
           <div className="flex gap-4">
             <a
               href="/3d-models"
