@@ -70,36 +70,22 @@
 
 
 /* Lesson 1: Walking through refactors */
-import { getAllModels } from "@/app/lib/models"
-import ModelsGrid from "@/app/components/ModelsGrid"
+import categories from "../data/categories.json"
+import { Category } from "../types"
 
-export default async function ModelsPage() {
-  const models = await getAllModels()
-  return <ModelsGrid title="3D Models" models={models} ></ModelsGrid>
+export function getAllCategories(): Category[] {
+    return categories
 }
 
-
-/* Lesson 0: Previous Chapter */
-
-/* import { getAllModels } from "@/app/lib/models"
-import type { Model } from "@/app/types"
-import ModelCard from "@/app/components/ModelCard"
-
-export default async function ModelsPage() {
-  const models = await getAllModels()
-  return (
-    <div className="container px-4 py-8 mx-auto">
-      <h1 className="mb-8 text-3xl font-bold">All Models</h1>
-      <div
-        className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-        role="region"
-        aria-label="3D Models Gallery"
-      >
-        {models.map((model: Model) => (
-          <ModelCard key={model.id} model={model} />
-        ))}
-      </div>
-    </div>
-  )
+export function getCategoryBySlug(slug: string): Category {
+    const category = categories.find(c => c.slug === slug)
+    if (!category) {
+        throw new Error(`Category with slug ${slug} not found`)
+    }
+    return category
 }
- */
+
+export function getDisplayNameFromSlug(slug: string): string {
+    const category = getCategoryBySlug(slug)
+    return category.displayName
+}

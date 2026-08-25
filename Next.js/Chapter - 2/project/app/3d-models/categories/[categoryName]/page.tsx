@@ -67,39 +67,15 @@
 
 
 /* Lesson 2: Challenge: add categories page */
+import type { CategoryPageProps } from "@/app/types"
+import type { Category } from "@/app/types"
+import { getAllCategories} from "@/app/lib/categories"
 
+export default async function CategoryPage({ params }: CategoryPageProps ) {
+    const {categoryName} = await params
+    const categories = getAllCategories()
 
-/* Lesson 1: Walking through refactors */
-import { getAllModels } from "@/app/lib/models"
-import ModelsGrid from "@/app/components/ModelsGrid"
-
-export default async function ModelsPage() {
-  const models = await getAllModels()
-  return <ModelsGrid title="3D Models" models={models} ></ModelsGrid>
+    const categoryEl = categories.map((category: Category): React.JSX.Element => <h1 key={category.slug}>{category.displayName}</h1>)
+    
+    return categoryEl
 }
-
-
-/* Lesson 0: Previous Chapter */
-
-/* import { getAllModels } from "@/app/lib/models"
-import type { Model } from "@/app/types"
-import ModelCard from "@/app/components/ModelCard"
-
-export default async function ModelsPage() {
-  const models = await getAllModels()
-  return (
-    <div className="container px-4 py-8 mx-auto">
-      <h1 className="mb-8 text-3xl font-bold">All Models</h1>
-      <div
-        className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-        role="region"
-        aria-label="3D Models Gallery"
-      >
-        {models.map((model: Model) => (
-          <ModelCard key={model.id} model={model} />
-        ))}
-      </div>
-    </div>
-  )
-}
- */

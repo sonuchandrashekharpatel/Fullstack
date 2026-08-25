@@ -73,7 +73,12 @@
 
 
 /* Lesson 0: Previous Chapter */
-
+/* 
+To do:
+. Add category page
+  . Path: /3d-models/categories/[categoryName]
+. Add category navigation bar
+*/
 import HeroImage from "@/public/hero-image.png"
 
 export default function Home() {
