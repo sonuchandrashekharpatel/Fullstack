@@ -52,24 +52,6 @@
 
 
 /* Lesson 7: Challenge: Style Active Link */
-
-
-/* Lesson 6: More about client components */
-
-
-/* Lesson 5: Quick Link Refactors */
-
-
-/* Lesson 4: Aside: usePathname */
-
-
-/* Lesson 3: Add categories Nav Bar */
-
-
-/* Lesson 2: Challenge: add categories page */
-
-
-/* Lesson 1: Walking through refactors */
 import type { ReactNode } from "react"
 
 // Data Types
@@ -125,6 +107,142 @@ export type PillProps = {
     role?: string
 }
 
+export type NavLinkProps = {
+    href: string
+    children: ReactNode,
+    isActive: boolean
+}
+
+
+/* Lesson 6: More about client components */
+
+
+/* Lesson 5: Quick Link Refactors */
+/* import type { ReactNode } from "react"
+
+// Data Types
+export type Model = {
+  id: number
+  name: string
+  description: string
+  likes: number
+  image: string
+  category: string
+  dateAdded: string
+}
+
+export type Category = {
+    displayName: string
+    slug: string
+}
+
+export type CategoriesData = {
+    categories: Category[]
+}
+
+// Page Types
+export type LayoutProps = Readonly<{
+  children: React.ReactNode;
+}>
+
+export type ModelDetailPageProps = {
+    params: Promise<{
+        id: string
+    }>
+}
+
+export type CategoryPageProps = {
+    params: Promise<{
+        categoryName: string
+    }>
+}
+
+// Components Types
+export type ModelCardProps = {
+    model: Model
+}
+
+export type ModelsGridProps = {
+    title: string
+    models: Model[]
+}
+
+export type PillProps = {
+    children: ReactNode
+    className?: string
+    role?: string
+}
+
+export type NavLinkProps = {
+    href: string
+    children: ReactNode
+}
+ */
+/* Lesson 4: Aside: usePathname */
+
+
+/* Lesson 3: Add categories Nav Bar */
+
+
+/* Lesson 2: Challenge: add categories page */
+
+
+/* Lesson 1: Walking through refactors */
+/* import type { ReactNode } from "react"
+
+// Data Types
+export type Model = {
+  id: number
+  name: string
+  description: string
+  likes: number
+  image: string
+  category: string
+  dateAdded: string
+}
+
+export type Category = {
+    displayName: string
+    slug: string
+}
+
+export type CategoriesData = {
+    categories: Category[]
+}
+
+// Page Types
+export type LayoutProps = Readonly<{
+  children: React.ReactNode;
+}>
+
+export type ModelDetailPageProps = {
+    params: Promise<{
+        id: string
+    }>
+}
+
+export type CategoryPageProps = {
+    params: Promise<{
+        categoryName: string
+    }>
+}
+
+// Components Types
+export type ModelCardProps = {
+    model: Model
+}
+
+export type ModelsGridProps = {
+    title: string
+    models: Model[]
+}
+
+export type PillProps = {
+    children: ReactNode
+    className?: string
+    role?: string
+}
+ */
 /* Lesson 0: Previous Chapter */
 
 /* 

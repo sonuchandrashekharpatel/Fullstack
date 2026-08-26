@@ -66,6 +66,7 @@
 /* Lesson 3: Add categories Nav Bar */
 
 import "./globals.css";
+import Navbar from "@/app/components/Navbar"
 import { Albert_Sans, Montserrat_Alternates } from "next/font/google"
 import PrintforgeLogoIcon from "@/public/printforge-logo-icon.svg"
 import PrintforgeLogo from "@/public/printforge-logo.svg"
@@ -89,28 +90,7 @@ export default function RootLayout({ children}: LayoutProps) {
   return (
     <html lang="en">
       <body className={`${albertSans.className} ${montserratAlternates.variable}`}>
-        <header className="w-full bg-white">
-          <nav className="flex justify-between px-6 py-4">
-            <div className="relative cursor-pointer">
-              <Link href="/">
-                <img
-                  src={PrintforgeLogo.src}
-                  alt="PrintForge Logo"
-                  className="w-50 h-auto hidden md:block"
-                />
-                <img
-                  src={PrintforgeLogoIcon.src}
-                  alt="PrintForge Logo"
-                  className="w-10 h-auto block md:hidden"
-                />
-              </Link>
-            </div>
-            <ul className="flex items-center gap-2.5">
-              <Link href="/3d-models">3D Models</Link>
-              <Link href="/about">About</Link>
-            </ul>
-          </nav>
-        </header>
+        <Navbar />
         {children}
       </body>
     </html>

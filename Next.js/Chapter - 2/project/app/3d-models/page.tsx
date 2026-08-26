@@ -55,8 +55,28 @@
 
 
 /* Lesson 6: More about client components */
+/* 
+Options:
+. Change RootLayout into client component
+  . Effectiverly turns the whole app into client components
 
+  . Change Navbar into client component
 
+. Change NavLink into client component
+
+Why shouldn't we make whole app to client component:
+. Bigger JavaScript Bundles (Slower Load Times)
+. Poorer Initial Page Performance & Metrics
+. Loss of Direct Backend & Database Access 
+. Extra Network Waterfalls for Data Fetching
+. Worse SEO and Search Crawling 
+*/
+/* 
+Challenge
+=========
+- Decide which component(s) needs to be converted into client components
+- TBA
+*/
 /* Lesson 5: Quick Link Refactors */
 
 

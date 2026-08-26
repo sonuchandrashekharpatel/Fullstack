@@ -1,0 +1,166 @@
+/* Chapter - 2: Rendering Strategies and More */
+
+/* Lesson 24: Section 2 Recap */
+
+
+/* Lesson 23: Tiny Library Solo */
+
+
+/* Lesson 22: PrintForge - Upgrade to Next's Form Component */
+
+
+/* Lesson 21: NextJS Form Component */
+
+
+/* Lesson 20: PrintForge - Search Bar using native form */
+
+
+/* Lesson 19: Cat Facts - searchParams pt. 2 */
+
+
+/* Lesson 18: CatFacts - searchParams pt. 1 */
+
+
+/* Lesson 17: HTML Form Submissions are Navigation Events */
+
+
+/* Lesson 16: CatFacts: Structured Play */
+
+
+/* Lesson 15: CatFacts - Add Fetch */
+
+
+/* Lesson 14: Cat Facts - SSG Pt. 1 */
+
+
+/* Lesson 13: Rendering Strategies Pt. 3 */
+
+
+/* Lesson 12: Rendering Strategies pt 2 */
+
+
+/* Lesson 11: Rendering Strategies Intro */
+
+
+/* Lesson 10: Challenge: Category Pages */
+
+
+/* Lesson 9: Challenge: Style Categories Link */
+
+
+/* Lesson 8: Even More on Client Components */
+
+
+/* Lesson 7: Challenge: Style Active Link */
+
+
+/* Lesson 6: More about client components */
+
+
+/* Lesson 5: Quick Link Refactors */
+
+
+/* Lesson 4: Aside: usePathname */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+  margin-bottom: auto;
+  padding: 10px;
+}
+
+header {
+  background-color: #27272a;
+  color: #f4f4f5;
+  padding-left: 10px;
+}
+
+nav>ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  padding-left: 0;
+}
+
+nav>ul>* {
+  text-transform: uppercase;
+}
+
+a,
+a:visited,
+a:hover,
+a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.is-active{
+  text-decoration: underline;
+}
+
+footer {
+  background-color: #27272a;
+  color: #f4f4f5;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.posts-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.posts-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-link {
+  display: block;
+  height: 100%;
+  width: 100%;
+  padding: 15px;
+}
+
+.post-item {
+  padding: 15px;
+  margin-bottom: 10px;
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.post-item:hover {
+  background-color: #f8f8f8;
+}
+
+.post-item h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #27272a;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Lesson 3: Add categories Nav Bar */
+
+
+/* Lesson 2: Challenge: add categories page */
+
+
+/* Lesson 1: Walking through refactors */

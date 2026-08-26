@@ -49,17 +49,8 @@
 
 
 /* Lesson 8: Even More on Client Components */
-/* 
-Client Components
-. Any file marked with "use client"
-. Any compound that are imported and rendered by a client component
 
-*/
-export default function Page() {
-  console.log(`Page: ${typeof document === "undefined" ? "Server" : "Client"} component`)
- 
-  return <h1>Hello, Next.js!</h1>
-}
+
 /* Lesson 7: Challenge: Style Active Link */
 
 
@@ -70,7 +61,25 @@ export default function Page() {
 
 
 /* Lesson 4: Aside: usePathname */
+import Link from "next/link"
 
+export default async function PostsPage() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts")
+  const posts = await res.json()
+
+  return (
+    <div className="posts-container">
+      <h1>Blog Posts</h1>
+      <ul className="posts-list">
+        {posts.map((post) => (
+          <li key={post.id} className="post-item">
+            <Link href={`/posts/${post.id}`}><h2>{post.title}</h2></Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
 
 /* Lesson 3: Add categories Nav Bar */
 
@@ -79,8 +88,3 @@ export default function Page() {
 
 
 /* Lesson 1: Walking through refactors */
-/* 
-export default function Page() {
-  return <h1>Hello, Next.js!</h1>
-} 
-*/

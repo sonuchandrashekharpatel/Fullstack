@@ -49,38 +49,43 @@
 
 
 /* Lesson 8: Even More on Client Components */
-/* 
-Client Components
-. Any file marked with "use client"
-. Any compound that are imported and rendered by a client component
 
-*/
-export default function Page() {
-  console.log(`Page: ${typeof document === "undefined" ? "Server" : "Client"} component`)
- 
-  return <h1>Hello, Next.js!</h1>
-}
+
 /* Lesson 7: Challenge: Style Active Link */
 
+import Link from "next/link"
+import type { NavLinkProps } from "../types"
+
+export default function NavLink({ href, children, isActive }: NavLinkProps) {
+    return (
+        <li className="text-sm uppercase">
+            <Link
+                href={href}
+                className={`px-4 py-2 text-gray-700 transition-colors rounded-md cursor-pointer hover:text-orange-accent ${isActive && "text-orange-accent"}`}
+            >
+                {children}
+            </Link>
+        </li>
+    )
+}
 
 /* Lesson 6: More about client components */
 
 
 /* Lesson 5: Quick Link Refactors */
-
-
-/* Lesson 4: Aside: usePathname */
-
-
-/* Lesson 3: Add categories Nav Bar */
-
-
-/* Lesson 2: Challenge: add categories page */
-
-
-/* Lesson 1: Walking through refactors */
 /* 
-export default function Page() {
-  return <h1>Hello, Next.js!</h1>
-} 
-*/
+import Link from "next/link"
+import type { NavLinkProps } from "../types"
+
+export default function NavLink({ href, children }: NavLinkProps) {
+    return (
+        <li className="text-sm uppercase">
+            <Link
+                href={href}
+                className="px-4 py-2 text-gray-700 transition-colors rounded-md cursor-pointer hover:text-orange-accent"
+            >
+                {children}
+            </Link>
+        </li>
+    )
+} */
