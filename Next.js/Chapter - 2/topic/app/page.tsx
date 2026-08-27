@@ -34,10 +34,46 @@
 
 
 /* Lesson 13: Rendering Strategies Pt. 3 */
+/* 
+What codes affects rendering?
 
+If you write...                             Next marks route as      Because...
+
+export const revalidate = 60                Static + ISR             Data can be cached for awhile, 
+-or-                                                                 but should refresh after a specified
+fetch (url, { next: {revalidate: 60} })                              amount of time.
+
+
+fetch(url, {cache: "no-store"})             Dynamic SSR              Needs fresh, per-request data.
+-or-                                                    
+export const dynamic = "force-dynamic"
+
+
+None of the above                           Static (SSG)             Data can be frozen at build-time.
+-or-
+fetch(url, {cache: "force-cache"})
+-or-
+export const dynamic = "force-static"
+
+*/
 
 /* Lesson 12: Rendering Strategies pt 2 */
+/* 
+Decision* Tree:
 
+Step 1        : Is the page content identical for everyone?
+  |-- Yes -- : If yes, Can it be a little outdated?
+
+    |-- Yes -- : If yes, Static Site Generation (SSG)
+
+    |-- No -- : If no, Incremental Static Regeneration (ISR)
+
+  |-- No -- : If no, Server Side Rendering (SSR)
+
+* Next.js figures out which rendering strategy to use for you!
+  You just write code you need and Next.js handles the rest.
+
+*/
 
 /* Lesson 11: Rendering Strategies Intro */
 /* 
