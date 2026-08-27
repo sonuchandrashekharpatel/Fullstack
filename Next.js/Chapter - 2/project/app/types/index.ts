@@ -43,6 +43,70 @@
 
 
 /* Lesson 10: Challenge: Category Pages */
+import type { ReactNode } from "react"
+
+// Data Types
+export type Model = {
+  id: number
+  name: string
+  description: string
+  likes: number
+  image: string
+  category: string
+  dateAdded: string
+}
+
+export type Category = {
+    displayName: string
+    slug: string
+}
+
+export type CategoriesData = {
+    categories: Category[]
+}
+
+// Page Types
+export type LayoutProps = Readonly<{
+  children: React.ReactNode;
+}>
+
+export type ModelDetailPageProps = {
+    params: Promise<{
+        id: string
+    }>
+}
+
+export type CategoryPageProps = {
+    params: Promise<{
+        categoryName: string
+    }>
+}
+
+export type GetModelsParams = {
+    category?: string
+}
+
+// Components Types
+export type ModelCardProps = {
+    model: Model
+}
+
+export type ModelsGridProps = {
+    title: string
+    models: Model[]
+}
+
+export type PillProps = {
+    children: ReactNode
+    className?: string
+    role?: string
+}
+
+export type NavLinkProps = {
+    href: string
+    children: ReactNode,
+    isActive: boolean
+}
 
 
 /* Lesson 9: Challenge: Style Categories Link */
@@ -52,7 +116,7 @@
 
 
 /* Lesson 7: Challenge: Style Active Link */
-import type { ReactNode } from "react"
+/* import type { ReactNode } from "react"
 
 // Data Types
 export type Model = {
@@ -112,7 +176,7 @@ export type NavLinkProps = {
     children: ReactNode,
     isActive: boolean
 }
-
+ */
 
 /* Lesson 6: More about client components */
 

@@ -40,7 +40,32 @@
 
 
 /* Lesson 11: Rendering Strategies Intro */
+/* 
+Rendering strategies: 
+  Decide when and where a page's HTML is built
 
+  Build-time:
+    Pre-rendered once, served from cache
+
+  Request-time:
+    HTML-rendered on demand, always fresh.
+
+  In-browser:
+  Built in-browser after JS loads.
+
+Types of Rendering Strategies:
+  Strategy                          When rendered?                      Where rendered?
+
+  Static Site Generation            Once, at build time                 On server when 'next build' is run
+  (SSG)
+
+  Incremental Static                Once, at build time then            On server, in the background when 
+  Regeneration (ISR)                regenerated after a time window     the next request triggers regeneration
+
+  Server-side Rendering             On every request from the           On server, when a request for 
+  SSR                               browser                             that page comes in
+
+*/
 
 /* Lesson 10: Challenge: Category Pages */
 

@@ -43,10 +43,44 @@
 
 
 /* Lesson 10: Challenge: Category Pages */
+/**
+ * Challenge: Build out the CategoryPage
+ * 
+ * 1. Given the categoryName (a.k.a. "category slug"), get the list of models
+ *    that have that category by calling the new `getModels()` function, passing
+ *    in the config object with the `category` property. See the `getModels()`
+ *    function for details.
+ * 2. With the models, render the `ModelsGrid` passing in the models. See the
+ *    code for ModelsGrid for details.
+ * 3. Test your solution by clicking on a category. It should only display 3D 
+ *    models from the chosen category.
+ */
 
+import type { CategoryPageProps } from "@/app/types"
+import { getCategoryBySlug } from "@/app/lib/categories"
+import { getModels } from "@/app/lib/models"
+import ModelsGrid from "@/app/components/ModelsGrid"
+
+export default async function CategoryPage({ params }: CategoryPageProps ) {
+    const {categoryName} = await params
+    const category = getCategoryBySlug(categoryName)
+    const models = await getModels({ category: categoryName }) 
+
+    return <ModelsGrid title={category.displayName} models={models} />
+}
 
 /* Lesson 9: Challenge: Style Categories Link */
 
+/* 
+import type { CategoryPageProps } from "@/app/types"
+import { getCategoryBySlug } from "@/app/lib/categories"
+
+export default async function CategoryPage({ params }: CategoryPageProps ) {
+    const {categoryName} = await params
+    const category = getCategoryBySlug(categoryName)
+    
+    return <h1>{category.displayName}</h1>
+} */
 
 /* Lesson 8: Even More on Client Components */
 
@@ -67,7 +101,7 @@
 
 
 /* Lesson 2: Challenge: add categories page */
-import type { CategoryPageProps } from "@/app/types"
+/* import type { CategoryPageProps } from "@/app/types"
 import type { Category } from "@/app/types"
 import { getAllCategories} from "@/app/lib/categories"
 
@@ -78,4 +112,4 @@ export default async function CategoryPage({ params }: CategoryPageProps ) {
     const categoryEl = categories.map((category: Category): React.JSX.Element => <h1 key={category.slug}>{category.displayName}</h1>)
     
     return categoryEl
-}
+} */

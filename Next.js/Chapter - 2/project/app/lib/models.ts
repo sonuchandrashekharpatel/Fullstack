@@ -44,6 +44,28 @@
 
 /* Lesson 10: Challenge: Category Pages */
 
+import modelsData from "../data/models.json"
+import type { Model, GetModelsParams } from "@/app/types/index"
+
+
+export async function getModels({ category }: GetModelsParams = {}): Promise<Model[]> {
+    let filterData = modelsData
+
+    if(category) {
+        filterData = filterData.filter(model => model.category === category)
+    }
+    return filterData
+}
+
+
+export async function getModelById(id: string | number): Promise<Model> {
+    const foundModel = modelsData.find((model: Model) => model.id.toString() === id.toString())
+    if(!foundModel) {
+        throw new Error(`Model with the id ${id} not found`)
+    }
+    return foundModel
+}
+
 
 /* Lesson 9: Challenge: Style Categories Link */
 
@@ -74,7 +96,7 @@
 
 /* Lesson 0: Previous Chapter */
 
-
+/* 
 import modelsData from "../data/models.json"
 import type { Model } from "@/app/types/index"
 
@@ -89,3 +111,4 @@ export async function getModelById(id: string | number): Promise<Model> {
     }
     return foundModel
 }
+ */

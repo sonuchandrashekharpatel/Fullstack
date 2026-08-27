@@ -43,6 +43,13 @@
 
 
 /* Lesson 10: Challenge: Category Pages */
+import { getModels } from "@/app/lib/models"
+import ModelsGrid from "@/app/components/ModelsGrid"
+
+export default async function ModelsPage() {
+  const models = await getModels()
+  return <ModelsGrid title="3D Models" models={models} ></ModelsGrid>
+}
 
 
 /* Lesson 9: Challenge: Style Categories Link */
@@ -90,14 +97,14 @@ Challenge
 
 
 /* Lesson 1: Walking through refactors */
-import { getAllModels } from "@/app/lib/models"
+/* import { getAllModels } from "@/app/lib/models"
 import ModelsGrid from "@/app/components/ModelsGrid"
 
 export default async function ModelsPage() {
   const models = await getAllModels()
   return <ModelsGrid title="3D Models" models={models} ></ModelsGrid>
 }
-
+ */
 
 /* Lesson 0: Previous Chapter */
 
