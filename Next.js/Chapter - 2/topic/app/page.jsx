@@ -25,14 +25,137 @@
 
 
 /* Lesson 16: CatFacts: Structured Play */
+// export const dynamic = "force-dynamic"
+
+async function getCatFact() {
+  const res = await fetch("https://catfact.ninja/fact", { cache: "no-store" })
+  return await res.json()
+}
+
+export default async function Home() {
+/**
+ * Structured play 🛝
+ * - see what happens when you render the time stamp in dev mode
+ *   (npm run dev) vs. production mode (npm run build + npm start).
+ * - See what happens when you uncomment line 1 at the top.
+ * - Each time, before starting up the server, see if you can
+ *   guess what the behavior will be when you refresh the page;
+ *   will the timestamp update? Will it stay the same?
+ * 
+ * Note: Try to remember how we need to do things slightly differently
+ * in Scrimba. Considering downloading the code to your machine and
+ * running it locally to see what's different.
+ * 
+ * In general, be curious and play around a bit!
+ */
+
+  const catFact = await getCatFact()
+  const timestamp = new Date().toLocaleTimeString()
+
+  return (
+    <div className="page">
+      <main className="main">
+        <h1>🐈‍⬛ Cat Facts 🐈</h1>
+        <div className="fact-card">
+          <p className="timestamp">Rendered at: {timestamp}</p>
+          <p className="fact-text">{catFact.fact}</p>
+        </div>
+      </main>
+    </div>
+  )
+}
 
 
 /* Lesson 15: CatFacts - Add Fetch */
+/**
+ * Challenge: 
+ * Part 1: Fetch a random cat fact from the CatFacts API
+ *     - URL: "https://catfact.ninja/fact"
+ *     - Make sure to return res.json() from this function
+ *     - Run the code with `npm run build` and `npm start` 
+ *       in the terminal.
+ * 
+ * Part 2: TBA
+*     Challenge: 
+*     https://nextjs.org/docs/app/api-reference/functions/fetch#fetchurl-options
+*     
+*     Part 2: Add the `{cache: "no-store"}` option to the fetch request.
+*     Rebuild (npm run build) and start (npm start) and see what it shows.
+*     
+*     Note: ⚠️ it may not show what you would expect ⚠️
+ */
+/* 
+async function getCatFact() {
+  const res = await fetch("https://catfact.ninja/fact", { cache: "no-store"})
+  const data = await res.json()
 
+  return data
+}
 
+export default async function Home() {
+  const catFact = await getCatFact()
+
+  return (
+    <div className="page">
+      <main className="main">
+        <h1>🐈‍⬛ Cat Facts 🐈</h1>
+        <div className="fact-card">
+          <p className="fact-text">{catFact.fact}</p>
+        </div>
+      </main>
+    </div>
+  )
+}
+
+ */
 /* Lesson 14: Cat Facts - SSG Pt. 1 */
+/* 
+One gotcha: 
+. The most reliable way to see if your  page is rendering statically 
+  or dynamically is to build and run the production version of your 
+  app with :
+  npm run && npm start
 
+*/
+/**
+ * Challenge: build and run the Cat Facts app
+ * 
+ * 1. Open the terminal and enter `npm run build`
+ * 2. When it finishes, check the output to see which routes
+ *    are being rendered statically vs. dynamically
+ * 3. (Optional): Run `npm start` to start the production
+ *    version of the Cat Facts app.
+ */
+/**
+ * Challenge: manually change this page to dynamic
+ * 
+ * 1. Add `export const dynamic = "force-dynamic"` to the
+ *    top of the file.
+ * 2. Do `npm run build` again and look carefully at the output.
+*/
+/* 
+export const dynamic = "force-dynamic"
+async function getCatFact() {
+  return {
+    fact: "Cats step with both left legs, then both right legs when they walk or run."
+  }
+}
 
+export default async function Home() {
+  const catFact = await getCatFact()
+
+  return (
+    <div className="page">
+      <main className="main">
+        <h1>🐈‍⬛ Cat Facts 🐈</h1>
+        <div className="fact-card">
+          <p className="fact-text">{catFact.fact}</p>
+        </div>
+      </main>
+    </div>
+  )
+}
+ */
 /* Lesson 13: Rendering Strategies Pt. 3 */
 /* 
 What codes affects rendering?
@@ -116,11 +239,13 @@ Client Components
 . Any compound that are imported and rendered by a client component
 
 */
+/* 
 export default function Page() {
   console.log(`Page: ${typeof document === "undefined" ? "Server" : "Client"} component`)
  
   return <h1>Hello, Next.js!</h1>
 }
+ */
 /* Lesson 7: Challenge: Style Active Link */
 
 

@@ -31,6 +31,23 @@
 
 
 /* Lesson 14: Cat Facts - SSG Pt. 1 */
+import "./global.css"
+
+export const metadata = {
+    title: "Cat Facts",
+    description: "A fun app for learning about cats using the Cat Facts API!",
+}
+
+export default function RootLayout({ children }) {
+    return (
+        <html lang="en">
+            <head>
+                <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+            </head>
+            <body>{children}</body>
+        </html>
+    )
+}
 
 
 /* Lesson 13: Rendering Strategies Pt. 3 */
@@ -49,6 +66,7 @@
 
 
 /* Lesson 8: Even More on Client Components */
+/* 
 "use client"
 import "./global.css"
 import Navbar from "@/app/components/Navbar"
@@ -70,7 +88,7 @@ export default function RootLayout({ children }: {children: React.ReactNode }) {
     </html>
   )
 }
-
+ */
 
 /* Lesson 7: Challenge: Style Active Link */
 
