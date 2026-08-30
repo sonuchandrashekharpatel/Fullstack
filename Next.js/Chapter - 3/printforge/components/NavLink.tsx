@@ -209,45 +209,19 @@
 
 
 /* Lesson 2: Rebuilding the App Shell */
-/*  
-CHALLENGE - About Page
-- Create `app/about/page.tsx`  
-- Copy the contents of the `<main>` element from `about.html` into the page
-  
-DOCS: 
-- https://nextjs.org/docs/app/getting-started/layouts-and-pages#creating-a-nested-route
-*/
+
 import Link from "next/link"
 
-export default function Home() {
+export default function NavLink({ children, href }: {
+    href: string
+    children: React.ReactNode
+}) {
     return (
-        <main>
-            <section className="flex flex-col-reverse items-center justify-between gap-8 px-6 py-12 mx-auto md:flex-row max-w-7xl">
-                <div className="flex-1 space-y-6">
-                <p className="hidden text-sm text-gray-600 uppercase md:block">
-                    Your go-to platform for 3D printing files
-                </p>
-                <h1 className="text-4xl font-bold md:text-5xl">
-                    Discover what's possible with 3D Printing
-                </h1>
-                <p className="text-lg text-gray-600">
-                    Join our community of creators and explore a vast
-                    library of user-submitted models.
-                </p>
-
-                <div className="flex gap-4">
-                    <Link
-                    href="/3d-models"
-                    className="px-6 py-3 text-black transition duration-100 bg-white border-2 border-black hover:bg-black hover:text-white"
-                    >
-                    Browse Models
-                    </Link>
-                </div>
-                </div>
-                <img src="/img/hero-image.png" className="w-87.5 h-auto rounded-lg" alt="Hero Image"/>
-            </section>
-        </main>
+        <>
+            <li className="text-sm uppercase">
+                <Link className="px-4 py-2 transition-colors rounded-md cursor-pointer hover:text-orange-400 text-gray-700"
+                href={href}>{children}</Link>
+            </li>
+        </>
     )
 }
-
-/* Lesson 1: Welcome to Section 3! */

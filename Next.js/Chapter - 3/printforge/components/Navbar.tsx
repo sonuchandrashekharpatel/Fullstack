@@ -209,45 +209,63 @@
 
 
 /* Lesson 2: Rebuilding the App Shell */
-/*  
-CHALLENGE - About Page
-- Create `app/about/page.tsx`  
-- Copy the contents of the `<main>` element from `about.html` into the page
-  
+/*
+CHALLENGE - Navbar Component
+Create a Navbar component using the `<header>` element
+in the `index.html` mockup and import/use in `layout.tsx`
+
 DOCS: 
-- https://nextjs.org/docs/app/getting-started/layouts-and-pages#creating-a-nested-route
+- https://react.dev/learn/your-first-component#defining-a-component
+- https://nextjs.org/docs/app/getting-started/layouts-and-pages#creating-a-layout
 */
+/*  
+CHALLENGE - Link Component
+- Change all anchor elements to Link components  
+- Update all `href` attributes to use routes
+
+DOCS:
+- https://nextjs.org/docs/app/api-reference/components/link
+*/
+/*  
+CHALLENGE - NavLink Component  
+- Create a `NavLink.tsx` component  
+- Accept `href` and `children` as props  
+- Move one of the `<li>` elements from `Navbar.tsx` into the component  
+- Replace the hardcoded values with props  
+- Use `NavLink` inside `Navbar.tsx`
+  
+DOCS:
+- https://react.dev/learn/passing-props-to-a-component#passing-props-to-a-component 
+*/
+
 import Link from "next/link"
-
-export default function Home() {
+import NavLink from "./NavLink"
+export default function Navbar() {
     return (
-        <main>
-            <section className="flex flex-col-reverse items-center justify-between gap-8 px-6 py-12 mx-auto md:flex-row max-w-7xl">
-                <div className="flex-1 space-y-6">
-                <p className="hidden text-sm text-gray-600 uppercase md:block">
-                    Your go-to platform for 3D printing files
-                </p>
-                <h1 className="text-4xl font-bold md:text-5xl">
-                    Discover what's possible with 3D Printing
-                </h1>
-                <p className="text-lg text-gray-600">
-                    Join our community of creators and explore a vast
-                    library of user-submitted models.
-                </p>
+        <header className="w-full bg-white">
+            <nav className="flex justify-between px-6 py-4 pr-2">
+                <Link href="/">
+                <div className="relative cursor-pointer">
 
-                <div className="flex gap-4">
-                    <Link
-                    href="/3d-models"
-                    className="px-6 py-3 text-black transition duration-100 bg-white border-2 border-black hover:bg-black hover:text-white"
-                    >
-                    Browse Models
-                    </Link>
+                    <img
+                    src="/img/printforge-logo.svg"
+                    alt="PrintForge Logo"
+                    className="w-50 h-auto hidden md:block"
+                    />
+
+                    <img
+                    src="/img/printforge-logo-icon.svg"
+                    alt="PrintForge Logo"
+                    className="w-10 h-auto block md:hidden"
+                    />
                 </div>
-                </div>
-                <img src="/img/hero-image.png" className="w-87.5 h-auto rounded-lg" alt="Hero Image"/>
-            </section>
-        </main>
+                </Link>
+                
+                <ul className="flex items-center gap-1.5">
+                    <NavLink href="/3d-models">3D Models</NavLink>
+                    <NavLink href="/about">About</NavLink>
+                </ul>
+            </nav>
+        </header>
     )
 }
-
-/* Lesson 1: Welcome to Section 3! */

@@ -1,26 +1,144 @@
-@import "tailwindcss";
+/* Chapter - 3: Making Data Flow */
+@import "tailwindcss"
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Lesson 1: Welcome to Section 3! */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Lesson 2: Rebuilding the App Shell */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* Lesson 3: Structuring the 3D Models Section */
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* Lesson 4: Adding Dynamic Routes and Image Optimisation */
+
+/* Lesson 5: Introducing Data in Next.js */
+
+/* Lesson 6: Setting Up the PrintForge Database */
+
+/* Lesson 7: Seeding the Models Table */
+
+/* Lesson 8: Seeding the Categories Table */
+
+/* Lesson 9: A Tiny SQLite Setup Note */
+
+/* Lesson 10: Reading Models from the Database */
+
+/* Lesson 11: Reading Categories from the Database */
+
+/* Lesson 12: Rendering Category Links from Data */
+
+/* Lesson 13: Wiring Database Models into the UI */
+
+/* Lesson 14: Making ModelCards Dynamic */
+
+/* Lesson 15: Filtering Data with SQL WHERE */
+
+/* Lesson 16: Building a Dynamic Category Page */
+
+/* Lesson 17: Building a Dynamic Single Model Page */
+
+/* Lesson 18: Making the Category Page Title Dynamic */
+
+/* Lesson 19: Fixing the “All” Category Link */
+
+/* Lesson 20: Understanding the Search Data Flow */
+
+/* Lesson 21: Upgrading the SearchForm */
+
+/* Lesson 22: Reading searchParams from the URL */
+
+/* Lesson 23: Upgrading getModels() for Search */
+
+/* Lesson 24: Searching by Name or Description */
+
+/* Lesson 25: Passing Search Through the UI */
+
+/* Lesson 26: Understanding the Sorting Data Flow */
+
+/* Lesson 27: Setting Up Sort Controls */
+
+/* Lesson 28: Navigating with usePathname and useRouter */
+
+/* Lesson 29: Styling the Active SortButton */
+
+/* Lesson 30: Sending Sort Params to the Data Layer */
+
+/* Lesson 31: Sorting Data with SQL ORDER BY */
+
+/* Lesson 32: Sorting Models within Categories */
+
+/* Lesson 33: Upgrading getModels() for Category Sorting */
+
+/* Lesson 34: Refactoring getModels() to take an object */
+
+/* Lesson 35: Combining sort and search functionality */
+
+/* Lesson 36: Adding Route-Level Loading UI */
+
+/* Lesson 37: Using Multiple loading.tsx Files */
+
+/* Lesson 38: Showing Pending UI with useTransition */
+
+/* Lesson 39: Creating the Models Browser Component */
+
+/* Lesson 40: Setting up the LoadingUI Component */
+
+/* Lesson 41: Debugging the Missing Category Page Title */
+
+/* Lesson 42: Triggering Loading UI from SortButtons */
+
+/* Lesson 43: Triggering Loading UI from SearchForm */
+
+/* Lesson 44: Showing a Not Found State */
+
+/* Lesson 45: Handling Non-existent Models and Categories */
+
+/* Lesson 46: Showing a No Results Found State */
+
+/* Lesson 47: Checkpoint Challenge: Searching Within Categories, Part 1 */
+
+/* Lesson 48: Checkpoint Challenge: Searching Within Categories, Part 2 */
+
+/* Lesson 49: Introducing Pagination */
+
+/* Lesson 50: Creating Pagination Controls and Buttons */
+
+/* Lesson 51: Updating the URL with a Page Query */
+
+/* Lesson 52: Reading the Page Query on the Server */
+
+/* Lesson 53: Limiting Results with LIMIT and OFFSET */
+
+/* Lesson 54: Returning One Page of Models */
+
+/* Lesson 55: Counting Rows with COUNT() */
+
+/* Lesson 56: Counting Total Matching Models */
+
+/* Lesson 57: Calculating Total Pages */
+
+/* Lesson 58: Rendering the Right Number of Pagination Buttons */
+
+/* Lesson 59: Styling the Active Pagination Button */
+
+/* Lesson 60: Adding Pagination to Category Pages */
+
+/* Lesson 61: Refactoring modelsPerPage */
+
+/* Lesson 62: Refactoring Query Param Logic */
+
+/* Lesson 63: Polishing Edge Cases and UX */
+
+/* Lesson 64: Handling Out-of-Bounds Page Params */
+
+/* Lesson 65: Handling Invalid Page Params */
+
+/* Lesson 66: Handling Invalid Sort Params */
+
+/* Lesson 67: Debug the Redirect Bug */
+
+/* Lesson 68: Applying Edge Case Handling to Category Pages */
+
+/* Lesson 69: Final UX Polish Challenge Pack */
+
+/* Lesson 70: Final Pagination Challenge */
+
+/* Lesson 71: Section 3 Outro */
