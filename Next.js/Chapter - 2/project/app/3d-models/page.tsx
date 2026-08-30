@@ -7,12 +7,91 @@
 
 
 /* Lesson 22: PrintForge - Upgrade to Next's Form Component */
+/**
+ * Challenge: Upgrade our form to a Form from Next.js
+ */
 
+import Form from "next/form"
+import { getModels } from "@/app/lib/models"
+import ModelsGrid from "@/app/components/ModelsGrid"
+import type {ModelPageProps} from "@/app/types"
+import type { Model } from "@/app/types"
+
+export default async function ModelsPage({ searchParams }: ModelPageProps) {
+  const models = await getModels()
+  const { query } = await searchParams
+
+  const filteredModels = query ? models.filter((model: Model): boolean =>
+    model.name.toLowerCase().includes(query.toLowerCase())  || model.description.toLowerCase().includes(query.toLowerCase()))
+    : models
+
+  return (
+    <>
+    <Form action="/3d-models" className="w-full px-5 md:px-0 md:max-w-xl">
+        <input
+          type="text"
+          name="query"
+          placeholder="E.g. dragon"                    autoComplete="off"
+          defaultValue={query}
+          className="w-full py-3 pl-5 pr-5 text-sm placeholder-gray-500 bg-white border border-[#606060] rounded-full focus:border-[#606060] focus:outline-none focus:ring-0 md:text-base"
+        />
+      </Form
+      
+      
+      >
+      <ModelsGrid title="3D Models" models={filteredModels} ></ModelsGrid>
+    </>
+  )
+}
 
 /* Lesson 21: NextJS Form Component */
 
 
 /* Lesson 20: PrintForge - Search Bar using native form */
+/**
+ * Challenge:
+ * 1. Add a form with an input above the ModelsGrid. Don't worry about
+ *    a label for now.
+ * 2. Get access to the query from searchParams. Optional: use the
+ *    ModelsPageProps from our types file to satisy TypeScript.
+ * 3. Filter down the models being passed to ModelsGrid. Include:
+ *    a. any models with a `name` that includes the query, AND
+ *    b. any models with a `description` that includes the query.
+ * 
+ *    Make sure to ignore capitalization when filtering.
+ * 
+ *    A good test search term is "tool"
+ * 
+ * Optional: try to style it like the design in Figma
+ */
+/* import { getModels } from "@/app/lib/models"
+import ModelsGrid from "@/app/components/ModelsGrid"
+import type {ModelPageProps} from "@/app/types"
+import type { Model } from "@/app/types"
+
+export default async function ModelsPage({ searchParams }: ModelPageProps) {
+  const models = await getModels()
+  const { query } = await searchParams
+
+  const filteredModels = query ? models.filter((model: Model): boolean =>
+    model.name.toLowerCase().includes(query.toLowerCase())  || model.description.toLowerCase().includes(query.toLowerCase()))
+    : models
+
+  return (
+    <>
+      <form className="w-full px-5 md:px-0 md:max-w-xl">
+        <input
+          type="text"
+          name="query"
+          placeholder="E.g. dragon"                    autoComplete="off"
+          defaultValue={query}
+          className="w-full py-3 pl-5 pr-5 text-sm placeholder-gray-500 bg-white border border-[#606060] rounded-full focus:border-[#606060] focus:outline-none focus:ring-0 md:text-base"
+        />
+      </form>
+      <ModelsGrid title="3D Models" models={filteredModels} ></ModelsGrid>
+    </>
+  )
+} */
 
 
 /* Lesson 19: Cat Facts - searchParams pt. 2 */
@@ -43,14 +122,14 @@
 
 
 /* Lesson 10: Challenge: Category Pages */
-import { getModels } from "@/app/lib/models"
+/* import { getModels } from "@/app/lib/models"
 import ModelsGrid from "@/app/components/ModelsGrid"
 
 export default async function ModelsPage() {
   const models = await getModels()
   return <ModelsGrid title="3D Models" models={models} ></ModelsGrid>
 }
-
+ */
 
 /* Lesson 9: Challenge: Style Categories Link */
 

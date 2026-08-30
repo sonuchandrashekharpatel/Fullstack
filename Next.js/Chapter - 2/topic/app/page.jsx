@@ -1,38 +1,213 @@
 /* Chapter - 2: Rendering Strategies and More */
 
 /* Lesson 24: Section 2 Recap */
+/* 
+Recap:
+What we've covered:
+1. Added the categories nav bar and pages
+2. usePathname & active link styling
+3. Client components with "use client"
+4. Rendering stategies
+  . Static
+  . Dynamic
+  . Incremental Static Regeneration
 
+5. Using <form>, <Form> and searchParams
+
+Plus tons of challenges..
+
+
+*/
 
 /* Lesson 23: Tiny Library Solo */
+/* 
+Tiny Library:
 
+Figma:  https://www.figma.com/design/FtShBWNFWZtBzGY6MlSLvT/Tiny-Library?node-id=1-1130&t=6fDjdfjzLyKbW6xY-0
+
+*/
 
 /* Lesson 22: PrintForge - Upgrade to Next's Form Component */
 
 
 /* Lesson 21: NextJS Form Component */
+/* 
+. Prevents full page reloads on form submit.
+. Pre-fetches target page layout for fast UI.
+. Works smoothly even if JavaScript is disabled
+. Syncs URL search parameters to server logic.
+*/
 
+import Form from "next/form"
+async function getCatFacts() {
+  const res = await fetch("https://catfact.ninja/facts")
+  const data = await res.json()
+
+  return data.data
+}
+
+export default async function Home({ searchParams }) {
+  const { query } = await searchParams
+  const catFacts = await getCatFacts()
+  console.log(catFacts)
+
+  let filterFacts = catFacts
+
+  if(query) {
+    filterFacts = filterFacts.filter( fact => fact.fact.toLowerCase().includes(query.toLowerCase()))
+  }
+
+  return (
+    <div className="page">
+      <main className="main">
+        <h1>🐈‍⬛ Cat Facts 🐈</h1>
+
+        <Form action="/" className="search-form">
+          <label html="cat-fact-query" className="sr-only">Search Cat facts</label>
+          <input 
+            className="search-input"
+            type="text" 
+            name="query"
+            id="cat-fact-query"
+            placeholder="Search cat facts here..." 
+            aria-label="search-box"
+            defaultValue={query}
+            autoComplete="off"
+          />
+        </Form>
+
+        <div className="facts-list">
+          {filterFacts.map((fact, index) => (
+            <div key={index} className="fact-card">
+              <p className="fact-text">{fact.fact}</p>
+            </div>
+          ))}
+        </div>
+      </main>
+    </div>
+  )
+}
 
 /* Lesson 20: PrintForge - Search Bar using native form */
 
 
 /* Lesson 19: Cat Facts - searchParams pt. 2 */
+/* 
+What 'autoComplete' does?
 
+. Controls browser form auto-fill suggestions.
 
+. autoComplete="off" disables the popup history
+
+. autoComplete="on" enables saved users inputs
+
+. Keep custom UI clean by removing popups.
+
+. Helps fill saved emails and secure passwords.
+
+*/
+/* 
+async function getCatFacts() {
+  const res = await fetch("https://catfact.ninja/facts")
+  const data = await res.json()
+
+  return data.data
+}
+
+export default async function Home({ searchParams }) {
+  const { query } = await searchParams
+  const catFacts = await getCatFacts()
+  console.log(catFacts)
+
+  let filterFacts = catFacts
+
+  if(query) {
+    filterFacts = filterFacts.filter( fact => fact.fact.toLowerCase().includes(query.toLowerCase()))
+  }
+
+  return (
+    <div className="page">
+      <main className="main">
+        <h1>🐈‍⬛ Cat Facts 🐈</h1>
+
+        <form className="search-form">
+          <label html="cat-fact-query" className="sr-only">Search Cat facts</label>
+          <input 
+            className="search-input"
+            type="text" 
+            name="query"
+            id="cat-fact-query"
+            placeholder="Search cat facts here..." 
+            aria-label="search-box"
+            defaultValue={query}
+            autoComplete="off"
+          />
+        </form>
+
+        <div className="facts-list">
+          {filterFacts.map((fact, index) => (
+            <div key={index} className="fact-card">
+              <p className="fact-text">{fact.fact}</p>
+            </div>
+          ))}
+        </div>
+      </main>
+    </div>
+  )
+}
+ */
 /* Lesson 18: CatFacts - searchParams pt. 1 */
 
 
 /* Lesson 17: HTML Form Submissions are Navigation Events */
+/* 
+Submitting a form is actually a navigation event on your site
+*/
 
+/**
+ * Challenge:
+ * 
+ * Add a `form` element below the `h1` that has a single
+ * `input` element (type="text"). Give it a `name` property
+ * of something like "search" or "query", and a placeholder
+ * 
+ * Then, type something into the input and hit enter.
+ * Check what happens with the page and the URL.
+ */
+/* 
+async function getCatFacts() {
+  const res = await fetch("https://catfact.ninja/facts")
+  const data = await res.json()
 
-/* Lesson 16: CatFacts: Structured Play */
-// export const dynamic = "force-dynamic"
-
-async function getCatFact() {
-  const res = await fetch("https://catfact.ninja/fact", { cache: "no-store" })
-  return await res.json()
+  return data.data
 }
 
 export default async function Home() {
+  const catFacts = await getCatFacts()
+
+  return (
+    <div className="page">
+      <main className="main">
+        <h1>🐈‍⬛ Cat Facts 🐈</h1>
+
+        <form>
+          <input type="text" name="search" aria-label="search-box" placeholder="Search here..." />
+        </form>
+
+        <div className="facts-list">
+          {catFacts.map((fact, index) => (
+            <div key={index} className="fact-card">
+              <p className="fact-text">{fact.fact}</p>
+            </div>
+          ))}
+        </div>
+      </main>
+    </div>
+  )
+}
+ */
+/* Lesson 16: CatFacts: Structured Play */
+// export const dynamic = "force-dynamic"
 /**
  * Structured play 🛝
  * - see what happens when you render the time stamp in dev mode
@@ -48,6 +223,13 @@ export default async function Home() {
  * 
  * In general, be curious and play around a bit!
  */
+/* 
+async function getCatFact() {
+  const res = await fetch("https://catfact.ninja/fact", { cache: "no-store" })
+  return await res.json()
+}
+
+export default async function Home() {
 
   const catFact = await getCatFact()
   const timestamp = new Date().toLocaleTimeString()
@@ -64,7 +246,7 @@ export default async function Home() {
     </div>
   )
 }
-
+ */
 
 /* Lesson 15: CatFacts - Add Fetch */
 /**
