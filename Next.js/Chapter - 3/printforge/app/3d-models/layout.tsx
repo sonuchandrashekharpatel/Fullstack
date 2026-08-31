@@ -203,56 +203,31 @@
 
 
 /* Lesson 4: Adding Dynamic Routes and Image Optimisation */
-/*  
-CHALLENGE - Font Optimisation (Roboto)  
-- Import Google Font's "Roboto" using Next’s built-in font system  
-- Apply it to the entire app via `layout.tsx`  
 
-DOCS:
-- https://nextjs.org/docs/app/getting-started/fonts#google-fonts  
-*/
-
-import "./globals.css"
-import Navbar from "@/components/Navbar"
-import {Roboto} from "next/font/google"
-
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: '400'
-})
-
-export default function RootLayout({ children }: Readonly<
-    { children: React.ReactNode}
-  >
-) {
-  return (
-    <html lang="en">
-      <body className={roboto.className}>
-        <Navbar />
-        {children}
-      </body>
-    </html>
-  )
-}
 
 /* Lesson 3: Structuring the 3D Models Section */
 
-
-/* Lesson 2: Rebuilding the App Shell */
-/* import "./globals.css"
-import Navbar from "@/components/Navbar"
-
-export default function RootLayout({ children }: Readonly<
-    { children: React.ReactNode}
-  >
-) {
-  return (
-    <html lang="en">
-      <body>
-        <Navbar />
-        {children}
-      </body>
-    </html>
-  )
+/*
+CHALLENGE - 3D Models Layout
+- Set up `layout.tsx` as a Next.js layout component
+- Copy the following from `3d-models.html` into the layout:
+  - Outer container `<div>`
+  - Categories sidebar `<aside>`
+  - Content container `<main>` (but without any of the child content)
+- Ensure `{children}` is rendered in the layout
+  
+DOCS: https://nextjs.org/docs/app/getting-started/layouts-and-pages#nesting-layouts
+*/
+import CategoriesNav from "@/components/CategoriesNav"
+export default function ModelsLayout({ children }: Readonly<{ 
+    children: React.ReactNode
+}>) {
+    return (
+        <div className="relative flex flex-col min-h-screen md:flex-row">
+            <CategoriesNav />
+            <main className="flex-1 p-4 md:ml-64">
+                { children }
+            </main>
+        </div>
+    )
 }
- */

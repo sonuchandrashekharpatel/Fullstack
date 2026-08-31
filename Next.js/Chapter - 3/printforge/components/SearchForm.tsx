@@ -203,56 +203,20 @@
 
 
 /* Lesson 4: Adding Dynamic Routes and Image Optimisation */
-/*  
-CHALLENGE - Font Optimisation (Roboto)  
-- Import Google Font's "Roboto" using Next’s built-in font system  
-- Apply it to the entire app via `layout.tsx`  
 
-DOCS:
-- https://nextjs.org/docs/app/getting-started/fonts#google-fonts  
-*/
-
-import "./globals.css"
-import Navbar from "@/components/Navbar"
-import {Roboto} from "next/font/google"
-
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: '400'
-})
-
-export default function RootLayout({ children }: Readonly<
-    { children: React.ReactNode}
-  >
-) {
-  return (
-    <html lang="en">
-      <body className={roboto.className}>
-        <Navbar />
-        {children}
-      </body>
-    </html>
-  )
-}
 
 /* Lesson 3: Structuring the 3D Models Section */
-
-
-/* Lesson 2: Rebuilding the App Shell */
-/* import "./globals.css"
-import Navbar from "@/components/Navbar"
-
-export default function RootLayout({ children }: Readonly<
-    { children: React.ReactNode}
-  >
-) {
-  return (
-    <html lang="en">
-      <body>
-        <Navbar />
-        {children}
-      </body>
-    </html>
-  )
+export default function SearcForm() {
+    return (
+        <form className="w-full px-5 md:px-0 md:max-w-xl">
+            <input
+                type="text"
+                id="search"
+                name="search"
+                placeholder="E.g. dragon"
+                autoComplete="off"
+                className="w-full py-3 pl-5 pr-5 text-sm placeholder-gray-500 bg-white border border-[#606060] rounded-full focus:border-[#606060] focus:outline-none focus:ring-0 md:text-base"
+            />
+        </form>
+    )
 }
- */

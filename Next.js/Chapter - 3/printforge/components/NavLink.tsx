@@ -203,6 +203,35 @@
 
 
 /* Lesson 4: Adding Dynamic Routes and Image Optimisation */
+/*  
+CHALLENGE - Active NavLink  
+- Turn `NavLink.tsx` into a client component  
+- Use the `usePathname` hook to get the current route  
+- Compare the current route with the link’s `href`  
+  (Hint: some routes might include additional segments, like `/3d-models/123`)
+- If applicable, apply the class `text-orange-400` to style the active link 
+
+DOCS: https://nextjs.org/docs/app/api-reference/functions/use-pathname
+*/
+"use client"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+
+export default function NavLink({ children, href }: {
+    href: string
+    children: React.ReactNode
+}) {
+    const currentPath = usePathname()
+
+    return (
+        <>
+            <li className="text-sm uppercase">
+                <Link className={`px-4 py-2 transition-colors rounded-md cursor-pointer hover:text-orange-400 ${ currentPath.startsWith(href) ? "text-orange-400" : "text-gray-700"}`}
+                href={href}>{children}</Link>
+            </li>
+        </>
+    )
+}
 
 
 /* Lesson 3: Structuring the 3D Models Section */
@@ -210,7 +239,7 @@
 
 /* Lesson 2: Rebuilding the App Shell */
 
-import Link from "next/link"
+/* import Link from "next/link"
 
 export default function NavLink({ children, href }: {
     href: string
@@ -225,3 +254,4 @@ export default function NavLink({ children, href }: {
         </>
     )
 }
+ */

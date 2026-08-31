@@ -203,56 +203,25 @@
 
 
 /* Lesson 4: Adding Dynamic Routes and Image Optimisation */
-/*  
-CHALLENGE - Font Optimisation (Roboto)  
-- Import Google Font's "Roboto" using Next’s built-in font system  
-- Apply it to the entire app via `layout.tsx`  
 
-DOCS:
-- https://nextjs.org/docs/app/getting-started/fonts#google-fonts  
-*/
-
-import "./globals.css"
-import Navbar from "@/components/Navbar"
-import {Roboto} from "next/font/google"
-
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: '400'
-})
-
-export default function RootLayout({ children }: Readonly<
-    { children: React.ReactNode}
-  >
-) {
-  return (
-    <html lang="en">
-      <body className={roboto.className}>
-        <Navbar />
-        {children}
-      </body>
-    </html>
-  )
-}
 
 /* Lesson 3: Structuring the 3D Models Section */
+import NavLink from "@/components/NavLink"
+export default function CategoriesNav() {
+    return (
+        <aside
+            className="sticky top-0 z-10 w-full bg-white border-b border-gray-200 md:fixed md:w-64 md:top-1/2 md:-translate-y-1/2 md:border-none">
+            <div className="relative">
+            <nav className="w-full overflow-x-auto md:overflow-visible scrollbar-hide">
+                <ul className="flex px-4 py-3 whitespace-nowrap md:flex-col md:p-0 md:space-x-0 md:space-y-3">
+                    <NavLink href="/3d-models">All</NavLink>
+                    <NavLink href="/3d-models/categories/3d-printer">3D Printer</NavLink>
+                </ul>
+            </nav>
+            <div
+                className="absolute top-0 right-0 w-8 h-full pointer-events-none bg-linear-to-l from-white to-transparent md:hidden"/>
+            </div>
+        </aside>
 
-
-/* Lesson 2: Rebuilding the App Shell */
-/* import "./globals.css"
-import Navbar from "@/components/Navbar"
-
-export default function RootLayout({ children }: Readonly<
-    { children: React.ReactNode}
-  >
-) {
-  return (
-    <html lang="en">
-      <body>
-        <Navbar />
-        {children}
-      </body>
-    </html>
-  )
+    )
 }
- */

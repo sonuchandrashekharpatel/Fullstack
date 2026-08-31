@@ -203,56 +203,18 @@
 
 
 /* Lesson 4: Adding Dynamic Routes and Image Optimisation */
-/*  
-CHALLENGE - Font Optimisation (Roboto)  
-- Import Google Font's "Roboto" using Next’s built-in font system  
-- Apply it to the entire app via `layout.tsx`  
 
-DOCS:
-- https://nextjs.org/docs/app/getting-started/fonts#google-fonts  
-*/
-
-import "./globals.css"
-import Navbar from "@/components/Navbar"
-import {Roboto} from "next/font/google"
-
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: '400'
-})
-
-export default function RootLayout({ children }: Readonly<
-    { children: React.ReactNode}
-  >
-) {
-  return (
-    <html lang="en">
-      <body className={roboto.className}>
-        <Navbar />
-        {children}
-      </body>
-    </html>
-  )
-}
 
 /* Lesson 3: Structuring the 3D Models Section */
 
-
-/* Lesson 2: Rebuilding the App Shell */
-/* import "./globals.css"
-import Navbar from "@/components/Navbar"
-
-export default function RootLayout({ children }: Readonly<
-    { children: React.ReactNode}
-  >
-) {
-  return (
-    <html lang="en">
-      <body>
-        <Navbar />
-        {children}
-      </body>
-    </html>
-  )
+import ModelCard from "./ModelCard"
+export default function ModelGrid() {
+    return (
+    <div className="container px-4 py-8 mx-auto">
+        <h1 className="mb-8 text-3xl font-bold">3D Models</h1>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <ModelCard />
+        </div>
+    </div>
+    )
 }
- */

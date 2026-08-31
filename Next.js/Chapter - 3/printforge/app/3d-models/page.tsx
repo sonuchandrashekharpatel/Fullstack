@@ -203,56 +203,33 @@
 
 
 /* Lesson 4: Adding Dynamic Routes and Image Optimisation */
-/*  
-CHALLENGE - Font Optimisation (Roboto)  
-- Import Google Font's "Roboto" using Next’s built-in font system  
-- Apply it to the entire app via `layout.tsx`  
-
+/*
+CHALLENGE - 3D Models Category Page
+- Create `app/3d-models/categories/[categorySlug]/page.tsx`
+- Render a `ModelGrid` on the page
+  
 DOCS:
-- https://nextjs.org/docs/app/getting-started/fonts#google-fonts  
+- https://nextjs.org/docs/app/getting-started/layouts-and-pages#nesting-layouts
+- https://nextjs.org/docs/app/getting-started/layouts-and-pages#creating-a-dynamic-segment
 */
 
-import "./globals.css"
-import Navbar from "@/components/Navbar"
-import {Roboto} from "next/font/google"
-
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: '400'
-})
-
-export default function RootLayout({ children }: Readonly<
-    { children: React.ReactNode}
-  >
-) {
-  return (
-    <html lang="en">
-      <body className={roboto.className}>
-        <Navbar />
-        {children}
-      </body>
-    </html>
-  )
-}
-
 /* Lesson 3: Structuring the 3D Models Section */
+/*  
+CHALLENGE - 3D Models Page
+- Create a `/3d-models` page and route  
+- Render an `<h1>` element on the page
+  
+DOCS: 
+- https://nextjs.org/docs/app/getting-started/layouts-and-pages#creating-a-nested-route
+*/
+import SearchForm from "@/components/SearchForm"
+import ModelGrid from "@/components/ModelGrid"
 
-
-/* Lesson 2: Rebuilding the App Shell */
-/* import "./globals.css"
-import Navbar from "@/components/Navbar"
-
-export default function RootLayout({ children }: Readonly<
-    { children: React.ReactNode}
-  >
-) {
-  return (
-    <html lang="en">
-      <body>
-        <Navbar />
-        {children}
-      </body>
-    </html>
-  )
+export default function ModelsPage() {
+    return (
+        <>
+            <SearchForm />
+            <ModelGrid />
+        </>
+    )
 }
- */
