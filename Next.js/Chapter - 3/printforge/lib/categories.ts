@@ -176,86 +176,38 @@
 
 
 /* Lesson 13: Wiring Database Models into the UI */
-/*
-CHALLENGE - Use `getModels()` to start wiring model data into the app.
 
-1. Import `getModels` from `@/lib/models`
-2. Fetch the models in the page (remember to await!)
-3. Pass them into `ModelsGrid` (accept and type the prop)
-4. Inside `ModelsGrid`, map over the models and render a `ModelCard` for each one
-
-You do not need to worry about every `ModelCard` detail just yet — the goal here is 52 of the same Articulated Dragon ModelCards
-*/
-
-import SearchForm from "@/components/SearchForm"
-import ModelGrid from "@/components/ModelGrid"
-import {getModels} from '@/lib/models'
-import {getCategories} from "@/lib/categories"
-
-export default async function ModelsPage() {
-    const models = await getModels()
-    const categories = await getCategories()
-
-    return (
-        <>
-            <SearchForm />
-            <ModelGrid models={models} categories={categories} />
-        </>
-    )
-}
 
 /* Lesson 12: Rendering Category Links from Data */
 
 
 /* Lesson 11: Reading Categories from the Database */
-
-
-/* Lesson 10: Reading Models from the Database */
-
-
-/* Lesson 9: A Tiny SQLite Setup Note */
-
-
-/* Lesson 8: Seeding the Categories Table */
-
-
-/* Lesson 7: Seeding the Models Table */
-
-
-/* Lesson 6: Setting Up the PrintForge Database */
-
-
-/* Lesson 5: Introducing Data in Next.js */
-
-
-/* Lesson 4: Adding Dynamic Routes and Image Optimisation */
-/*
-CHALLENGE - 3D Models Category Page
-- Create `app/3d-models/categories/[categorySlug]/page.tsx`
-- Render a `ModelGrid` on the page
-  
-DOCS:
-- https://nextjs.org/docs/app/getting-started/layouts-and-pages#nesting-layouts
-- https://nextjs.org/docs/app/getting-started/layouts-and-pages#creating-a-dynamic-segment
-*/
-
-/* Lesson 3: Structuring the 3D Models Section */
 /*  
-CHALLENGE - 3D Models Page
-- Create a `/3d-models` page and route  
-- Render an `<h1>` element on the page
+CHALLENGE  
   
-DOCS: 
-- https://nextjs.org/docs/app/getting-started/layouts-and-pages#creating-a-nested-route
+1. Import `getDBConnection` from `@/lib/db`  
+  
+2. Create and export an async function called `getCategories`  
+  
+3. Inside the function:  
+- Get a database connection using `await getDBConnection()`  
+- Use `db.all(...)` to run a query  
+  
+4. Your SQL query should return all rows from the `categories` table  
+  
+5. Return the result of that query  
+  
+TIP: This should look almost identical to `getModels()` — just with a different table name.  
 */
-/* import SearchForm from "@/components/SearchForm"
-import ModelGrid from "@/components/ModelGrid"
 
-export default function ModelsPage() {
-    return (
-        <>
-            <SearchForm />
-            <ModelGrid />
-        </>
-    )
-} */
+import {getDBConnection} from "./db"
+
+export async function getCategories() {
+    const db = await getDBConnection()
+
+    try {
+        return await db.all("SELECT * FROM categories")
+    } finally {
+        await db.close()
+    }
+}

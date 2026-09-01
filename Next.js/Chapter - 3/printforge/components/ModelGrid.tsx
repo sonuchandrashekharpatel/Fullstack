@@ -176,7 +176,29 @@
 
 
 /* Lesson 13: Wiring Database Models into the UI */
+    
+import ModelCard from "./ModelCard"
+import type {Model, Category} from "@/lib/types"
 
+export default function ModelGrid({models, categories}: { models: Model[], categories: Category[]}) {
+    
+    return (
+    <div className="container px-4 py-8 mx-auto">
+        <h1 className="mb-8 text-3xl font-bold">3D Models</h1>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {
+                models.map((model: Model) => {
+                    const category = categories.find(category => category.slug === model.category)?.name
+                    if(!category) return
+
+                    return <ModelCard key={model.id} model={model} category={category}/>
+
+                })
+            }
+        </div>
+    </div>
+    )
+}
 
 /* Lesson 12: Rendering Category Links from Data */
 
@@ -206,7 +228,7 @@
 
 
 /* Lesson 3: Structuring the 3D Models Section */
-
+/*     
 import ModelCard from "./ModelCard"
 export default function ModelGrid() {
     return (
@@ -217,4 +239,4 @@ export default function ModelGrid() {
         </div>
     </div>
     )
-}
+} */

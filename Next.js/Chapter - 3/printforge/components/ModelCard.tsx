@@ -176,6 +176,52 @@
 
 
 /* Lesson 13: Wiring Database Models into the UI */
+import Link from "next/link"
+import Image from "next/image"
+import type {Model} from "@/lib/types"
+
+export default function ModelCard({model, category}: { model: Model[], category:string}) {
+
+
+    return (
+        <Link
+        href={`/3d-models/${model.id}`}
+        className="block group hover:shadow-[0_5px_12px_rgba(0,0,0,0.1)] hover:-translate-y-0.75 transition-all"
+        >
+        <div className="overflow-hidden transition-shadow bg-white rounded-lg shadow-md hover:shadow-lg"
+                role="article">
+            <div className="relative aspect-square">
+            <Image
+                width={300}
+                height={300}
+                src={model.image}
+                alt={model.name}
+                className="absolute inset-0 object-cover w-full h-full"
+            />
+            </div>
+            <div className="p-4">
+            <div className="mb-4">
+                <h2 className="text-xl font-semibold text-gray-800 line-clamp-2 leading-tight">
+                {model.name}
+                </h2>
+            </div>
+            <p className="text-gray-800 text-sm line-clamp-2 min-h-10 leading-5">
+                {model.description}
+            </p>
+            <div className="mt-2">
+                <span
+                className="inline-block bg-transparent border border-gray-400 rounded-full px-3 py-1 text-sm text-gray-800">
+                  {category}  
+                </span>
+            </div>
+            <div className="flex items-center mt-2 text-gray-600">
+                <span>&hearts; {model.likes}</span>
+            </div>
+            </div>
+        </div>
+        </Link>
+    )
+}
 
 
 /* Lesson 12: Rendering Category Links from Data */
@@ -211,7 +257,7 @@ Recap Gauntlet Level Three
 . Next Image & Font
 
 */
-import Link from "next/link"
+/* import Link from "next/link"
 import Image from "next/image"
 
 export default function ModelCard() {
@@ -254,7 +300,7 @@ export default function ModelCard() {
         </Link>
     )
 }
-
+ */
 /* Lesson 3: Structuring the 3D Models Section */
 /* import Link from "next/link"
 

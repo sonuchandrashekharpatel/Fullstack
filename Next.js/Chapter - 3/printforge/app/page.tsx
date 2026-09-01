@@ -176,47 +176,6 @@
 
 
 /* Lesson 13: Wiring Database Models into the UI */
-
-
-/* Lesson 12: Rendering Category Links from Data */
-
-
-/* Lesson 11: Reading Categories from the Database */
-
-
-/* Lesson 10: Reading Models from the Database */
-
-
-/* Lesson 9: A Tiny SQLite Setup Note */
-
-
-/* Lesson 8: Seeding the Categories Table */
-
-
-/* Lesson 7: Seeding the Models Table */
-
-
-/* Lesson 6: Setting Up the PrintForge Database */
-
-
-/* Lesson 5: Introducing Data in Next.js */
-
-
-/* Lesson 4: Adding Dynamic Routes and Image Optimisation */
-/*  
-CHALLENGE - Next Image Component  
-- Replace all `<img>` elements with Next’s `Image` component
-- Add `width` and `height` props to each image
-	- Home - `/page.tsx` (1206x1201)
-	- About - `/about/page.tsx`  (724x724)
-	- Single - `/3d-models/[id]/page.tsx` (500x500)
-	- `ModelCard.tsx` (300x300)
-	- `Navbar.tsx` Logo (200x42)
-	- `Navbar.tsx` Logo Icon (40x35)
-	  
-DOCS:
-- https://nextjs.org/docs/app/getting-started/images
-*/
 import Link from "next/link"
 import Image from "next/image"
 
@@ -251,6 +210,93 @@ export default function Home() {
     )
 }
 
+
+/* Lesson 12: Rendering Category Links from Data */
+
+
+/* Lesson 11: Reading Categories from the Database */
+
+
+/* Lesson 10: Reading Models from the Database */
+
+
+/* Lesson 9: A Tiny SQLite Setup Note */
+
+
+/* Lesson 8: Seeding the Categories Table */
+
+
+/* Lesson 7: Seeding the Models Table */
+
+
+/* Lesson 6: Setting Up the PrintForge Database */
+/* 
+UI Layer: /app
+Data Layer: /lib
+Database: printforge.db
+
+*/
+
+/* Lesson 5: Introducing Data in Next.js */
+/* 
+UI layer 
+Data Layer
+Database
+
+SQL -> Database language
+// SQLite -> Database
+
+*/
+
+/* Lesson 4: Adding Dynamic Routes and Image Optimisation */
+/*  
+CHALLENGE - Next Image Component  
+- Replace all `<img>` elements with Next’s `Image` component
+- Add `width` and `height` props to each image
+	- Home - `/page.tsx` (1206x1201)
+	- About - `/about/page.tsx`  (724x724)
+	- Single - `/3d-models/[id]/page.tsx` (500x500)
+	- `ModelCard.tsx` (300x300)
+	- `Navbar.tsx` Logo (200x42)
+	- `Navbar.tsx` Logo Icon (40x35)
+	  
+DOCS:
+- https://nextjs.org/docs/app/getting-started/images
+*/
+/* import Link from "next/link"
+import Image from "next/image"
+
+export default function Home() {
+    return (
+        <main>
+            <section className="flex flex-col-reverse items-center justify-between gap-8 px-6 py-12 mx-auto md:flex-row max-w-7xl">
+                <div className="flex-1 space-y-6">
+                <p className="hidden text-sm text-gray-600 uppercase md:block">
+                    Your go-to platform for 3D printing files
+                </p>
+                <h1 className="text-4xl font-bold md:text-5xl">
+                    Discover what's possible with 3D Printing
+                </h1>
+                <p className="text-lg text-gray-600">
+                    Join our community of creators and explore a vast
+                    library of user-submitted models.
+                </p>
+
+                <div className="flex gap-4">
+                    <Link
+                    href="/3d-models"
+                    className="px-6 py-3 text-black transition duration-100 bg-white border-2 border-black hover:bg-black hover:text-white"
+                    >
+                    Browse Models
+                    </Link>
+                </div>
+                </div>
+                <Image width={1206} height={1201} src="/img/hero-image.png" className="w-87.5 h-auto rounded-lg" alt="Hero Image"/>
+            </section>
+        </main>
+    )
+}
+ */
 
 /* Lesson 3: Structuring the 3D Models Section */
 /* 

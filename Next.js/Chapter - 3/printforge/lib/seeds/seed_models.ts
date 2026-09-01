@@ -176,33 +176,7 @@
 
 
 /* Lesson 13: Wiring Database Models into the UI */
-/*
-CHALLENGE - Use `getModels()` to start wiring model data into the app.
 
-1. Import `getModels` from `@/lib/models`
-2. Fetch the models in the page (remember to await!)
-3. Pass them into `ModelsGrid` (accept and type the prop)
-4. Inside `ModelsGrid`, map over the models and render a `ModelCard` for each one
-
-You do not need to worry about every `ModelCard` detail just yet — the goal here is 52 of the same Articulated Dragon ModelCards
-*/
-
-import SearchForm from "@/components/SearchForm"
-import ModelGrid from "@/components/ModelGrid"
-import {getModels} from '@/lib/models'
-import {getCategories} from "@/lib/categories"
-
-export default async function ModelsPage() {
-    const models = await getModels()
-    const categories = await getCategories()
-
-    return (
-        <>
-            <SearchForm />
-            <ModelGrid models={models} categories={categories} />
-        </>
-    )
-}
 
 /* Lesson 12: Rendering Category Links from Data */
 
@@ -221,41 +195,58 @@ export default async function ModelsPage() {
 
 /* Lesson 7: Seeding the Models Table */
 
+import {getDBConnection} from "../db"
+import models from "../data/models.json"
 
-/* Lesson 6: Setting Up the PrintForge Database */
+async function seedModels() {
+    const db = await getDBConnection()
 
+    // Create models table
+    await db.exec(`
+        CREATE TABLE IF NOT EXISTS models (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            description TEXT NOT NULL,
+            likes INTEGER NOT NULL,
+            image TEXT NOT NULL,
+            category TEXT NOT NULL,
+            dateAdded TEXT NOT NULL
+        );
+    `)
 
-/* Lesson 5: Introducing Data in Next.js */
+    // Prepare INSERT query
+    const insertModel = await db.prepare(`
+        INSERT OR REPLACE INTO models (
+            id,
+            name,
+            description,
+            likes,
+            image,
+            category,
+            dateAdded
+        )   VALUES  (?, ?, ?, ?, ?, ?, ?)
+    `)
 
+    // loop through models and run the INSERT query for each one
+    for( const model of models) {
+        await insertModel.run(
+            model.id,
+            model.name,
+            model.description,
+            model.likes,
+            model.image,
+            model.category,
+            model.dateAdded
+        )
+    }
 
-/* Lesson 4: Adding Dynamic Routes and Image Optimisation */
-/*
-CHALLENGE - 3D Models Category Page
-- Create `app/3d-models/categories/[categorySlug]/page.tsx`
-- Render a `ModelGrid` on the page
-  
-DOCS:
-- https://nextjs.org/docs/app/getting-started/layouts-and-pages#nesting-layouts
-- https://nextjs.org/docs/app/getting-started/layouts-and-pages#creating-a-dynamic-segment
-*/
+    await insertModel.finalize()
+    await db.close()
 
-/* Lesson 3: Structuring the 3D Models Section */
-/*  
-CHALLENGE - 3D Models Page
-- Create a `/3d-models` page and route  
-- Render an `<h1>` element on the page
-  
-DOCS: 
-- https://nextjs.org/docs/app/getting-started/layouts-and-pages#creating-a-nested-route
-*/
-/* import SearchForm from "@/components/SearchForm"
-import ModelGrid from "@/components/ModelGrid"
+    console.log("Models table seeded")
 
-export default function ModelsPage() {
-    return (
-        <>
-            <SearchForm />
-            <ModelGrid />
-        </>
-    )
-} */
+}
+
+seedModels().catch( err => {
+    console.error("Seeding failed:", err)
+})
