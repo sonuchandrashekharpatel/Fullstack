@@ -165,7 +165,7 @@
 
 /* Lesson 17: Building a Dynamic Single Model Page */
 
-/*  
+/*
 CHALLENGE - Make the single model page dynamic  
 
 1. In `lib/models.ts`, create a new `getModelById()` function  

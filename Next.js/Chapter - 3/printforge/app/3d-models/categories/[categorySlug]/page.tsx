@@ -161,6 +161,19 @@
 
 
 /* Lesson 18: Making the Category Page Title Dynamic */
+import {getModelsByCategorySlug} from "@/lib/models"
+import {getCategoryBySlug} from "@/lib/categories"
+import ModelGrid from "@/components/ModelGrid"
+
+export default async function ModelCategoryPage({params}: { params: Promise<{ categorySlug: string }>}) {
+
+    const { categorySlug } = await params
+
+    const models = await getModelsByCategorySlug(categorySlug)
+    const category = await getCategoryBySlug(categorySlug)
+
+    return <ModelGrid models={models} categoryName={category.name}/>
+}
 
 
 /* Lesson 17: Building a Dynamic Single Model Page */
@@ -181,7 +194,7 @@ CHALLENGE - Use the dynamic route param to load the correct category models.
    
 DOCS: https://nextjs.org/docs/app/api-reference/file-conventions/dynamic-routes
 */
-import {getModelsByCategorySlug} from "@/lib/models"
+/* import {getModelsByCategorySlug} from "@/lib/models"
 import ModelGrid from "@/components/ModelGrid"
 
 export default async function ModelCategoryPage({params}: { params: Promise<{ categorySlug: string }>}) {
@@ -189,7 +202,7 @@ export default async function ModelCategoryPage({params}: { params: Promise<{ ca
     const models = await getModelsByCategorySlug(categorySlug)
     return <ModelGrid models={models} />
 }
-
+ */
 /* Lesson 15: Filtering Data with SQL WHERE */
 
 

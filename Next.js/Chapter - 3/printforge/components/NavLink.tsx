@@ -158,7 +158,28 @@
 
 
 /* Lesson 19: Fixing the “All” Category Link */
+"use client"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
+export default function NavLink({ children, href, exact }: {
+    href: string
+    children: React.ReactNode
+    exact?: boolean
+}) {
+    const currentPath = usePathname()
+    
+    const isActive = exact ? currentPath === href : currentPath.startsWith(href)
+
+    return (
+        <>
+            <li className="text-sm uppercase">
+                <Link className={`px-4 py-2 transition-colors rounded-md cursor-pointer hover:text-orange-400 ${ isActive ? "text-orange-400" : "text-gray-700"}`}
+                href={href}>{children}</Link>
+            </li>
+        </>
+    )
+}
 
 /* Lesson 18: Making the Category Page Title Dynamic */
 
@@ -213,7 +234,7 @@ CHALLENGE - Active NavLink
 
 DOCS: https://nextjs.org/docs/app/api-reference/functions/use-pathname
 */
-"use client"
+/* "use client"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -222,6 +243,7 @@ export default function NavLink({ children, href }: {
     children: React.ReactNode
 }) {
     const currentPath = usePathname()
+    
 
     return (
         <>
@@ -231,7 +253,7 @@ export default function NavLink({ children, href }: {
             </li>
         </>
     )
-}
+} */
 
 
 /* Lesson 3: Structuring the 3D Models Section */
