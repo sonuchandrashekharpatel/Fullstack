@@ -168,10 +168,60 @@
 
 /* Lesson 16: Building a Dynamic Category Page */
 
+import {getDBConnection} from "./db"
+
+export async function getModels() {
+    const db = await getDBConnection()
+
+    try {
+        return await db.all("SELECT * FROM models")
+    } finally {
+        await db.close()
+    }
+}
+
+export async function getModelsByCategorySlug(categorySlug: string) {
+    const db = await getDBConnection()
+    try {
+        return await db.all(`SELECT * FROM models WHERE category = ?`, [categorySlug])
+    } finally {
+        await db.close()
+    }
+}
+
+export async function getModelById(id: number) {
+    const db = await getDBConnection()
+
+    try {
+        return await db.get(`SELECT * FROM models WHERE id == ?`, [id])
+    } finally {
+        await db.close()
+    }
+}
 
 /* Lesson 15: Filtering Data with SQL WHERE */
+/* 
+import {getDBConnection} from "./db"
 
+export async function getModels() {
+    const db = await getDBConnection()
 
+    try {
+        return await db.all("SELECT * FROM models")
+    } finally {
+        await db.close()
+    }
+}
+
+export async function getModelsByCategorySlug(categorySlug: string) {
+    const db = await getDBConnection()
+    try {
+        return await db.all(`SELECT * FROM models WHERE category = ?`, [categorySlug])
+    } finally {
+        await db.close()
+    }
+}
+ */
 /* Lesson 14: Making ModelCards Dynamic */
 
 
@@ -185,7 +235,7 @@
 
 
 /* Lesson 10: Reading Models from the Database */
-
+/* 
 import {getDBConnection} from "./db"
 
 export async function getModels() {
@@ -196,4 +246,4 @@ export async function getModels() {
     } finally {
         await db.close()
     }
-}
+} */

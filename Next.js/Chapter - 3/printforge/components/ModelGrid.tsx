@@ -167,6 +167,25 @@
 
 
 /* Lesson 16: Building a Dynamic Category Page */
+    
+import ModelCard from "./ModelCard"
+import type {Model} from "@/lib/types"
+
+export default function ModelGrid({models}: { models: Model[]}) {
+    
+    return (
+    <div className="container px-4 py-8 mx-auto">
+        <h1 className="mb-8 text-3xl font-bold">3D Models</h1>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {
+                models.map((model: Model) => 
+                    <ModelCard key={model.id} model={model}/>
+                )
+            }
+        </div>
+    </div>
+    )
+}
 
 
 /* Lesson 15: Filtering Data with SQL WHERE */
@@ -177,7 +196,7 @@
 
 /* Lesson 13: Wiring Database Models into the UI */
     
-import ModelCard from "./ModelCard"
+/* import ModelCard from "./ModelCard"
 import type {Model, Category} from "@/lib/types"
 
 export default function ModelGrid({models, categories}: { models: Model[], categories: Category[]}) {
@@ -198,7 +217,7 @@ export default function ModelGrid({models, categories}: { models: Model[], categ
         </div>
     </div>
     )
-}
+} */
 
 /* Lesson 12: Rendering Category Links from Data */
 

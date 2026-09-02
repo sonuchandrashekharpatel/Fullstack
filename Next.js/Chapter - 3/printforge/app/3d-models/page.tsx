@@ -164,16 +164,87 @@
 
 
 /* Lesson 17: Building a Dynamic Single Model Page */
+/* 
+Datebase Method:
+1. db.exec() : executes the query immediately
+2. db.prepare() : prepare a query that we might want to reuse
+3. db.finalize() : It cleans the prepare query when we're done with prepared query
+4. db.all(): Returns all matching rows in the database
+5. db.close(): Which safely closes the database connection
 
+6. db.all(): Expecting multiple results Returns an array of objects
+7. db.get(): Expecting only 1 result Returns object or undefined
+
+*/
 
 /* Lesson 16: Building a Dynamic Category Page */
+/* 
+
+. Flow of Data 
+
+
+.     UI Layer                     Data Layer                  Database
+    ┌─────────────────┐          ┌────────────────┐           ┌──────────────┐
+    |                 |          |                |           |              |
+    |                 |          | getModelsBy    |           |              |
+    |   CategoryPage  |←-------- | CategorySlug   |←----------|    models    |
+    |                 |          | (categorySlug) |           |              |
+    |                 |          |                |           |              |
+    └─────────────────┘          └────────────────┘           └──────────────┘
+       /app                         /lib                      printforge.db
+
+*/
+import SearchForm from "@/components/SearchForm"
+import ModelGrid from "@/components/ModelGrid"
+import {getModels} from '@/lib/models'
+
+export default async function ModelsPage() {
+    const models = await getModels()
+
+    return (
+        <>
+            <SearchForm />
+            <ModelGrid models={models} />
+        </>
+    )
+}
 
 
 /* Lesson 15: Filtering Data with SQL WHERE */
 
 
 /* Lesson 14: Making ModelCards Dynamic */
+/*  
+CHALLENGE — Make the ModelCard dynamic  
+  
+1. Accept a `model` prop (and type it)  
+  
+2. Replace the static content with values from `model`:  
+- the link  
+- the image (src and alt)  
+- the model name  
+- the description  
+- the category  
+- the number of likes  
 
+TIP: If you're not sure what model property to use, you can check the original .json files or the types file
+*/
+/* 
+
+. Flow of Data 
+
+
+.     UI Layer                     Data Layer                  Database
+    ┌─────────────────┐          ┌──────────────┐           ┌──────────────┐
+    |  ModelsPage     |          |              |           |              |
+    |      ↓          |          |              |           |              |
+    |  ModelsGrid     |←-------- |  getModels() |←----------|    models    |
+    |      ↓          |          |              |           |              |
+    |  ModelsCard     |          |              |           |              |
+    └─────────────────┘          └──────────────┘           └──────────────┘
+       /app                         /lib                      printforge.db
+
+*/
 
 /* Lesson 13: Wiring Database Models into the UI */
 /*
@@ -186,7 +257,7 @@ CHALLENGE - Use `getModels()` to start wiring model data into the app.
 
 You do not need to worry about every `ModelCard` detail just yet — the goal here is 52 of the same Articulated Dragon ModelCards
 */
-
+/* 
 import SearchForm from "@/components/SearchForm"
 import ModelGrid from "@/components/ModelGrid"
 import {getModels} from '@/lib/models'
@@ -195,6 +266,7 @@ import {getCategories} from "@/lib/categories"
 export default async function ModelsPage() {
     const models = await getModels()
     const categories = await getCategories()
+    console.table(categories)
 
     return (
         <>
@@ -203,7 +275,7 @@ export default async function ModelsPage() {
         </>
     )
 }
-
+ */
 /* Lesson 12: Rendering Category Links from Data */
 
 
