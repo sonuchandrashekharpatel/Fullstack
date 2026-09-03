@@ -140,7 +140,33 @@
 
 
 /* Lesson 25: Passing Search Through the UI */
+import ModelCard from "./ModelCard"
+import type {Model} from "@/lib/types"
+import SortControls from "@/components/SortControls"
 
+export default function ModelGrid({models, search, categoryName}: { 
+    models: Model[], 
+    categoryName?: string
+    search?: string
+}) {
+    
+    return (
+    <div className="container px-4 py-8 mx-auto">
+        <div className="flex flex-col gap-2 md:flex-row md:justify-between mb-8">
+            <h1 className="mb-8 text-3xl font-bold">{ search ? `Search results for '${search}'` : categoryName || "3D Models"}</h1>
+            <SortControls />
+        </div>
+        
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {
+                models.map((model: Model) => 
+                    <ModelCard key={model.id} model={model}/>
+                )
+            }
+        </div>
+    </div>
+    )
+}
 
 /* Lesson 24: Searching by Name or Description */
 
@@ -168,6 +194,7 @@
 
 /* Lesson 16: Building a Dynamic Category Page */
     
+/* 
 import ModelCard from "./ModelCard"
 import type {Model} from "@/lib/types"
 
@@ -185,7 +212,7 @@ export default function ModelGrid({models, categoryName}: { models: Model[], cat
         </div>
     </div>
     )
-}
+} */
 
 
 /* Lesson 15: Filtering Data with SQL WHERE */

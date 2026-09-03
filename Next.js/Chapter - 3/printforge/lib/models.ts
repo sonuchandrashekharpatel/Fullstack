@@ -143,10 +143,87 @@
 
 
 /* Lesson 24: Searching by Name or Description */
+import {getDBConnection} from "./db"
+
+export async function getModels(search?: string) {
+    const db = await getDBConnection()
+    let sql = "SELECT * FROM models"
+
+    const placeholders = []
+    
+    try {
+        if(search) {
+            placeholders.push(`%${search}%`)
+            placeholders.push(`%${search}%`)
+
+            sql += " WHERE name LIKE ? OR description LIKE ?"
+            return await db.all(sql, placeholders)
+        }
+        return await db.all("SELECT * FROM models")
+    } finally {
+        await db.close()
+    }
+}
+
+export async function getModelsByCategorySlug(categorySlug: string) {
+    const db = await getDBConnection()
+    try {
+        return await db.all(`SELECT * FROM models WHERE category = ?`, [categorySlug])
+    } finally {
+        await db.close()
+    }
+}
+
+export async function getModelById(id: number) {
+    const db = await getDBConnection()
+
+    try {
+        return await db.get(`SELECT * FROM models WHERE id == ?`, [id])
+    } finally {
+        await db.close()
+    }
+}
 
 
 /* Lesson 23: Upgrading getModels() for Search */
+/* import {getDBConnection} from "./db"
 
+export async function getModels(search?: string) {
+    const db = await getDBConnection()
+    let sql = "SELECT * FROM models"
+
+    const placeholders = ["%" + search + "%"]
+    
+    try {
+        if(search) {
+            sql += " WHERE name LIKE ?"
+            return await db.all(sql, placeholders)
+        }
+        return await db.all("SELECT * FROM models")
+    } finally {
+        await db.close()
+    }
+}
+
+export async function getModelsByCategorySlug(categorySlug: string) {
+    const db = await getDBConnection()
+    try {
+        return await db.all(`SELECT * FROM models WHERE category = ?`, [categorySlug])
+    } finally {
+        await db.close()
+    }
+}
+
+export async function getModelById(id: number) {
+    const db = await getDBConnection()
+
+    try {
+        return await db.get(`SELECT * FROM models WHERE id == ?`, [id])
+    } finally {
+        await db.close()
+    }
+}
+ */
 
 /* Lesson 22: Reading searchParams from the URL */
 
@@ -168,7 +245,7 @@
 
 /* Lesson 16: Building a Dynamic Category Page */
 
-import {getDBConnection} from "./db"
+/* import {getDBConnection} from "./db"
 
 export async function getModels() {
     const db = await getDBConnection()
@@ -198,7 +275,7 @@ export async function getModelById(id: number) {
         await db.close()
     }
 }
-
+ */
 /* Lesson 15: Filtering Data with SQL WHERE */
 /* 
 import {getDBConnection} from "./db"
@@ -222,6 +299,7 @@ export async function getModelsByCategorySlug(categorySlug: string) {
     }
 }
  */
+
 /* Lesson 14: Making ModelCards Dynamic */
 
 

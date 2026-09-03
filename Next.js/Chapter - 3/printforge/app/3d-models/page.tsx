@@ -141,16 +141,99 @@
 
 /* Lesson 25: Passing Search Through the UI */
 
+/* 
+CHALLENGE 1 - Dynamic ModelsGrid title  
+- Pass `search` into `ModelsGrid`  
+- Render a title based on the current state:  
+	- "3D Models" on the main page  
+	- Category name on category pages  
+	- "Search results for '[SEARCH]'" when a search is active  
+  
+CHALLENGE 2 - Show search term in input  
+- Pass `search` into `SearchForm`  
+- Use `defaultValue` so the search term appears in the input field  
+*/
+import SearchForm from "@/components/SearchForm"
+import ModelGrid from "@/components/ModelGrid"
+import {getModels} from '@/lib/models'
+
+export default async function ModelsPage({ searchParams }: {
+    searchParams: Promise<{ search : string}>
+}) {
+    const { search } = await searchParams
+    const models = await getModels(search)
+
+    return (
+        <>
+            <SearchForm search={search} />
+            <ModelGrid models={models} search={search}/>
+        </>
+    )
+}
+
+
 
 /* Lesson 24: Searching by Name or Description */
+/* 
+import SearchForm from "@/components/SearchForm"
+import ModelGrid from "@/components/ModelGrid"
+import {getModels} from '@/lib/models'
 
+export default async function ModelsPage({ searchParams }: {
+    searchParams: Promise<{ search : string}>
+}) {
+    const { search } = await searchParams
+    const models = await getModels(search)
 
+    return (
+        <>
+            <SearchForm />
+            <ModelGrid models={models} />
+        </>
+    )
+}
+
+ */
 /* Lesson 23: Upgrading getModels() for Search */
 
 
 /* Lesson 22: Reading searchParams from the URL */
+/* 
+params          : params reads the dynamic route segments.
+.                 The path parts defined by our folder structure
 
+searchParams    :  searchParams reads the query parameters, the stuff after the ? mark.
 
+*/
+/*
+CHALLENGE - grab the `search` query using `searchParams`
+1. Type `searchParams` 
+   (remember, there might not be any parameters)
+2. Use `searchParams` to get and store the `search` query (if it exists).
+   (If it doesn't exist, `search` should be an empty string)
+
+DOCS: https://nextjs.org/docs/app/api-reference/file-conventions/page#searchparams-optional
+*/
+/* 
+import SearchForm from "@/components/SearchForm"
+import ModelGrid from "@/components/ModelGrid"
+import {getModels} from '@/lib/models'
+
+export default async function ModelsPage({ searchParams }: {
+    searchParams: Promise<{ search : string}>
+}) {
+    const models = await getModels()
+    const { search } = await searchParams
+    console.log(search)
+
+    return (
+        <>
+            <SearchForm />
+            <ModelGrid models={models} />
+        </>
+    )
+}
+ */
 /* Lesson 21: Upgrading the SearchForm */
 
 
@@ -194,6 +277,8 @@ Datebase Method:
        /app                         /lib                      printforge.db
 
 */
+
+/*
 import SearchForm from "@/components/SearchForm"
 import ModelGrid from "@/components/ModelGrid"
 import {getModels} from '@/lib/models'
@@ -208,7 +293,7 @@ export default async function ModelsPage() {
         </>
     )
 }
-
+ */
 
 /* Lesson 15: Filtering Data with SQL WHERE */
 

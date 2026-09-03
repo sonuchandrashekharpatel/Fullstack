@@ -141,6 +141,25 @@
 
 /* Lesson 25: Passing Search Through the UI */
 
+import Form from "next/form"
+export default function SearcForm({ search }: { search?: string}) {
+    return (
+        <Form 
+            action={"/3d-models"} 
+            className="w-full px-5 md:px-0 md:max-w-xl">
+            <input
+                type="text"
+                id="search"
+                name="search"
+                defaultValue={search}
+                placeholder="E.g. dragon"
+                autoComplete="off"
+                className="w-full py-3 pl-5 pr-5 text-sm placeholder-gray-500 bg-white border border-[#606060] rounded-full focus:border-[#606060] focus:outline-none focus:ring-0 md:text-base"
+            />
+        </Form>
+    )
+}
+
 
 /* Lesson 24: Searching by Name or Description */
 
@@ -152,8 +171,30 @@
 
 
 /* Lesson 21: Upgrading the SearchForm */
-
-
+/*
+CHALLENGE
+- Use the Next `Form` component
+- Add an `action` attribute so the form submits to the 3D models page
+*/
+/* 
+import Form from "next/form"
+export default function SearcForm() {
+    return (
+        <Form 
+            action={"/3d-models"} 
+            className="w-full px-5 md:px-0 md:max-w-xl">
+            <input
+                type="text"
+                id="search"
+                name="search"
+                placeholder="E.g. dragon"
+                autoComplete="off"
+                className="w-full py-3 pl-5 pr-5 text-sm placeholder-gray-500 bg-white border border-[#606060] rounded-full focus:border-[#606060] focus:outline-none focus:ring-0 md:text-base"
+            />
+        </Form>
+    )
+}
+ */
 /* Lesson 20: Understanding the Search Data Flow */
 
 
@@ -206,7 +247,7 @@
 
 
 /* Lesson 3: Structuring the 3D Models Section */
-export default function SearcForm() {
+/* export default function SearcForm() {
     return (
         <form className="w-full px-5 md:px-0 md:max-w-xl">
             <input
@@ -219,4 +260,4 @@ export default function SearcForm() {
             />
         </form>
     )
-}
+} */
