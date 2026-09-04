@@ -107,12 +107,65 @@
 
 
 /* Lesson 36: Adding Route-Level Loading UI */
+import {getDBConnection} from "./db"
 
+export async function getModels({ search, sort, categorySlug}:{
+    search?: string, 
+    sort?: string, 
+    categorySlug?: string
+}) {
+    const db = await getDBConnection()
+    
+    // Simulate slow data fetching...
+    await new Promise( resolve => setTimeout(resolve, 3000))
+    let sql = "SELECT * FROM models"
+
+    const placeholders = []
+    
+    if(search) {
+        placeholders.push(`%${search}%`)
+        placeholders.push(`%${search}%`)
+        sql += " WHERE (name LIKE ? OR description LIKE ?)"
+    }
+
+    if(categorySlug) {
+        sql += " WHERE category = ?"
+        placeholders.push(categorySlug)
+    }
+    
+    if(sort) {
+        sql += ` ORDER BY ${
+            sort === "alpha" ? 'name ASC' : sort === "recent"
+            ? "dateAdded DESC"
+            : "likes DESC"
+        }`
+    }
+
+    try {
+        return await db.all(sql, placeholders)
+
+    } finally {
+        await db.close()
+    }
+}
+
+export async function getModelById(id: number) {
+    const db = await getDBConnection()
+
+    // Simulate slow data fetching
+    await new Promise(resolve => setTimeout(resolve, 3000))
+    try {
+        return await db.get(`SELECT * FROM models WHERE id == ?`, [id])
+    } finally {
+        await db.close()
+    }
+}
 
 /* Lesson 35: Combining sort and search functionality */
 
 
 /* Lesson 34: Refactoring getModels() to take an object */
+/* 
 import {getDBConnection} from "./db"
 
 export async function getModels({ search, sort, categorySlug}:{
@@ -160,8 +213,7 @@ export async function getModelById(id: number) {
     } finally {
         await db.close()
     }
-}
-
+} */
 
 /* Lesson 33: Upgrading getModels() for Category Sorting */
 /*

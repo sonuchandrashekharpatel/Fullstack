@@ -110,6 +110,45 @@
 
 
 /* Lesson 35: Combining sort and search functionality */
+  
+/*  
+CHALLENGE  
+Inside `handleSort()`
+1. Use `urlSearchParams.set()` to set the `sort` parameter  
+2. Update the `url` variable so it uses the full updated query string  
+3. Make sure any existing parameters, like `search`, stay in the URL  
+*/
+
+'use client'
+import { useRouter, usePathname, useSearchParams } from "next/navigation"
+
+export default function SortButton({children, sort}: { 
+  children: React.ReactNode
+  sort: string
+}) {
+  const pathname = usePathname()
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  const isActive = searchParams.get("sort") === sort
+
+  function handleSort() {
+    const urlSearchParams = new URLSearchParams(searchParams.toString())
+    urlSearchParams.set("sort", sort)
+
+    const url = `${pathname}?${urlSearchParams.toString()}`
+    router.push(url)
+  }
+
+  return (
+      <button
+        onClick={handleSort}
+        className={`px-3 py-1.5 text-sm rounded-full border cursor-pointer border-gray-300 ${isActive ? "text-white bg-orange-400 border-orange-400" : 'border-gray-300 text-gray-700 hover:bg-gray-100'} hover:bg-gray-100`}
+      >
+        {children}
+      </button>
+    )
+}
 
 
 /* Lesson 34: Refactoring getModels() to take an object */
@@ -128,7 +167,7 @@
 
 
 /* Lesson 29: Styling the Active SortButton */
-'use client'
+/* 'use client'
 import { useRouter, usePathname, useSearchParams } from "next/navigation"
 
 export default function SortButton({children, sort}: { 
@@ -155,7 +194,7 @@ export default function SortButton({children, sort}: {
       </button>
     )
 }
-
+ */
 /* Lesson 28: Navigating with usePathname and useRouter */
 /* 
 'use client'
