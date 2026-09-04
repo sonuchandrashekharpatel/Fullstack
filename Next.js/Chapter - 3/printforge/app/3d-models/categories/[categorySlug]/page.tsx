@@ -114,12 +114,85 @@
 
 /* Lesson 34: Refactoring getModels() to take an object */
 
+import {getModels} from "@/lib/models"
+import {getCategoryBySlug} from "@/lib/categories"
+import ModelGrid from "@/components/ModelGrid"
+
+export default async function ModelCategoryPage({ params , searchParams }: { 
+    params: Promise<{ categorySlug: string }>
+    searchParams: Promise<{ sort?: string | undefined }>
+}) {
+
+    const { categorySlug } = await params
+    const sort = (await searchParams).sort || ''
+
+    const models = await getModels({categorySlug, sort})
+    const category = await getCategoryBySlug(categorySlug)
+
+    return <ModelGrid models={models} categoryName={category.name}/>
+}
+
 
 /* Lesson 33: Upgrading getModels() for Category Sorting */
+/* 
+import {getModels} from "@/lib/models"
+import {getCategoryBySlug} from "@/lib/categories"
+import ModelGrid from "@/components/ModelGrid"
 
+export default async function ModelCategoryPage({ params , searchParams }: { 
+    params: Promise<{ categorySlug: string }>
+    searchParams: Promise<{ sort?: string | undefined }>
+}) {
+
+    const { categorySlug } = await params
+    const sort = (await searchParams).sort || ''
+
+    const models = await getModels(categorySlug, sort)
+    const category = await getCategoryBySlug(categorySlug)
+
+    return <ModelGrid models={models} categoryName={category.name}/>
+}
+ */
 
 /* Lesson 32: Sorting Models within Categories */
+/*
+CHALLENGE — Add sorting to category pages
 
+Update `getModelsByCategorySlug()` so that the sort buttons work here too.
+
+You’ll need to:
+
+In `page.tsx`:
+1. Extract `sort` from the URL
+2. Pass `sort` into `getModelsByCategorySlug()`
+
+In `getModelsByCategorySlug()`:
+1. Accept a `sort` parameter
+2. Add an `ORDER BY` clause based on that value
+3. Make sure it works alongside the existing `WHERE` clause
+
+Hint:
+We’ve already done this in `getModels()` and in the `/3d-models` page — feel free to refer back!
+*/
+/* 
+import {getModelsByCategorySlug} from "@/lib/models"
+import {getCategoryBySlug} from "@/lib/categories"
+import ModelGrid from "@/components/ModelGrid"
+
+export default async function ModelCategoryPage({ params , searchParams }: { 
+    params: Promise<{ categorySlug: string }>
+    searchParams: Promise<{ sort?: string | undefined }>
+}) {
+
+    const { categorySlug } = await params
+    const sort = (await searchParams).sort || ''
+
+    const models = await getModelsByCategorySlug(categorySlug, sort)
+    const category = await getCategoryBySlug(categorySlug)
+
+    return <ModelGrid models={models} categoryName={category.name}/>
+}
+ */
 
 /* Lesson 31: Sorting Data with SQL ORDER BY */
 
@@ -161,6 +234,7 @@
 
 
 /* Lesson 18: Making the Category Page Title Dynamic */
+/* 
 import {getModelsByCategorySlug} from "@/lib/models"
 import {getCategoryBySlug} from "@/lib/categories"
 import ModelGrid from "@/components/ModelGrid"
@@ -174,7 +248,7 @@ export default async function ModelCategoryPage({params}: { params: Promise<{ ca
 
     return <ModelGrid models={models} categoryName={category.name}/>
 }
-
+ */
 
 /* Lesson 17: Building a Dynamic Single Model Page */
 

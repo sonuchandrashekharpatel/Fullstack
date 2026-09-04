@@ -128,11 +128,33 @@
 
 
 /* Lesson 29: Styling the Active SortButton */
+import SortButton from "./SortButton"
+
+export default function SortControls() {
+    return (
+        <div className="flex items-center gap-2">
+            <span className="text-sm text-gray-600">Sort by:</span>
+            <SortButton sort="alpha">A-Z</SortButton>
+            <SortButton sort="popular">Popular</SortButton>
+            <SortButton sort="recent">Most Recent</SortButton>
+        </div>
+    )
+}
 
 
 /* Lesson 28: Navigating with usePathname and useRouter */
+/* import SortButton from "./SortButton"
 
-
+export default function SortControls() {
+    return (
+        <>
+            <SortButton sort="alpha">A-Z</SortButton>
+            <SortButton sort="popular">Popular</SortButton>
+            <SortButton sort="recent">Most Recent</SortButton>
+        </>
+    )
+}
+ */
 /* Lesson 27: Setting Up Sort Controls */
 
 /*  
@@ -142,7 +164,7 @@ CHALLENGE
 - Use `children` so each button can display different text  
 - Replace the three buttons with your new <SortButton /> component  
 */
-import SortButton from "./SortButton"
+/* import SortButton from "./SortButton"
 
 export default function SortControls() {
     return (
@@ -152,4 +174,4 @@ export default function SortControls() {
             <SortButton>Most Recent</SortButton>
         </>
     )
-}
+} */

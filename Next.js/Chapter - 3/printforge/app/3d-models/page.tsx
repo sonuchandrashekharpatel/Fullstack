@@ -113,6 +113,24 @@
 
 
 /* Lesson 34: Refactoring getModels() to take an object */
+import SearchForm from "@/components/SearchForm"
+import ModelGrid from "@/components/ModelGrid"
+import {getModels} from '@/lib/models'
+
+export default async function ModelsPage({ searchParams }: {
+    searchParams: Promise<{ search : string, sort?: string }>
+}) {
+    const search = (await searchParams).search?.toLowerCase() || ''
+    const sort = (await searchParams).sort || ''
+    const models = await getModels({search, sort})
+
+    return (
+        <>
+            <SearchForm search={search} />
+            <ModelGrid models={models} search={search}/>
+        </>
+    )
+}
 
 
 /* Lesson 33: Upgrading getModels() for Category Sorting */
@@ -136,8 +154,27 @@
 /* Lesson 27: Setting Up Sort Controls */
 
 
-/* Lesson 26: Understanding the Sorting Data Flow */
+/* 
+Lesson 26: Understanding the Sorting Data Flow */
+/* import SearchForm from "@/components/SearchForm"
+import ModelGrid from "@/components/ModelGrid"
+import {getModels} from '@/lib/models'
 
+export default async function ModelsPage({ searchParams }: {
+    searchParams: Promise<{ search : string, sort?: string }>
+}) {
+    const search = (await searchParams).search?.toLowerCase() || ''
+    const sort = (await searchParams).sort || ''
+    const models = await getModels(search, sort)
+
+    return (
+        <>
+            <SearchForm search={search} />
+            <ModelGrid models={models} search={search}/>
+        </>
+    )
+}
+ */
 
 /* Lesson 25: Passing Search Through the UI */
 
@@ -153,6 +190,8 @@ CHALLENGE 2 - Show search term in input
 - Pass `search` into `SearchForm`  
 - Use `defaultValue` so the search term appears in the input field  
 */
+
+/* 
 import SearchForm from "@/components/SearchForm"
 import ModelGrid from "@/components/ModelGrid"
 import {getModels} from '@/lib/models'
@@ -170,7 +209,7 @@ export default async function ModelsPage({ searchParams }: {
         </>
     )
 }
-
+ */
 
 
 /* Lesson 24: Searching by Name or Description */

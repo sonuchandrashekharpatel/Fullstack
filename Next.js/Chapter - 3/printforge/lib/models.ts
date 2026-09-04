@@ -113,19 +113,238 @@
 
 
 /* Lesson 34: Refactoring getModels() to take an object */
+import {getDBConnection} from "./db"
+
+export async function getModels({ search, sort, categorySlug}:{
+    search?: string, 
+    sort?: string, 
+    categorySlug?: string
+}) {
+    const db = await getDBConnection()
+    let sql = "SELECT * FROM models"
+
+    const placeholders = []
+    
+    if(search) {
+        placeholders.push(`%${search}%`)
+        placeholders.push(`%${search}%`)
+        sql += " WHERE (name LIKE ? OR description LIKE ?)"
+    }
+
+    if(categorySlug) {
+        sql += " WHERE category = ?"
+        placeholders.push(categorySlug)
+    }
+    
+    if(sort) {
+        sql += ` ORDER BY ${
+            sort === "alpha" ? 'name ASC' : sort === "recent"
+            ? "dateAdded DESC"
+            : "likes DESC"
+        }`
+    }
+
+    try {
+        return await db.all(sql, placeholders)
+
+    } finally {
+        await db.close()
+    }
+}
+
+export async function getModelById(id: number) {
+    const db = await getDBConnection()
+
+    try {
+        return await db.get(`SELECT * FROM models WHERE id == ?`, [id])
+    } finally {
+        await db.close()
+    }
+}
 
 
 /* Lesson 33: Upgrading getModels() for Category Sorting */
+/*
+CHALLENGE — Add category filtering to getModels()
 
+Update the `getModels()` data function so that it can also filter by category.
 
+You’ll need to:
+1. Accept an optional `categorySlug` parameter
+2. Use it to filter the SQL query when a category is provided
+3. Make sure the function works in either of these situations:
+   - Search only (3D Models page)
+   - Category only (Category page)
+4. Update the category page to use this new functionality
+
+For now, don’t worry about handling both search and category at the same time.
+*/
+/* import {getDBConnection} from "./db"
+
+export async function getModels(
+    search?: string, 
+    sort?: string, 
+    categorySlug?: string
+) {
+    const db = await getDBConnection()
+    let sql = "SELECT * FROM models"
+
+    const placeholders = []
+    
+    if(search) {
+        placeholders.push(`%${search}%`)
+        placeholders.push(`%${search}%`)
+        sql += " WHERE (name LIKE ? OR description LIKE ?)"
+    }
+
+    if(categorySlug) {
+        sql = " WHERE category = ?"
+        placeholders.push(categorySlug)
+    }
+    
+    if(sort) {
+        sql += ` ORDER BY ${
+            sort === "alpha" ? 'name ASC' : sort === "recent"
+            ? "dateAdded DESC"
+            : "likes DESC"
+        }`
+    }
+
+    try {
+        return await db.all(sql, placeholders)
+
+    } finally {
+        await db.close()
+    }
+}
+
+export async function getModelById(id: number) {
+    const db = await getDBConnection()
+
+    try {
+        return await db.get(`SELECT * FROM models WHERE id == ?`, [id])
+    } finally {
+        await db.close()
+    }
+}
+ */
 /* Lesson 32: Sorting Models within Categories */
+/* 
+import {getDBConnection} from "./db"
 
+export async function getModels(search?: string, sort?: string) {
+    const db = await getDBConnection()
+    let sql = "SELECT * FROM models"
+
+    const placeholders = []
+    
+    try {
+        if(search) {
+            placeholders.push(`%${search}%`)
+            placeholders.push(`%${search}%`)
+
+            sql += " WHERE name LIKE ? OR description LIKE ?"
+
+        }
+        if(sort) {
+            sql += ` ORDER BY ${
+                sort === "alpha" ? 'name ASC' : sort === "recent"
+                ? "dateAdded DESC"
+                : "likes DESC"
+            }`
+        }
+        return await db.all(sql, placeholders)
+
+    } finally {
+        await db.close()
+    }
+}
+
+export async function getModelsByCategorySlug(categorySlug: string, sort?: string) {
+    const db = await getDBConnection()
+    let sql = "SELECT * FROM models WHERE category = ?"
+
+    if(sort) {
+        console.log("Sort by:", sort)
+        sql += ` ORDER BY ${
+            sort === "alpha" ? 'name ASC' :
+            sort === "recent" ? "dateAdded DESC"
+            : "likes DESC"
+        }`
+    }
+    try {
+        return await db.all(sql, [categorySlug])
+    } finally {
+        await db.close()
+    }
+}
+
+export async function getModelById(id: number) {
+    const db = await getDBConnection()
+
+    try {
+        return await db.get(`SELECT * FROM models WHERE id == ?`, [id])
+    } finally {
+        await db.close()
+    }
+}
+ */
 
 /* Lesson 31: Sorting Data with SQL ORDER BY */
 
 
 /* Lesson 30: Sending Sort Params to the Data Layer */
+/* import {getDBConnection} from "./db"
 
+export async function getModels(search?: string, sort?: string) {
+    const db = await getDBConnection()
+    let sql = "SELECT * FROM models"
+
+    const placeholders = []
+    
+    try {
+        if(search) {
+            placeholders.push(`%${search}%`)
+            placeholders.push(`%${search}%`)
+
+            sql += " WHERE name LIKE ? OR description LIKE ?"
+
+        }
+        if(sort) {
+            console.log("Sort by:", sort)
+            sql += ` ORDER BY ${
+                sort === "alpha" ? 'name ASC' : sort === "recent"
+                ? "dateAdded DESC"
+                : "likes DESC"
+            }`
+        }
+        return await db.all(sql, placeholders)
+
+    } finally {
+        await db.close()
+    }
+}
+
+export async function getModelsByCategorySlug(categorySlug: string) {
+    const db = await getDBConnection()
+    
+    try {
+        return await db.all(`SELECT * FROM models WHERE category = ?`, [categorySlug])
+    } finally {
+        await db.close()
+    }
+}
+
+export async function getModelById(id: number) {
+    const db = await getDBConnection()
+
+    try {
+        return await db.get(`SELECT * FROM models WHERE id == ?`, [id])
+    } finally {
+        await db.close()
+    }
+}
+ */
 
 /* Lesson 29: Styling the Active SortButton */
 
@@ -143,7 +362,7 @@
 
 
 /* Lesson 24: Searching by Name or Description */
-import {getDBConnection} from "./db"
+/* import {getDBConnection} from "./db"
 
 export async function getModels(search?: string) {
     const db = await getDBConnection()
@@ -183,7 +402,7 @@ export async function getModelById(id: number) {
         await db.close()
     }
 }
-
+ */
 
 /* Lesson 23: Upgrading getModels() for Search */
 /* import {getDBConnection} from "./db"

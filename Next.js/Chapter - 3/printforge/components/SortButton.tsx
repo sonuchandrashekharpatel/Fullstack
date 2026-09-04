@@ -128,13 +128,64 @@
 
 
 /* Lesson 29: Styling the Active SortButton */
+'use client'
+import { useRouter, usePathname, useSearchParams } from "next/navigation"
 
+export default function SortButton({children, sort}: { 
+  children: React.ReactNode
+  sort: string
+}) {
+  const pathname = usePathname()
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  const isActive = searchParams.get("sort") === sort
+
+  function handleSort() {
+    const url = `${pathname}?sort=${sort}`
+    router.push(url)
+  }
+
+  return (
+      <button
+        onClick={handleSort}
+        className={`px-3 py-1.5 text-sm rounded-full border cursor-pointer border-gray-300 ${isActive ? "text-white bg-orange-400 border-orange-400" : 'border-gray-300 text-gray-700 hover:bg-gray-100'} hover:bg-gray-100`}
+      >
+        {children}
+      </button>
+    )
+}
 
 /* Lesson 28: Navigating with usePathname and useRouter */
+/* 
+'use client'
+import { useRouter, usePathname } from "next/navigation"
 
+export default function SortButton({children, sort}: { 
+  children: React.ReactNode
+  sort: string
+}) {
+  const pathname = usePathname()
+  const router = useRouter()
+
+  function handleSort() {
+    const url = `${pathname}?sort=${sort}`
+    router.push(url)
+  }
+
+  
+  return (
+      <button
+        onClick={handleSort}
+        className={"px-3 py-1.5 text-sm rounded-full border cursor-pointer border-gray-300 text-gray-700 hover:bg-gray-100"}
+      >
+        {children}
+      </button>
+    )
+} */
 
 /* Lesson 27: Setting Up Sort Controls */
-
+/* 
 export default function SortButton({children}: { children: React.ReactNode }) {
     return (
       <button
@@ -143,4 +194,4 @@ export default function SortButton({children}: { children: React.ReactNode }) {
         {children}
       </button>
     )
-}
+} */
