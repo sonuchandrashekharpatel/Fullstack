@@ -83,43 +83,28 @@
 
 
 /* Lesson 44: Showing a Not Found State */
+/*
+CHALLENGE - Create a reusable NotFoundUI component
+1. Move the existing not-found UI into this new component
+2. Make the following pieces dynamic using props
+   - title
+   - subtitle
+   - link_text
+   - link_href
+3. Go back to the root not-found.tsx file
+   and render NotFoundUI with the original page content
 
+*/
+import NotFoundUI from "@/components/NotFoundUI"
 
-/* Lesson 43: Triggering Loading UI from SearchForm */
-
-
-/* Lesson 42: Triggering Loading UI from SortButtons */
-
-
-/* Lesson 41: Debugging the Missing Category Page Title */
-
-
-/* Lesson 40: Setting up the LoadingUI Component */
-
-
-/* Lesson 39: Creating the Models Browser Component */
-
-
-/* Lesson 38: Showing Pending UI with useTransition */
-
-
-/* Lesson 37: Using Multiple loading.tsx Files */
-
-import Image from "next/image"
-
-export default function LoadingUI({children}: {
-    children: React.ReactNode
-}) {
+export default function NotFound() {
     return (
-        <main>  
-        <h1 className="font-bold text-2xl text-orange-400 text-center mb-4">{children}</h1>  
-        <Image
-            src="/img/spinner.svg"  
-            alt="Loading..."
-            width={100}  
-            height={100}  
-            className="w-20 h-20 mx-auto animate-spin"  
+        <NotFoundUI 
+            title="Page Not Found"
+            subTitle="Sorry, we couldn't find the page requested"
+            linkHref="/"
+            linkText="Go Back Home"
+        
         />
-        </main>
     )
 }

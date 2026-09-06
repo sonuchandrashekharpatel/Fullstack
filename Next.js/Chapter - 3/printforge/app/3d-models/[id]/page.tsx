@@ -182,11 +182,15 @@ Hint: since we only expect one matching model, this is a good place to use `db.g
 
 import Image from "next/image"
 import {getModelById} from "@/lib/models"
+import {notFound} from "next/navigation"
 
 export default async function ModelPage({params}: { params: Promise<{ id: number }>}) {
   const {id } = await params
   const model = await getModelById(id)
 
+    if(!model) {
+        notFound()
+    }
   return (
     <div className="container max-w-6xl px-4 py-8 mx-auto">
       <article className="grid grid-cols-1 gap-8 lg:grid-cols-2">

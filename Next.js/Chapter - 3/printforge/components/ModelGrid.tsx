@@ -90,13 +90,90 @@
 
 /* Lesson 42: Triggering Loading UI from SortButtons */
 
+import ModelCard from "./ModelCard"
+import type {Model} from "@/lib/types"
+import SortControls from "@/components/SortControls"
+import LoadingUI from "@/components/LoadingUI"
+import type {TransitionStartFunction} from "react"
+
+export default function ModelGrid({isPending, models, search, categoryName, startTransition}: { 
+    models: Model[], 
+    categoryName?: string
+    search?: string
+    isPending: boolean
+    startTransition: TransitionStartFunction
+}) {
+
+    const title = search ? `Search results for '${search}'` : categoryName || "3D Models"
+    return (
+    <div className="container px-4 py-8 mx-auto">
+        <div className="flex flex-col gap-2 md:flex-row md:justify-between mb-8">
+            <h1 className="mb-8 text-3xl font-bold">{title}</h1>
+            <SortControls startTransition={startTransition}/>
+        </div>
+        
+        { isPending ? <LoadingUI>Models Loading...</LoadingUI> :
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {
+                    models.map((model: Model) => 
+                        <ModelCard key={model.id} model={model}/>
+                    )
+                }
+            </div>
+        }
+    </div>
+    )
+}
+
+
 
 /* Lesson 41: Debugging the Missing Category Page Title */
 
 
 /* Lesson 40: Setting up the LoadingUI Component */
+/*
+CHALLENGE - Use isPending inside ModelsGrid
+1. Accept and type the isPending prop (it's a boolean)
+2. Import the LoadingUI component
+3. Use isPending to decide what to render:
+   - If isPending is true, show LoadingUI saying "Loading models..."
+   - If isPending is false, grid of ModelCards
+*/
+/* 
+import ModelCard from "./ModelCard"
+import type {Model} from "@/lib/types"
+import SortControls from "@/components/SortControls"
+import LoadingUI from "@/components/LoadingUI"
 
+export default function ModelGrid({isPending, models, search, categoryName}: { 
+    models: Model[], 
+    categoryName?: string
+    search?: string
+    isPending: boolean
+}) {
 
+    const title = search ? `Search results for '${search}'` : categoryName || "3D Models"
+    return (
+    <div className="container px-4 py-8 mx-auto">
+        <div className="flex flex-col gap-2 md:flex-row md:justify-between mb-8">
+            <h1 className="mb-8 text-3xl font-bold">{title}</h1>
+            <SortControls />
+        </div>
+        
+        { isPending ? <LoadingUI>Models Loading...</LoadingUI> :
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {
+                    models.map((model: Model) => 
+                        <ModelCard key={model.id} model={model}/>
+                    )
+                }
+            </div>
+        }
+    </div>
+    )
+}
+
+ */
 /* Lesson 39: Creating the Models Browser Component */
 
 
@@ -140,7 +217,7 @@
 
 
 /* Lesson 25: Passing Search Through the UI */
-import ModelCard from "./ModelCard"
+/* import ModelCard from "./ModelCard"
 import type {Model} from "@/lib/types"
 import SortControls from "@/components/SortControls"
 
@@ -167,7 +244,7 @@ export default function ModelGrid({models, search, categoryName}: {
     </div>
     )
 }
-
+ */
 /* Lesson 24: Searching by Name or Description */
 
 

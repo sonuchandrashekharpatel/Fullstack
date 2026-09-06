@@ -86,6 +86,60 @@
 
 
 /* Lesson 43: Triggering Loading UI from SearchForm */
+/*
+CHALLENGE
+1. Initialise useRouter and usePathname (client hooks) inside SearchForm:
+   - useRouter will let us push a new URL
+   - usePathname will give us the current route path
+2. Build a new url:
+   - If search has a value, add it to the URL as `?search=`
+   - If search is empty, use the current pathname by itself
+3. Use `encodeURIComponent(search)`* when adding the search term to the URL
+4. Push the new url to the router
+   Use startTransition to wrap the router.push(url)
+   
+* `encodeURIComponent()` is a built-in JavaScript function 
+that makes a string safe to put inside a URL. 
+DOCS: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent
+*/
+
+'use client'
+import Form from "next/form"
+import type {TransitionStartFunction} from "react"
+import { useRouter, usePathname } from 'next/navigation'
+
+export default function SearchForm({ search, startTransition }: { 
+    search?: string
+    startTransition: TransitionStartFunction 
+}) {
+
+    const router = useRouter()
+    const pathname = usePathname()
+
+    function handleSearch(formData: FormData) {
+        const search = formData.get("search")?.toString().trim() || ""
+
+        const url = search ? `${pathname}?search=${encodeURIComponent(search)}` : pathname
+        startTransition(() => {
+            router.push(url)
+        })
+    }
+    return (
+        <Form 
+            action={handleSearch} 
+            className="w-full px-5 md:px-0 md:max-w-xl">
+            <input
+                type="text"
+                id="search"
+                name="search"
+                defaultValue={search}
+                placeholder="E.g. dragon"
+                autoComplete="off"
+                className="w-full py-3 pl-5 pr-5 text-sm placeholder-gray-500 bg-white border border-[#606060] rounded-full focus:border-[#606060] focus:outline-none focus:ring-0 md:text-base"
+            />
+        </Form>
+    )
+}
 
 
 /* Lesson 42: Triggering Loading UI from SortButtons */
@@ -140,7 +194,7 @@
 
 
 /* Lesson 25: Passing Search Through the UI */
-
+/* 
 import Form from "next/form"
 export default function SearcForm({ search }: { search?: string}) {
     return (
@@ -160,7 +214,7 @@ export default function SearcForm({ search }: { search?: string}) {
     )
 }
 
-
+ */
 /* Lesson 24: Searching by Name or Description */
 
 

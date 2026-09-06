@@ -107,6 +107,7 @@
 
 
 /* Lesson 36: Adding Route-Level Loading UI */
+
 import {getDBConnection} from "./db"
 
 export async function getModels({ search, sort, categorySlug}:{

@@ -83,43 +83,24 @@
 
 
 /* Lesson 44: Showing a Not Found State */
-
-
-/* Lesson 43: Triggering Loading UI from SearchForm */
-
-
-/* Lesson 42: Triggering Loading UI from SortButtons */
-
-
-/* Lesson 41: Debugging the Missing Category Page Title */
-
-
-/* Lesson 40: Setting up the LoadingUI Component */
-
-
-/* Lesson 39: Creating the Models Browser Component */
-
-
-/* Lesson 38: Showing Pending UI with useTransition */
-
-
-/* Lesson 37: Using Multiple loading.tsx Files */
-
-import Image from "next/image"
-
-export default function LoadingUI({children}: {
-    children: React.ReactNode
+import Link from "next/link"
+export default function NotFoundUI({title, subTitle, linkHref, linkText}: {
+    title: string
+    subTitle: string
+    linkHref: string
+    linkText: string
 }) {
     return (
-        <main>  
-        <h1 className="font-bold text-2xl text-orange-400 text-center mb-4">{children}</h1>  
-        <Image
-            src="/img/spinner.svg"  
-            alt="Loading..."
-            width={100}  
-            height={100}  
-            className="w-20 h-20 mx-auto animate-spin"  
-        />
+        <main className="flex flex-col items-center justify-center gap-2 mt-10">
+            <span className="mt-10 text-7xl">🙈</span>
+            <h1 className="text-4xl font-semibold">{title}</h1>
+            <p>{subTitle}</p>
+            <Link
+                href={linkHref}
+                className="border-2 border-orange-400 px-3 py-3 rounded-lg text-orange-400 font-semibold"
+            >
+                {linkText}
+            </Link>
         </main>
     )
 }

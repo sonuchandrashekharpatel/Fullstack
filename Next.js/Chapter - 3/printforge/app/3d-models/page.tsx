@@ -81,6 +81,25 @@
 
 /* Lesson 45: Handling Non-existent Models and Categories */
 
+import {getModels} from '@/lib/models'
+import ModelsBrowser from "@/components/ModelsBrowser"
+
+export default async function ModelsPage({ searchParams }: {
+    searchParams: Promise<{ search : string, sort?: string }>
+}) {
+    const search = (await searchParams).search?.toLowerCase() || ''
+    const sort = (await searchParams).sort || ''
+    const models = await getModels({search, sort})
+
+
+
+    return (
+        <>
+            <ModelsBrowser search={search} models={models}/>
+        </>
+    )
+}
+
 
 /* Lesson 44: Showing a Not Found State */
 
@@ -99,6 +118,49 @@
 
 /* Lesson 39: Creating the Models Browser Component */
 
+/*
+CHALLENGE - Create a shared ModelsBrowser component  
+  
+1. Copy the current browser UI from `/3d-models/page.tsx`  
+into `ModelsBrowser`
+  
+2. Import anything `ModelsBrowser` now needs  
+
+3. Accept and type the props this component needs
+   (seeing as ModelGrid is used both the 
+    3D Models page and Category page)
+  
+4. Back in `/3d-models/page.tsx`,  
+   render `ModelsBrowser` and pass in the required props  
+  
+5. Then go to `/3d-models/categories/[categorySlug]/page.tsx`  
+   and use `ModelsBrowser` there too  
+   (note: the SearchForm will now appear in the Category page,
+    but it won't work. We'll handle this later)
+  
+6. Pass the category name into `ModelsBrowser`  
+   so the grid title still works on category pages  
+  
+When you're done, both pages should look and behave exactly the same.
+*/
+/* 
+import {getModels} from '@/lib/models'
+import ModelsBrowser from "@/components/ModelsBrowser"
+
+export default async function ModelsPage({ searchParams }: {
+    searchParams: Promise<{ search : string, sort?: string }>
+}) {
+    const search = (await searchParams).search?.toLowerCase() || ''
+    const sort = (await searchParams).sort || ''
+    const models = await getModels({search, sort})
+
+    return (
+        <>
+            <ModelsBrowser search={search} models={models}/>
+        </>
+    )
+}
+ */
 
 /* Lesson 38: Showing Pending UI with useTransition */
 
@@ -113,6 +175,7 @@
 
 
 /* Lesson 34: Refactoring getModels() to take an object */
+/* 
 import SearchForm from "@/components/SearchForm"
 import ModelGrid from "@/components/ModelGrid"
 import {getModels} from '@/lib/models'
@@ -131,7 +194,7 @@ export default async function ModelsPage({ searchParams }: {
         </>
     )
 }
-
+ */
 
 /* Lesson 33: Upgrading getModels() for Category Sorting */
 

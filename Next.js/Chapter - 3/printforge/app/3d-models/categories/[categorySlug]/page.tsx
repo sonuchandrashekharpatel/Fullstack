@@ -80,6 +80,35 @@
 
 
 /* Lesson 45: Handling Non-existent Models and Categories */
+/*
+CHALLENGE - Handle a missing category
+1. Create a new not-found.tsx file inside:
+   /3d-models/categories/[categorySlug]
+2. Use the reusable NotFoundUI component
+3. Customise the content for a missing category
+4. In the category page, check whether the category exists
+5. If no category is found, call notFound()
+*/
+import {getModels} from "@/lib/models"
+import {getCategoryBySlug} from "@/lib/categories"
+import ModelsBrowser from "@/components/ModelsBrowser"
+import {notFound} from "next/navigation"
+
+export default async function ModelCategoryPage({ params , searchParams }: { 
+    params: Promise<{ categorySlug: string }>
+    searchParams: Promise<{ sort?: string | undefined }>
+}) {
+
+    const { categorySlug } = await params
+    const sort = (await searchParams).sort || ''
+
+    const models = await getModels({categorySlug, sort})
+    const category = await getCategoryBySlug(categorySlug)
+    if(!category) {
+        notFound()
+    }
+    return <ModelsBrowser models={models} categoryName={category.name}/>
+}
 
 
 /* Lesson 44: Showing a Not Found State */
@@ -113,10 +142,10 @@
 
 
 /* Lesson 34: Refactoring getModels() to take an object */
-
+/* 
 import {getModels} from "@/lib/models"
 import {getCategoryBySlug} from "@/lib/categories"
-import ModelGrid from "@/components/ModelGrid"
+import ModelsBrowser from "@/components/ModelsBrowser"
 
 export default async function ModelCategoryPage({ params , searchParams }: { 
     params: Promise<{ categorySlug: string }>
@@ -129,9 +158,9 @@ export default async function ModelCategoryPage({ params , searchParams }: {
     const models = await getModels({categorySlug, sort})
     const category = await getCategoryBySlug(categorySlug)
 
-    return <ModelGrid models={models} categoryName={category.name}/>
+    return <ModelsBrowser models={models} categoryName={category.name}/>
 }
-
+ */
 
 /* Lesson 33: Upgrading getModels() for Category Sorting */
 /* 

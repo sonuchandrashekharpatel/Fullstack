@@ -89,6 +89,22 @@
 
 
 /* Lesson 42: Triggering Loading UI from SortButtons */
+import SortButton from "./SortButton"
+import type {TransitionStartFunction} from "react"
+
+export default function SortControls({startTransition}: {
+    startTransition: TransitionStartFunction
+}) {
+    return (
+        <div className="flex items-center gap-2">
+            <span className="text-sm text-gray-600">Sort by:</span>
+            <SortButton sort="alpha" startTransition={startTransition}>A-Z</SortButton>
+            <SortButton sort="popular" startTransition={startTransition}>Popular</SortButton>
+            <SortButton sort="recent" startTransition={startTransition}>Most Recent</SortButton>
+        </div>
+    )
+}
+
 
 
 /* Lesson 41: Debugging the Missing Category Page Title */
@@ -128,6 +144,7 @@
 
 
 /* Lesson 29: Styling the Active SortButton */
+/* 
 import SortButton from "./SortButton"
 
 export default function SortControls() {
@@ -140,7 +157,7 @@ export default function SortControls() {
         </div>
     )
 }
-
+ */
 
 /* Lesson 28: Navigating with usePathname and useRouter */
 /* import SortButton from "./SortButton"

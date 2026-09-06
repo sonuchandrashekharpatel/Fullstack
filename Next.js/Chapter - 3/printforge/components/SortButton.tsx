@@ -89,6 +89,41 @@
 
 
 /* Lesson 42: Triggering Loading UI from SortButtons */
+'use client'
+import { useRouter, usePathname, useSearchParams } from "next/navigation"
+import type {TransitionStartFunction} from "react"
+
+export default function SortButton({children, sort, startTransition}: { 
+  children: React.ReactNode
+  sort: string
+  startTransition: TransitionStartFunction
+}) {
+  const pathname = usePathname()
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  const isActive = searchParams.get("sort") === sort
+
+  function handleSort() {
+    const urlSearchParams = new URLSearchParams(searchParams.toString())
+    urlSearchParams.set("sort", sort)
+
+    const url = `${pathname}?${urlSearchParams.toString()}`
+    startTransition(() => {
+      router.push(url)
+    })
+  }
+
+  return (
+      <button
+        onClick={handleSort}
+        className={`px-3 py-1.5 text-sm rounded-full border cursor-pointer border-gray-300 ${isActive ? "text-white bg-orange-400 border-orange-400" : 'border-gray-300 text-gray-700 hover:bg-gray-100'} hover:bg-gray-100`}
+      >
+        {children}
+      </button>
+    )
+}
+
 
 
 /* Lesson 41: Debugging the Missing Category Page Title */
@@ -118,7 +153,7 @@ Inside `handleSort()`
 2. Update the `url` variable so it uses the full updated query string  
 3. Make sure any existing parameters, like `search`, stay in the URL  
 */
-
+/* 
 'use client'
 import { useRouter, usePathname, useSearchParams } from "next/navigation"
 
@@ -149,7 +184,7 @@ export default function SortButton({children, sort}: {
       </button>
     )
 }
-
+ */
 
 /* Lesson 34: Refactoring getModels() to take an object */
 
