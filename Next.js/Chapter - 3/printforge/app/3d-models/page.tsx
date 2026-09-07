@@ -60,6 +60,29 @@
 
 /* Lesson 52: Reading the Page Query on the Server */
 
+import {getModels} from '@/lib/models'
+import ModelsBrowser from "@/components/ModelsBrowser"
+
+export default async function ModelsPage({ searchParams }: {
+    searchParams: Promise<{ 
+        search : string, 
+        sort?: string
+        page: string
+    }>
+}) {
+    const search = (await searchParams).search?.toLowerCase() || ''
+    const sort = (await searchParams).sort || ''
+    const page = Number((await searchParams).page) || 1
+    const modelsPerPage = 4
+    const models = await getModels({search, sort, page, modelsPerPage})
+
+    return (
+        <>
+            <ModelsBrowser search={search} models={models}/>
+        </>
+    )
+}
+
 
 /* Lesson 51: Updating the URL with a Page Query */
 
@@ -80,7 +103,7 @@
 
 
 /* Lesson 45: Handling Non-existent Models and Categories */
-
+/* 
 import {getModels} from '@/lib/models'
 import ModelsBrowser from "@/components/ModelsBrowser"
 
@@ -99,7 +122,7 @@ export default async function ModelsPage({ searchParams }: {
         </>
     )
 }
-
+ */
 
 /* Lesson 44: Showing a Not Found State */
 

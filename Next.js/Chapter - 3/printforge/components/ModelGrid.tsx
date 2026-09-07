@@ -84,12 +84,54 @@
 
 /* Lesson 44: Showing a Not Found State */
 
+import ModelCard from "./ModelCard"
+import type {Model} from "@/lib/types"
+import SortControls from "@/components/SortControls"
+import LoadingUI from "@/components/LoadingUI"
+import type {TransitionStartFunction} from "react"
+import NotFoundUI from "./NotFoundUI"
+
+export default function ModelGrid({isPending, models, search, categoryName, startTransition}: { 
+    models: Model[], 
+    categoryName?: string
+    search?: string
+    isPending: boolean
+    startTransition: TransitionStartFunction
+}) {
+
+    const title = search ? `Search results for '${search}'` : categoryName || "3D Models"
+    return (
+    <div className="container px-4 py-8 mx-auto">
+        <div className="flex flex-col gap-2 md:flex-row md:justify-between mb-8">
+            <h1 className="mb-8 text-3xl font-bold">{title}</h1>
+            <SortControls startTransition={startTransition}/>
+        </div>
+        
+        { isPending ? <LoadingUI>Models Loading...</LoadingUI> :
+            models.length > 0 ? <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {
+                    models.map((model: Model) => 
+                        <ModelCard key={model.id} model={model}/>
+                    )
+                }
+            </div> :
+            <NotFoundUI
+                title="Models not found"
+                subTitle="Try searching for something else"
+                linkText="See all models"
+                linkHref="/3d-models"
+            />
+        }
+    </div>
+    )
+}
+
 
 /* Lesson 43: Triggering Loading UI from SearchForm */
 
 
 /* Lesson 42: Triggering Loading UI from SortButtons */
-
+/* 
 import ModelCard from "./ModelCard"
 import type {Model} from "@/lib/types"
 import SortControls from "@/components/SortControls"
@@ -124,7 +166,7 @@ export default function ModelGrid({isPending, models, search, categoryName, star
     </div>
     )
 }
-
+ */
 
 
 /* Lesson 41: Debugging the Missing Category Page Title */

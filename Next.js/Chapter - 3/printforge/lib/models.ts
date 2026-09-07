@@ -53,13 +53,157 @@
 
 
 /* Lesson 54: Returning One Page of Models */
+/*
+CHALLENGE
+1. Work out the offset:
+   Hint:
+   page 1 should skip 0 rows
+   page 2 should skip 4 rows
+   page 3 should skip 8 rows
+
+2. Add LIMIT and OFFSET to the end of the SQL query.
+   
+3. Use placeholders instead of putting the numbers directly
+   into the SQL string.
+
+4. Add `modelsPerPage` and `offset` to the `placeholders` array.
+*/
+
+import {getDBConnection} from "./db"
+
+export async function getModels({ search, sort, categorySlug, page, modelsPerPage }:{
+    search?: string, 
+    sort?: string, 
+    categorySlug?: string,
+    page: number
+    modelsPerPage: number
+}) {
+    const db = await getDBConnection()
+    
+    let sql = "SELECT * FROM models"
+
+    const placeholders = []
+    const where = []
+    if(search) {
+        placeholders.push(`%${search}%`)
+        placeholders.push(`%${search}%`)
+        where.push("(name LIKE ? OR description LIKE ?)")
+    }
+
+    if(categorySlug) {
+        // My Solution: Not best: sql += ` ${search ? "AND" : "WHERE"} category = ?`
+        where.push("category = ?")
+        placeholders.push(categorySlug)
+    }
+   
+    if(where.length > 0) {
+        sql += " WHERE" + where.join(" AND ")
+    }
+    if(sort) {
+        sql += ` ORDER BY ${
+            sort === "alpha" ? 'name ASC' : sort === "recent"
+            ? "dateAdded DESC"
+            : "likes DESC"
+        }`
+    }
+
+    sql += " LIMIT ? OFFSET ?"
+    placeholders.push(modelsPerPage, (page - 1) * modelsPerPage)
+
+    try {
+        return await db.all(sql, placeholders)
+
+    } finally {
+        await db.close()
+    }
+}
+
+export async function getModelById(id: number) {
+    const db = await getDBConnection()
+
+    try {
+        return await db.get(`SELECT * FROM models WHERE id == ?`, [id])
+    } finally {
+        await db.close()
+    }
+}
 
 
 /* Lesson 53: Limiting Results with LIMIT and OFFSET */
+/* 
+OFFSET = how many rows to skip
+LIMIT = how many rows to return
 
+Ex: 
+1. SELECT * FROM models
+    WHERE category = ?
+    LIMIT 4 OFFSET 8
+
+2. SELECT * FROM models
+    LIMIT 4 OFFSET 8
+
+LIMIT and OFFSET has to be in end
+
+*/
 
 /* Lesson 52: Reading the Page Query on the Server */
+/* 
+import {getDBConnection} from "./db"
 
+export async function getModels({ search, sort, categorySlug, page, modelsPerPage }:{
+    search?: string, 
+    sort?: string, 
+    categorySlug?: string,
+    page: number
+    modelsPerPage: number
+}) {
+    const db = await getDBConnection()
+    
+    let sql = "SELECT * FROM models"
+
+    const placeholders = []
+    const where = []
+    if(search) {
+        placeholders.push(`%${search}%`)
+        placeholders.push(`%${search}%`)
+        where.push("(name LIKE ? OR description LIKE ?)")
+    }
+
+    if(categorySlug) {
+        // My Solution: Not best: sql += ` ${search ? "AND" : "WHERE"} category = ?`
+        where.push("category = ?")
+        placeholders.push(categorySlug)
+    }
+   
+    if(where.length > 0) {
+        sql += " WHERE" + where.join(" AND ")
+    }
+    if(sort) {
+        sql += ` ORDER BY ${
+            sort === "alpha" ? 'name ASC' : sort === "recent"
+            ? "dateAdded DESC"
+            : "likes DESC"
+        }`
+    }
+
+    try {
+        return await db.all(sql, placeholders)
+
+    } finally {
+        await db.close()
+    }
+}
+
+export async function getModelById(id: number) {
+    const db = await getDBConnection()
+
+    try {
+        return await db.get(`SELECT * FROM models WHERE id == ?`, [id])
+    } finally {
+        await db.close()
+    }
+}
+ */
 
 /* Lesson 51: Updating the URL with a Page Query */
 
@@ -71,7 +215,75 @@
 
 
 /* Lesson 48: Checkpoint Challenge: Searching Within Categories, Part 2 */
+/*
+CHALLENGE - Search within a category, Part 2
+1. Only add a WHERE clause if at least one condition exists
+2. Build each condition separately
+3. Combine multiple conditions using AND
+4. Keep the params array in the same order
+   as the placeholders in the SQL string
 
+HINT:
+This is mostly a JavaScript problem. Think about
+- arrays
+- conditionals
+- string building
+*/
+/* 
+import {getDBConnection} from "./db"
+
+export async function getModels({ search, sort, categorySlug}:{
+    search?: string, 
+    sort?: string, 
+    categorySlug?: string
+}) {
+    const db = await getDBConnection()
+    
+    let sql = "SELECT * FROM models"
+
+    const placeholders = []
+    const where = []
+    if(search) {
+        placeholders.push(`%${search}%`)
+        placeholders.push(`%${search}%`)
+        where.push("(name LIKE ? OR description LIKE ?)")
+    }
+
+    if(categorySlug) {
+        // My Solution: Not best: sql += ` ${search ? "AND" : "WHERE"} category = ?`
+        where.push("category = ?")
+        placeholders.push(categorySlug)
+    }
+   
+    if(where.length > 0) {
+        sql += " WHERE" + where.join(" AND ")
+    }
+    if(sort) {
+        sql += ` ORDER BY ${
+            sort === "alpha" ? 'name ASC' : sort === "recent"
+            ? "dateAdded DESC"
+            : "likes DESC"
+        }`
+    }
+
+    try {
+        return await db.all(sql, placeholders)
+
+    } finally {
+        await db.close()
+    }
+}
+
+export async function getModelById(id: number) {
+    const db = await getDBConnection()
+
+    try {
+        return await db.get(`SELECT * FROM models WHERE id == ?`, [id])
+    } finally {
+        await db.close()
+    }
+}
+ */
 
 /* Lesson 47: Checkpoint Challenge: Searching Within Categories, Part 1 */
 
@@ -107,7 +319,7 @@
 
 
 /* Lesson 36: Adding Route-Level Loading UI */
-
+/* 
 import {getDBConnection} from "./db"
 
 export async function getModels({ search, sort, categorySlug}:{
@@ -161,7 +373,7 @@ export async function getModelById(id: number) {
         await db.close()
     }
 }
-
+ */
 /* Lesson 35: Combining sort and search functionality */
 
 

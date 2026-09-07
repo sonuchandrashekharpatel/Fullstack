@@ -66,6 +66,35 @@
 
 /* Lesson 50: Creating Pagination Controls and Buttons */
 
+'use client'
+import SearchForm from "@/components/SearchForm"
+import ModelGrid from "@/components/ModelGrid"
+import type {Model} from "@/lib/types"
+import { useTransition } from 'react'
+import PaginationControls from "./PaginationControls"
+
+export default function ModelsBrowser({ search, models, categoryName }: {
+    search?: string
+    models: Model[]
+    categoryName?: string
+}) {
+
+    const [isPending, startTransition] = useTransition()
+    return (
+        <>
+            <PaginationControls />
+            <SearchForm search={search} startTransition={startTransition}/>
+            <ModelGrid 
+                isPending={isPending} 
+                models={models} 
+                search={search} 
+                categoryName={categoryName}
+                startTransition={startTransition}
+            />
+        </>
+    )
+}
+
 
 /* Lesson 49: Introducing Pagination */
 
@@ -86,7 +115,7 @@
 
 
 /* Lesson 43: Triggering Loading UI from SearchForm */
-
+/* 
 'use client'
 import SearchForm from "@/components/SearchForm"
 import ModelGrid from "@/components/ModelGrid"
@@ -113,7 +142,7 @@ export default function ModelsBrowser({ search, models, categoryName }: {
         </>
     )
 }
-
+ */
 
 /* Lesson 42: Triggering Loading UI from SortButtons */
 

@@ -75,6 +75,43 @@
 
 /* Lesson 47: Checkpoint Challenge: Searching Within Categories, Part 1 */
 
+/*
+CHALLENGE 1 - Search within a category
+1. In the category page, accept `search` as an optional searchParam
+2. Type it properly
+3. Clean the search value
+   - If it exists, trim it
+   - If it doesn't exist, use an empty string
+4. Pass the cleaned search value into getModels()
+5. Try searching from a category page
+6. Stare lovingly at that error in the Runner 💅
+
+Don't panic when it breaks.
+That's expected, and we'll fix it in Part 2.
+*/
+
+import {getModels} from "@/lib/models"
+import {getCategoryBySlug} from "@/lib/categories"
+import ModelsBrowser from "@/components/ModelsBrowser"
+import {notFound} from "next/navigation"
+
+export default async function ModelCategoryPage({ params , searchParams }: { 
+    params: Promise<{ categorySlug: string }>
+    searchParams: Promise<{ sort?: string, search?: string }>
+}) {
+
+    const { categorySlug } = await params
+    const sort = (await searchParams).sort || ''
+    const search = (await searchParams)?.search?.trim() || ''
+
+    const models = await getModels({categorySlug, sort, search})
+    const category = await getCategoryBySlug(categorySlug)
+    if(!category) {
+        notFound()
+    }
+    return <ModelsBrowser models={models} categoryName={category.name}/>
+}
+
 
 /* Lesson 46: Showing a No Results Found State */
 
@@ -89,7 +126,8 @@ CHALLENGE - Handle a missing category
 4. In the category page, check whether the category exists
 5. If no category is found, call notFound()
 */
-import {getModels} from "@/lib/models"
+
+/* import {getModels} from "@/lib/models"
 import {getCategoryBySlug} from "@/lib/categories"
 import ModelsBrowser from "@/components/ModelsBrowser"
 import {notFound} from "next/navigation"
@@ -109,7 +147,7 @@ export default async function ModelCategoryPage({ params , searchParams }: {
     }
     return <ModelsBrowser models={models} categoryName={category.name}/>
 }
-
+ */
 
 /* Lesson 44: Showing a Not Found State */
 
