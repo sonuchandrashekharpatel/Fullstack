@@ -39,10 +39,55 @@
 
 /* Lesson 59: Styling the Active Pagination Button */
 
+import PaginationButton from "./PaginationButton";
+
+export default function PaginationControls({totalPages, currentPage}: {
+    totalPages: number
+    currentPage: number
+}) {
+    const paginationButtons = []
+
+    for(let i=1; i<=totalPages; i++) {
+        const isActive = i === currentPage
+        paginationButtons.push(<PaginationButton key={i} page={i} isActive={isActive} />)
+    }
+    return (
+        <div className="flex justify-center gap-1">
+            {paginationButtons}
+        </div>
+    )
+}
+
 
 /* Lesson 58: Rendering the Right Number of Pagination Buttons */
 
+/*
+CHALLENGE - Render the correct number of pagination buttons
+1. Accept a `totalPages` prop.
+2. Use `totalPages` to create an array of page numbers.
+   For example, if totalPages is 5, we want:
+   [1, 2, 3, 4, 5]
+3. Map over that array.
+4. For each page number, render a PaginationButton.
+5. Pass the page number into PaginationButton using the `page` prop.
+6. Don't forget to add a key!
+*/
+/* 
+import PaginationButton from "./PaginationButton";
 
+export default function PaginationControls({totalPages}: {totalPages: number}) {
+    const paginationButtons = []
+
+    for(let i=1; i<=totalPages; i++) {
+        paginationButtons.push(<PaginationButton key={i} page={i} />)
+    }
+    return (
+        <div className="flex justify-center gap-1">
+            {paginationButtons}
+        </div>
+    )
+}
+ */
 /* Lesson 57: Calculating Total Pages */
 
 
@@ -76,7 +121,7 @@ CHALLENGE
 2. Render 5 `PaginationButton`s in the `PaginationControls` component
 
 */
-import PaginationButton from "./PaginationButton";
+/* import PaginationButton from "./PaginationButton";
 
 export default function PaginationControls() {
     return (
@@ -88,4 +133,4 @@ export default function PaginationControls() {
             <PaginationButton page={5} />
         </div>
     )
-}
+} */

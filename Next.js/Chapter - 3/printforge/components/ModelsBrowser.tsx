@@ -38,12 +38,65 @@
 
 
 /* Lesson 59: Styling the Active Pagination Button */
+/*
+CHALLENGE - Active PaginationButtons
+1. Accept the `currentPage` prop
+2. Pass `currentPage` down into `PaginationControls`  
+3. In `PaginationControls`, compare each page number to `currentPage`  
+4. Pass an `isActive` prop into each `PaginationButton`  
+5. In `PaginationButton`, use `isActive` to apply active styling  
+  
+The active page button should use the same orange color
 
+*/
 
 /* Lesson 58: Rendering the Right Number of Pagination Buttons */
 
 
 /* Lesson 57: Calculating Total Pages */
+
+'use client'
+import SearchForm from "@/components/SearchForm"
+import ModelGrid from "@/components/ModelGrid"
+import type {Model} from "@/lib/types"
+import { useTransition } from 'react'
+import PaginationControls from "./PaginationControls"
+
+export default function ModelsBrowser({ 
+    search, 
+    models, 
+    categoryName, 
+    totalPages,
+    currentPage 
+}: {
+    search?: string
+    models: Model[]
+    categoryName?: string
+    totalPages: number
+    currentPage: number
+}) {
+
+    const [isPending, startTransition] = useTransition()
+    return (
+        <>
+            <SearchForm 
+                search={search} 
+                startTransition={startTransition}
+            />
+            <ModelGrid 
+                isPending={isPending} 
+                models={models} 
+                search={search} 
+                categoryName={categoryName}
+                startTransition={startTransition}
+            />
+            <PaginationControls 
+                totalPages={totalPages} 
+                currentPage={currentPage}
+            />
+        </>
+    )
+}
 
 
 /* Lesson 56: Counting Total Matching Models */
@@ -65,7 +118,7 @@
 
 
 /* Lesson 50: Creating Pagination Controls and Buttons */
-
+/* 
 'use client'
 import SearchForm from "@/components/SearchForm"
 import ModelGrid from "@/components/ModelGrid"
@@ -94,7 +147,7 @@ export default function ModelsBrowser({ search, models, categoryName }: {
         </>
     )
 }
-
+ */
 
 /* Lesson 49: Introducing Pagination */
 

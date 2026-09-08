@@ -35,7 +35,134 @@
 
 
 /* Lesson 60: Adding Pagination to Category Pages */
+/*  
+CHALLENGE - Add pagination to the category page  
+  
+PART 1: Update getModelCount()  
 
+1. Update getModelCount() (lib/models.ts) so it can accept:  
+- search  
+- categorySlug  
+
+2. If categorySlug exists, update the SQL query so it only counts models  
+from that category.  
+  
+3. Make sure this works alongside search.  
+   So if both search and categorySlug exist, both conditions should apply.  
+  
+PART 2: Update category/page.tsx  
+  
+4. Grab `page` from the URL using `searchParams`.  
+  
+5. Set `modelsPerPage`.  
+  
+6. Use `getModelCount()` to determine `totalPages`.  
+Make sure you pass in both:  
+- search  
+- categorySlug  
+  
+4. Update the call to `getModels()` so it receives:  
+- page  
+- modelsPerPage  
+  
+5. Pass `totalPages` and `currentPage` into `ModelsBrowser`.  
+  
+Don't worry about any repeated code right now.  
+We'll clean that up later.  
+*/
+
+import {getDBConnection} from "./db"
+
+export async function getModels({ search, sort, categorySlug, page, modelsPerPage }:{
+    search?: string, 
+    sort?: string, 
+    categorySlug?: string,
+    page: number
+    modelsPerPage: number
+}) {
+    const db = await getDBConnection()
+    
+    let sql = "SELECT * FROM models"
+    
+    const placeholders = []
+    const where = []
+    if(search) {
+        placeholders.push(`%${search}%`)
+        placeholders.push(`%${search}%`)
+        where.push("(name LIKE ? OR description LIKE ?)")
+    }
+    
+    if(categorySlug) {
+        where.push("category = ?")
+        placeholders.push(categorySlug)
+    }
+    
+    if(where.length > 0) {
+        sql += " WHERE " + where.join(" AND ")
+    }
+    if(sort) {
+        sql += ` ORDER BY ${
+            sort === "alpha" ? 'name ASC' : sort === "recent"
+            ? "dateAdded DESC"
+            : "likes DESC"
+        }`
+    }
+    
+    sql += " LIMIT ? OFFSET ?"
+    placeholders.push(modelsPerPage, (page - 1) * modelsPerPage)
+    
+    try {
+        return await db.all(sql, placeholders)
+
+    } finally {
+        await db.close()
+    }
+}
+
+export async function getModelById(id: number) {
+    const db = await getDBConnection()
+
+    try {
+        return await db.get(`SELECT * FROM models WHERE id == ?`, [id])
+    } finally {
+        await db.close()
+    }
+}
+
+export default async function getModelsCount({search, categorySlug}: {
+    search?: string
+    categorySlug?: string
+}) {
+    const db = await getDBConnection()
+    console.log("Hello from the models.ts")
+    let sql = "SELECT COUNT(*) AS count FROM models"
+    const placeholders = []
+    const where = []
+
+    if(search) {
+        where.push("(name LIKE ? description LIKE ?)")
+        placeholders.push(`%${search}%`, `%${search}%`)
+    }
+
+    if(categorySlug) {
+        where.push("category = ?")
+        placeholders.push(categorySlug)
+    }
+
+    if(where.length > 0) {
+        sql += " WHERE " + where.join(" AND ")
+    }
+
+    console.log(sql)
+
+    try {
+        const {count} = await db.get(sql, placeholders)
+        return count
+    } finally {
+
+        await db.close()
+    }
+}
 
 /* Lesson 59: Styling the Active Pagination Button */
 
@@ -50,25 +177,25 @@
 
 
 /* Lesson 55: Counting Rows with COUNT() */
-
-
-/* Lesson 54: Returning One Page of Models */
-/*
-CHALLENGE
-1. Work out the offset:
-   Hint:
-   page 1 should skip 0 rows
-   page 2 should skip 4 rows
-   page 3 should skip 8 rows
-
-2. Add LIMIT and OFFSET to the end of the SQL query.
+/*  
+CHALLENGE - Complete getModelCount()  
+1. Make connection with the database
    
-3. Use placeholders instead of putting the numbers directly
-   into the SQL string.
-
-4. Add `modelsPerPage` and `offset` to the `placeholders` array.
+2. Accept an object with `search`.  
+  
+3. Build a SQL query that counts matching models:  
+SELECT COUNT(*) as count FROM models  
+  
+4. If `search` exists, update the SQL query so it only counts models  
+where the name or description matches the search.  
+Remember: placeholders are still our friend here.  
+  
+5. Use db.get(), not db.all(),  
+because we only expect one result.  
+  
+6. Return the `count` property of the resulting object
 */
-
+/* 
 import {getDBConnection} from "./db"
 
 export async function getModels({ search, sort, categorySlug, page, modelsPerPage }:{
@@ -128,6 +255,101 @@ export async function getModelById(id: number) {
     }
 }
 
+export default async function getModelsCount({search}: {search?: string}) {
+    const db = await getDBConnection()
+
+    let sql = "SELECT COUNT(*) AS count FROM models"
+    const placeholders = []
+
+    if(search) {
+        sql += " WHERE (name LIKE ? description LIKE ?)"
+        placeholders.push(`%${search}%`, `%${search}%`)
+    }
+
+    try {
+        const {count} = await await db.get(sql, placeholders)
+        return count
+    } finally {
+
+        await db.close()
+    }
+} */
+/* Lesson 54: Returning One Page of Models */
+/*
+CHALLENGE
+1. Work out the offset:
+   Hint:
+   page 1 should skip 0 rows
+   page 2 should skip 4 rows
+   page 3 should skip 8 rows
+
+2. Add LIMIT and OFFSET to the end of the SQL query.
+   
+3. Use placeholders instead of putting the numbers directly
+   into the SQL string.
+
+4. Add `modelsPerPage` and `offset` to the `placeholders` array.
+*/
+/* 
+import {getDBConnection} from "./db"
+
+export async function getModels({ search, sort, categorySlug, page, modelsPerPage }:{
+    search?: string, 
+    sort?: string, 
+    categorySlug?: string,
+    page: number
+    modelsPerPage: number
+}) {
+    const db = await getDBConnection()
+    
+    let sql = "SELECT * FROM models"
+
+    const placeholders = []
+    const where = []
+    if(search) {
+        placeholders.push(`%${search}%`)
+        placeholders.push(`%${search}%`)
+        where.push("(name LIKE ? OR description LIKE ?)")
+    }
+
+    if(categorySlug) {
+        // My Solution: Not best: sql += ` ${search ? "AND" : "WHERE"} category = ?`
+        where.push("category = ?")
+        placeholders.push(categorySlug)
+    }
+   
+    if(where.length > 0) {
+        sql += " WHERE" + where.join(" AND ")
+    }
+    if(sort) {
+        sql += ` ORDER BY ${
+            sort === "alpha" ? 'name ASC' : sort === "recent"
+            ? "dateAdded DESC"
+            : "likes DESC"
+        }`
+    }
+
+    sql += " LIMIT ? OFFSET ?"
+    placeholders.push(modelsPerPage, (page - 1) * modelsPerPage)
+
+    try {
+        return await db.all(sql, placeholders)
+
+    } finally {
+        await db.close()
+    }
+}
+
+export async function getModelById(id: number) {
+    const db = await getDBConnection()
+
+    try {
+        return await db.get(`SELECT * FROM models WHERE id == ?`, [id])
+    } finally {
+        await db.close()
+    }
+}
+ */
 
 /* Lesson 53: Limiting Results with LIMIT and OFFSET */
 /* 

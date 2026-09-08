@@ -39,6 +39,34 @@
 
 /* Lesson 59: Styling the Active Pagination Button */
 
+'use client'
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+export default function PaginationButton({page, isActive}: {
+    page: number
+    isActive: boolean
+}) {
+    
+    const pathname = usePathname()
+    const router = useRouter()
+    const searchParams = useSearchParams()
+
+    function handlePageChange() {
+        const urlSearchParams = new URLSearchParams(searchParams.toString())
+        urlSearchParams.set("page", page.toString())
+        const url = `${pathname}?${urlSearchParams.toString()}`
+        router.push(url)
+    }
+    
+    return (
+        <button 
+            className={`px-3 py-1.5 text-sm rounded-md border cursor-pointer hover:bg-gray-100 ${isActive ? "text-white bg-orange-400 border-orange-400" : 'border-gray-300 text-gray-700 hover:bg-gray-100'}`}
+            onClick={handlePageChange}
+        >  
+            {page}
+        </button>
+    )
+}
+
 
 /* Lesson 58: Rendering the Right Number of Pagination Buttons */
 
@@ -71,6 +99,7 @@ CHALLENGE
   - Push the updated URL
 - Attach `handlePageChange` to the button's `onClick`
 */
+/* 
 'use client'
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 export default function PaginationButton({page}: {page: number}) {
@@ -95,7 +124,7 @@ export default function PaginationButton({page}: {page: number}) {
         </button>
     )
 }
-
+ */
 /* Lesson 50: Creating Pagination Controls and Buttons */
 /* 
 export default function PaginationButton({page}: {page: number}) {

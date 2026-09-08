@@ -36,6 +36,50 @@
 
 /* Lesson 60: Adding Pagination to Category Pages */
 
+import getModelsCount, {getModels} from "@/lib/models"
+import {getCategoryBySlug} from "@/lib/categories"
+import ModelsBrowser from "@/components/ModelsBrowser"
+import {notFound} from "next/navigation"
+
+export default async function ModelCategoryPage({ params , searchParams }: { 
+    params: Promise<{ categorySlug: string }>
+    searchParams: Promise<{ 
+        sort?: string, 
+        search?: string
+        page?: string 
+    }>
+}) {
+
+    const sort = (await searchParams).sort || ''
+    const search = (await searchParams)?.search?.trim() || ''
+    const page = Number((await searchParams).page) || 1
+
+    const modelsPerPage = 4
+
+    const { categorySlug } = await params
+
+    const models = await getModels({categorySlug, sort, search, page, modelsPerPage })
+    const category = await getCategoryBySlug(categorySlug)
+    
+    const modelCount = await getModelsCount({search, categorySlug})
+    const totalPage = Math.ceil(modelCount / modelsPerPage)
+    if(!category) {
+        notFound()
+    }
+    
+    return (
+        <>
+            <ModelsBrowser 
+                models={models} 
+                categoryName={category.name}
+                currentPage={page}
+                totalPages={totalPage}
+            />
+        </>
+    )
+}
+
+
 
 /* Lesson 59: Styling the Active Pagination Button */
 
@@ -89,7 +133,7 @@ CHALLENGE 1 - Search within a category
 Don't panic when it breaks.
 That's expected, and we'll fix it in Part 2.
 */
-
+/* 
 import {getModels} from "@/lib/models"
 import {getCategoryBySlug} from "@/lib/categories"
 import ModelsBrowser from "@/components/ModelsBrowser"
@@ -112,7 +156,7 @@ export default async function ModelCategoryPage({ params , searchParams }: {
     return <ModelsBrowser models={models} categoryName={category.name}/>
 }
 
-
+ */
 /* Lesson 46: Showing a No Results Found State */
 
 

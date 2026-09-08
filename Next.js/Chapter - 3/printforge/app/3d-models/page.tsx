@@ -38,12 +38,84 @@
 
 
 /* Lesson 59: Styling the Active Pagination Button */
+import getModelsCount, {getModels} from '@/lib/models'
+import ModelsBrowser from "@/components/ModelsBrowser"
+
+export default async function ModelsPage({ searchParams }: {
+    searchParams: Promise<{ 
+        search : string, 
+        sort?: string
+        page: string
+    }>
+}) {
+    const search = (await searchParams).search?.toLowerCase() || ''
+    const sort = (await searchParams).sort || ''
+    const page = Number((await searchParams).page) || 1
+    
+    const modelsPerPage = 4
+    const modelCount = await getModelsCount({search})
+    const totalPages = Math.ceil(modelCount / modelsPerPage )
+    
+    const models = await getModels({search, sort, page, modelsPerPage})
+
+    return (
+        <>
+            <ModelsBrowser 
+                search={search} 
+                models={models} 
+                totalPages={totalPages} 
+                currentPage={page}
+            />
+        </>
+    )
+}
 
 
 /* Lesson 58: Rendering the Right Number of Pagination Buttons */
 
 
 /* Lesson 57: Calculating Total Pages */
+/*
+CHALLENGE - Determine totalPages
+1. Import getModelCount.
+2. Call getModelCount() with the current search value.
+3. Store the result in a modelCount variable.
+4. Divide that count by modelsPerPage.
+5. Use Math.ceil() so partial pages still count as a full page.
+6. Store the result in a totalPages variable.
+*/
+/* 
+import getModelsCount, {getModels} from '@/lib/models'
+import ModelsBrowser from "@/components/ModelsBrowser"
+
+export default async function ModelsPage({ searchParams }: {
+    searchParams: Promise<{ 
+        search : string, 
+        sort?: string
+        page: string
+    }>
+}) {
+    const search = (await searchParams).search?.toLowerCase() || ''
+    const sort = (await searchParams).sort || ''
+    const page = Number((await searchParams).page) || 1
+    
+    const modelsPerPage = 4
+    const modelCount = await getModelsCount({search})
+    const totalPages = Math.ceil(modelCount / modelsPerPage )
+    
+    const models = await getModels({search, sort, page, modelsPerPage})
+
+    return (
+        <>
+            <ModelsBrowser 
+                search={search} 
+                models={models} 
+                totalPages={totalPages} 
+            />
+        </>
+    )
+}
+ */
 
 
 /* Lesson 56: Counting Total Matching Models */
@@ -59,7 +131,7 @@
 
 
 /* Lesson 52: Reading the Page Query on the Server */
-
+/* 
 import {getModels} from '@/lib/models'
 import ModelsBrowser from "@/components/ModelsBrowser"
 
@@ -83,7 +155,7 @@ export default async function ModelsPage({ searchParams }: {
     )
 }
 
-
+ */
 /* Lesson 51: Updating the URL with a Page Query */
 
 
