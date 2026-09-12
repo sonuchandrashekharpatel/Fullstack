@@ -8,6 +8,73 @@
 
 
 /* Lesson 69: Final UX Polish Challenge Pack */
+/* 
+# UX Challenge Pack
+
+Make these three UX improvements.
+
+## Challenge 1
+When the user changes the sort order, remove the `page`
+query param so the results reset back to the first page.
+
+You may need to check the `URLSearchParams` docs.
+
+## Challenge 2
+Only show the pagination controls when there is more
+than one page of results.
+
+## Challenge 3
+When searching inside a category, update the grid title
+to include both the search term and the category name.
+eg: Search results for "dragon" in Fantasy
+
+*/
+
+'use client'
+import SearchForm from "@/components/SearchForm"
+import ModelGrid from "@/components/ModelGrid"
+import type {Model} from "@/lib/types"
+import { useTransition } from 'react'
+import PaginationControls from "./PaginationControls"
+
+export default function ModelsBrowser({ 
+    search, 
+    models, 
+    categoryName, 
+    totalPages,
+    currentPage 
+}: {
+    search?: string
+    models: Model[]
+    categoryName?: string
+    totalPages: number
+    currentPage: number
+}) {
+
+    const [isPending, startTransition] = useTransition()
+    return (
+        <>
+                { totalPages > 1 && 
+                    <PaginationControls 
+                        totalPages={totalPages} 
+                        currentPage={currentPage}
+                    />
+                }
+                
+            <SearchForm 
+                search={search} 
+                startTransition={startTransition}
+            />
+            <ModelGrid 
+                isPending={isPending} 
+                models={models} 
+                search={search} 
+                categoryName={categoryName}
+                startTransition={startTransition}
+            />
+        </>
+    )
+}
 
 
 /* Lesson 68: Applying Edge Case Handling to Category Pages */
@@ -55,7 +122,7 @@ The active page button should use the same orange color
 
 /* Lesson 57: Calculating Total Pages */
 
-'use client'
+/* 'use client'
 import SearchForm from "@/components/SearchForm"
 import ModelGrid from "@/components/ModelGrid"
 import type {Model} from "@/lib/types"
@@ -97,7 +164,7 @@ export default function ModelsBrowser({
         </>
     )
 }
-
+ */
 
 /* Lesson 56: Counting Total Matching Models */
 

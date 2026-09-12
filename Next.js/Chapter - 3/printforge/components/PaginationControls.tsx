@@ -6,6 +6,41 @@
 
 /* Lesson 70: Final Pagination Challenge */
 
+import PaginationButton from "./PaginationButton";
+
+export default function PaginationControls({totalPages, currentPage}: {
+    totalPages: number
+    currentPage: number
+}) {
+    const paginationButtons = []
+
+    for(let i=1; i<=totalPages; i++) {
+        const isActive = i === currentPage
+        paginationButtons.push(<PaginationButton key={i} page={i} isActive={isActive} />)
+    }
+
+    function increment() {
+
+    }
+
+    function decrement() {
+
+    }
+    return (
+        <div className="flex justify-center gap-1">
+            <button 
+                onClick={increment}
+            >{"<<"}</button>
+
+            {paginationButtons}
+
+            <button
+                onClick={decrement}
+            >{">>"}</button>
+        </div>
+    )
+}
+
 
 /* Lesson 69: Final UX Polish Challenge Pack */
 
@@ -38,7 +73,7 @@
 
 
 /* Lesson 59: Styling the Active Pagination Button */
-
+/* 
 import PaginationButton from "./PaginationButton";
 
 export default function PaginationControls({totalPages, currentPage}: {
@@ -57,7 +92,7 @@ export default function PaginationControls({totalPages, currentPage}: {
         </div>
     )
 }
-
+ */
 
 /* Lesson 58: Rendering the Right Number of Pagination Buttons */
 

@@ -87,9 +87,9 @@ export async function getModels({ search, sort, categorySlug, page, modelsPerPag
     const placeholders = []
     const where = []
     if(search) {
-        placeholders.push(`%${search}%`)
-        placeholders.push(`%${search}%`)
         where.push("(name LIKE ? OR description LIKE ?)")
+        placeholders.push(`%${search}%`)
+        placeholders.push(`%${search}%`)
     }
     
     if(categorySlug) {
@@ -134,13 +134,12 @@ export default async function getModelsCount({search, categorySlug}: {
     categorySlug?: string
 }) {
     const db = await getDBConnection()
-    console.log("Hello from the models.ts")
     let sql = "SELECT COUNT(*) AS count FROM models"
     const placeholders = []
     const where = []
 
     if(search) {
-        where.push("(name LIKE ? description LIKE ?)")
+        where.push("(name LIKE ? OR description LIKE ?)")
         placeholders.push(`%${search}%`, `%${search}%`)
     }
 
@@ -152,9 +151,7 @@ export default async function getModelsCount({search, categorySlug}: {
     if(where.length > 0) {
         sql += " WHERE " + where.join(" AND ")
     }
-
-    console.log(sql)
-
+     
     try {
         const {count} = await db.get(sql, placeholders)
         return count

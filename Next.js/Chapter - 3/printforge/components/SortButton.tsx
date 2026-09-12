@@ -5,9 +5,63 @@
 
 
 /* Lesson 70: Final Pagination Challenge */
+/*
+# UX Challenge Pack
 
+Make these three UX improvements.
+
+## Challenge 1
+When the user changes the sort order, remove the `page`
+query param so the results reset back to the first page.
+
+You may need to check the `URLSearchParams` docs.
+
+## Challenge 2
+Only show the pagination controls when there is more
+than one page of results.
+
+## Challenge 3
+When searching inside a category, update the grid title
+to include both the search term and the category name.
+eg: Search results for "dragon" in Fantasy
+
+*/
 
 /* Lesson 69: Final UX Polish Challenge Pack */
+'use client'
+import { useRouter, usePathname, useSearchParams } from "next/navigation"
+import type {TransitionStartFunction} from "react"
+
+export default function SortButton({children, sort, startTransition}: { 
+  children: React.ReactNode
+  sort: string
+  startTransition: TransitionStartFunction
+}) {
+  const pathname = usePathname() 
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  const isActive = searchParams.get("sort") === sort
+
+  function handleSort() {
+    const urlSearchParams = new URLSearchParams(searchParams.toString())
+    urlSearchParams.set("sort", sort)
+    urlSearchParams.delete("page")
+    const url = `${pathname}?${urlSearchParams.toString()}`
+    startTransition(() => {
+      router.push(url)
+    })
+  }
+
+  return (
+      <button
+        onClick={handleSort}
+        className={`px-3 py-1.5 text-sm rounded-full border cursor-pointer border-gray-300 ${isActive ? "text-white bg-orange-400 border-orange-400" : 'border-gray-300 text-gray-700 hover:bg-gray-100'} hover:bg-gray-100`}
+     >
+      {children}
+    </button>
+  )
+}
 
 
 /* Lesson 68: Applying Edge Case Handling to Category Pages */
@@ -89,6 +143,7 @@
 
 
 /* Lesson 42: Triggering Loading UI from SortButtons */
+/* 
 'use client'
 import { useRouter, usePathname, useSearchParams } from "next/navigation"
 import type {TransitionStartFunction} from "react"
@@ -123,7 +178,7 @@ export default function SortButton({children, sort, startTransition}: {
       </button>
     )
 }
-
+ */
 
 
 /* Lesson 41: Debugging the Missing Category Page Title */

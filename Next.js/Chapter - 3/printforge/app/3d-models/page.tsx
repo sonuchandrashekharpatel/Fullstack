@@ -8,6 +8,62 @@
 
 
 /* Lesson 69: Final UX Polish Challenge Pack */
+/* 
+# UX Challenge Pack
+
+Make these three UX improvements.
+
+## Challenge 1
+When the user changes the sort order, remove the `page`
+query param so the results reset back to the first page.
+
+You may need to check the `URLSearchParams` docs.
+
+## Challenge 2
+Only show the pagination controls when there is more
+than one page of results.
+
+## Challenge 3
+When searching inside a category, update the grid title
+to include both the search term and the category name.
+eg: Search results for "dragon" in Fantasy
+
+*/
+import {MODELS_PER_PAGE} from "@/lib/constants"
+import getModelsCount, {getModels} from '@/lib/models'
+import ModelsBrowser from "@/components/ModelsBrowser"
+import { getQueryParams } from "@/lib/utils"
+import { redirect } from "next/navigation"
+
+export default async function ModelsPage({ searchParams }: {
+    searchParams: Promise<{
+        search : string, 
+        sort?: string
+        page: string
+    }>
+}) {
+
+    const { search, sort, page } = await getQueryParams(searchParams)
+    const modelCount = await getModelsCount({search})
+    const totalPages = Math.ceil(modelCount / MODELS_PER_PAGE ) || 1
+    
+    console.log(totalPages)
+    if(page > totalPages || page < 1 || sort === null) {
+        redirect("/3d-models")
+    }
+
+    const models = await getModels({search, sort, page, modelsPerPage: MODELS_PER_PAGE})
+    return (
+        <>
+            <ModelsBrowser 
+                search={search} 
+                models={models} 
+                totalPages={totalPages} 
+                currentPage={page}
+            />
+        </>
+    )
+}
 
 
 /* Lesson 68: Applying Edge Case Handling to Category Pages */
@@ -15,9 +71,121 @@
 
 /* Lesson 67: Debug the Redirect Bug */
 
+/*
+CHALLENGE - Your job is to debug why no models redirects... and fix it.
+
+Expected behaviour:
+- Invalid page numbers should still redirect
+- Invalid sort values should still redirect
+- A valid search with zero results should show the "no models found" view
+
+Hint:
+Look closely at how `totalPages` is calculated when `modelCount` is 0.
+
+Remember:
+Zero results is not an error. It is a valid state of the app.
+*/
+/* 
+import {MODELS_PER_PAGE} from "@/lib/constants"
+import getModelsCount, {getModels} from '@/lib/models'
+import ModelsBrowser from "@/components/ModelsBrowser"
+import { getQueryParams } from "@/lib/utils"
+import { redirect } from "next/navigation"
+
+export default async function ModelsPage({ searchParams }: {
+    searchParams: Promise<{
+        search : string, 
+        sort?: string
+        page: string
+    }>
+}) {
+
+    const { search, sort, page } = await getQueryParams(searchParams)
+    const modelCount = await getModelsCount({search})
+    const totalPages = Math.ceil(modelCount / MODELS_PER_PAGE ) || 1
+    
+    console.log(totalPages)
+    if(page > totalPages || page < 1 || sort === null) {
+        redirect("/3d-models")
+    }
+
+    const models = await getModels({search, sort, page, modelsPerPage: MODELS_PER_PAGE})
+
+    return (
+        <>
+            <ModelsBrowser 
+                search={search} 
+                models={models} 
+                totalPages={totalPages} 
+                currentPage={page}
+            />
+        </>
+    )
+}
+ */
 
 /* Lesson 66: Handling Invalid Sort Params */
+/*
+CHALLENGE - Handle invalid sort params
 
+1. In `lib/utils`, store the raw sort value from `searchParams.sort`
+   - Make sure it is lowercased if it exists
+
+2. Set the final `sort` value so that:
+   - if no sort param was provided, sort defaults to an empty string
+   - if the sort param is one of the valid options, use that value
+   - otherwise, sort becomes null
+
+3. The valid sort options are:
+   - alpha
+   - popular
+   - recent
+
+4. Back in `3d-models/page.tsx`, update the existing redirect check
+   so that invalid sort values also redirect back to:
+   /3d-models
+
+5. Test the URL:
+   /3d-models?sort=banana
+*/
+/* import {MODELS_PER_PAGE} from "@/lib/constants"
+import getModelsCount, {getModels} from '@/lib/models'
+import ModelsBrowser from "@/components/ModelsBrowser"
+import { getQueryParams } from "@/lib/utils"
+import { redirect } from "next/navigation"
+
+export default async function ModelsPage({ searchParams }: {
+    searchParams: Promise<{
+        search : string, 
+        sort?: string
+        page: string
+    }>
+}) {
+
+    const { search, sort, page } = await getQueryParams(searchParams)
+    const modelCount = await getModelsCount({search})
+    const totalPages = Math.ceil(modelCount / MODELS_PER_PAGE )
+    
+    console.log(sort)
+    if(page > totalPages || page < 1 || sort === null) {
+        redirect("/3d-models")
+    }
+
+    const models = await getModels({search, sort, page, modelsPerPage: MODELS_PER_PAGE})
+
+    return (
+        <>
+            <ModelsBrowser 
+                search={search} 
+                models={models} 
+                totalPages={totalPages} 
+                currentPage={page}
+            />
+        </>
+    )
+}
+
+ */
 
 /* Lesson 65: Handling Invalid Page Params */
 
@@ -26,23 +194,133 @@
 
 
 /* Lesson 63: Polishing Edge Cases and UX */
+/*
+CHALLENGE - Redirect out-of-bounds pages
 
+1. Import `redirect` from `next/navigation`
 
+2. In `3d-models/page.tsx`, check whether the current page is out of bounds:
+   - less than 1
+   - greater than the total number of pages
+
+3. If the page is out of bounds, redirect the user back to:
+   /3d-models
+*/
+/* 
+import {MODELS_PER_PAGE} from "@/lib/constants"
+import getModelsCount, {getModels} from '@/lib/models'
+import ModelsBrowser from "@/components/ModelsBrowser"
+import { getQueryParams } from "@/lib/utils"
+import { redirect } from "next/navigation"
+
+export default async function ModelsPage({ searchParams }: {
+    searchParams: Promise<{
+        search : string, 
+        sort?: string
+        page: string
+    }>
+}) {
+
+    const { search, sort, page } = await getQueryParams(searchParams)
+    const modelCount = await getModelsCount({search})
+    const totalPages = Math.ceil(modelCount / MODELS_PER_PAGE )
+    
+    if(page > totalPages || page < 1) {
+        redirect("/3d-models")
+    }
+
+    const models = await getModels({search, sort, page, modelsPerPage: MODELS_PER_PAGE})
+
+    return (
+        <>
+            <ModelsBrowser 
+                search={search} 
+                models={models} 
+                totalPages={totalPages} 
+                currentPage={page}
+            />
+        </>
+    )
+}
+
+ */
 /* Lesson 62: Refactoring Query Param Logic */
+/* import {MODELS_PER_PAGE} from "@/lib/constants"
+import getModelsCount, {getModels} from '@/lib/models'
+import ModelsBrowser from "@/components/ModelsBrowser"
+import { getQueryParams } from "@/lib/utils"
 
+export default async function ModelsPage({ searchParams }: {
+    searchParams: Promise<{
+        search : string, 
+        sort?: string
+        page: string
+    }>
+}) {
+
+    const { search, sort, page } = await getQueryParams(searchParams)
+    const modelCount = await getModelsCount({search})
+    const totalPages = Math.ceil(modelCount / MODELS_PER_PAGE )
+    
+    const models = await getModels({search, sort, page, modelsPerPage: MODELS_PER_PAGE})
+
+    return (
+        <>
+            <ModelsBrowser 
+                search={search} 
+                models={models} 
+                totalPages={totalPages} 
+                currentPage={page}
+            />
+        </>
+    )
+}
+ */
 
 /* Lesson 61: Refactoring modelsPerPage */
+/* 
+import {MODELS_PER_PAGE} from "@/lib/constants"
+import getModelsCount, {getModels} from '@/lib/models'
+import ModelsBrowser from "@/components/ModelsBrowser"
+import { getQueryParams } from "@/lib/utils"
 
+export default async function ModelsPage({ searchParams }: {
+    searchParams: Promise<{
+        search : string, 
+        sort?: string
+        page: string
+    }>
+}) {
+
+    const { search, sort, page } = await getQueryParams(searchParams)
+    const modelCount = await getModelsCount({search})
+    const totalPages = Math.ceil(modelCount / MODELS_PER_PAGE )
+    
+    const models = await getModels({search, sort, page, modelsPerPage: MODELS_PER_PAGE})
+
+    return (
+        <>
+            <ModelsBrowser 
+                search={search} 
+                models={models} 
+                totalPages={totalPages} 
+                currentPage={page}
+            />
+        </>
+    )
+}
+ */
 
 /* Lesson 60: Adding Pagination to Category Pages */
 
 
 /* Lesson 59: Styling the Active Pagination Button */
+/* 
 import getModelsCount, {getModels} from '@/lib/models'
 import ModelsBrowser from "@/components/ModelsBrowser"
 
 export default async function ModelsPage({ searchParams }: {
-    searchParams: Promise<{ 
+    searchParams: Promise<{
         search : string, 
         sort?: string
         page: string
@@ -69,7 +347,7 @@ export default async function ModelsPage({ searchParams }: {
         </>
     )
 }
-
+ */
 
 /* Lesson 58: Rendering the Right Number of Pagination Buttons */
 

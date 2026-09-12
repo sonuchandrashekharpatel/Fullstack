@@ -9,10 +9,117 @@
 
 /* Lesson 69: Final UX Polish Challenge Pack */
 
+import {MODELS_PER_PAGE} from "@/lib/constants"
+import getModelsCount, {getModels} from "@/lib/models"
+import {getCategoryBySlug} from "@/lib/categories"
+import ModelsBrowser from "@/components/ModelsBrowser"
+import {notFound, redirect} from "next/navigation"
+import {getQueryParams} from "@/lib/utils"
+
+export default async function ModelCategoryPage({ params , searchParams }: { 
+    params: Promise<{ categorySlug: string }>
+    searchParams: Promise<{ 
+        sort?: string, 
+        search?: string
+        page?: string 
+    }>
+}) {
+
+    const { search, sort, page } = await getQueryParams(searchParams)
+
+    const { categorySlug } = await params
+
+    const category = await getCategoryBySlug(categorySlug)
+    
+    const modelCount = await getModelsCount({search, categorySlug})
+    const totalPages = Math.ceil(modelCount / MODELS_PER_PAGE) || 1
+
+    if(page > totalPages || page < 0 || sort === null ) {
+        redirect(`/3d-models/categories/${categorySlug}`)
+    }
+
+    const models = await getModels({categorySlug, sort, search, page, modelsPerPage: MODELS_PER_PAGE })
+
+    if(!category) {
+        notFound()
+    }
+    
+    return (
+        <>
+            <ModelsBrowser 
+                models={models} 
+                categoryName={category.name}
+                search={search}
+                currentPage={page}
+                totalPages={totalPages}
+            />
+        </>
+    )
+}
+
 
 /* Lesson 68: Applying Edge Case Handling to Category Pages */
+/*  
+CHALLENGE - Apply the same URL safeguards to the category page.  
+  
+Expected end goal:  
+- Invalid query params should redirect to that specific category page
+  
+- The category page should handle queries like:
+/3d-models/categories/fantasy?page=9999
+/3d-models/categories/fantasy?page=abc
+/3d-models/categories/fantasy?sort=banana
+  
+Use the same ideas we used on the main models page.  
+(Don't forget about the change we made to totalPages)
+*/
+/* 
+import {MODELS_PER_PAGE} from "@/lib/constants"
+import getModelsCount, {getModels} from "@/lib/models"
+import {getCategoryBySlug} from "@/lib/categories"
+import ModelsBrowser from "@/components/ModelsBrowser"
+import {notFound, redirect} from "next/navigation"
+import {getQueryParams} from "@/lib/utils"
 
+export default async function ModelCategoryPage({ params , searchParams }: { 
+    params: Promise<{ categorySlug: string }>
+    searchParams: Promise<{ 
+        sort?: string, 
+        search?: string
+        page?: string 
+    }>
+}) {
 
+    const { search, sort, page } = await getQueryParams(searchParams)
+    const { categorySlug } = await params
+
+    const category = await getCategoryBySlug(categorySlug)
+    
+    const modelCount = await getModelsCount({search, categorySlug})
+    const totalPages = Math.ceil(modelCount / MODELS_PER_PAGE) || 1
+
+    if(page > totalPages || page < 0 || sort === null ) {
+        redirect(`/3d-models/categories/${categorySlug}`)
+    }
+
+    const models = await getModels({categorySlug, sort, search, page, modelsPerPage: MODELS_PER_PAGE })
+
+    if(!category) {
+        notFound()
+    }
+    
+    return (
+        <>
+            <ModelsBrowser 
+                models={models} 
+                categoryName={category.name}
+                currentPage={page}
+                totalPages={totalPages}
+            />
+        </>
+    )
+}
+ */
 /* Lesson 67: Debug the Redirect Bug */
 
 
@@ -26,16 +133,145 @@
 
 
 /* Lesson 63: Polishing Edge Cases and UX */
+/* 
+import {MODELS_PER_PAGE} from "@/lib/constants"
+import getModelsCount, {getModels} from "@/lib/models"
+import {getCategoryBySlug} from "@/lib/categories"
+import ModelsBrowser from "@/components/ModelsBrowser"
+import {notFound} from "next/navigation"
+import {getQueryParams} from "@/lib/utils"
 
+export default async function ModelCategoryPage({ params , searchParams }: { 
+    params: Promise<{ categorySlug: string }>
+    searchParams: Promise<{ 
+        sort?: string, 
+        search?: string
+        page?: string 
+    }>
+}) {
+
+    const { search, sort, page } = await getQueryParams(searchParams)
+    const { categorySlug } = await params
+
+    const models = await getModels({categorySlug, sort, search, page, modelsPerPage: MODELS_PER_PAGE })
+    const category = await getCategoryBySlug(categorySlug)
+    
+    const modelCount = await getModelsCount({search, categorySlug})
+    const totalPage = Math.ceil(modelCount / MODELS_PER_PAGE)
+    if(!category) {
+        notFound()
+    }
+    
+    return (
+        <>
+            <ModelsBrowser 
+                models={models} 
+                categoryName={category.name}
+                currentPage={page}
+                totalPages={totalPage}
+            />
+        </>
+    )
+}
+ */
 
 /* Lesson 62: Refactoring Query Param Logic */
+/* 
+import {MODELS_PER_PAGE} from "@/lib/constants"
+import getModelsCount, {getModels} from "@/lib/models"
+import {getCategoryBySlug} from "@/lib/categories"
+import ModelsBrowser from "@/components/ModelsBrowser"
+import {notFound} from "next/navigation"
+import { getQueryParams } from "@/lib/utils"
 
+export default async function ModelCategoryPage({ params , searchParams }: { 
+    params: Promise<{ categorySlug: string }>
+    searchParams: Promise<{ 
+        sort?: string, 
+        search?: string
+        page?: string 
+    }>
+}) {
 
+    const { search, sort, page } = await getQueryParams(searchParams)
+    const { categorySlug } = await params
+
+    const models = await getModels({categorySlug, sort, search, page, modelsPerPage: MODELS_PER_PAGE })
+    const category = await getCategoryBySlug(categorySlug)
+    
+    const modelCount = await getModelsCount({search, categorySlug})
+    const totalPage = Math.ceil(modelCount / MODELS_PER_PAGE)
+    if(!category) {
+        notFound()
+    }
+    
+    return (
+        <>
+            <ModelsBrowser 
+                models={models} 
+                categoryName={category.name}
+                currentPage={page}
+                totalPages={totalPage}
+            />
+        </>
+    )
+}
+ */
 /* Lesson 61: Refactoring modelsPerPage */
+/*
+CHALLENGE - Use our shared pagination constant
 
+1. Import MODELS_PER_PAGE from "@/lib/constants".
+2. Remove the local modelsPerPage variable.
+3. Replace any use of modelsPerPage with MODELS_PER_PAGE.
+   (careful with getModels()!)
+4. Check that pagination still works on the category page.
+*/
+/* import {MODELS_PER_PAGE} from "@/lib/constants"
+import getModelsCount, {getModels} from "@/lib/models"
+import {getCategoryBySlug} from "@/lib/categories"
+import ModelsBrowser from "@/components/ModelsBrowser"
+import {notFound} from "next/navigation"
 
+export default async function ModelCategoryPage({ params , searchParams }: { 
+    params: Promise<{ categorySlug: string }>
+    searchParams: Promise<{ 
+        sort?: string, 
+        search?: string
+        page?: string 
+    }>
+}) {
+
+    const sort = (await searchParams).sort || ''
+    const search = (await searchParams)?.search?.trim() || ''
+    const page = Number((await searchParams).page) || 1
+
+    const { categorySlug } = await params
+
+    const models = await getModels({categorySlug, sort, search, page, modelsPerPage: MODELS_PER_PAGE })
+    const category = await getCategoryBySlug(categorySlug)
+    
+    const modelCount = await getModelsCount({search, categorySlug})
+    const totalPage = Math.ceil(modelCount / MODELS_PER_PAGE)
+    if(!category) {
+        notFound()
+    }
+    
+    return (
+        <>
+            <ModelsBrowser 
+                models={models} 
+                categoryName={category.name}
+                currentPage={page}
+                totalPages={totalPage}
+            />
+        </>
+    )
+}
+
+ */
 /* Lesson 60: Adding Pagination to Category Pages */
-
+/* 
 import getModelsCount, {getModels} from "@/lib/models"
 import {getCategoryBySlug} from "@/lib/categories"
 import ModelsBrowser from "@/components/ModelsBrowser"
@@ -78,7 +314,7 @@ export default async function ModelCategoryPage({ params , searchParams }: {
         </>
     )
 }
-
+ */
 
 
 /* Lesson 59: Styling the Active Pagination Button */

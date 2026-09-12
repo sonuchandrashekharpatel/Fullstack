@@ -103,7 +103,7 @@ export default function SortControls({startTransition}: {
             <SortButton sort="recent" startTransition={startTransition}>Most Recent</SortButton>
         </div>
     )
-}
+} 
 
 
 
