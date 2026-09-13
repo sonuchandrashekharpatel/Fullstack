@@ -43,7 +43,7 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 export default function PaginationButton({page, isActive}: {
     page: number
-    isActive: boolean
+    isActive?: boolean
 }) {
     
     const pathname = usePathname()

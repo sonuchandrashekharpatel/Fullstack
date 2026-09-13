@@ -5,8 +5,10 @@
 
 
 /* Lesson 70: Final Pagination Challenge */
-
+'use client'
+import { useRouter, useSearchParams, usePathname } from "next/navigation"
 import PaginationButton from "./PaginationButton";
+
 
 export default function PaginationControls({totalPages, currentPage}: {
     totalPages: number
@@ -14,29 +16,45 @@ export default function PaginationControls({totalPages, currentPage}: {
 }) {
     const paginationButtons = []
 
-    for(let i=1; i<=totalPages; i++) {
-        const isActive = i === currentPage
-        paginationButtons.push(<PaginationButton key={i} page={i} isActive={isActive} />)
+    const router = useRouter()
+    const pathname = usePathname()
+    const searchParams = useSearchParams()
+
+    
+    if(currentPage === 1) {
+        paginationButtons.push(<PaginationButton page={currentPage} isActive />)
+        paginationButtons.push(<PaginationButton page={currentPage + 1}/>)
+    }else if(currentPage === totalPages) {
+        paginationButtons.push(<PaginationButton page={currentPage - 1} />)
+        paginationButtons.push(<PaginationButton page={currentPage} isActive />)
+    } else {
+        paginationButtons.push(<PaginationButton page={currentPage - 1} />)
+        paginationButtons.push(<PaginationButton page={currentPage} isActive />)
+        paginationButtons.push(<PaginationButton page={currentPage + 1} />)
     }
 
-    function increment() {
+    function changePage(page: number) {
+        const urlSearchParams = new URLSearchParams(searchParams.toString())
+        urlSearchParams.set("page", page.toString())
+        const url = `${pathname}?${urlSearchParams.toString()}`
+        router.push(url)
 
     }
 
-    function decrement() {
-
-    }
     return (
         <div className="flex justify-center gap-1">
-            <button 
-                onClick={increment}
-            >{"<<"}</button>
+            { currentPage > 1 && <button 
+                onClick={() => changePage(1)}
+                className="px-3 py-1.5 text-sm rounded-md border cursor-pointer border-gray-300 text-gray-700 hover:bg-gray-100 "
+            >{"<<"}</button>}
 
             {paginationButtons}
 
-            <button
-                onClick={decrement}
-            >{">>"}</button>
+            { currentPage < totalPages && <button
+                onClick={() => changePage(totalPages)}
+                className="px-3 py-1.5 text-sm rounded-md border cursor-pointer border-gray-300 text-gray-700 hover:bg-gray-100 "
+                >{">>"}</button>
+            }
         </div>
     )
 }

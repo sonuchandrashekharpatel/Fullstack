@@ -54,24 +54,24 @@ export default function ModelsBrowser({
     const [isPending, startTransition] = useTransition()
     return (
         <>
-                { totalPages > 1 && 
-                    <PaginationControls 
-                        totalPages={totalPages} 
-                        currentPage={currentPage}
-                    />
-                }
                 
             <SearchForm 
                 search={search} 
                 startTransition={startTransition}
-            />
+                />
             <ModelGrid 
                 isPending={isPending} 
                 models={models} 
                 search={search} 
                 categoryName={categoryName}
                 startTransition={startTransition}
-            />
+                />
+            { totalPages > 1 && 
+                <PaginationControls 
+                    totalPages={totalPages} 
+                    currentPage={currentPage}
+                />
+            }
         </>
     )
 }
