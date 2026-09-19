@@ -576,6 +576,7 @@ The HTTP Module
 . Create servers
 . Handle requests from clients
 . Provide responses to those requests
+
 */
 
 import http from "node:http"
@@ -588,6 +589,7 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, () => {
     console.log("Server is running on ", PORT)
 })
+
 
 /* 
 import http from 'node:http'// This helps apps to look for node modules not our own java script module
