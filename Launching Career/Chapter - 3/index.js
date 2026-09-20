@@ -4,6 +4,33 @@
 
 
 /* Lesson 56: Challenge - Emoji Flower Bed */
+/*
+   Oh no, our emoji flower bed is infested with mammals, trees and leaves!
+   Without changing the API url, write a function to transform your 
+   data before it's displayed. The function should eliminate
+   everything but bugs and flowers. Use your function in the API call.  
+   
+   Hint: Be sure to console the data to see what properties can help you do this!
+*/ 
+
+const api = 'https://apis.scrimba.com/emojihub/api/all/category/animals-and-nature';
+const flowerBed = document.querySelector('.emoji-flower-bed');
+
+function clearTheGarden(arr){
+    return arr.filter(emoji => emoji.group === "animal bug" || emoji.group === "plant flower")
+}
+
+
+fetch(api) 
+    .then(response => response.json())
+    .then((data) => {
+        clearTheGarden(data).forEach(emoji => {
+            flowerBed.innerHTML += `<li>${emoji.htmlCode}</li>`;
+        });    
+    })
+    .catch(err => console.log(err));
+
+
 
 
 /* Lesson 55: Solution - Find Anagrams in an Array */
@@ -48,8 +75,15 @@ const anagrams = [
     "bam ratchet mechatronics"
 ]
 
-function isAnagramInArray(anagram, arr){
+function getSorted(str) {
+    return str.toLowerCase().split("").sort().join("").trim()
+}
 
+
+function isAnagramInArray(anagram, arr){
+    const phrase = getSorted(anagram)
+    console.log(phrase)
+    return arr.filter(text => phrase === getSorted(text))
 }
 
 console.log(isAnagramInArray("Bob Ziroll Scrimba Teacher", anagrams));
@@ -94,8 +128,33 @@ Example description: "Coding Corner is a 55 minute education podcast hosted by T
 /* 
 import podcasts from "./data.js";
 
+function getHostNames(arr) {
+    let hostNames = ""
+    for(let i=0; i<arr.length; i++){
+        if(i === arr.length - 1) {
+            hostNames += arr[i]
+        } 
+        else if(i < arr.length - 2) {
+            hostNames += arr[i] + ", "
+        } 
+        else if(i === arr.length - 2) {
+            hostNames += arr[i] + " and "
+        }
+    }
+    return hostNames
+}
+
 function createDescriptionsFor(data){
-   
+    return data.map(podcast => {
+        const {title, duration, tags, hosts} = podcast
+
+        const description = `${title} is a ${duration} minute ${tags[0]} podcast hosted by ${getHostNames(hosts)}.`
+
+        return {
+            ...podcast,
+            description
+        }
+    })
 }
 
 console.log(createDescriptionsFor(podcasts))
@@ -127,13 +186,16 @@ import podcasts from "./data.js";
 const awards = ["🏆", "⭐", "💎", "🥇", "👑"];
 
 function getHosts(data){
-   
+   return data.reduce((acc, curr) => [...acc, ...curr.hosts], [])
 }
 
 function assignAwards(data){
- 
+    const hosts = getHosts(data)
+    return hosts.map(host => {
+        const randomAward = awards[Math.floor(Math.random() * awards.length)]
+        return `${randomAward} ${host}` 
+    })
 }
-
 
 console.log(getHosts(podcasts));
 console.log(assignAwards(podcasts));
@@ -161,6 +223,7 @@ by the total number of posts.
 import postData from "./data.js";
 
 function calcAverageLikes(data){
+  return data.reduce((acc, curr) => acc + curr.likes, 0)
   
 } 
 
@@ -198,15 +261,20 @@ each podcast to the console, like this:
 6. Something about Witches, 35 minutes
 
 */
-
+/* 
 import podcasts from "./data.js";
 function sortByDuration(data, flightLength){
-  
+    data.sort((a, b) => flightLength > 60 ? 
+            b.duration - a. duration :
+            a.duration - b.duration
+        ).forEach((podcast, index) => {
+            console.log(`${index}. ${podcast.title}, ${podcast.duration} minutes`)
+        })
 }
 
-sortByDuration(podcasts, 60);
+sortByDuration(podcasts, 61);
 
-
+ */
 /* Lesson 45: Solution Pt 2: Collect Unique Genre Tags */
 
 

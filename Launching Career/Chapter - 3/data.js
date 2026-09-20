@@ -4,33 +4,6 @@
 
 
 /* Lesson 56: Challenge - Emoji Flower Bed */
-/*
-   Oh no, our emoji flower bed is infested with mammals, trees and leaves!
-   Without changing the API url, write a function to transform your 
-   data before it's displayed. The function should eliminate
-   everything but bugs and flowers. Use your function in the API call.  
-   
-   Hint: Be sure to console the data to see what properties can help you do this!
-*/ 
-/* 
-const api = 'https://apis.scrimba.com/emojihub/api/all/category/animals-and-nature';
-const flowerBed = document.querySelector('.emoji-flower-bed');
-
-function clearTheGarden(arr){
-    
-}
-
-
-fetch(api) 
-    .then(response => response.json())
-    .then((data) => {
-        data.forEach(emoji => {
-            flowerBed.innerHTML += `<li>${emoji.htmlCode}</li>`;
-        });    
-    })
-    .catch(err => console.log(err));
- */
-
 
 
 
@@ -44,7 +17,7 @@ fetch(api)
 
 
 /* Lesson 52: Challenge - Save the Weekend */
-/* 
+
 export default [
     {
         id: 1,
@@ -108,7 +81,7 @@ export default [
     },
 ]
 
- */
+
 
 /* Lesson 51: Solution - Night at the Scrimbies */
 
@@ -175,8 +148,8 @@ export default [
         paid: false
     },
 ]
+ */
 
-*/
 /* Lesson 49: Solution - Popularity Contest */
 
 
@@ -210,7 +183,7 @@ export default [
 ]
    
 
-*/
+ */
 
 /* Lesson 47: Solution - Welcome Aboard Scrimba Airlines */
 
@@ -277,7 +250,7 @@ export default [
     },
 ]
 
-*/
+ */
 
 /* Lesson 45: Solution Pt 2: Collect Unique Genre Tags */
 
@@ -286,7 +259,7 @@ export default [
 
 
 /* Lesson 43: Challenge - Collect Unique Genre Tags */
-
+/* 
 export default [
     {
         id: 1,
@@ -325,7 +298,7 @@ export default [
         tags: ["fantasy", "sci-fi", "adventure"], 
     },
 ]
-
+ */
 
 /* Lesson 42: Solution - Holiday Gift Shopping */
 
