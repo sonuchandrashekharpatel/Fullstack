@@ -57,61 +57,56 @@ Challenge:
 
      Keep our code tidy by doing the the filtering in a util function.
 */
-/* 
-import http from 'node:http'
-import { getDataFromDB } from './aside/db.js'
-import { resRender, getDataByPathParams, getDataByQueryParams } from './utils/utils.js'
- 
-const PORT = 8000
 
-let continent = ''
+import http from 'node:http'
+import { getDataFromDB } from "./database/db.js"
+import { sendJSONResponse } from "./utils/sendJSONResponse.js"
+import { filterData } from "./utils/filterData.js" 
+
+const PORT = 3000
 
 const server = http.createServer(async (req, res) => {
+    
     const destinations = await getDataFromDB()
 
-    const urlOb = new URL(req.url, `http://${req.headers.host}`)
-
-    console.log(urlOb)
-    const queryOb = Object.fromEntries(urlOb.searchParams)
-    const search =  urlOb.search
-    // const search = ""
+    const urlObj = new URL(req.url, `https://${req.headers.host}`)
     
-    if (urlOb.pathname === '/api' && req.method === 'GET') {
-        console.log("Query Object:", queryOb)
+    const queryObj = Object.fromEntries(urlObj.searchParams)
 
-        if(search) {
-            resRender(res, getDataQueryParams(destinations, queryOb))
-        } else {
 
-            resRender(res, destinations)
-        }
+    if(urlObj.pathname === "/api" && req.method === "GET") {
+        
+        const filteredData = filterData(queryObj, destinations)
+        sendJSONResponse(res, 200, filteredData)
     } 
-    else if(req.url.startsWith("/api/continent")) {
-        const data = getDataByPathParams(destinations, urlOb.pathname)
+    else if(req.url.startsWith("/api/continent")){
+        
+        const continent = req.url.split("/").pop()
 
-        if(search){
-            resRender(res, getDataByQueryParams(data, queryOb))
-        } else {
-            resRender(res, data)
-        }
-    }
-    else if(req.url.startsWith("/api/country") && req.method === "GET") {
-        const data = getDataByPathParams(destinations, urlOb.pathname)
-        if(search) {
-            resRender(res, getDataByQueryParams(data, queryOb))
-        } else {        
-            resRender(res, data)
-        }
+        const filteredData = filterData({continent}, destinations)
+        sendJSONResponse(res, 200, filteredData)
+
+    } 
+    else if(req.url.startsWith("/api/country")){
+        
+        const country = req.url.split("/").pop()
+
+        const filteredData = filterData({country}, destinations)
+        sendJSONResponse(res, 200, filteredData)
+
     }
     else {
-        resRender(res, {error: "not found", message: "The requested route dosen't exist"})
+        sendJSONResponse(res, 200, { 
+            error: "not found", 
+            message: "The requested route does not exist" 
+        })
     }
 })
 
-server.listen(PORT, () => console.log(`Connected on port: ${PORT}`))
- */
+server.listen(PORT, () => { console.log("Server is running on ", PORT + "...")})
 
 /* Lesson 16: Get the Query Parameters */
+
 /*
   Challenge:
   1. Complete the two lines of code below.
@@ -126,72 +121,70 @@ Challenge:
      can use instead of req.url. We need something that will 
      satisfy the condition regardless of whether query params were used.
 */
-
 /* 
 import http from 'node:http'
-import { getDataFromDB } from './aside/db.js'
-import { resRender, filterData } from './utils/utils.js'
- 
-const PORT = 8000
+import { getDataFromDB } from "./database/db.js"
+import { sendJSONResponse } from "./utils/sendJSONResponse.js"
+import { filterData } from "./utils/filterData.js" 
 
-let continent = ''
+const PORT = 3000
 
 const server = http.createServer(async (req, res) => {
+    
     const destinations = await getDataFromDB()
 
-    const urlOb = new URL(req.url, `http://${req.headers.host}`)
-
-    console.log(urlOb)
-    const queryOb = Object.fromEntries(urlOb.searchParams)
-    const search =  urlOb.search
+    const urlObj = new URL(req.url, `https://${req.headers.host}`)
     
-    if (urlOb.pathname === '/api' && req.method === 'GET') {
-        console.log("Query Object:", queryOb)
+    const queryObj = Object.fromEntries(urlObj.searchParams)
 
-        resRender(res, destinations)
+    console.log(queryObj)
+
+    if(urlObj.pathname === "/api" && req.method === "GET") {
+        
+        sendJSONResponse(res, 200, destinations)
     } 
-    else if(req.url.startsWith("/api/continent")) {
-
-        console.log(req.url.split("/")[2]) // continent
-        const property = req.url.split("/")[2]
+    else if(req.url.startsWith("/api/continent")){
+        
         const continent = req.url.split("/").pop()
 
-        resRender(res, filterData(destinations, property, continent))
-    }
-    else if(req.url.startsWith("/api/country") && req.method === "GET") {
+        const filteredData = filterData({continent}, destinations)
+        sendJSONResponse(res, 200, filteredData)
 
-        const value = req.url.split("/").pop()
-        const property = req.url.split("/")[2]
+    } 
+    else if(req.url.startsWith("/api/country")){
+        
+        const country = req.url.split("/").pop()
 
-        resRender(res, filterData(destinations, property, value))
+        const filteredData = filterData({country}, destinations)
+        sendJSONResponse(res, 200, filteredData)
+
     }
     else {
-        resRender(res, {error: "not found", message: "The requested route dosen't exist"})
+        sendJSONResponse(res, 200, { 
+            error: "not found", 
+            message: "The requested route does not exist" 
+        })
     }
 })
 
-server.listen(PORT, () => console.log(`Connected on port: ${PORT}`))
- */
+server.listen(PORT, () => { console.log("Server is running on ", PORT + "...")}) */
+
 /* Lesson 15: Aside: Query Parameters */
 
 /* import http from "node:http"
+
+const PORT = 3000
+
 const server = http.createServer((req, res) => {
 
-    const urlObj = new URL(req.url, `http://${req.headers.host}`)
-
-    const queryObj = Object.fromEntries(urlObj.searchParams)
+    const urlObj = new URL(req.url, `https://${req.headers.host}`)
     console.log(urlObj)
+    res.end(JSON.stringify(Object.fromEntries(urlObj.searchParams)))
 
-    // console.log(urlObj)
-
-    res.end(JSON.stringify(queryObj))
 })
 
-server.listen(3000, () => {
-    console.log("Server is running on 3000...")
-})
+server.listen(PORT, () => { console.log("Server is running on ", PORT)})
  */
-
 /* Lesson 14: Modularize the code 2 */
 
 /*
@@ -205,83 +198,85 @@ Challenge:
 */
 /* 
 import http from 'node:http'
-import { getDataFromDB } from './aside/db.js'
-import { resRender, filterData } from './utils/utils.js'
- 
-const PORT = 8000
+import { getDataFromDB } from "./database/db.js"
+import { sendJSONResponse } from "./utils/sendJSONResponse.js"
+import { filterData } from "./utils/filterData.js" 
 
-let continent = ''
+const PORT = 3000
 
 const server = http.createServer(async (req, res) => {
-  const destinations = await getDataFromDB()
+    
+    const destinations = await getDataFromDB()
 
-  if (req.url === '/api' && req.method === 'GET') {
-    resRender(destinations, res)
-  } 
-  else if(req.url.startsWith("/api/continent")) {
+    if(req.url === "/api" && req.method === "GET") {
+        
+        sendJSONResponse(res, 200, destinations)
+    } 
+    else if(req.url.startsWith("/api/continent")){
+        
+        const continent = req.url.split("/").pop()
 
-    console.log(req.url.split("/")[2]) // continent
-    const property = req.url.split("/")[2]
-    const continent = req.url.split("/").pop()
+        const filteredData = filterData({continent}, destinations)
+        sendJSONResponse(res, 200, filteredData)
 
-    resRender(filterData(destinations, property, continent), res)
-  }
-  else if(req.url.startsWith("/api/country") && req.method === "GET") {
+    } 
+    else if(req.url.startsWith("/api/country")){
+        
+        const country = req.url.split("/").pop()
 
-    const value = req.url.split("/").pop()
-    const property = req.url.split("/")[2]
+        const filteredData = filterData({country}, destinations)
+        sendJSONResponse(res, 200, filteredData)
 
-    resRender(filterData(destinations, property, value), res)
-  }
-  else {
-      resRender({error: "not found", message: "The requested route dosen't exist"}, res)
-  }
+    }
+    else {
+        sendJSONResponse(res, 200, { 
+            error: "not found", 
+            message: "The requested route does not exist" 
+        })
+    }
 })
 
-server.listen(PORT, () => console.log(`Connected on port: ${PORT}`))
+server.listen(PORT, () => { console.log("Server is running on ", PORT + "...")})
  */
-
 /* Lesson 13: Modularise the Code 1 */
 /*
 Challenge:
   1. Create a utility function to make this code DRYer.
   2. Delete unnecessary code.
 */
+
 /* 
 import http from 'node:http'
-import { getDataFromDB } from './aside/db.js'
-import { resRender } from './utils/utils.js'
- 
-const PORT = 8000
+import { getDataFromDB } from "./database/db.js"
+import { sendJSONResponse } from "./utils/sendJSONResponse.js"
 
-let continent = ''
+const PORT = 3000
 
 const server = http.createServer(async (req, res) => {
-  const destinations = await getDataFromDB()
+    
+    const destinations = await getDataFromDB()
 
-  if (req.url === '/api' && req.method === 'GET') {
-    resRender(destinations, res)
+    if(req.url === "/api" && req.method === "GET") {
+        
+        sendJSONResponse(res, 200, destinations)
+    } 
+    else if(req.url.startsWith("/api/continent")){
+        
+        const continent = req.url.split("/").pop()
 
-  } 
-  else if(req.url.startsWith("/api/continent")) {
+        const filtered = destinations.filter(dest => dest.continent.toLowerCase() === continent.toLowerCase())
+        sendJSONResponse(res, 200, filtered)
 
-    console.log(req.url.split("/")[3])
-
-    const continent = req.url.split("/").pop()
-
-    const filteredDestinations = destinations.filter(destination => {
-        console.log(destination.continent, continent)
-        return destination.continent.toLowerCase() == continent
     }
-    )
-    resRender(filteredDestinations, res)
-  }
-  else {
-      resRender({error: "not found", message: "The requested route dosen't exist"}, res)
-  }
+    else {
+        sendJSONResponse(res, 200, { 
+            error: "not found", 
+            message: "The requested route does not exist" 
+        })
+    }
 })
 
-server.listen(PORT, () => console.log(`Connected on port: ${PORT}`))
+server.listen(PORT, () => { console.log("Server is running on ", PORT + "...")})
  */
 /* Lesson 12: Add Path Parameters */
 /* 
@@ -293,47 +288,38 @@ server.listen(PORT, () => console.log(`Connected on port: ${PORT}`))
     (How can you get to what comes after the final slash?)
     (What method can you use to filter data?)
 */
-/* import http from 'node:http'
-import { getDataFromDB } from './aside/db.js'
- 
-const PORT = 8000
 
-let continent = ''
+/* import http from 'node:http'
+import { getDataFromDB } from "./database/db.js"
+
+const PORT = 3000
 
 const server = http.createServer(async (req, res) => {
-  const destinations = await getDataFromDB()
+    
+    const destinations = await getDataFromDB()
 
-  if (req.url === '/api' && req.method === 'GET') {
-    res.setHeader("Content-Type", "application/json")
-    res.statusCode = 200
+    if(req.url === "/api" && req.method === "GET") {
+        
+        res.setHeader("Content-Type", "application/json")
+        res.statusCode = 200
+        res.end(JSON.stringify(destinations))
+    } 
+    else if(req.url.startsWith("/api/continent")){
+        const continent = req.url.split("/").pop()
 
-    res.end(JSON.stringify(destinations))
-
-  } 
-  else if(req.url.startsWith("/api/continent")) {
-
-    console.log(req.url.split("/")[3])
-    // const continent = req.url.split("/")[3]
-    const continent = req.url.split("/").pop()
-
-    const filteredDestinations = destinations.filter(destination => {
-        console.log(destination.continent, continent)
-        return destination.continent.toLowerCase() == continent
+        const filtered = destinations.filter(dest => dest.continent.toLowerCase() === continent.toLowerCase())
+        res.statusCode = 200
+        res.setHeader("Content-Type", 'application/json')
+        res.end(JSON.stringify(filtered))
     }
-    )
+    else {
+        res.statusCode = 404
 
-    res.end(JSON.stringify(filteredDestinations))
-
-  }
-  
-  else {
-      res.statusCode = 404
-      res.setHeader("Content-Type", "application/json")
-      res.end(JSON.stringify({error: "not found", message: "The requested route dosen't exist"}))
-  }
+        res.end(JSON.stringify({ error: "not found", message: "The requested route does not exist" }))
+    }
 })
 
-server.listen(PORT, () => console.log(`Connected on port: ${PORT}`))
+server.listen(PORT, () => { console.log("Server is running on ", PORT + "...")})
  */
 
 /* Lesson 11: Route Not Found */
@@ -344,31 +330,31 @@ Challenge:
   Think: what do we need to send along with the data?
   status code
 */
-/* 
-import http from 'node:http'
-import { getDataFromDB } from './aside/db.js'
- 
-const PORT = 8000
+
+/* import http from 'node:http'
+import { getDataFromDB } from "./database/db.js"
+
+const PORT = 3000
 
 const server = http.createServer(async (req, res) => {
-  const destinations = await getDataFromDB()
+    
+    const destinations = await getDataFromDB()
 
-  if (req.url === '/api' && req.method === 'GET') {
-    res.setHeader("Content-Type", "application/json")
-    res.statusCode = 200
+    if(req.url === "/api" && req.method === "GET") {
+        
+        res.setHeader("Content-Type", "application/json")
+        res.statusCode = 200
+        res.end(JSON.stringify(destinations))
+    } else {
+        res.statusCode = 404
 
-    res.end(JSON.stringify(destinations))
-
-  } else {
-      res.statusCode = 404
-      res.setHeader("Content-Type", "application/json")
-      res.end(JSON.stringify({error: "not found", message: "The requested route dosen't exist"}))
-  }
+        res.end(JSON.stringify({ error: "not found", message: "The requested route does not exist" }))
+    }
 })
 
-server.listen(PORT, () => console.log(`Connected on port: ${PORT}`))
- */
+server.listen(PORT, () => { console.log("Server is running on ", PORT + "...")})
 
+ */
 /* Lesson 10: Adding Content-Type */
 /* 
 Content-Types (Mime Types)  
@@ -392,51 +378,50 @@ Challenge:
 1. Access the ‘setHeader’ method on the response object and pass in two strings to set the      
    Content-Type to ‘application/json’ - watch out for casing! 
 */
-/* import http from 'node:http'
-import { getDataFromDB } from './aside/db.js'
- 
-const PORT = 8000
+/* 
+import http from 'node:http'
+import { getDataFromDB } from "./database/db.js"
+
+const PORT = 3000
 
 const server = http.createServer(async (req, res) => {
-  const destinations = await getDataFromDB()
-
-    console.log(res)
-
-  if (req.url === '/api' && req.method === 'GET') {
-    res.setHeader("Content-Type", "application/json")
-    res.statusCode = 200
-
-
-    // res.end(JSON.stringify(destinations))
-  }
-    console.log(res)
-    res.end("Namastey")
-
-})
-
-server.listen(PORT, () => console.log(`Connected on port: ${PORT}`))
-
- */
-/* Lesson 9: Serve stringified JSON */
-/* 
-import http from "http"
-import { getDataFromDB } from "./aside/db.js"
-
-const server = http.createServer( async (req, res) => {
+    
     const destinations = await getDataFromDB()
 
-    if(req.method === "GET" && req.url === "/api") {
+    if(req.url === "/api" && req.method === "GET") {
+        
+        res.setHeader("Content-Type", "application/json")
+        res.statusCode = 200
         res.end(JSON.stringify(destinations))
-    } else {
-        res.end("Sorry! We don't serve here.")
     }
 })
 
-server.listen(3000, () => {
-    console.log("Server is running on 3000...")
-})
+server.listen(PORT, () => { console.log("Server is running on ", PORT + "...")})
  */
+/* Lesson 9: Serve stringified JSON */
+/*
+Challenge:
+  1. Store our data in a const ‘destinations’.
+  2. When a GET request is received to the ‘/api' endpoint, send our JSON stringified data.
+    Think: What changes will you need to make to get this to work?
+*/
 
+/* 
+import http from 'node:http'
+import { getDataFromDB } from "./database/db.js"
+
+const PORT = 3000
+
+const server = http.createServer(async (req, res) => {
+
+    if(req.url === "/api" && req.method === "GET") {
+        const destinations = await getDataFromDB()
+        res.end(JSON.stringify(destinations))
+    }
+})
+
+server.listen(PORT, () => { console.log("Server is running on ", PORT + "...")})
+ */
 /* Lesson 8: Aside: JSON and APIs */
 /* 
 "HTTP is text-based protocol. All data transferred between 
@@ -472,26 +457,24 @@ Method:
 . PUT
 . PATCH
 
-This is non-exhastive list
+This is non-exhaustive list
 
- */
+*/
 /* 
 import http from "node:http"
 
+const PORT = 3000
+
 const server = http.createServer((req, res) => {
     console.log(req.method)
-    if(req.url === "") {
-        res.end("This is from server!")
+    if(req.url === "/api" && req.method === "GET"){
+        res.end("This is from the server...")
     }
-
-    res.end(`${req.method}`)
-
 })
 
-server.listen(3000, () => {
-    console.log("Server is running on 3000...")
-})
- */
+server.listen(PORT, () => { console.log(`Server is running on ${PORT}...`)})
+*/
+
 /* Lesson 6: Aside: The Request/Response Cycle */
 /* 
 Client make request.
@@ -515,8 +498,6 @@ RESPONSE:
 
 Response sent back to client.
 
-
-
 */
 
 /* Lesson 5: Recap */
@@ -530,25 +511,21 @@ The response object
     .end() This ended with responses well it one chunk
     .write()  in several chunk.
 
-    use res.end() after the write() to cut off the the connection.
+    use res.end() after the write() to cut off the the connection with server.
 */
 /* 
 import http from "node:http"
 
+const PORT = 3000
+
 const server = http.createServer((req, res) => {
-    res.write("This is some data \n"),
-    res.write("This is some more data! \n")
-    res.end("Hello from server!")
-
-}, "utf8", () => {
-    console.log("Response end.")
+    res.write("This is data. \n")
+    res.write("This is more data \n")
+    res.end("Hello from the server!", "utf8", ()=> { console.log("response end.")})
 })
 
-server.listen(3000, () => {
-    console.log("Server is running 3000....")
-})
+server.listen(PORT, () => { console.log(`Server is running on ${PORT}...`)})
  */
-
 /* Lesson 4: Recreate the server */
 /* 
 Challenge:
@@ -578,18 +555,17 @@ The HTTP Module
 . Provide responses to those requests
 
 */
-
+/* 
 import http from "node:http"
 
-const PORT = 8000
+const PORT = 3000
+
 const server = http.createServer((req, res) => {
-    res.end("Hello from the server")
+    res.end("Hello from server!")
 })
 
-server.listen(PORT, () => {
-    console.log("Server is running on ", PORT)
-})
-
+server.listen(PORT, () => { console.log("Server is running on ", PORT)})
+ */
 
 /* 
 import http from 'node:http'// This helps apps to look for node modules not our own java script module
@@ -603,6 +579,7 @@ server.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
 
 console.log("Sab Thik Hai Sir!")
 */
+
 /* Lesson 2: The package.json file */
 /* 
 package.json is the blueprint!
@@ -614,7 +591,7 @@ package.json is the blueprint!
 
 /* 
 console.log("Hello Node!")
- */
+*/
 
 /* Lesson 1: Wild Horizons Intro */
 /* 

@@ -1,4 +1,4 @@
-export function resRender(res, data) {
+/* export function resRender(res, data) {
     res.setHeader("Content-Type", "application/json")
 
     if(data.error) {
@@ -35,4 +35,14 @@ export function getDataByPathParams(data, pathName) {
 
     const filteredData = data.filter(item => item[property].toLowerCase() === value.toLowerCase())
     return filteredData
+} 
+*/
+/* Lesson 13: Modularise the Code 1 */
+
+export function sendJSONResponse(res, statusCode, payload) {
+    
+    res.statusCode = statusCode
+    res.setHeader("Content-Type", "application/json")
+    res.end(JSON.stringify(payload))
 }
+
