@@ -14,6 +14,21 @@ hint.md for help
 
 export async function getData() {
     try {
+        const  filePath = path.join("data", "data.json")
+        
+        const content = await fs.readFile(filePath, "utf8")
+
+        return JSON.parse(content)
+
+    } catch(err) {
+        console.err(err)
+        return []
+    }
+}
+
+/* 
+export async function getData() {
+    try {
         const pathToResource = path.join("data", "data.json")
         const dataString = await fs.readFile(pathToResource, "utf8")
         const jsonData = JSON.parse( dataString)
@@ -23,4 +38,4 @@ export async function getData() {
         console.log(err)
         return []
     }
-}
+} */

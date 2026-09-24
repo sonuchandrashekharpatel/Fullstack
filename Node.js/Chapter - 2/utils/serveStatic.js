@@ -1,10 +1,10 @@
-/* Lesson 10: Serve thefrontend */
+/* Lesson 11: Serve the frontend */
 /*
 Challenge: 
   1. Write code below to serve files from our public directory.
      
-     Don’t worry about handling errors for now.
-     hint.md for help!
+    Don’t worry about handling errors for now.
+    hint.md for help!
 */
 /*
 Challenge:
@@ -15,40 +15,41 @@ Challenge:
 
 The Content-Type for the 500 can be ‘text/html’.
 */
-/* 
-import path from "node:path"
+
+import path from 'node:path'
 import fs from "node:fs/promises"
 import { sendResponse } from "./sendResponse.js"
 import { getContentType } from "./getContentType.js"
 
 export async function serveStatic(req, res, baseDir) {
-    try{
+    const publicDir = path.join(baseDir, "public")
 
-        const publicDir = path.join(baseDir, "public")
+    const filePath = path.join(publicDir, req.url === "/" ? "index.html" : req.url)
 
-        const pathToResource = path.join(publicDir, req.url === "/" ? "index.html": req.url)
-        const ext = path.extname(pathToResource)
+    const ext = path.extname(filePath)
 
-        const contentType = getContentType(ext)
-        const content = await fs.readFile(pathToResource)
+    const contentType = getContentType(ext)
+
+    try {
+        const content = await fs.readFile(filePath)
         sendResponse(res, 200, contentType, content)
-    
+
     } catch(err) {
-        console.log(err)
-        if(err.code) {
+        
+        if(err.code === "ENOENT"){
             const filePath = path.join(baseDir, "public", "404.html")
-            const ext = path.extname(filePath)
-            const contentType = getContentType(ext)
-
             const content = await fs.readFile(filePath)
-
-            sendResponse(res, 404, contentType, content)
+            sendResponse(res, 404, 'text/html', content)
         } else {
-            sendResponse(res, 500, "text/html",  `<html><h1>Server Error: ${err.code}</h1></html>`)
+            sendResponse(res, 500, 'text/html', `<html><h1>Server Error: ${err.code}</h1></html>`)
         }
     }
 }
- */
+
+
+/* Lesson 10: Aside: Serve Multiple Assets */
+
+
 
 /* Lesson 8: Serve index.html */
 /*
@@ -71,22 +72,24 @@ Challenge 3:
   Make any changes necessary in server.js and delete any unneeded code.
 
 */
-/* import path from "node:path"
+/* 
+import path from 'node:path'
 import fs from "node:fs/promises"
 import { sendResponse } from "./sendResponse.js"
 
-export async function serveStatic(req, res, baseDir) {
-    try{
-        const filePath = path.join(baseDir, "public", "index.html")
-    
+export async function serveStatic(res, baseDir) {
+    const filePath = path.join(baseDir, "public", "index.html")
+
+    try {
         const content = await fs.readFile(filePath)
-        res.end(sendResponse(res, 200, "text/html", content))
-    
+        sendResponse(res, 200, 'text/html', content)
+
     } catch(err) {
-        console.log(err)
+        console.error(err)
     }
 }
  */
+
 /* Lesson 6: Get Path to resource */
 
 /* 
@@ -108,10 +111,17 @@ export function serveStatic(baseDir) {
     console.log(filePath)
 } 
 */
-import path from 'node:path'
 
-export function serveStatic(baseDir) {
+/* 
+import path from 'node:path'
+import fs from "node:fs/promises"
+
+export async function serveStatic(baseDir) {
     const filePath = path.join(baseDir, "public", "index.html")
+
+    const content = await fs.readFile(filePath)
+
 
     console.log(filePath)
 }
+ */

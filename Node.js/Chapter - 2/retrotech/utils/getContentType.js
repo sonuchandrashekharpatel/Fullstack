@@ -1,3 +1,5 @@
+/* Lesson 10: Aside serve Multiple Assets */
+
 export function getContentType(ext) {
 
   const types = {

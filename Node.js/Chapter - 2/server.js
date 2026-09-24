@@ -371,39 +371,40 @@ server.listen(PORT, () => console.log(`Server is running on ${PORT}...`))
  */
 
 /* Lesson 12: Getting the JSON data */
-/* 
-import http from "node:http"
+import http from "http"
 import { serveStatic } from "./utils/serveStatic.js"
 import { getData } from "./utils/getData.js"
 
 const PORT = 8000
 
 const __dirname = import.meta.dirname
-const server = http.createServer(async (req, res) => {
-    getData()
-    // console.log(import.meta)
+
+console.log(await getData())
+
+const server = http.createServer(async (req, res)=> {
     await serveStatic(req, res, __dirname)
 })
 
-server.listen(PORT, () => console.log(`Server is running on ${PORT}...`))
- */
+server.listen(PORT, () => console.log('connected on port 8000'))
+
 
 /* Lesson 11: Serve the frontend */
-/* import http from "node:http"
-import { serveStatic } from "./utils/serveStatic.js"
 
+/* import http from "http"
+import { serveStatic } from "./utils/serveStatic.js"
 const PORT = 8000
 
 const __dirname = import.meta.dirname
-const server = http.createServer(async (req, res) => {
+
+const server = http.createServer(async (req, res)=> {
     await serveStatic(req, res, __dirname)
 })
 
-server.listen(PORT, () => console.log(`Server is running on ${PORT}...`))
+server.listen(PORT, () => console.log('connected on port 8000'))
  */
-
 /* Lesson 10: Aside serve Multiple Assets */
-/* import http from 'node:http'
+/* 
+import http from 'node:http'
 import path from "node:path"
 import fs from "node:fs/promises"
 import { getContentType } from './utils/getContentType.js'
@@ -461,20 +462,19 @@ server.listen(PORT, ()=> console.log(`Connected on port: ${PORT}`))
 
 /* Lesson 8: Serve index.html */
 /* 
-import http from 'node:http'
-import { serveStatic } from './utils/serveStatic.js'
-
+import http from "http"
+import { serveStatic } from "./utils/serveStatic.js"
 const PORT = 8000
 
 const __dirname = import.meta.dirname
 
-const server = http.createServer(async (req, res) => {
-    await serveStatic(req, res, __dirname)
+const server = http.createServer(async (req, res)=> {
+    await serveStatic(res, __dirname)
 })
 
-server.listen(PORT, ()=> console.log(`Connected on port: ${PORT}`))
-
+server.listen(PORT, () => console.log('connected on port 8000'))
  */
+
 /* Lesson 7: Aside: FS Module */
 /* 
 
@@ -487,44 +487,6 @@ FS module uses:
 
 */
 
-/*
-import http from "node:http"
-import path from "node:path"
-// import fs from "node:fs"
-import fs from "node:fs/promises" //for asychronus code
-
-const PORT = 8000
-
-const __dirname = import.meta.dirname
-
-const server = http.createServer( async (req, res)=> {
-    const pathToResource = path.join(__dirname, "public", "index.html")
-
-    // const content = fs.readFileSync(pathToResource, "utf8") // Because this could create performance issues.
-
-    // fs.readFile(pathToResource, "utf8", (err, content) => {
-    //     if(err) {
-    //         console.error(err)
-    //         return 
-    //     } else {
-    //         res.statusCode = 200
-    //         res.setHeader('Content-Type', 'text/html')
-    //         res.end(content)
-    //     }
-    // })
-
-    // To avoid the callback hell we are using this.
-
-    const content = await fs.readFile( pathToResource)
-    console.log(content)
-    res.statusCode = 200
-    res.setHeader('Content-Type', 'text/html')
-    res.end(content)
-
-})
-
-server.listen(PORT, () => console.log('connected on port 8000'))
- */
 
 /* Lesson 6: Get Path to resource */
 /* 
@@ -579,7 +541,7 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, ()=> console.log(`Connected on port: ${PORT}`))
  */
-
+/* 
 import http from "http"
 import { serveStatic } from "./utils/serveStatic.js"
 const PORT = 8000
@@ -595,7 +557,7 @@ const server = http.createServer((req, res)=> {
 
 server.listen(PORT, () => console.log('connected on port 8000'))
 
-
+ */
 
 /* Lesson 5: Aside: Path Module */
 /* 
