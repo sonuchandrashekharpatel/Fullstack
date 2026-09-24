@@ -1,4 +1,30 @@
-/* export function resRender(res, data) {
+/* Lesson 17: Filter the Query Parameters */
+
+export function sendJSONResponse(res, statusCode, payload) {
+    
+    res.statusCode = statusCode
+    res.setHeader("Content-Type", "application/json")
+    res.setHeader("Access-Control-Allow-Origin", '*')
+    res.setHeader('Access-Control-Allow-Methods', 'GET')
+    res.end(JSON.stringify(payload))
+}
+
+
+/* Lesson 13: Modularise the Code 1 */
+/* 
+export function sendJSONResponse(res, statusCode, payload) {
+    
+    res.statusCode = statusCode
+    res.setHeader("Content-Type", "application/json")
+    res.end(JSON.stringify(payload))
+}
+ 
+*/
+
+
+// Previos one
+/* 
+export function resRender(res, data) {
     res.setHeader("Content-Type", "application/json")
 
     if(data.error) {
@@ -37,12 +63,4 @@ export function getDataByPathParams(data, pathName) {
     return filteredData
 } 
 */
-/* Lesson 13: Modularise the Code 1 */
-
-export function sendJSONResponse(res, statusCode, payload) {
-    
-    res.statusCode = statusCode
-    res.setHeader("Content-Type", "application/json")
-    res.end(JSON.stringify(payload))
-}
 

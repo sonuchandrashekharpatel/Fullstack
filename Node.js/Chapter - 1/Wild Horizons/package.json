@@ -1,0 +1,11 @@
+{
+  "name": "wild-horizons",
+  "version": "1.0.0",
+  "description": "Most intresting places on earth",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "'Sonu Patel'",
+  "license": "ISC"
+}

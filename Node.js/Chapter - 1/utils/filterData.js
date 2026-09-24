@@ -8,11 +8,7 @@ export function filterData({continent, country, is_open_to_public}, data) {
 
     if(country) {
         
-        filteredData =  filteredData.filter(dest => {
-            console.log(dest.country.toLowerCase() === country.toLowerCase())
-            return dest.country.toLowerCase() === country.toLowerCase()
-
-        })
+        filteredData =  filteredData.filter(dest => dest.country.toLowerCase() === country.toLowerCase())
     }
 
     if(is_open_to_public){

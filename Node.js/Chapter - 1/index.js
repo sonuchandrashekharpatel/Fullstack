@@ -21,6 +21,7 @@ Stretch Goals
 */
 
 /* Lesson 18: CORS */
+
 /* 
 Same-Origin Policy
 "By default, browser enforce a same-origin policy,
@@ -38,7 +39,6 @@ CORS -> Cross Origin Resource Sharing
 No need to set CORS
 CORS needed to allow to known frontend.
 CORS needed to allow all access
-
 
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Methods', 'GET')
