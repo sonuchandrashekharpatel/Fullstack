@@ -1,3 +1,96 @@
+/* Lesson 20: Add an Event Emitter */
+
+import { getData } from "../utils/getData.js"
+import { sendResponse } from "../utils/sendResponse.js"
+import { parseJSONBody } from "../utils/parseJSONBody.js"
+import { addNewSighting } from "../utils/addNewSighting.js"
+import { sanitizeInput } from "../utils/sanitizeInput.js"
+import { sightingEvents } from "../events/sightingEvents.js"
+
+export async function handleGet(req, res) {
+    const data = await getData()
+
+    sendResponse(res, 200, "application/json", JSON.stringify(data))
+}
+export async function handlePost(req, res) {
+    try {
+        const parsedBody = await parseJSONBody(req)
+        const sanitizedBody = sanitizeInput(parsedBody)
+        await addNewSighting(parsedBody)
+        sightingEvents.emit("sighting-added", sanitizedBody)
+        
+        console.log("hello1")
+
+        return sendResponse(res, 201, "application/json", JSON.stringify(sanitizedBody))
+
+    } catch(err) {
+        console.log("hello2")
+        console.log("handlePost Error: ", err)
+        sendResponse(res, 400, "application/json", JSON.stringify({error: err}))
+    }
+}
+
+
+
+/* Lesson 17: Handling POST Part 2 */
+/* 
+import { getData } from "../utils/getData.js"
+import { sendResponse } from "../utils/sendResponse.js"
+import { parseJSONBody } from "../utils/parseJSONBody.js"
+import { addNewSighting } from "../utils/addNewSighting.js"
+import { sanitizeInput } from "../utils/sanitizeInput.js"
+
+export async function handleGet(req, res) {
+    const data = await getData()
+
+    sendResponse(res, 200, "application/json", JSON.stringify(data))
+}
+
+export async function handlePost(req, res) {
+    try {
+        const parsedBody = await parseJSONBody(req)
+        const sanitizedBody = sanitizeInput(parsedBody)
+
+        await addNewSighting(parsedBody)
+
+        sendResponse(res, 201, "application/json", JSON.stringify(sanitizedBody))
+
+    } catch(err) {
+
+        sendResponse(res, 400, "application/json", JSON.stringify({error: err}))
+        console.log(err)
+    }
+}
+ */
+
+/* Lesson 17: Handling POST Part 1 */
+
+/* 
+import { getData } from "../utils/getData.js"
+import { sendResponse } from "../utils/sendResponse.js"
+import { parseJSONBody } from "../utils/parseJSONBody.js"
+import { addNewSighting } from "../utils/addNewSighting.js"
+
+export async function handleGet(req, res) {
+    const data = await getData()
+
+    sendResponse(res, 200, "application/json", JSON.stringify(data))
+}
+
+export async function handlePost(req, res) {
+    try {
+        const parsedBody = await parseJSONBody(req)
+        
+        await addNewSighting(parsedBody)
+
+        sendResponse(res, 201, "application/json", JSON.stringify(parsedBody))
+    } catch(err) {
+
+        sendResponse(res, 400, "application/json", JSON.stringify({error: err}))
+        console.log(err)
+    }
+}
+ */
 /* Lesson 16: parseJSONBody */
 /*
 Challenge 2:
@@ -6,6 +99,7 @@ Challenge 2:
   3. Input an entry on the front end to test.
 */
 
+/* 
 import { getData } from "../utils/getData.js"
 import { sendResponse } from "../utils/sendResponse.js"
 import { parseJSONBody } from "../utils/parseJSONBody.js"
@@ -24,7 +118,7 @@ export async function handlePost(req, res) {
         console.log(err)
     }
 }
-
+ */
 /* Lesson 14: Explainer: Adding POST */
 /* 
 import { getData } from "../utils/getData.js"

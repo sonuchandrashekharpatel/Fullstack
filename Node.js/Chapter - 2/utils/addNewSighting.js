@@ -15,6 +15,7 @@
     Bonus: figure out how to prettify the JSON!
     Remember to uncomment the import statement in routeHandler.js!!
 */
+/* 
 
 import fs from "node:fs/promises"
 import path from "node:path"
@@ -37,4 +38,24 @@ export async function addNewSighting(newSighting) {
     } catch (err) {
         throw new Error(err)
     }
+} */
+
+import fs from "node:fs/promises"
+import path from "node:path"
+import { getData } from "./getData.js"
+
+export async function addNewSighting(newSighting) {
+    try {
+
+        const sightings = await getData()
+        sightings.push(newSighting)
+
+        const filePath = path.join("data", "data.json")
+
+        await fs.writeFile(filePath, JSON.stringify(sightings, null, 4), 'utf8')
+
+    } catch(err) {
+        console.error("Adding Sighting Error: ", newSighting)
+    }
 }
+

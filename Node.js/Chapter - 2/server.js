@@ -114,7 +114,26 @@ For code goto aside folder of the this module
 */
 
 /* Lesson 20: Add an Event Emitter */
+import http from "node:http"
+import { serveStatic } from "./utils/serveStatic.js"
+import { handleGet, handlePost } from "./handlers/routeHandlers.js"
 
+const PORT = 8000
+
+const __dirname = import.meta.dirname
+const server = http.createServer(async (req, res) => {
+    if(req.url === "/api"){
+        if(req.method === "GET"){
+            return await handleGet(res)
+        }
+        else if(req.method === "POST") {
+            handlePost(req, res)
+        }
+    }
+    await serveStatic(req, res, __dirname)
+})
+
+server.listen(PORT, () => console.log(`Server is running on ${PORT}...`))
 
 /* Lesson 19: Aside: EventEmitter */
 /* 
@@ -131,40 +150,37 @@ The eventEmitter from node events module
 */
 
 /* 
-// import EventEmitter
 import { EventEmitter } from "node:events"
 
-const customersDetails = {
-    fullName: "Meryl Sheep",
+const customer = {
+    fullName: "Sonu Patel",
     email: "sonu123@gmail.com",
-    phone: 1234567890
+    phone: 6387781782
 }
 
-// create the emitter
-const emailRequestEmitter = new EventEmitter()
+// create Event Emitter
 
-// define the listener function
-function generateEmail(customer) {
-    console.log(`Email generated for ${customer.email}`)
-}
+const buyingProductEmitter = new EventEmitter()
 
-// register the listener
-emailRequestEmitter.on("emailRequest", generateEmail)
-emailRequestEmitter.on("emailRequest", () => console.log("task assigned"))
-emailRequestEmitter.on("emailRequest", () => console.log("email logged"))
+// Register Listner function 
 
-// emit the event
+buyingProductEmitter.on('generateInvoice', () => console.log(`Invoice PDF generate for ${customer.fullName}`))
+buyingProductEmitter.on('sendEmail', () => console.log(`Email send for product on ${customer.email}`))
+buyingProductEmitter.on('notifyLogistics', () => console.log(`Order will be delivered in 3 days.`))
+
+// Emit the event
+
 setTimeout(() => {
-    emailRequestEmitter.emit("emailRequest", customersDetails)
+    buyingProductEmitter.emit('generateInvoice', customer)
+    buyingProductEmitter.emit('sendEmail', customer)
+    buyingProductEmitter.emit('notifyLogistics', customer)
 }, 2000)
-    emailRequestEmitter.emit("emailRequest", customersDetails)
  */
 
 /* Lesson 18: sanitizeInput */
 /* 
 import http from "node:http"
 import { serveStatic } from "./utils/serveStatic.js"
-import { getData } from "./utils/getData.js"
 import { handleGet, handlePost } from "./handlers/routeHandlers.js"
 
 const PORT = 8000
@@ -186,7 +202,8 @@ server.listen(PORT, () => console.log(`Server is running on ${PORT}...`))
  */
 
 /* Lesson 17: Aside: sanitization */
-/* import sanitizeHtml from 'sanitize-html'
+/* 
+import sanitizeHtml from 'sanitize-html'
 
 
 // console.log(sanitizeHtml('h1: <h1>I am in an h1 tag</h1>',  {allowedTags: ["h1"], allowedAttributes: {}}))
@@ -209,7 +226,7 @@ const hacker = {
 console.log(sanitizeHtml(hacker.title))
 console.log(sanitizeHtml(hacker.surname))
 console.log(sanitizeHtml(hacker.location))
- */
+*/
 
 /* 
 XSS = Cross-Site Scripting
@@ -223,14 +240,15 @@ In this case, we will be removing any tags from user-uploaded text.
 
 */
 
-/* Lesson 16: Handling POST Part 2 */
-//addNewSightings
+/* Lesson 18: Handling POST Part 2 */
 
-/* Lesson 16: Handling POST Part 1 */
-// routeHandlers()
+
+/* Lesson 17: Handling POST Part 1 */
+
 
 /* Lesson 16: parseJSONBody */
 
+/* 
 import http from "http"
 import { serveStatic } from "./utils/serveStatic.js"
 import { handleGet, handlePost } from "./handlers/routeHandlers.js"
@@ -258,7 +276,7 @@ const server = http.createServer(async (req, res)=> {
 })
 
 server.listen(PORT, () => console.log('connected on port 8000'))
-
+ */
 
 
 /* Lesson 15: Incoming Body Parse */

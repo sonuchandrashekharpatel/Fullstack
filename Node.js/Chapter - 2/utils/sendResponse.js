@@ -15,6 +15,10 @@ export async function sendResponse(res, statusCode, contentType, payLoad){
 */
 
 export async function sendResponse(res, statusCode, contentType, payload) {
+  if (res.headersSent) {
+    console.warn("Attempted to send response after headers were already sent.");
+    return;
+  }
   res.statusCode = statusCode
   res.setHeader("Content-Type", contentType)
   res.end(payload)
