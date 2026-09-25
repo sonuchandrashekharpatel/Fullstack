@@ -1,3 +1,60 @@
+/* Lesson 15: Incoming Body Parse */
+
+import path from "node:path"
+import http from "node:http"
+import fs from "node:fs/promises"
+import {getContentType} from "./utils/getContentType.js"
+
+const PORT = 8001
+
+const __dirname = import.meta.dirname
+
+const server = http.createServer( async (req, res) => {
+
+  if(req.method === "POST" && req.url === "/sub") {
+    
+    try {
+      let body = ''
+  
+      for await( let chunk of req) {
+        body += chunk
+  
+      }
+      console.log(body)
+      const emailObj = JSON.parse(body)
+      console.log(emailObj)
+
+      res.statusCode = 201
+      res.setHeader("Content-Type", "application/json")
+      res.end(JSON.stringify(emailObj))
+
+    } catch (err) {
+      console.error('Invalid JSON', err)
+
+    }
+    return
+  }
+
+  const publicDir = path.join(__dirname, 'public')
+
+  console.log(req.url)
+  const pathToResource  = path.join(publicDir, req.url === "/" ? 'index.html' : req.url)
+
+  const ext = path.extname(pathToResource)
+  const contentType = getContentType(ext)
+
+  console.log(pathToResource)
+  const content = await fs.readFile(pathToResource)
+
+  res.statusCode = 200
+  res.setHeader("Content-Type", contentType)
+  res.end(content)
+
+})
+
+server.listen(PORT, () => { console.log(`Server is running on ${PORT}...`)})
+
+
 /* Lesson 10: Aside serve Multiple Assets */
 /*
 Challenge: 
@@ -16,6 +73,7 @@ Challenge:
 The Content-Type for the 500 can be ‘text/html’.
 */
 
+/* 
 import path from "node:path"
 import http from "node:http"
 import fs from "node:fs/promises"
@@ -43,7 +101,7 @@ const server = http.createServer( async (req, res) => {
 })
 
 server.listen(PORT, () => { console.log(`Server is running on ${PORT}...`)})
-
+ */
 
 
 /* Lesson 7: Aside: FS Module */

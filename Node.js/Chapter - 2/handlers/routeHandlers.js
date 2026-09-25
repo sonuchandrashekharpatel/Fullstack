@@ -1,3 +1,45 @@
+/* Lesson 16: parseJSONBody */
+/*
+Challenge 2:
+  1. Create a const 'rawBody' to store whatever is returned by parseJSONBody()
+  2. For now, log 'rawBody'.
+  3. Input an entry on the front end to test.
+*/
+
+import { getData } from "../utils/getData.js"
+import { sendResponse } from "../utils/sendResponse.js"
+import { parseJSONBody } from "../utils/parseJSONBody.js"
+
+export async function handleGet(req, res) {
+    const data = await getData()
+
+    sendResponse(res, 200, "application/json", JSON.stringify(data))
+}
+
+export async function handlePost(req, res) {
+    try {
+        const rawBody = await parseJSONBody(req)
+        console.log(rawBody)
+    } catch(err) {
+        console.log(err)
+    }
+}
+
+/* Lesson 14: Explainer: Adding POST */
+/* 
+import { getData } from "../utils/getData.js"
+import { sendResponse } from "../utils/sendResponse.js"
+
+export async function handleGet(req, res) {
+    const data = await getData()
+
+    sendResponse(res, 200, "application/json", JSON.stringify(data))
+}
+
+export async function handlePost(req, res) {
+    console.log('POST request received')
+}
+ */
 /* Lesson 13: Wire up the API */
 /*
 Challenge:
@@ -10,8 +52,20 @@ Challenge:
 Open the browser and load the sightings page to see if it works.
 */
 
+/* 
+import { getData } from "../utils/getData.js"
+import { sendResponse } from "../utils/sendResponse.js"
 
-// Explainer: Adding POST
+
+export async function handleGet(req, res) {
+    const data = await getData()
+
+    sendResponse(res, 200, "application/json", JSON.stringify(data))
+
+}
+ */
+
+/* Lesson 14: Explainer: Adding POST */
 /*
 Challenge:
   1. Create and export a function called handlePost().
@@ -31,7 +85,7 @@ Challenge:
 */
 // handleGet
 
-import { getData } from "../utils/getData.js";
+/* import { getData } from "../utils/getData.js";
 import { parseJSONBody } from "../utils/parseJSONBody.js";
 import { sanitizeInput } from "../utils/sanitizeInput.js";
 import { sendResponse } from "../utils/sendResponse.js";
@@ -75,4 +129,5 @@ export async function handleNews(req, res) {
     } catch(err) {
 
     }
-}
+} */
+

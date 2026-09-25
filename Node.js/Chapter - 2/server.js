@@ -230,72 +230,40 @@ In this case, we will be removing any tags from user-uploaded text.
 // routeHandlers()
 
 /* Lesson 16: parseJSONBody */
-/* 
-import http from "node:http"
+
+import http from "http"
 import { serveStatic } from "./utils/serveStatic.js"
-import { getData } from "./utils/getData.js"
 import { handleGet, handlePost } from "./handlers/routeHandlers.js"
 
 const PORT = 8000
 
 const __dirname = import.meta.dirname
-const server = http.createServer(async (req, res) => {
+
+const server = http.createServer(async (req, res)=> {
+    
     if(req.url === "/api"){
-        if(req.method === "GET"){
-            return await handleGet(res)
+
+        if(req.method === "GET") {
+            await handleGet(req, res)
         }
-        else if(req.method === "POST") {
-            handlePost(req, res)
+
+        if(req.method === "POST") {
+            await handlePost(req, res)
         }
+
+    } else if(!req.url.startsWith('/api')){
+        
+        await serveStatic(req, res, __dirname)
     }
-    await serveStatic(req, res, __dirname)
-})
-
-server.listen(PORT, () => console.log(`Server is running on ${PORT}...`))
-  */
-
-/* Lesson 15: Incoming Body Parse */
-/* 
-import path from 'node:path'
-import http from 'node:http'
-import fs from 'node:fs/promises'
-import { getContentType } from './aside/utils/getContentType.js'
-
-const PORT = 8000
-
-const __dirname = import.meta.dirname
-
-const server = http.createServer(async (req, res) => {
-
-  if (req.url === '/sub' && req.method === 'POST') {
-
-    // let body = ''
-
-    // for
-  }
-
-//   handle post here
-
-  const publicDir = path.join(__dirname, 'public')
-  const pathToResource = path.join(
-    publicDir, 
-    req.url === '/' ? 'index.html' : req.url
-  )
-
-  const content = await fs.readFile(pathToResource)
-
-  const extName = path.extname(pathToResource)
- 
-  const contentType = getContentType(extName)
-
-  res.statusCode = 200
-  res.setHeader('Content-Type', contentType)
-  res.end(content)
-
 })
 
 server.listen(PORT, () => console.log('connected on port 8000'))
- */
+
+
+
+/* Lesson 15: Incoming Body Parse */
+
+
 
 /* Lesson 14: Explainer: Adding POST */
 /* 
@@ -313,35 +281,36 @@ Challenge:
    1. Add a route for a POST request to '/api'.
    2. When a request comes in, pass the req and res to handlePost().
 */
-
-/* import http from "node:http"
+/* 
+import http from "http"
 import { serveStatic } from "./utils/serveStatic.js"
-import { getData } from "./utils/getData.js"
 import { handleGet, handlePost } from "./handlers/routeHandlers.js"
 
 const PORT = 8000
 
 const __dirname = import.meta.dirname
-const server = http.createServer(async (req, res) => {
-    console.log("Entering in backend...")
-    console.log("api: ", req.url, "method :", req.method)
-    console.log(req.url === "/api" && req.method === "POST")
+
+const server = http.createServer(async (req, res)=> {
+    
     if(req.url === "/api"){
-        if(req.method === "GET"){
-            return await handleGet(res)
+
+        if(req.method === "GET") {
+            await handleGet(req, res)
         }
-        else if(req.method === "POST") {
-            console.log("In Post request")
-            handlePost(req, res)
+
+        if(req.method === "POST") {
+            await handlePost(req, res)
         }
+
+    } else if(!req.url.startsWith('/api')){
+        
+        await serveStatic(req, res, __dirname)
     }
-    await serveStatic(req, res, __dirname)
 })
 
-server.listen(PORT, () => console.log(`Server is running on ${PORT}...`))
+server.listen(PORT, () => console.log('connected on port 8000'))
+
  */
-
-
 /* Lesson 13: Wire up the API */
 /* 
 Challenge: 
@@ -349,29 +318,30 @@ Challenge:
    2. Nest an if to check if the method is ‘GET’. 
    3. When a GET request is received to '/api', use handleGet() to handle it.
 */
-
-/* import http from "node:http"
+/* 
+import http from "http"
 import { serveStatic } from "./utils/serveStatic.js"
-import { getData } from "./utils/getData.js"
 import { handleGet } from "./handlers/routeHandlers.js"
 
 const PORT = 8000
 
 const __dirname = import.meta.dirname
-const server = http.createServer(async (req, res) => {
-    if(req.url === "/api"){
-        if(req.method === "GET"){
-            return await handleGet(res)
-        }
+
+const server = http.createServer(async (req, res)=> {
+    
+    if(req.url === "/api" && req.method === "GET"){
+        await handleGet(req, res)
+
+    } else if(!req.url.startsWith('/api')){
+        
+        await serveStatic(req, res, __dirname)
     }
-    await serveStatic(req, res, __dirname)
 })
 
-server.listen(PORT, () => console.log(`Server is running on ${PORT}...`))
+server.listen(PORT, () => console.log('connected on port 8000'))
  */
-
 /* Lesson 12: Getting the JSON data */
-import http from "http"
+/* import http from "http"
 import { serveStatic } from "./utils/serveStatic.js"
 import { getData } from "./utils/getData.js"
 
@@ -386,7 +356,7 @@ const server = http.createServer(async (req, res)=> {
 })
 
 server.listen(PORT, () => console.log('connected on port 8000'))
-
+ */
 
 /* Lesson 11: Serve the frontend */
 

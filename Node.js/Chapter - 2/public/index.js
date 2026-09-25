@@ -2,6 +2,7 @@ try {
   const data = await fetch("/api")
   const response = await data.json()
   renderCards(response)
+
 } catch (err) {
   console.log(err)
 }
