@@ -12,7 +12,6 @@ We studied:
 . Dependencies
 . Sanitizing input
 
-
 Stretch Goals
 . Error Handling
     . A client request /api/xyz
@@ -61,38 +60,36 @@ Challenge 2:
   Remember, the object is contained in a string which starts with 'data: '. 
   What do you need at the end of the string to signal the end of a message block?
 */
-/* 
+
 import http from "node:http"
 import { serveStatic } from "./utils/serveStatic.js"
-import { getData } from "./utils/getData.js"
-import { handleGet, handleNews, handlePost } from "./handlers/routeHandlers.js"
+import { handleGet, handlePost, handleNews } from "./handlers/routeHandlers.js"
 
 const PORT = 8000
 
 const __dirname = import.meta.dirname
 const server = http.createServer(async (req, res) => {
+    
     if(req.url === "/api"){
+
         if(req.method === "GET"){
-            return await handleGet(res)
+            return await handleGet(req, res)
         }
         else if(req.method === "POST") {
-            handlePost(req, res)
+            await handlePost(req, res)
         }
     } 
     else if(req.url === "/api/news") {
-        return await handleNews(req, res)
+        await handleNews(req, res)
     }
-    
-    else if (!req.url.startsWith('/api')) {
-
+    else {
         await serveStatic(req, res, __dirname)
-    } else {
-        console.log(req.url)
     }
 })
 
 server.listen(PORT, () => console.log(`Server is running on ${PORT}...`))
- */
+
+
 /* Lesson 21: Aside: Server-Sent Events */
 /* 
 Server-Sent-Events
@@ -109,11 +106,9 @@ Server-Sent-Events
  
 */
 
-/* 
-For code goto aside folder of the this module
-*/
 
 /* Lesson 20: Add an Event Emitter */
+/* 
 import http from "node:http"
 import { serveStatic } from "./utils/serveStatic.js"
 import { handleGet, handlePost } from "./handlers/routeHandlers.js"
@@ -123,18 +118,20 @@ const PORT = 8000
 const __dirname = import.meta.dirname
 const server = http.createServer(async (req, res) => {
     if(req.url === "/api"){
+
         if(req.method === "GET"){
-            return await handleGet(res)
+            return await handleGet(req, res)
         }
         else if(req.method === "POST") {
-            handlePost(req, res)
+            await handlePost(req, res)
         }
+    } else {
+        await serveStatic(req, res, __dirname)
     }
-    await serveStatic(req, res, __dirname)
 })
 
 server.listen(PORT, () => console.log(`Server is running on ${PORT}...`))
-
+ */
 /* Lesson 19: Aside: EventEmitter */
 /* 
 Event-Driven Architecture

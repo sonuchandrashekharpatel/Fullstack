@@ -49,6 +49,8 @@ form.addEventListener("submit", async function (event) {
       },
       body: JSON.stringify(formData),
     })
+
+
     if (response.ok) {
       formMessageText.innerHTML = `Your sighting was uploaded. View it <a href="./sightings.html">here</a>.`;
       form.reset()

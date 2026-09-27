@@ -23,4 +23,6 @@ try {
     sightingEvents.on("sighting-added", createAlert)
 } catch (err) {
     console.log(err)
-} */
+} 
+
+*/
