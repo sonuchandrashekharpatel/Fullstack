@@ -25,7 +25,6 @@ export async function handlePost(req, res) {
         return sendResponse(res, 201, "application/json", JSON.stringify(sanitizedBody))
 
     } catch(err) {
-        console.log("hello2")
         console.log("handlePost Error: ", err)
         sendResponse(res, 400, "application/json", JSON.stringify({error: err}))
     }

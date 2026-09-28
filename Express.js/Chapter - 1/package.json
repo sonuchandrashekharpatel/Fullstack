@@ -1,0 +1,17 @@
+{
+  "name": "startup_planet",
+  "version": "1.0.0",
+  "description": "A dataset of the world's most promising startups",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "Sonu Patel",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

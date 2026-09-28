@@ -287,7 +287,7 @@ Adding POST functionality
 . Parse it
 . sanitize it
 . Get out existing data
-. Add the new datat to the existing data
+. Add the new data to the existing data
 . Write the completed data to the JSON file
 
 */
@@ -355,8 +355,10 @@ const server = http.createServer(async (req, res)=> {
 
 server.listen(PORT, () => console.log('connected on port 8000'))
  */
+
 /* Lesson 12: Getting the JSON data */
-/* import http from "http"
+/* 
+import http from "http"
 import { serveStatic } from "./utils/serveStatic.js"
 import { getData } from "./utils/getData.js"
 
@@ -374,8 +376,8 @@ server.listen(PORT, () => console.log('connected on port 8000'))
  */
 
 /* Lesson 11: Serve the frontend */
-
-/* import http from "http"
+/* 
+import http from "http"
 import { serveStatic } from "./utils/serveStatic.js"
 const PORT = 8000
 
@@ -386,63 +388,34 @@ const server = http.createServer(async (req, res)=> {
 })
 
 server.listen(PORT, () => console.log('connected on port 8000'))
- */
+*/
+
 /* Lesson 10: Aside serve Multiple Assets */
-/* 
-import http from 'node:http'
-import path from "node:path"
-import fs from "node:fs/promises"
-import { getContentType } from './utils/getContentType.js'
 
-const PORT = 8000
-
-const __dirname = import.meta.dirname
-
-const server = http.createServer(async (req, res) => {
-    const publicDir = path.join(__dirname, 'public')
-    
-    const pathToResource = path.join(publicDir, 
-        req.url === "/" ? 'index.html': req.url
-    )
-
-    const content = await fs.readFile(pathToResource)
-
-    const ext = path.extname(pathToResource)
-    const contentType = getContentType(ext)
-
-    res.statusCode = 200
-    res.setHeader("Content_Type", contentType)
-    res.end(content)
-
-})
-
-server.listen(PORT, ()=> console.log(`Connected on port: ${PORT}`))
-
- */
 
 /* Lesson 9: global vars in node */
 /* 
 // CommonJS
-// console.log("hey!")
-// console.log(__dirname)
-// console.log(__filename)
-// const path = require("node:path")
+console.log("hey!")
+console.log(__dirname)
+console.log(__filename)
+const path = require("node:path")
 
 // ES Modules using import.meta
 // ES Module after v20+
-// console.log(import.meta.dirname)
-// console.log(import.meta.filename)
+console.log(import.meta.dirname)
+console.log(import.meta.filename)
 
 // ES module using import.meta v20-
 
-// import path from 'node:path'
-// import url from 'node:url'
+import path from 'node:path'
+import url from 'node:url'
 
-// const __filename = url.fileURLToPath(import.meta.url)
-// const __dirname = path.dirname(__filename)
+const __filename = url.fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
-// console.log(__filename)
-// console.log(__dirname)
+console.log(__filename)
+console.log(__dirname)
  */
 
 /* Lesson 8: Serve index.html */
@@ -458,11 +431,10 @@ const server = http.createServer(async (req, res)=> {
 })
 
 server.listen(PORT, () => console.log('connected on port 8000'))
- */
+*/
 
 /* Lesson 7: Aside: FS Module */
 /* 
-
 FS module uses:
 . Read files - .readFile()
 . Create files - .writeFile()
@@ -471,7 +443,6 @@ FS module uses:
 . Rename files - .rename()
 
 */
-
 
 /* Lesson 6: Get Path to resource */
 /* 
@@ -494,38 +465,7 @@ Challenge 3:
 1. Import and call serveStatic and pass it the directory of this current module.
 
 */
-/* 
-import http from 'node:http'
-import path from "node:path"
-import { serveStatic } from './utils/serveStatic.js'
 
-const PORT = 8000
-
-
-// Challenge 1:
-
-// 1. Get the name of the directory holding this server.js file and store it to a const ‘__dirname’.
-
-
-const __dirname = import.meta.dirname
-console.log(__dirname)
-
-
-const server = http.createServer((req, res) => {
-
-
-// Challenge 3:
-
-// 1. Import and call serveStatic and pass it the directory of this current module.
-
-    serveStatic(__dirname)
-    res.statusCode = 200
-    res.setHeader('Content-Type', 'text/html')
-    res.end('<html><h1>The server is working</h1></html>')
-})
-
-server.listen(PORT, ()=> console.log(`Connected on port: ${PORT}`))
- */
 /* 
 import http from "http"
 import { serveStatic } from "./utils/serveStatic.js"
@@ -542,7 +482,7 @@ const server = http.createServer((req, res)=> {
 
 server.listen(PORT, () => console.log('connected on port 8000'))
 
- */
+*/
 
 /* Lesson 5: Aside: Path Module */
 /* 
@@ -609,7 +549,6 @@ Reading and serving data
 . Send those resources to the client.
 
 
-
 // Scrimba 
 const filePath = '/home/projects/s0ptsakbdf/pubic/index.html'
 
@@ -642,6 +581,7 @@ const server = http.createServer((req, res)=> {
 
 server.listen(PORT, () => console.log('connected on port 8000'))
  */
+
 /* Lesson 3: A Diversion into the writeHead() */
 /* 
 res.writeHead() vs res.setHeader()

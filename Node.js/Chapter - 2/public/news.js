@@ -1,7 +1,7 @@
 const eventSource = new EventSource("/api/news")
 const liveContainer = document.getElementById("live-container")
 
-// Hnandle the live updates
+// Handle the live updates
 eventSource.onmessage = (event) => {
   
   const data = JSON.parse(event.data)
