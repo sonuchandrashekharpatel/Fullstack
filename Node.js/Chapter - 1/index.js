@@ -170,8 +170,18 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, () => { console.log("Server is running on ", PORT + "...")}) */
 
 /* Lesson 15: Aside: Query Parameters */
+/* 
+The URL() constructor returns a newly created URL object representing the URL defined by the parameters.
+Syntax:  
+ new URL(url)
+ new URL(url, base)
 
-/* import http from "node:http"
+Object.fromEntries(): The Object.fromEntries() static method transforms a list of key-value pairs into an object.
+Syntax: Object.fromEntries(iterable)
+*/
+
+/* 
+import http from "node:http"
 
 const PORT = 3000
 
@@ -184,18 +194,20 @@ const server = http.createServer((req, res) => {
 })
 
 server.listen(PORT, () => { console.log("Server is running on ", PORT)})
- */
-/* Lesson 14: Modularize the code 2 */
+*/
 
+/* Lesson 14: Modularize the code 2 */
 /*
 Challenge:
   1. Add an 'api/country/<country>' route.
 */
+
 /*
 Challenge:
   1. Create a util function to filter data.
   2. Wire it up and delete unneeded code.
 */
+
 /* 
 import http from 'node:http'
 import { getDataFromDB } from "./database/db.js"
@@ -238,6 +250,7 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, () => { console.log("Server is running on ", PORT + "...")})
  */
+
 /* Lesson 13: Modularise the Code 1 */
 /*
 Challenge:
@@ -277,7 +290,8 @@ const server = http.createServer(async (req, res) => {
 })
 
 server.listen(PORT, () => { console.log("Server is running on ", PORT + "...")})
- */
+*/
+
 /* Lesson 12: Add Path Parameters */
 /* 
  Challenge:
@@ -289,7 +303,8 @@ server.listen(PORT, () => { console.log("Server is running on ", PORT + "...")})
     (What method can you use to filter data?)
 */
 
-/* import http from 'node:http'
+/* 
+import http from 'node:http'
 import { getDataFromDB } from "./database/db.js"
 
 const PORT = 3000
@@ -331,7 +346,8 @@ Challenge:
   status code
 */
 
-/* import http from 'node:http'
+/* 
+import http from 'node:http'
 import { getDataFromDB } from "./database/db.js"
 
 const PORT = 3000
@@ -355,6 +371,7 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, () => { console.log("Server is running on ", PORT + "...")})
 
  */
+
 /* Lesson 10: Adding Content-Type */
 /* 
 Content-Types (Mime Types)  
@@ -373,11 +390,13 @@ Originally developed for email systems so that messages could carry not just pla
 
 Over time, MIME types became the standard way to describe the nature of any file on the internet.
 */
+
 /*
 Challenge:
 1. Access the ‘setHeader’ method on the response object and pass in two strings to set the      
    Content-Type to ‘application/json’ - watch out for casing! 
 */
+
 /* 
 import http from 'node:http'
 import { getDataFromDB } from "./database/db.js"
@@ -398,6 +417,7 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, () => { console.log("Server is running on ", PORT + "...")})
  */
+
 /* Lesson 9: Serve stringified JSON */
 /*
 Challenge:
@@ -421,7 +441,8 @@ const server = http.createServer(async (req, res) => {
 })
 
 server.listen(PORT, () => { console.log("Server is running on ", PORT + "...")})
- */
+*/
+
 /* Lesson 8: Aside: JSON and APIs */
 /* 
 "HTTP is text-based protocol. All data transferred between 
@@ -429,6 +450,7 @@ client and server must be in the form of strings."
 
 Use the JSON.stringify() method to work with
 */
+
 /* 
 const animal = {
     type: "mammal",
@@ -444,7 +466,7 @@ console.log(typeof JSON.stringify(animal))
 /* Lesson 7: Routing and the req object */
 /* 
 The Request Object
-. Gives us acess to the incoming request
+. Gives us access to the incoming request
 . The url the client used
 . The headers
 . Any data sent
@@ -458,7 +480,6 @@ Method:
 . PATCH
 
 This is non-exhaustive list
-
 */
 /* 
 import http from "node:http"
@@ -526,6 +547,7 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => { console.log(`Server is running on ${PORT}...`)})
  */
+
 /* Lesson 4: Recreate the server */
 /* 
 Challenge:
@@ -533,7 +555,9 @@ Challenge:
 2. Test it by making a GET request to http://localhost:8000 in the network widget.
 See hint.md for prompts.
 */
-/* import http from "node:http"
+
+/* 
+import http from "node:http"
 
 const PORT = 3000
 
@@ -555,6 +579,7 @@ The HTTP Module
 . Provide responses to those requests
 
 */
+
 /* 
 import http from "node:http"
 
@@ -565,20 +590,8 @@ const server = http.createServer((req, res) => {
 })
 
 server.listen(PORT, () => { console.log("Server is running on ", PORT)})
- */
-
-/* 
-import http from 'node:http'// This helps apps to look for node modules not our own java script module
-const PORT = 3000
-
-const server = http.createServer((req, res) => {
-    res.end("Hello from the server!")
-})
-
-server.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
-
-console.log("Sab Thik Hai Sir!")
 */
+
 
 /* Lesson 2: The package.json file */
 /* 
