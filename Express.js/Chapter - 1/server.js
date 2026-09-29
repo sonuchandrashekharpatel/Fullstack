@@ -22,49 +22,63 @@ Strech Goals
 
 /* Lesson 14: CORS */
 /* 
+
 By default, browsers enforce a same-origin policy this means
 requests can only be made to the protocal, domain and port 
 as the one serving the webpage.
 
-
-
 */
 
-/* Lesson 13: Route the Code */
-/* 
-import express from 'express'
-import { startups } from './data/data.js'
-
-import { router }  from './routes/apiRoutes.js'
-
-const PORT = 8000
-
-const app = express()
-
-app.use('/api', router)
-app.use((req, res) => {
-  res.status(404).json({ message: "Endpoint not found. Please check the API documentation."})
-})
-
-app.listen(PORT, () => console.log(`server connected on port ${PORT}`))
- */
-
-
-/* Lesson 12: Modularise The Code */
-import express from 'express'
+import express from "express"
 import { apiRouter } from "./routes/apiRoutes.js"
+import cors from "cors"
 
-const PORT  = 3000
 
+const PORT = 3000
 const app = express()
+
+app.use(cors())
 
 app.use("/api", apiRouter)
+
 app.use((req, res) => {
-  res.status(404).json({ message: "Endpoint is not found."})
+  res.status(404).json({ message: "Endpoint not found. Please check the API documentation." })
 })
 
 app.listen(PORT, () => console.log(`Server is running on ${PORT}...`))
 
+
+
+
+/* Lesson 13: Route Not found */
+/* 
+import express from "express"
+import { apiRouter } from "./routes/apiRoutes.js"
+
+const PORT = 3000
+const app = express()
+
+app.use("/api", apiRouter)
+
+app.use((req, res) => {
+  res.status(404).json({ message: "Endpoint not found. Please check the API documentation." })
+})
+
+app.listen(PORT, () => console.log(`Server is running on ${PORT}...`))
+ */
+
+/* Lesson 12: Modularise The Code */
+/* 
+import express from "express"
+import { apiRouter } from "./routes/apiRoutes.js"
+
+const PORT = 3000
+const app = express()
+
+app.use("/api", apiRouter)
+
+app.listen(PORT, () => console.log(`Server is running on ${PORT}...`))
+ */
 
 /* Lesson 11: express.Router() */
 /* 
@@ -177,7 +191,8 @@ app.get("/api/:field/:term", (req, res) => {
 
 app.listen(PORT, () => console.log(`Server is running on ${PORT}...`))
 
- */
+*/
+
 /* Lesson 9: Add Path Parameters 1 */
 /* 
 import express from "express"
