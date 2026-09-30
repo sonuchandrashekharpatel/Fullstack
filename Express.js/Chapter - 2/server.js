@@ -64,21 +64,7 @@ Challenge:
 hint.md for help  
 */  
 
-/* 
-import express from 'express'
-import  { productsRouter } from "./routes/products.js"
 
-
-const app = express()
-
-app.use(express.static('public'))
-
-app.use('/api/products', productsRouter )
-
-app.listen(3000, () => console.log("Server is running on 3000...")).on('error', (err) => {
-    console.error('Failed to start server', err)
-})
- */
 
 /* Lesson 10: Aside: Getting our Data */
 /* 
@@ -104,6 +90,7 @@ seedTable.js
 */
 
 /* Lesson 8: Aside: Adding data to Database */
+
 
 /* Lesson 7: sqlite3 Method Overview */
 /* 

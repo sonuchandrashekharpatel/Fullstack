@@ -1,59 +1,57 @@
 
 /* Lesson 14: Add Search Functionality */
-/* 
-import { getDBConnection } from '../db/db.js'
+
+import { getDBConnection } from "../db/db.js"
 
 export async function getGenres(req, res) {
+    const db = await getDBConnection()
     try {
-
-        const db = await getDBConnection()
 
         const genresRows = await db.all(`SELECT DISTINCT genre FROM products`)
         
-        const stringsGenre = genresRows.map(genre => genre.genre)
-        res.json(stringsGenre)
+        const genres = genresRows.map(row => row.genre)
+        res.json(genres)
 
-    } catch (err) {
-        res.status(500).json({ error:'Failed to fetch genres', details: err.message })
+    } catch(err) {
+        console.log(err)
+        res.status(500).json({ error: "Failed to fetch the genres" ,  details: err})
+    
+    } finally {
+        await db.close()
     }
 }
 
 export async function getProducts(req, res) {
+
+    const db = await getDBConnection()
+
     try {
-        const db = await getDBConnection()
+        
+        let query = "SELECT * FROM products"
+        const params = []
 
-        const { genre } = req.query
-        
-        let query = `SELECT * FROM products`
-        let params = []
-        
-        if(genre){
-            query += ' WHERE genre = ?'
-            params.push(genre)
-            const products = await db.all(query, params)
-            return res.json(products)
+        const { genre, search } = req.query
+
+        if(genre) {
+            query += " WHERE genre = ?"
+            params.push(genre) 
+
+        } else if (search) {
+            
+            query += " WHERE title LIKE ? OR artist LIKE ? OR genre LIKE ?"
+            params.push(`%${search}%`)
+            params.push(`%${search}%`)
+            params.push(`%${search}%`)
         }
         
-        const {search} = req.query
-        if(search) {
-            query += ' WHERE genre LIKE ? OR title LIKE ? OR artist LIKE ?', [search, search, search]
-            params.push(`%${search}%`)
-            params.push(`%${search}%`)
-            params.push(`%${search}%`)
-
-            const products =  await db.all(query, params)
-            return res.json(products)
-        }
-
-        const products = await db.all(query)
-        res.status(200).json(products)
-
+        const products = await db.all(query, params)
+        
+        res.json(products)
     } catch(err) {
-        console.error('getProducts Error: ', error)
-        res.status(500).json({ error: "Failed to fetch products", details: err.message })
+        console.log(err)
+        res.status(500).json({error: "Error in fetching products", details: err.message })
     }
 }
- */
 
 
 /* Lesson 13: Wire Up the dropdown */
@@ -67,46 +65,49 @@ hint.md for help
 
 Example incoming query: '?genre=rock'
 */
-
 /* 
-import { getDBConnection } from '../db/db.js'
+import { getDBConnection } from "../db/db.js"
 
 export async function getGenres(req, res) {
+    const db = await getDBConnection()
     try {
-
-        const db = await getDBConnection()
 
         const genresRows = await db.all(`SELECT DISTINCT genre FROM products`)
         
-        const stringsGenre = genresRows.map(genre => genre.genre)
-        res.json(stringsGenre)
+        const genres = genresRows.map(row => row.genre)
+        res.json(genres)
 
-    } catch (err) {
-        res.status(500).json({ error:'Failed to fetch genres', details: err.message })
+    } catch(err) {
+        console.log(err)
+        res.status(500).json({ error: "Failed to fetch the genres" ,  details: err})
+    
+    } finally {
+        await db.close()
     }
 }
 
 export async function getProducts(req, res) {
+
+    const db = await getDBConnection()
+
     try {
-        const db = await getDBConnection()
+        
+        let query = "SELECT * FROM products"
+        const params = []
 
         const { genre } = req.query
-        
-        let query = `SELECT * FROM products`
 
-        
-        if(!genre){
-            const products = await db.all(query)
-            return res.status(200).json(products)
+        if(genre) {
+            query += " WHERE genre = ?"
+            params.push(genre) 
         }
-
-        query += ' WHERE genre = ?'
-        const products = await db.all(query, [genre])
+        
+        const products = await db.all(query, params)
+        
         res.json(products)
-
     } catch(err) {
-        console.error('getProducts Error: ', error)
-        res.status(500).json({ error: "Failed to fetch products", details: err.message })
+        console.log(err)
+        res.status(500).json({error: "Error in fetching products", details: err.message })
     }
 }
  */
@@ -118,36 +119,41 @@ Challenge:
 	 
    As we will need to modify it in the next challenge, store the SQL query in a let and pass it into the all() method.
 */
-/* 
-import { getDBConnection } from '../db/db.js'
+
+/* import { getDBConnection } from "../db/db.js"
 
 export async function getGenres(req, res) {
+    const db = await getDBConnection()
     try {
-
-        const db = await getDBConnection()
 
         const genresRows = await db.all(`SELECT DISTINCT genre FROM products`)
         
-        const stringsGenre = genresRows.map(genre => genre.genre)
-        res.json(stringsGenre)
+        const genres = genresRows.map(row => row.genre)
+        res.json(genres)
 
-    } catch (err) {
-        res.status(500).json({ error:'Failed to fetch genres', details: err.message })
+    } catch(err) {
+        console.log(err)
+        res.status(500).json({ error: "Failed to fetch the genres" ,  details: err})
+    
+    } finally {
+        await db.close()
     }
 }
 
 export async function getProducts(req, res) {
-    try {
-        const db = await getDBConnection()
 
-        let query = `SELECT * FROM products`
+    const db = await getDBConnection()
+
+    try {
+
+        const query = "SELECT * FROM products"
         const products = await db.all(query)
 
-        res.status(200).json(products)
+        res.json(products)
 
     } catch(err) {
-        console.error('getProducts Error: ', error)
-        res.status(500).json({ error: "Failed to fetch products", details: err.message })
+        console.log(err)
+        res.status(500).json({error: "Error in fetching products", details: err.message })
     }
 }
  */
@@ -167,20 +173,23 @@ hint.md for help
 */
 
 /* 
-import { getDBConnection } from '../db/db.js'
+import { getDBConnection } from "../db/db.js"
 
 export async function getGenres(req, res) {
+    const db = await getDBConnection()
     try {
-
-        const db = await getDBConnection()
 
         const genresRows = await db.all(`SELECT DISTINCT genre FROM products`)
         
-        const genre = genresRows.map(genre => genre.genre)
-        res.json(genre)
+        const genres = genresRows.map(row => row.genre)
+        res.json(genres)
 
-    } catch (err) {
-        res.status(500).json({ error:'Failed to fetch genres', details: err.message })
+    } catch(err) {
+        console.log(err)
+        res.status(500).json({ error: "Failed to fetch the genres" ,  details: err})
+    
+    } finally {
+        await db.close()
     }
 }
 
@@ -188,13 +197,12 @@ export async function getProducts() {
     console.log('products')
 }
  */
-
 /* Lesson 4: Setting up the routes */
-
+/* 
 export async function getGenres() {
     console.log('genres')
 }
 
 export async function getProducts() {
     console.log('products')
-}
+} */
