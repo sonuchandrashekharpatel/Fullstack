@@ -14,6 +14,7 @@ username: test
 password: test
 */
 
+/* 
 import validator from 'validator'
 import { getDBConnection } from '../db/db.js'
 
@@ -93,6 +94,9 @@ export async function logoutUser(req, res) {
         res.status(500).json({ error: 'Logout failed'})
     }
 }
+
+*/
+
 /* Lesson 13: Login */
 /*
 Challenge:
@@ -189,70 +193,70 @@ export async function loginUser(req, res) {
 }
  */
 
-// Add express-session
+/* Lesson 11: Add express-session 👻*/
 
 /*
 Challenge:
 1. Store the 'lastID' from the database insertion above to the 'userId' property on the 'session' object on the request. This will bind our logged in user to the session.
 */
 
-/* 
-import validator from 'validator'
-import { getDBConnection } from '../db/db.js'
-
-//  1. Import the bcryptjs package.
-import bcrypt from 'bcryptjs'
+import validator  from "validator"
+import { getDBConnection } from "../db/db.js"
+import bcrypt from "bcryptjs"
 
 export async function registerUser(req, res) {
-    // console.log("req.body: ", req.body)
-    let  { name, email, username, password } = req.body
-
-    if(!name || !email || !username || !password) {
-        return res.status(400).json({ error: "All fields are required..!!" })
-    }
-
-    for( let property in req.body) {
-        req.body[property] = req.body[property].trim()
-    }
+    
+    let { name, email, username, password } = req.body
 
     const regex = /^[a-zA-Z0-9_-]{1,20}$/
-    if(!regex.test(username)){
-        res.status(400).json({ error: 'Username must be 1-20 character long and contain only letters, numbers, underscore, or hyphens.' })
+
+    name = name.trim()
+    email = email.trim()
+    username = username.trim()
+    password = await bcrypt.hash(password, 10)
+
+    if(!(name && email && username && password)) {
+
+        return res
+            .status(400)
+            .send({ error: 'All field are required.' })
     }
 
-    if(!validator.isEmail(email)){
-        res.status(400).json({ error: 'Email is incorrect.'})
+    if(!regex.test(username)) {
+
+        return res.status(400).send({ error: "Username contains invalid character" })
+    }
+    if(!validator.isEmail(email)) {
+
+        return res.status(400).send({ error: "Email is invalid." })
     }
 
     try {
-        const hashed = await bcrypt.hash(password, 10)
-      
-        const db = await getDBConnection()
-        const hasUsernameOrEmail = await db.all(`SELECT username, email FROM users WHERE username = ? OR email = ?`, [username, email])
 
-        if(hasUsernameOrEmail.length > 0) {
-            return res.status(409).json({ error: 'Email or username already in use.' })
-     
-        } 
-    
-        const result = await db.run('INSERT INTO users (name, username, email, password) VALUES (?, ?, ?, ?)', [name, username, email, hashed])
+        const db = await getDBConnection()
+
+        const user = await db.get('SELECT * FROM users WHERE username = ? OR email = ?', [username, email])
+
+        if(user) {
+            return res.status(400).json({ error: "Email or username already in use." })
+        }
+
+        const result = await db.run(`
+            INSERT INTO users (name, username, email, password)
+            VALUES (?, ?, ?, ?)`, 
+            [name, username, email, password]
+        )
+
         req.session.userId = result.lastID
         
-        console.log("User registered successfully.")
-        
-        res.status(201).json({ message: "User Registered Successfully."})
-        
+        res.status(201).json({ message: 'User registered' })
+
     } catch(err) {
-
-        console.error("Registration Error: ", err.message)
-        res.status(500).json({ error: `Registration failed. Please try again.` })
+        console.log("Error in Registration: ", err)
     }
-    // console.log("req.body: ", req.body)
 }
- */
 
-// Hash the password
-
+/* Lesson 9: Hash the password 👻*/
 /*
 Challenge:
   1. Import the bcryptjs package.
@@ -265,60 +269,64 @@ hint.md for help!
 */
 
 /* 
-import validator from 'validator'
-import { getDBConnection } from '../db/db.js'
-
-//  1. Import the bcryptjs package.
-import bcrypt from 'bcryptjs'
+import validator  from "validator"
+import { getDBConnection } from "../db/db.js"
+import bcrypt from "bcryptjs"
 
 export async function registerUser(req, res) {
-    console.log("req.body: ", req.body)
-    let  { name, email, username, password } = req.body
-
-    if(!name || !email || !username || !password) {
-        return res.status(400).json({ error: "All fields are required..!!" })
-    }
-
-    for( let property in req.body) {
-        req.body[property] = req.body[property].trim()
-    }
+    
+    let { name, email, username, password } = req.body
 
     const regex = /^[a-zA-Z0-9_-]{1,20}$/
-    if(!regex.test(username)){
-        res.status(400).json({ error: 'Username must be 1-20 character long and contain only letters, numbers, underscore, or hyphens.' })
+
+    name = name.trim()
+    email = email.trim()
+    username = username.trim()
+    password = await bcrypt.hash(password, 10)
+    console.log(password)
+
+    if(!(name && email && username && password)) {
+
+        return res
+            .status(400)
+            .send({ error: 'All field are required.' })
     }
 
-    if(!validator.isEmail(email)){
-        res.status(400).json({ error: 'Email is incorrect.'})
+    if(!regex.test(username)) {
+
+        return res.status(400).send({ error: "Username contains invalid character" })
+    }
+    if(!validator.isEmail(email)) {
+
+        return res.status(400).send({ error: "Email is invalid." })
     }
 
     try {
 
-//       2. Use it to hash the incoming. password just before it's stored in the database.
-//      - Use a cost-factor of 10
-        password = await bcrypt.hash(password, 10)
-      
         const db = await getDBConnection()
-        const hasUsernameOrEmail = await db.all(`SELECT username, email FROM users WHERE username = ? OR email = ?`, [username, email])
 
-        if(hasUsernameOrEmail.length > 0) {
-            res.status(409).json({ error: 'Email or username already in use.' })
-     
-        } else {
-            await db.run('INSERT INTO users (name, username, email, password) VALUES (?, ?, ?, ?)', [name, username, email, password])
+        const user = await db.get('SELECT * FROM users WHERE username = ? OR email = ?', [username, email])
 
-            res.status(201).json({ message: "User Registered Successfully."})
+        if(user) {
+            return res.status(400).json({ error: "Email or username already in use." })
         }
+
+        await db.run(`
+            INSERT INTO users (name, username, email, password)
+            VALUES (?, ?, ?, ?)`, 
+            [name, username, email, password]
+        )
+
+        res.status(201).json({ message: 'User registered' })
+
     } catch(err) {
-
-        console.error("Registration Error: ", err.message)
-        res.status(500).json({ error: `Registration failed. Please try again.` })
+        console.log("Error in Registration: ", err)
     }
-    console.log("req.body: ", req.body)
-} */
+}
+ */
 
-// Add user to DB
-
+/* Lesson 6: Add user to DB 👻*/
+    
 /*
 Challenge:
 1. Check if the username or email address has already been used.
@@ -334,52 +342,62 @@ Challenge:
 - You will be able to see the password in the db! We will fix that later!
 */
 
+
 /* 
-import validator from 'validator'
-import { getDBConnection } from '../db/db.js'
+import validator  from "validator"
+import { getDBConnection } from "../db/db.js"
+
 export async function registerUser(req, res) {
-    console.log("req.body: ", req.body)
-    let  { name, email, username, password } = req.body
-
-    if(!name || !email || !username || !password) {
-        return res.status(400).json({ error: "All fields are required..!!" })
-    }
-
-    for( let property in req.body) {
-        req.body[property] = req.body[property].trim()
-    }
+    
+    let { name, email, username, password } = req.body
 
     const regex = /^[a-zA-Z0-9_-]{1,20}$/
-    if(!regex.test(username)){
-        res.status(400).json({ error: 'Username must be 1-20 character long and contain only letters, numbers, underscore, or hyphens.' })
+
+    name = name.trim()
+    email = email.trim()
+    username = username.trim()
+    
+
+    if(!(name && email && username && password)) {
+
+        return res
+            .status(400)
+            .send({ error: 'All field are required.' })
     }
 
-    if(!validator.isEmail(email)){
-        res.status(400).json({ error: 'Email is incorrect.'})
+    if(!regex.test(username)) {
+
+        return res.status(400).send({ error: "Username contains invalid character" })
+    }
+    if(!validator.isEmail(email)) {
+
+        return res.status(400).send({ error: "Email is invalid." })
     }
 
     try {
+
         const db = await getDBConnection()
-        //If it has, end the response with a suitable status code and this object:
-        // { error: 'Email or username already in use.' }.
-        const hasUsernameOrEmail = await db.all(`SELECT username, email FROM users WHERE username = ? OR email = ?`, [username, email])
 
-        if(hasUsernameOrEmail.length > 0) {
-            res.status(409).json({ error: 'Email or username already in use.' })
-        } else {
-        // - If the username and email address are unique in the database, add the user to the table and send this JSON { message: 'User registered'}. Which status code should you use?
-        
-        await db.run('INSERT INTO users (name, username, email, password) VALUES (?, ?, ?, ?)', [name, username, email, password])
-        res.status(201).json({ message: "User Registered Successfully."})
+        const user = await db.get('SELECT * FROM users WHERE username = ? OR email = ?', [username, email])
 
-    }
+        if(user) {
+            return res.status(400).json({ error: "Email or username already in use." })
+        }
+
+        await db.run(`
+
+            INSERT INTO users (name, username, email, password)
+            VALUES (?, ?, ?, ?)
+            
+        `, [name, username, email, password])
+
+        res.status(201).json({ message: 'User registered' })
+
     } catch(err) {
-
-        console.error("Registration Error: ", err.message)
-        res.status(500).json({ error: `Registration failed. Please try again.` })
+        console.log("Error in Registration: ", err)
     }
-
-} */
+}
+ */
 
 /* Lesson 5: Validate the User 👻*/
 
@@ -436,14 +454,45 @@ export async function registerUser(req, res) {
 } 
 
 */
+/* 
+import validator  from "validator"
+
+export async function registerUser(req, res) {
+    
+    let { name, email, username, password } = req.body
+
+    const regex = /^[a-zA-Z0-9_-]{1,20}$/
+
+    name = name.trim()
+    email = email.trim()
+    username = username.trim()
+    
+
+    if(!(name && email && username && password)) {
+
+        return res
+            .status(400)
+            .send({ 
+                error: 'All field are required.' 
+            })
+    }
+
+    if(!regex.test(username)) {
+
+        return res.status(400).send({ error: "Username contains invalid character" })
+    }
+    
+    if(!validator.isEmail(email)) {
+
+        return res.status(400).send({ error: "Email is invalid." })
+    }
+
+}
+ */
 
 /* Lesson 3: The /register Route 👻*/
-
 /* 
 export async function registerUser(req, res) {
 
     console.log("req.body: ", req.body)
-    let  { name, email, username, password } = req.body
-
-
 } */

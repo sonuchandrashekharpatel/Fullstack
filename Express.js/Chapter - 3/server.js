@@ -103,12 +103,92 @@ cartController.js
 
 /* Lesson 13: Login 👻*/
 
+
 /* Lesson 12: Display a user's name 👻*/
+
+import express from 'express'
+import { productsRouter } from './routes/products.js'
+import { authRouter } from './routes/auth.js'
+import { meRouter } from "./routes/me.js"
+import session from 'express-session'
+import dotenv from "dotenv"
+
+dotenv.config()
+
+const secret = process.env.SPIRAL_SESSION_SECRET
+const app = express()
+const PORT = 3000
+ 
+
+app.use(express.json())
+
+app.use(session({
+  secret: secret, 
+  resave: false, 
+  saveUninitialized: false, 
+  cookie: {
+    httpOnly: true, 
+    secure: false,  
+    sameSite: "lax"
+  }
+
+}))
+
+app.use(express.static('public'))
+
+app.use('/api/products', productsRouter)
+
+app.use("/api/auth/me", meRouter)
+app.use('/api/auth', authRouter)
+ 
+app.listen(PORT, () => { 
+  console.log(`Server running at http://localhost:${PORT}`)
+}).on('error', (err) => {
+  console.error('Failed to start server:', err)
+}) 
 
 
 /* Lesson 11: Environment Variables */
+/* 
+import express from 'express'
+import { productsRouter } from './routes/products.js'
+import { authRouter } from './routes/auth.js'
+import session from 'express-session'
+import dotenv from "dotenv"
 
-/* Add express-session 👻*/
+dotenv.config()
+
+const secret = process.env.SPIRAL_SESSION_SECRET
+const app = express()
+const PORT = 3000
+ 
+
+app.use(express.json())
+app.use(session({
+  secret: secret, // long random string used to prevent the tempering of data
+  resave: false, // prevent to session being save on every request even if the it hasn't been changed.
+  saveUninitialized: false, // prevent the empty session being stored
+  cookie: {
+    httpOnly: true, // prevent to access with JS
+    secure: false, // Tells whether serve it on http or https 
+    sameSite: "lax" // Controls how cookies are sent on cross site request
+  }
+
+}))
+
+app.use(express.static('public'))
+
+app.use('/api/products', productsRouter)
+app.use('/api/auth', authRouter)
+ 
+app.listen(PORT, () => { 
+  console.log(`Server running at http://localhost:${PORT}`)
+}).on('error', (err) => {
+  console.error('Failed to start server:', err)
+}) 
+ */
+
+/* Lesson 11: Add express-session 👻*/
 /* 
 import { productsRouter } from './routes/products.js'
 import { authRouter } from './routes/auth.js'
@@ -148,9 +228,48 @@ app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`)
 }).on('error', (err) => {
   console.error('Failed to start server:', err)
-}) 
+})
 
  */
+/* 
+
+import express from 'express'
+import { productsRouter } from './routes/products.js'
+import { authRouter } from './routes/auth.js'
+import session from 'express-session'
+
+
+const secret = process.env.SPIRAL_SESSION_SECRET || 'jellyfish-baskingshark'
+
+const app = express()
+const PORT = 3000
+ 
+
+app.use(express.json())
+app.use(session({
+  secret: secret, // long random string used to prevent the tempering of data
+  resave: false, // prevent to session being save on every request even if the it hasn't been changed.
+  saveUninitialized: false, // prevent the empty session being stored
+  cookie: {
+    httpOnly: true, // prevent to access with JS
+    secure: false, // Tells whether serve it on http or https 
+    sameSite: "lax" // Controls how cookies are sent on cross site request
+  }
+
+}))
+
+app.use(express.static('public'))
+
+app.use('/api/products', productsRouter)
+app.use('/api/auth', authRouter)
+ 
+app.listen(PORT, () => { 
+  console.log(`Server running at http://localhost:${PORT}`)
+}).on('error', (err) => {
+  console.error('Failed to start server:', err)
+}) 
+
+*/
 
 /* Lesson 10: Aside: express-session */
 /* 
@@ -297,7 +416,7 @@ import { productsRouter } from './routes/products.js'
 import { authRouter } from './routes/auth.js'
 
 const app = express()
-const PORT = 8000
+const PORT = 3000
  
 
 
@@ -372,29 +491,29 @@ The signup steps
 Challenge:
 1. What middleware do we need to make this work?
 */
-
 /* 
 import express from 'express'
 import { productsRouter } from './routes/products.js'
-import { authRouter } from './routes/auth.js'
+import { authRouter } from "./routes/auth.js"
 
 const app = express()
-const PORT = 8000
+const PORT = 3000
  
 app.use(express.json())
 
 app.use(express.static('public'))
 
 app.use('/api/products', productsRouter)
-app.use('/api/auth', authRouter)
+app.use("/api/auth", authRouter)
  
 app.listen(PORT, () => { 
   console.log(`Server running at http://localhost:${PORT}`)
+
 }).on('error', (err) => {
+
   console.error('Failed to start server:', err)
 }) 
  */
-
 /* Lesson 2: Create a users table 👻*/
 /*
 Challenge:
@@ -438,6 +557,7 @@ We'll be studying:
 . Protecting Routes
 
 And Loads More! Plus challenges.
+
 */
 
 /* 

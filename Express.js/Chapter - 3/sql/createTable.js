@@ -28,7 +28,7 @@ createTable()
  */
 
 // Products Table
-/* 
+
 import sqlite3 from 'sqlite3'
 import { open } from 'sqlite'
 import path from 'node:path'
@@ -58,46 +58,8 @@ async function createTable() {
       console.log("products table created successfully")
 }
 
-createTable() */
-/* Challenge:
-
-1. Debug this code so a new table 'users' is created.
-   Check you have been successful with logTable.js.
-
- */
-
-
-/* 
-import sqlite3 from 'sqlite3'
-import { open } from 'sqlite'
-import path from 'node:path'
-
-async function createTable() {
-
-/*
-
-      const db = await open({
-            filename: path.join('database.db'),
-            driver: sqlite3.Database
-      }) 
- 
-      await db.exec(`
-            CREATE TABLE users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT,
-            email TEXT UNIQUE NOT NULL,
-            username TEXT UNIQUE NOT NULL,
-            password TEXT NOT NULL,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-            );
-      `)
-
-      await db.close()
-      console.log('table created')
-}
-
 createTable()
-*/
+
 /* Lesson 2: Create a users table */
 /*
 Challenge:
@@ -106,30 +68,30 @@ Challenge:
    Check you have been successful with logTable.js.
 
 */
-import sqlite3 from 'sqlite3'
-import { open } from 'sqlite'
-import path from 'node:path'
+/* 
+import sqlite3 from "sqlite3"
+import { open } from "sqlite"
+import path from "node:path"
 
 async function createTable() {
-
       const db = await open({
-            filename: path.join('database.db'),
+            filename: path.join("database.db"),
             driver: sqlite3.Database
-      }) 
+      })
 
       await db.exec(`
             CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT,
-            email TEXT UNIQUE NOT NULL,
-            username TEXT UNIQUE NOT NULL,
-            password TEXT NOT NULL,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-            );
+                  id INTEGER PRIMARY KEY AUTOINCREMENT,
+                  name TEXT,
+                  email TEXT UNIQUE NOT NULL,
+                  username TEXT UNIQUE NOT NULL,
+                  password TEXT NOT NULL,
+                  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
       `)
 
       await db.close()
-      console.log('table created')
+      console.log("Table Created Successfully...")
 }
 
-createTable() 
+createTable() */

@@ -1,3 +1,4 @@
+/* 
 import express from 'express'
 import { logoutUser ,loginUser, registerUser } from '../controllers/authController.js'
 // import { logSignin } from '../middleware/logSignin.js'
@@ -11,5 +12,12 @@ authRouter.post('/login', loginUser)
 
 authRouter.get('/logout', logoutUser)
 
+*/
+/* Lesson 3: The /register Route 👻*/
 
+import express from 'express'
+import { registerUser } from '../controllers/authController.js'
 
+export const authRouter = express.Router()
+
+authRouter.post("/register", registerUser)
