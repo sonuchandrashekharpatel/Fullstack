@@ -69,7 +69,7 @@ export async function loadCart(dom) {
   return items
 } */
 // fetchCartItems after 22 lesson
-  /* Lesson 22: Protecting Cart Routes */
+ /* Lesson 22: Protecting Cart Routes */
 
 async function fetchCartItems({ userMessage, checkoutBtn }) {
   const res = await fetch('/api/cart/', { credentials: 'include' })
