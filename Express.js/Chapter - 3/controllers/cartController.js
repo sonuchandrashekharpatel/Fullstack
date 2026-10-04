@@ -1,114 +1,112 @@
 /* Lesson 22: Protecting Cart Routes */
-/* import { getDBConnection } from "../db/db.js";
+
+import { getDBConnection } from "../db/db.js"
 
 export async function addToCart(req, res) {
     const db = await getDBConnection()
+
     try {
 
-        if(userId) {
-            
-            const product = await db.get(`SELECT * FROM cart_items WHERE product_id = ? AND user_id = ?`, [productId, userId])
+        const { productId } = req.body
+        const userId = parseInt(req.session.userId)
 
-            if(!product) {
-                await db.run(`INSERT INTO cart_items (user_id, product_id, quantity) VALUES (?, ?, ?)`, [userId, productId, 1])
-                return res.status(200).json({ message: "Added to cart"})
-            }
+        const cart = await db.get("SELECT * FROM cart_items WHERE user_id = ? AND product_id = ?", [userId, productId])
 
-            await db.run(`UPDATE cart_items SET quantity = ? WHERE product_id = ? AND user_id = ?`, [product.quantity + 1, productId, userId])
-            res.status(200).json({ message: 'Added to cart'})
+        if(cart) {
+            await db.run(`
+                UPDATE cart_items SET quantity = quantity + 1
+                WHERE id = ?
+            `, [cart.id])
+
         } else {
-            console.error('addToCart Error: Please login first')
+            await db.run(`
+                INSERT INTO cart_items (
+                    user_id,
+                    product_id,
+                    quantity
+                ) VALUES (?, ?, ?)
+            `, [userId, productId, 1])
         }
+            
+        res.json({ message: "Added to cart" })
+
     } catch(err) {
-        console.error('addToCart Error: ', err)
-        res.status(500).json({ error: "Adding to cart failed!"})
+        console.log("addToCart Error:", err)
     }
 }
-
+ 
 export async function getCartCount(req, res) {
     const db = await getDBConnection()
 
     try {
-        const items = await db.get(`SELECT SUM(quantity) AS totalItems FROM cart_items WHERE user_id = ?`, [req.session.userId])
-        res.status(200).json({ totalItems: items.totalItems || 0 })
+
+        const cart = await db.get("SELECT SUM(quantity) AS totalItems FROM cart_items WHERE user_id = ?", [req.session.userId])
+        res.json(cart)
 
     } catch(err) {
-        console.error("getCartCount Error: ", err)
-        res.status(500).json({ error: "Failed to getCartCount "})
+
+        res.status(500).send({ error: "Something went wrong" })
+        console.log("getCartCount Error: ", err)
     }
 }
 
 export async function getAll(req, res) {
+
+    const db = await getDBConnection()
+
     try {
-        if(!req.session.userId) {
-            return res.json({ err: 'not logged in' })
-        }
 
-        const db = await getDBConnection()
+        const items = await db.all(`
+            SELECT ci.id AS cartItemId, ci.quantity, p.title, p.artist, p.price 
+            FROM cart_items AS ci JOIN products AS p
+            ON ci.product_id = p.id WHERE ci.user_id = ?
+        ` , [req.session.userId])
 
-        const cartItems = await db.all(`SELECT CI.id, CI.quantity, P.title, P.artist, P.price
-            FROM cart_items CI JOIN products P ON CI.product_id = P.id
-            WHERE CI.user_id = ?`, [req.session.userId])
+        res.json({items})
 
-        console.log(cartItems)
+    } catch(err) {
 
-        const items = cartItems.map(item => {
-            return {
-                cartItemId: item.id,
-                quantity: item.quantity,
-                title: item.title,
-                artist: item.artist,
-                price: item.price
-            }
-        })
-
-        res.status(200).json({ items: items })
-
-    } catch (err) {
-        console.error("getAll Error: ", err)
+        console.log("getAll Error: ", err)
+        res.status(500).json({ error: "Something went wrong..."})
     }
 }
 
 export async function deleteItem(req, res) {
-
     const db = await getDBConnection()
+
     try {
+        let { itemId } = req.params
 
-        const itemId = parseInt(req.params.itemId)
+        itemId = parseInt(itemId)
 
-        if(isNaN(itemId)) {
-            return res.status(400).json({ error: "Invalid item ID" })
+        if(!itemId) {
+            return res.status(400).send({ error: "Item id is invalid." })
         }
 
-        const item = await db.get(`SELECT quantity FROM cart_items WHERE id = ? AND user_id = ?`, [itemId, req.session.userId])
-
-        if(!item) {
-            return res.status(400).json({ error: "Item not found" })
-        }
-
-        await db.run(`DELETE FROM cart_items WHERE id = ? AND user_id = ?`, [itemId, req.session.userId])
-
+        await db.run("DELETE FROM cart_items WHERE id = ? AND user_id = ?", [itemId, req.session.userId])
+        
         res.status(204).send()
+
     } catch(err) {
-        console.error("deleteItem Error: ", err)
+        console.log("deleteItem Error: ", err)
     }
 }
 
 export async function deleteAll(req, res) {
-    try {
     const db = await getDBConnection()
-    console.log("Cart item deleted successfully.")
-    
-    await db.run(`DELETE FROM cart_items WHERE user_id = ?`, [req.session.userId])
-  
-    res.status(204).send()
+
+    try {
+
+        await db.run("DELETE FROM cart_items WHERE user_id = ?", [req.session.userId])
+        res.status(204).send()
+
     } catch(err) {
-        console.error('deleteAll Error: ', err)
+        console.log("deleteAll Error: ", err)
     }
 }
- */
 
 /* Lesson 20: Cart Page Challenge 3 */
+/* 
 
 import { getDBConnection } from "../db/db.js"
 
@@ -176,13 +174,11 @@ export async function getAll(req, res) {
 
     try {
 
-        if(!req.session.userId) return res.status(400).send({ error: "Login Error", message: "Please login first"})
-
         const items = await db.all(`
             SELECT ci.id AS cartItemId, ci.quantity, p.title, p.artist, p.price 
             FROM cart_items AS ci JOIN products AS p
             ON ci.product_id = p.id WHERE ci.user_id = ?
-        `, [req.session.userId])
+        ` , [req.session.userId])
 
         res.json({items})
 
@@ -227,6 +223,7 @@ export async function deleteAll(req, res) {
         console.log("deleteAll Error: ", err)
     }
 }
+*/
 
 /* Lesson 19: Cart Page Challenge 2 */
 /*
