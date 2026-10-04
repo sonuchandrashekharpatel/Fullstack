@@ -39,12 +39,15 @@ export async function updateCartIcon() {
 }
 
 export async function loadCart(dom) {
-  const { checkoutBtn, userMessage, cartList, cartTotal } = dom
+  const { checkoutBtn, cartList, cartTotal } = dom
   
   try {
     const items = await fetchCartItems(dom)
     renderCartItems(items, cartList)
+    
     updateCartTotal(items, cartTotal, checkoutBtn)
+
+
   } catch (err) {
     console.error('Error loading cart:', err)
     cartList.innerHTML = '<li>Error loading cart data.</li>'
@@ -142,6 +145,7 @@ export async function removeAll(dom) {
     })
 
     if (res.status === 204) {
+
       await loadCart(dom)
     } else {
       console.error('Error clearing cart:', await res.text())

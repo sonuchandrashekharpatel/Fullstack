@@ -1,7 +1,8 @@
 /* Lesson 21: Aside: Protected Routes */
 
-/* export function logSignin (req, res, next) {
-    console.log("Sign in attempt!")
+export function logSignIn (req, res, next) {
+
+    console.log("Login attempted")
 
     next()
-} */
+}

@@ -193,13 +193,111 @@ export async function loginUser(req, res) {
 }
  */
 
+
+import validator  from "validator"
+import { getDBConnection } from "../db/db.js"
+import bcrypt from "bcryptjs"
+
+export async function registerUser(req, res) {
+    
+    let { name, email, username, password } = req.body
+
+    const regex = /^[a-zA-Z0-9_-]{1,20}$/
+
+    name = name.trim()
+    email = email.trim()
+    username = username.trim()
+    password = await bcrypt.hash(password, 10)
+
+    if(!(name && email && username && password)) {
+
+        return res
+            .status(400)
+            .send({ error: 'All field are required.' })
+    }
+
+    if(!regex.test(username)) {
+
+        return res.status(400).send({ error: "Username contains invalid character" })
+    }
+    if(!validator.isEmail(email)) {
+
+        return res.status(400).send({ error: "Email is invalid." })
+    }
+
+    try {
+
+        const db = await getDBConnection()
+
+        const user = await db.get('SELECT * FROM users WHERE username = ? OR email = ?', [username, email])
+
+        if(user) {
+            return res.status(400).json({ error: "Email or username already in use." })
+        }
+
+        const result = await db.run(`
+            INSERT INTO users (name, username, email, password)
+            VALUES (?, ?, ?, ?)`, 
+            [name, username, email, password]
+        )
+
+        req.session.userId = result.lastID
+        
+        res.status(201).json({ message: 'User registered' })
+
+    } catch(err) {
+        console.log("Error in Registration: ", err)
+        res.status(500).send({ error: err})
+    }
+}
+
+export async function login(req, res) {
+
+    const db = await getDBConnection()
+    try {
+
+        const { username, password } = req.body
+
+        if( !username || !password ) {
+            return res.status(401).json({ error: 'All fields required.' })
+        }
+
+        const user = await db.get("SELECT * FROM users WHERE username = ?", [username])
+
+        if(!user) {
+            return res.json({ error: "Invalid Credentials!"})
+        }
+
+        const isCorrect = await bcrypt.compare(password, user.password)
+        if(!isCorrect) {
+
+            return res.json({ error: "Invalid Credentials!"})
+        }
+
+        req.session.userId = user.id
+
+        res.status(200).send({ message: "Logged in"})
+    } catch(err) {
+        console.log("Login Error: ", err)
+    }
+}
+
+export async function logout(req, res) {
+
+    req.session.destroy(() => {
+        res.json({ message: "Logged out"})
+    })
+
+}
+
+
 /* Lesson 11: Add express-session 👻*/
 
 /*
 Challenge:
 1. Store the 'lastID' from the database insertion above to the 'userId' property on the 'session' object on the request. This will bind our logged in user to the session.
 */
-
+/* 
 import validator  from "validator"
 import { getDBConnection } from "../db/db.js"
 import bcrypt from "bcryptjs"
@@ -255,7 +353,7 @@ export async function registerUser(req, res) {
         console.log("Error in Registration: ", err)
     }
 }
-
+ */
 /* Lesson 9: Hash the password 👻*/
 /*
 Challenge:

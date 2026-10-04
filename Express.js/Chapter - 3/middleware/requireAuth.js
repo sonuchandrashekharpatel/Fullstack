@@ -1,8 +1,11 @@
-export function requireAuth(req, res, next) {
-    if(!req.session.userId) {
-        console.log("Access blocked!")
-        return res.status(401).json({ error: "Unauthorized" })
-    }
+/* Lesson 22: Protecting Cart Routes 👻*/
 
-    next()
+export async function requireAuth(req, res, next) {
+
+    if(req.session.userId) {
+        next()
+    } else {
+        console.log("Access has been blocked.")
+        return res.status(401).json({ error: "Unauthorized access"})
+    }
 }
