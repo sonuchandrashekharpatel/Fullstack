@@ -489,4 +489,9 @@ Writing in all caps is not necessary but to get used to of syntax.
 /* Lesson 3: SELECT all */
 /* 
 SELECT * FROM cars
- */
+*/
+
+-- SELECT * FROM cars
+
+SELECT price, brand  FROM cars
+
