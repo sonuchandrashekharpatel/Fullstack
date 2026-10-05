@@ -1,7 +1,7 @@
 /* Chapter - 2: Writing SQL Queries */
 
 /* Lesson 25: Recap */
-/* 
+/*
 Recap:
     SELECT and FROM 
     to get records from out table

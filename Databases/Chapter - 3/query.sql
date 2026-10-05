@@ -299,18 +299,68 @@ Return all records where there's a match in either table.
 /* Lesson 3: Creating tables */
 /* 
 dealerships
-Holds data on each dealership and its location - we'll add a column to card to indicate its dealership
+Holds data on each dealership and its location - we'll add a
+column to card to indicate its dealership.
 
 staff
-Everyone employed across dealerships, this table holds name and roles
+Everyone employed across dealerships, this table holds name
+and roles.
 
 sold_cars
-When a car is sold, we'll add a record to sold_cars with the price, date and seller.
+When a car is sold, we'll add a record to sold_cars with the
+price, date and seller.
 
 
 Relationships
 Tables relate to one another through different properties. 
-Usually, we'll link based on primary keys - the unique id for each row.
+Usually, we'll link based on primary keys - the unique id for 
+each row.
+
+Table: sold_cars
+┌───────────┬──────────┐
+│ column    │ type     │
+├───────────┼──────────┤
+│ 'id'      │ 'serial' │
+│ 'cars_id' │ 'int'    │
+│ 'seller'  │ 'int'    │
+│ 'date'    │ 'date'   │
+│ 'price'   │ 'int'    │
+└───────────┴──────────┘
+
+Table: staff
+┌─────────────────┬──────────┐
+│ column          │ type     │
+├─────────────────┼──────────┤
+│ 'id'            │ 'serial' │
+│ 'dealership_id' │ 'int'    │
+│ 'name'          │ 'text'   │
+│ 'role'          │ 'text'   │
+└─────────────────┴──────────┘
+
+Table: cars
+┌─────────────────┬───────────┐
+│ column          │ type      │
+├─────────────────┼───────────┤
+│ 'id'            │ 'serial'  │
+│ 'dealership_id' │ 'int'     │
+│ 'brand'         │ 'text'    │
+│ 'model'         │ 'text'    │
+│ 'year'          │ 'int'     │
+│ 'price'         │ 'int'     │
+│ 'color'         │ 'text'    │
+│ 'condition'     │ 'int'     │
+│ 'sold'          │ 'boolean' │
+└─────────────────┴───────────┘
+
+Table: dealerships
+┌───────────────┬───────────┐
+│ column        │ type      │
+├───────────────┼───────────┤
+│ 'id'          │ 'serial'  │
+│ 'city'        │ 'text'    │
+│ 'state'       │ 'varchar' │
+│ 'established' │ 'date'    │
+└───────────────┴───────────┘
 
 These are different type of relationship:
     - One to one
@@ -367,5 +417,6 @@ established   date                  The dealership is opened
 
 */
 
+SELECT * FROM sold_cars;
 
 

@@ -1,5 +1,54 @@
 /* Chapter - 2: Introduction Multiple Tables */
+/* 
 
+import { PGlite } from '@electric-sql/pglite';
+import fs from 'fs'
+
+(async () => {
+    const db = new PGlite()
+
+    //Set up the DB files
+    const createTables = fs.readFileSync('create-tables.sql', 'utf8')
+    await db.exec(createTables)
+    console.log("Tables created successfully.");
+
+    // const insertCarsData  = fs.readFileSync('insert-cars-data.sql', 'utf8')
+    // await db.exec(insertCarsData)
+    // console.log('Data populated successfully.')
+
+
+    // Run the changes made in the DM Section
+    const crudOperations = fs.readFileSync('create-tables.sql', 'utf8');
+    await db.exec(crudOperations)
+
+    // Populate our new tables
+    // const populateTables = fs.readFileSync('populate-tables.sql', 'utf8')
+
+    // await db.exec(populateTables)
+
+    // Alter the existing cars table
+    // const alterTable = fs.readFileSync('alter-table.sql', 'utf8')
+    // await db.exec(alterTable)
+
+    // Insert new data to the tables
+    // const insertNewData = fs.readFileSync('insert-new-data.sql', 'utf-8');
+    // await db.exec(insertNewData);
+    
+    // Alter constraint dropping NOT NULL
+    // const alterConstraints = fs.readFileSync('alter-constraint.sql', 'utf-8')
+    // await db.exec(alterConstraints)
+
+    // Load the query file
+    const query = fs.readFileSync('query.sql', 'utf8')
+
+    // Run the query from the query file
+    const res = await db.query(query)
+
+    console.clear()
+    console.table(res.rows);
+})()
+
+*/
 /* Lesson 12: Recap */
 /* 
 CREATE TABLES:
@@ -115,58 +164,64 @@ Using Web Application Firewalls
 
 /* Lesson 3: Creating tables */
 
-
-/* Lesson 2: Setup */
-
 import { PGlite } from '@electric-sql/pglite';
-import fs from 'fs'
+import fs from 'fs';
 
 (async () => {
-    const db = new PGlite()
+  const db = new PGlite();
 
-    //Set up the DB files
-    const createTables = fs.readFileSync('create-tables.sql', 'utf8')
-    await db.exec(createTables)
-    console.log("Tables created successfully.");
+  // Set up the DB files
+  const createTables = fs.readFileSync('create-tables.sql', 'utf8');
+  const insertCarsData = fs.readFileSync('insert-cars-data.sql', 'utf8');
+  await db.exec(createTables);
+  await db.exec(insertCarsData);
 
-    const insertCarsData  = fs.readFileSync('insert-cars-data.sql', 'utf8')
-    await db.exec(insertCarsData)
-    console.log('Data populated successfully.')
+  // Run the changes made in DM section
+  const crudOperations = fs.readFileSync('crud-operations.sql', 'utf8');
+  await db.exec(crudOperations);
 
-
-    // Run the changes made in the DM Section
-    const crudOperations = fs.readFileSync('create-tables.sql', 'utf8');
-    await db.exec(crudOperations)
-
-    // Populate our new tables
-    const populateTables = fs.readFileSync('populate-tables.sql', 'utf8')
-
-    await db.exec(populateTables)
-
-    // Alter the existing cars table
-    const alterTable = fs.readFileSync('alter-table.sql', 'utf8')
-    await db.exec(alterTable)
-
-    // Insert new data to the tables
-    const insertNewData = fs.readFileSync('insert-new-data.sql', 'utf-8');
-    await db.exec(insertNewData);
-    
-    // Alter constraint dropping NOT NULL
-    const alterConstraints = fs.readFileSync('alter-constraint.sql', 'utf-8')
-    await db.exec(alterConstraints)
-
-    // Load the query file
-    const query = fs.readFileSync('query.sql', 'utf8')
-
-    // Run the query from the query file
-    const res = await db.query(query)
-
-    console.clear()
-    console.table(res.rows);
-})()
+  // Load the SQL query file
+  const query = fs.readFileSync('query.sql', 'utf8');
 
 
+  // Run the query from the query file
+  const response = await db.query(query);
 
+  console.clear();
+  console.table(response.rows);
+})();
+
+
+/* Lesson 2: Setup */
+/* 
+import { PGlite } from '@electric-sql/pglite';
+import fs from 'fs';
+
+(async () => {
+  const db = new PGlite();
+
+  // Set up the DB files
+  const createTables = fs.readFileSync('create-tables.sql', 'utf8');
+  const insertCarsData = fs.readFileSync('insert-cars-data.sql', 'utf8');
+  await db.exec(createTables);
+  await db.exec(insertCarsData);
+
+  // Run the changes made in DM section
+  const crudOperations = fs.readFileSync('crud-operations.sql', 'utf8');
+  await db.exec(crudOperations);
+
+  // Load the SQL query file
+  const query = fs.readFileSync('query.sql', 'utf8');
+
+
+  // Run the query from the query file
+  const response = await db.query(query);
+
+  console.clear();
+  console.table(response.rows);
+})();
+
+*/
 /* Lesson 1: Introduction Multiple Tables */
 
 /* 
@@ -194,6 +249,41 @@ Sold cars
 We'll add a table to hold the we've sold
 */
 
+/* 
+console.table([
+  { column: "id", type: "serial" },
+  { column: "cars_id", type: "int" },
+  { column: "seller", type: "int" },
+  { column: "date", type: "date" },
+  { column: "price", type: "int" }
+]);
+
+console.table([
+  { column: "id", type: "serial" },
+  { column: "dealership_id", type: "int" },
+  { column: "name", type: "text" },
+  { column: "role", type: "text" }
+]);
+
+console.table([
+  { column: "id", type: "serial" },
+  { column: "dealership_id", type: "int" },
+  { column: "brand", type: "text" },
+  { column: "model", type: "text" },
+  { column: "year", type: "int" },
+  { column: "price", type: "int" },
+  { column: "color", type: "text" },
+  { column: "condition", type: "int" },
+  { column: "sold", type: "boolean" }
+]);
+
+console.table([
+  { column: "id", type: "serial" },
+  { column: "city", type: "text" },
+  { column: "state", type: "varchar" },
+  { column: "established", type: "date" }
+]);
+ */
 /*
 import lessonGenerator from "../../Aside/index.js"
 

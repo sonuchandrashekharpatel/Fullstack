@@ -1,4 +1,6 @@
- /*
+/* Lesson 3: Creating tables */
+
+/*
  
  Create the cars table with the following columns:
   * id - SERIAL PRIMARY KEY
@@ -39,7 +41,15 @@ CREATE TABLE IF NOT EXISTS dealerships (
     established DATE NOT NULL
 );
 
+
 /* 
+Long form:
+    dealership_id INTEGER NOT NULL,
+    FOREIGN KEY (dealership_id) REFERENCES dealerships(id)
+
+Short form: Inline Syntax
+    dealership_id INTEGER NOT NULL REFERENCES dealerships(id)
+
 Create the staff table
     Include these columns:
         id - serial primary key
@@ -50,10 +60,12 @@ Create the staff table
 
 CREATE TABLE IF NOT EXISTS staff (
     id SERIAL PRIMARY KEY,
-    dealership_id INTEGER NOT NULL REFERENCES dealerships(id),
+    dealership_id INTEGER NOT NULL,
     name TEXT NOT NULL,
-    role TEXT NOT NULL
+    role TEXT NOT NULL,
+    FOREIGN KEY (dealership_id) REFERENCES dealerships(id)
 );
+
 
 /*
 Create the sold_cars table
@@ -65,7 +77,7 @@ Create the sold_cars table
         sold_price INTEGER - NOT NULL
 */
 
-CREATE TABLE IF NOT EXISTS sold_cars(
+CREATE TABLE IF NOT EXISTS sold_cars (
     id SERIAL PRIMARY KEY,
     cars_id INTEGER NOT NULL REFERENCES cars(id),
     seller INTEGER NOT NULL REFERENCES staff(id),

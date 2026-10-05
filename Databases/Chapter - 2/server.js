@@ -91,6 +91,7 @@ import fs from 'fs';
 
   console.clear();
   console.table(response.rows);
+  console.log(response.rows)
 })();
 
 
