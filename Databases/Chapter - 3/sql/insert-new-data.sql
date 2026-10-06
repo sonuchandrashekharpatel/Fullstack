@@ -1,3 +1,5 @@
+/* Lesson 5: Alter table */
+
 -- Insert staff for dealerships 2 & 3
 
 INSERT INTO staff (dealership_id, name, role)

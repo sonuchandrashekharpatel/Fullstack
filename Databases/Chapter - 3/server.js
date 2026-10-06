@@ -8,30 +8,30 @@ import fs from 'fs'
     const db = new PGlite()
 
     //Set up the DB files
-    const createTables = fs.readFileSync('create-tables.sql', 'utf8')
+    const createTables = fs.readFileSync('sql/create-tables.sql', 'utf8')
     await db.exec(createTables)
     console.log("Tables created successfully.");
 
-    // const insertCarsData  = fs.readFileSync('insert-cars-data.sql', 'utf8')
+    // const insertCarsData  = fs.readFileSync('sql/insert-cars-data.sql', 'utf8')
     // await db.exec(insertCarsData)
     // console.log('Data populated successfully.')
 
 
     // Run the changes made in the DM Section
-    const crudOperations = fs.readFileSync('create-tables.sql', 'utf8');
+    const crudOperations = fs.readFileSync('sql/create-tables.sql', 'utf8');
     await db.exec(crudOperations)
 
     // Populate our new tables
-    // const populateTables = fs.readFileSync('populate-tables.sql', 'utf8')
+    // const populateTables = fs.readFileSync('sql/populate-tables.sql', 'utf8')
 
     // await db.exec(populateTables)
 
     // Alter the existing cars table
-    // const alterTable = fs.readFileSync('alter-table.sql', 'utf8')
+    // const alterTable = fs.readFileSync('sql/alter-table.sql', 'utf8')
     // await db.exec(alterTable)
 
     // Insert new data to the tables
-    // const insertNewData = fs.readFileSync('insert-new-data.sql', 'utf-8');
+    // const insertNewData = fs.readFileSync('sql/insert-new-data.sql', 'utf-8');
     // await db.exec(insertNewData);
     
     // Alter constraint dropping NOT NULL
@@ -137,17 +137,50 @@ Using Web Application Firewalls
 
 
 /* Lesson 9: Aggregates */
-/*
-	Select the city and average car price
-	Round that car price to a whole number
-	
-	Only show dealerships which have cars
-	
-	Group by dealership city and state
-*/
+
 
 
 /* Lesson 8: Full join, inner join and drop */
+import { PGlite } from '@electric-sql/pglite';
+import fs from 'fs';
+
+(async () => {
+  const db = new PGlite()
+
+  // Set up the DB files
+  const createTables = fs.readFileSync('sql/create-tables.sql', 'utf8')
+  const insertCarsData = fs.readFileSync('sql/insert-cars-data.sql', 'utf8')
+  await db.exec(createTables)
+  await db.exec(insertCarsData)
+
+  // Run the changes made in DM section
+  const crudOperations = fs.readFileSync('sql/crud-operations.sql', 'utf8')
+  await db.exec(crudOperations)
+
+  // Populate the tables
+  const populateTables = fs.readFileSync('sql/populate-tables.sql', 'utf8')
+  await db.exec(populateTables)
+
+  // Alter the tables
+  const alterTable = fs.readFileSync('sql/alter-table.sql', 'utf8')
+  await db.exec(alterTable)
+
+  // Insert new Data dropping NOT NULL
+  const insertNewData = fs.readFileSync('sql/insert-new-data.sql', 'utf8');
+  await db.exec(insertNewData)
+
+  // Alter constraints
+  const alterConstraints = fs.readFileSync('sql/alter-constraints.sql', 'utf8')
+  await db.exec(alterConstraints)
+
+  // Load the query files
+  const query = fs.readFileSync('query.sql', 'utf8')
+
+  const response = await db.query(query)
+  console.clear()
+  console.table(response.rows)
+
+})();
 
 
 /* Lesson 7: Left and Right Join */
@@ -157,13 +190,81 @@ Using Web Application Firewalls
 
 
 /* Lesson 5: Alter table */
+/* 
+import { PGlite } from '@electric-sql/pglite';
+import fs from 'fs';
 
+(async () => {
+  const db = new PGlite()
+
+  // Set up the DB files
+  const createTables = fs.readFileSync('sql/create-tables.sql', 'utf8')
+  const insertCarsData = fs.readFileSync('sql/insert-cars-data.sql', 'utf8')
+  await db.exec(createTables)
+  await db.exec(insertCarsData)
+
+  // Run the changes made in DM section
+  const crudOperations = fs.readFileSync('sql/crud-operations.sql', 'utf8')
+  await db.exec(crudOperations)
+
+  // Populate the tables
+  const populateTables = fs.readFileSync('sql/populate-tables.sql', 'utf8')
+  await db.exec(populateTables)
+
+  // Alter the tables
+  const alterTable = fs.readFileSync('sql/alter-table.sql', 'utf8')
+  await db.exec(alterTable)
+
+  // Insert new Data
+  const insertNewData = fs.readFileSync('sql/insert-new-data.sql', 'utf8');
+  await db.exec(insertNewData)
+
+  // Load the query files
+  const query = fs.readFileSync('query.sql', 'utf8')
+
+  const response = await db.query(query)
+  console.clear()
+  console.table(response.rows)
+
+})();
+ */
 
 /* Lesson 4: Populating tables */
+/* 
+import { PGlite } from "@electric-sql/pglite"
+import fs from "fs";
 
+(async () => {
+  const db = new PGlite();
+
+  // Set up the DB files
+  const createTables = fs.readFileSync('sql/create-tables.sql', 'utf8');
+  const insertCarsData = fs.readFileSync('sql/insert-cars-data.sql', 'utf8');
+
+  await db.exec(createTables)
+  await db.exec(insertCarsData)
+
+  // Run the changes made in DM section
+  const crudOperations = fs.readFileSync("sql/crud-operations.sql", 'utf8')
+  await db.exec(crudOperations)
+
+  // populate our new tables
+  const populateTables = fs.readFileSync("sql/populate-tables.sql", 'utf8')
+  await db.exec(populateTables)
+
+  // Load the sql query file
+  const query = fs.readFileSync('query.sql', 'utf8');
+
+  // Run the query From the query file
+  const response = await db.query(query)
+
+  console.clear()
+  console.table(response.rows)
+})();
+ */
 
 /* Lesson 3: Creating tables */
-
+/* 
 import { PGlite } from '@electric-sql/pglite';
 import fs from 'fs';
 
@@ -171,13 +272,13 @@ import fs from 'fs';
   const db = new PGlite();
 
   // Set up the DB files
-  const createTables = fs.readFileSync('create-tables.sql', 'utf8');
-  const insertCarsData = fs.readFileSync('insert-cars-data.sql', 'utf8');
+  const createTables = fs.readFileSync('sql/create-tables.sql', 'utf8');
+  const insertCarsData = fs.readFileSync('sql/insert-cars-data.sql', 'utf8');
   await db.exec(createTables);
   await db.exec(insertCarsData);
 
   // Run the changes made in DM section
-  const crudOperations = fs.readFileSync('crud-operations.sql', 'utf8');
+  const crudOperations = fs.readFileSync('sql/crud-operations.sql', 'utf8');
   await db.exec(crudOperations);
 
   // Load the SQL query file
@@ -190,7 +291,7 @@ import fs from 'fs';
   console.clear();
   console.table(response.rows);
 })();
-
+ */
 
 /* Lesson 2: Setup */
 /* 
@@ -201,13 +302,13 @@ import fs from 'fs';
   const db = new PGlite();
 
   // Set up the DB files
-  const createTables = fs.readFileSync('create-tables.sql', 'utf8');
-  const insertCarsData = fs.readFileSync('insert-cars-data.sql', 'utf8');
+  const createTables = fs.readFileSync('sql/create-tables.sql', 'utf8');
+  const insertCarsData = fs.readFileSync('sql/insert-cars-data.sql', 'utf8');
   await db.exec(createTables);
   await db.exec(insertCarsData);
 
   // Run the changes made in DM section
-  const crudOperations = fs.readFileSync('crud-operations.sql', 'utf8');
+  const crudOperations = fs.readFileSync('sql/crud-operations.sql', 'utf8');
   await db.exec(crudOperations);
 
   // Load the SQL query file
